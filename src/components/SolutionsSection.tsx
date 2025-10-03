@@ -64,9 +64,11 @@ export const SolutionsSection = () => {
                 <span className="text-muted-foreground">/month</span>
               </div>
 
-              <Button className="w-full bg-secondary hover:bg-secondary/90 group">
-                Explore Personal Care
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button className="w-full bg-secondary hover:bg-secondary/90 group" asChild>
+                <a href="/personal-care">
+                  Explore Personal Care
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </CardContent>
           </Card>

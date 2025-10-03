@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
 import DeviceManagement from "./pages/dashboard/DeviceManagement";
 import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
+import PersonalCare from "./pages/PersonalCare";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/personal-care" element={<PersonalCare />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />

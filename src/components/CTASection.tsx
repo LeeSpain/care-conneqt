@@ -23,9 +23,12 @@ export const CTASection = () => {
                 <Button 
                   size="lg"
                   className="bg-white text-primary hover:bg-white/90 font-semibold group"
+                  asChild
                 >
-                  Start Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <a href="/auth/signup">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </Button>
                 <Button 
                   size="lg"
@@ -40,7 +43,7 @@ export const CTASection = () => {
               <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-white/80">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  No credit card required
+                  No setup fees
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />

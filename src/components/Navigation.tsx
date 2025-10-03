@@ -17,17 +17,17 @@ export const Navigation = () => {
           </div>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="#solutions" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/#solutions" className="text-foreground/80 hover:text-foreground transition-colors">
               Solutions
             </a>
-            <a href="#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/personal-care" className="text-foreground/80 hover:text-foreground transition-colors">
+              For Families
+            </a>
+            <a href="/#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
               Pricing
             </a>
-            <a href="#devices" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/#devices" className="text-foreground/80 hover:text-foreground transition-colors">
               Devices
-            </a>
-            <a href="#about" className="text-foreground/80 hover:text-foreground transition-colors">
-              About
             </a>
             <Button variant="outline" size="sm" asChild>
               <a href="/auth/login">Sign In</a>
@@ -47,17 +47,17 @@ export const Navigation = () => {
 
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <a href="#solutions" className="block text-foreground/80 hover:text-foreground">
+            <a href="/#solutions" className="block text-foreground/80 hover:text-foreground">
               Solutions
             </a>
-            <a href="#pricing" className="block text-foreground/80 hover:text-foreground">
+            <a href="/personal-care" className="block text-foreground/80 hover:text-foreground">
+              For Families
+            </a>
+            <a href="/#pricing" className="block text-foreground/80 hover:text-foreground">
               Pricing
             </a>
-            <a href="#devices" className="block text-foreground/80 hover:text-foreground">
+            <a href="/#devices" className="block text-foreground/80 hover:text-foreground">
               Devices
-            </a>
-            <a href="#about" className="block text-foreground/80 hover:text-foreground">
-              About
             </a>
             <div className="flex gap-2 pt-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>
