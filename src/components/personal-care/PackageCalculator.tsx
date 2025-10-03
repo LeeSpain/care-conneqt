@@ -196,40 +196,40 @@ export const PackageCalculator = () => {
                   </div>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {Object.entries(devicesByType).map(([type, devices]) => (
                     <div key={type}>
-                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                      <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                         {getDeviceTypeLabel(type)}
                       </h4>
-                      <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="grid sm:grid-cols-2 gap-2">
                         {devices.map((device) => (
                           <div
                             key={device.id}
-                            className={`relative p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                            className={`relative p-3 rounded-lg border transition-all cursor-pointer ${
                               selectedDevices.includes(device.id)
-                                ? 'border-secondary bg-secondary/5 shadow-sm'
+                                ? 'border-secondary bg-secondary/5'
                                 : 'border-border hover:border-secondary/30'
                             }`}
                             onClick={() => handleDeviceToggle(device.id)}
                           >
-                            <div className="flex gap-3">
+                            <div className="flex gap-2">
                               <Checkbox
                                 id={device.id}
                                 checked={selectedDevices.includes(device.id)}
                                 onCheckedChange={() => handleDeviceToggle(device.id)}
-                                className="mt-1"
+                                className="mt-0.5"
                               />
-                              <div className="flex-1">
-                                <Label htmlFor={device.id} className="cursor-pointer font-semibold text-base">
+                              <div className="flex-1 min-w-0">
+                                <Label htmlFor={device.id} className="cursor-pointer font-semibold text-sm leading-tight">
                                   {device.name}
                                 </Label>
-                                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                                <p className="text-xs text-muted-foreground mt-1 leading-snug line-clamp-2">
                                   {device.description}
                                 </p>
-                                <div className="flex items-baseline gap-1 mt-2">
-                                  <span className="text-lg font-bold text-secondary">+€{device.price}</span>
-                                  <span className="text-xs text-muted-foreground">/month</span>
+                                <div className="flex items-baseline gap-1 mt-1.5">
+                                  <span className="text-base font-bold text-secondary">+€{device.price}</span>
+                                  <span className="text-xs text-muted-foreground">/mo</span>
                                 </div>
                               </div>
                             </div>
