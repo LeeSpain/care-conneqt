@@ -8,9 +8,7 @@ import { ComparisonTable } from "@/components/personal-care/ComparisonTable";
 import { PricingSection } from "@/components/PricingSection";
 import { WhoItsFor } from "@/components/personal-care/WhoItsFor";
 import { Testimonials } from "@/components/personal-care/Testimonials";
-import { DevicesSection } from "@/components/DevicesSection";
 import { PackageCalculator } from "@/components/personal-care/PackageCalculator";
-import { AddOnShowcase } from "@/components/personal-care/AddOnShowcase";
 import { FAQ } from "@/components/personal-care/FAQ";
 import { GuaranteeSection } from "@/components/personal-care/GuaranteeSection";
 import { FinalCTA } from "@/components/personal-care/FinalCTA";
@@ -35,8 +33,6 @@ const PersonalCare = () => {
       
       <WhoItsFor />
       <Testimonials />
-      <DevicesSection />
-      <AddOnShowcase />
       <FAQ />
       <GuaranteeSection />
       <FinalCTA />
