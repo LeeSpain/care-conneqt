@@ -8,12 +8,12 @@ import {
 export const FAQ = () => {
   const faqs = [
     {
-      question: "What happens if I need to cancel?",
-      answer: "You can cancel anytime with no penalties or fees. Simply contact our support team or cancel through your dashboard. Your service will continue until the end of your current billing period."
+      question: "What is the contract commitment?",
+      answer: "All Care Conneqt packages require a 24-month service agreement. This commitment allows us to offer the best pricing on devices and services. Early termination options are available - please contact our support team to discuss your specific situation."
     },
     {
-      question: "How does the 30-day money-back guarantee work?",
-      answer: "If you're not satisfied with Care Conneqt within the first 30 days, we'll refund 100% of your first month's payment, no questions asked. Just contact support to process your refund."
+      question: "What is included in the monthly price?",
+      answer: "Your monthly fee includes device lease (no purchase required), 24/7 nurse monitoring, AI Guardian access, emergency response, device maintenance, automatic replacements, and all shipping costs. No hidden fees or setup charges."
     },
     {
       question: "Can I upgrade or downgrade my plan?",

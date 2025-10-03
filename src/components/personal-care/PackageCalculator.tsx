@@ -397,7 +397,7 @@ export const PackageCalculator = () => {
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
-                      <span>30-day money-back guarantee</span>
+                      <span>24-month service agreement</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
@@ -405,7 +405,7 @@ export const PackageCalculator = () => {
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
-                      <span>Cancel anytime, no penalties</span>
+                      <span>Device protection included</span>
                     </div>
                   </div>
 
