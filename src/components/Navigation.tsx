@@ -29,11 +29,11 @@ export const Navigation = () => {
             <a href="#about" className="text-foreground/80 hover:text-foreground transition-colors">
               About
             </a>
-            <Button variant="outline" size="sm">
-              Sign In
+            <Button variant="outline" size="sm" asChild>
+              <a href="/auth/login">Sign In</a>
             </Button>
-            <Button size="sm" className="bg-secondary hover:bg-secondary/90">
-              Get Started
+            <Button size="sm" className="bg-secondary hover:bg-secondary/90" asChild>
+              <a href="/auth/signup">Get Started</a>
             </Button>
           </div>
 
@@ -60,11 +60,11 @@ export const Navigation = () => {
               About
             </a>
             <div className="flex gap-2 pt-2">
-              <Button variant="outline" size="sm" className="flex-1">
-                Sign In
+              <Button variant="outline" size="sm" className="flex-1" asChild>
+                <a href="/auth/login">Sign In</a>
               </Button>
-              <Button size="sm" className="flex-1 bg-secondary hover:bg-secondary/90">
-                Get Started
+              <Button size="sm" className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
+                <a href="/auth/signup">Get Started</a>
               </Button>
             </div>
           </div>
