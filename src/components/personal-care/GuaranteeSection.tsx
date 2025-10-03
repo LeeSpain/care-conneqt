@@ -4,8 +4,8 @@ export const GuaranteeSection = () => {
   const guarantees = [
     {
       icon: Shield,
-      title: "30-Day Money-Back",
-      description: "100% refund if not satisfied",
+      title: "24-Month Agreement",
+      description: "Best value pricing on devices",
       color: "secondary"
     },
     {
@@ -15,9 +15,9 @@ export const GuaranteeSection = () => {
       color: "primary"
     },
     {
-      icon: X,
-      title: "Cancel Anytime",
-      description: "No contracts or penalties",
+      icon: Shield,
+      title: "Device Protection",
+      description: "Full coverage included in plan",
       color: "coral"
     },
     {

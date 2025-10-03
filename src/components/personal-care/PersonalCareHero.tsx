@@ -17,21 +17,21 @@ export const PersonalCareHero = () => {
             
             <p className="text-xl text-muted-foreground leading-relaxed">
               Nurse-led, AI-powered care through connected devices. Starting at €49.99/month 
-              with 30-day money-back guarantee.
+              with 24-month service agreement.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10">
                 <Shield className="h-4 w-4 text-secondary" />
-                <span className="text-sm font-medium">30-Day Money Back Guarantee</span>
+                <span className="text-sm font-medium">24-Month Service Agreement</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10">
                 <DollarSign className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">No Setup Fees</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-coral/10">
-                <X className="h-4 w-4 text-coral" />
-                <span className="text-sm font-medium">Cancel Anytime</span>
+                <Shield className="h-4 w-4 text-coral" />
+                <span className="text-sm font-medium">Device Protection Included</span>
               </div>
             </div>
 

@@ -47,11 +47,11 @@ export const CTASection = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  30-day money back guarantee
+                  24-month service agreement
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  Cancel anytime
+                  Device protection included
                 </div>
               </div>
             </div>

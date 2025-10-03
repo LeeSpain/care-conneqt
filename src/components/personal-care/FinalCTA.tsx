@@ -74,7 +74,7 @@ export const FinalCTA = () => {
               <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-white/80">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  30-day money back guarantee
+                  24-month service agreement
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
@@ -82,7 +82,7 @@ export const FinalCTA = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  Cancel anytime
+                  Device protection included
                 </div>
               </div>
             </div>
