@@ -4,6 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Heart, Shield, Clock, Award, CheckCircle, Phone, Users } from 'lucide-react';
+import nursesHero from '@/assets/nurses-hero.jpg';
+import nurseSarah from '@/assets/nurse-sarah.jpg';
+import nurseJames from '@/assets/nurse-james.jpg';
+import nurseMaria from '@/assets/nurse-maria.jpg';
+import nurseDavid from '@/assets/nurse-david.jpg';
+import nurseEmma from '@/assets/nurse-emma.jpg';
+import nurseAisha from '@/assets/nurse-aisha.jpg';
 
 export default function OurNurses() {
   const nurses = [
@@ -13,7 +20,8 @@ export default function OurNurses() {
       credentials: 'RGN, BSc (Hons)',
       experience: '15+ years',
       specialties: ['Emergency Care', 'Geriatric Nursing', 'Cardiac Care'],
-      bio: 'Sarah leads our clinical team with extensive experience in emergency medicine and elderly care. She ensures our response protocols meet the highest clinical standards.'
+      bio: 'Sarah leads our clinical team with extensive experience in emergency medicine and elderly care. She ensures our response protocols meet the highest clinical standards.',
+      image: nurseSarah
     },
     {
       name: 'James Mitchell',
@@ -21,7 +29,8 @@ export default function OurNurses() {
       credentials: 'RGN, MSc',
       experience: '12+ years',
       specialties: ['Diabetes Management', 'Chronic Disease', 'Health Education'],
-      bio: 'James specializes in chronic disease management and brings deep expertise in supporting patients with complex health needs at home.'
+      bio: 'James specializes in chronic disease management and brings deep expertise in supporting patients with complex health needs at home.',
+      image: nurseJames
     },
     {
       name: 'Maria Garcia',
@@ -29,7 +38,8 @@ export default function OurNurses() {
       credentials: 'RGN, Advanced Diploma',
       experience: '18+ years',
       specialties: ['Palliative Care', 'Mental Health', 'Family Support'],
-      bio: 'Maria oversees quality assurance and staff training, ensuring compassionate, person-centered care for all our members and their families.'
+      bio: 'Maria oversees quality assurance and staff training, ensuring compassionate, person-centered care for all our members and their families.',
+      image: nurseMaria
     },
     {
       name: 'David Chen',
@@ -37,7 +47,8 @@ export default function OurNurses() {
       credentials: 'RGN, Health Informatics',
       experience: '10+ years',
       specialties: ['Remote Monitoring', 'Digital Health', 'Care Innovation'],
-      bio: 'David bridges healthcare and technology, ensuring our AI systems and devices deliver accurate, clinically relevant insights.'
+      bio: 'David bridges healthcare and technology, ensuring our AI systems and devices deliver accurate, clinically relevant insights.',
+      image: nurseDavid
     },
     {
       name: 'Emma Williams',
@@ -45,7 +56,8 @@ export default function OurNurses() {
       credentials: 'RGN, Critical Care',
       experience: '14+ years',
       specialties: ['Overnight Care', 'Crisis Response', 'Sleep Disorders'],
-      bio: 'Emma leads our 24/7 night team, providing expert care and rapid response when it matters most.'
+      bio: 'Emma leads our 24/7 night team, providing expert care and rapid response when it matters most.',
+      image: nurseEmma
     },
     {
       name: 'Aisha Patel',
@@ -53,7 +65,8 @@ export default function OurNurses() {
       credentials: 'RGN, Community Health',
       experience: '11+ years',
       specialties: ['Home Care', 'Fall Prevention', 'Medication Management'],
-      bio: 'Aisha coordinates with GPs, families, and social services to ensure seamless, integrated care for our members.'
+      bio: 'Aisha coordinates with GPs, families, and social services to ensure seamless, integrated care for our members.',
+      image: nurseAisha
     }
   ];
 
@@ -80,19 +93,30 @@ export default function OurNurses() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-secondary/5 via-background to-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4" variant="secondary">
-              <Heart className="h-3 w-3 mr-1" />
-              Professional Care Team
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Meet Our
-              <span className="block text-secondary mt-2">Experienced Nurses</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Our team of qualified, registered nurses brings decades of clinical experience to provide 
-              you with expert care, guidance, and rapid response 24 hours a day, 365 days a year.
-            </p>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="text-center lg:text-left">
+                <Badge className="mb-4" variant="secondary">
+                  <Heart className="h-3 w-3 mr-1" />
+                  Professional Care Team
+                </Badge>
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                  Meet Our
+                  <span className="block text-secondary mt-2">Experienced Nurses</span>
+                </h1>
+                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                  Our team of qualified, registered nurses brings decades of clinical experience to provide 
+                  you with expert care, guidance, and rapid response 24 hours a day, 365 days a year.
+                </p>
+              </div>
+              <div className="relative">
+                <img 
+                  src={nursesHero} 
+                  alt="Professional nursing team" 
+                  className="rounded-2xl shadow-2xl w-full h-auto"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -195,9 +219,11 @@ export default function OurNurses() {
               {nurses.map((nurse, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="h-16 w-16 rounded-full bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center mb-4">
-                      <Heart className="h-8 w-8 text-secondary" />
-                    </div>
+                    <img 
+                      src={nurse.image} 
+                      alt={nurse.name}
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
                     <h3 className="text-xl font-bold">{nurse.name}</h3>
                     <p className="text-secondary font-semibold">{nurse.title}</p>
                     <p className="text-sm text-muted-foreground">{nurse.credentials}</p>
