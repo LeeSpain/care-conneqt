@@ -1,0 +1,29 @@
+import { InstitutionalHero } from '@/components/institutional-care/InstitutionalHero';
+import { SolutionTypes } from '@/components/institutional-care/SolutionTypes';
+import { EnterpriseFeatures } from '@/components/institutional-care/EnterpriseFeatures';
+import { ContractFlexibility } from '@/components/institutional-care/ContractFlexibility';
+import { VolumePricing } from '@/components/institutional-care/VolumePricing';
+import { ComplianceSection } from '@/components/institutional-care/ComplianceSection';
+import { IntegrationOptions } from '@/components/institutional-care/IntegrationOptions';
+import { ContactForm } from '@/components/institutional-care/ContactForm';
+import { InstitutionalFAQ } from '@/components/institutional-care/InstitutionalFAQ';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
+
+export default function InstitutionalCare() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <InstitutionalHero />
+      <SolutionTypes />
+      <EnterpriseFeatures />
+      <ContractFlexibility />
+      <VolumePricing />
+      <IntegrationOptions />
+      <ComplianceSection />
+      <ContactForm />
+      <InstitutionalFAQ />
+      <Footer />
+    </div>
+  );
+}

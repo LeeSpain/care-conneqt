@@ -23,6 +23,9 @@ export const Navigation = () => {
             <a href="/personal-care" className="text-foreground/80 hover:text-foreground transition-colors">
               For Families
             </a>
+            <a href="/institutional-care" className="text-foreground/80 hover:text-foreground transition-colors">
+              For Institutions
+            </a>
             <a href="/#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
               Pricing
             </a>
@@ -52,6 +55,9 @@ export const Navigation = () => {
             </a>
             <a href="/personal-care" className="block text-foreground/80 hover:text-foreground">
               For Families
+            </a>
+            <a href="/institutional-care" className="block text-foreground/80 hover:text-foreground">
+              For Institutions
             </a>
             <a href="/#pricing" className="block text-foreground/80 hover:text-foreground">
               Pricing

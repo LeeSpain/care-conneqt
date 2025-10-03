@@ -116,14 +116,16 @@ export const SolutionsSection = () => {
                 </div>
               </div>
 
-              <div className="pt-4 flex items-baseline gap-2">
-                <span className="text-3xl font-bold text-primary">€59.99+</span>
-                <span className="text-muted-foreground">/resident/month</span>
+              <div className="pt-4 flex flex-col gap-2">
+                <div className="text-lg font-semibold text-primary">Volume-Based Pricing</div>
+                <div className="text-sm text-muted-foreground">Flexible agreements (12-36 months)</div>
               </div>
 
-              <Button className="w-full bg-primary hover:bg-primary/90 group">
-                Enterprise Solutions
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button className="w-full bg-primary hover:bg-primary/90 group" asChild>
+                <a href="/institutional-care">
+                  Explore Institutional Solutions
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </CardContent>
           </Card>
