@@ -14,16 +14,566 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          created_at: string | null
+          details: Json | null
+          id: string
+          ip_address: unknown | null
+          resource_id: string | null
+          resource_type: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource_id?: string | null
+          resource_type: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource_id?: string | null
+          resource_type?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      clinical_notes: {
+        Row: {
+          author_id: string | null
+          content: string
+          created_at: string | null
+          id: string
+          is_private: boolean | null
+          member_id: string
+          note_type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          author_id?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          is_private?: boolean | null
+          member_id: string
+          note_type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          author_id?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_private?: boolean | null
+          member_id?: string
+          note_type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_notes_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      facilities: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          bed_capacity: number | null
+          city: string | null
+          country: string | null
+          created_at: string | null
+          email: string | null
+          facility_type: string | null
+          id: string
+          license_number: string | null
+          name: string
+          phone: string | null
+          postal_code: string | null
+          subscription_status:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          trial_ends_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          bed_capacity?: number | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          facility_type?: string | null
+          id?: string
+          license_number?: string | null
+          name: string
+          phone?: string | null
+          postal_code?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          bed_capacity?: number | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          facility_type?: string | null
+          id?: string
+          license_number?: string | null
+          name?: string
+          phone?: string | null
+          postal_code?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      facility_residents: {
+        Row: {
+          admission_date: string | null
+          created_at: string | null
+          discharge_date: string | null
+          facility_id: string
+          id: string
+          member_id: string
+          room_number: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          admission_date?: string | null
+          created_at?: string | null
+          discharge_date?: string | null
+          facility_id: string
+          id?: string
+          member_id: string
+          room_number?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          admission_date?: string | null
+          created_at?: string | null
+          discharge_date?: string | null
+          facility_id?: string
+          id?: string
+          member_id?: string
+          room_number?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "facility_residents_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "facility_residents_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      facility_staff: {
+        Row: {
+          created_at: string | null
+          facility_id: string
+          hired_at: string | null
+          id: string
+          is_facility_admin: boolean | null
+          staff_role: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          facility_id: string
+          hired_at?: string | null
+          id?: string
+          is_facility_admin?: boolean | null
+          staff_role: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          facility_id?: string
+          hired_at?: string | null
+          id?: string
+          is_facility_admin?: boolean | null
+          staff_role?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "facility_staff_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_carers: {
+        Row: {
+          can_receive_alerts: boolean | null
+          can_view_medical: boolean | null
+          created_at: string | null
+          id: string
+          invitation_accepted_at: string | null
+          is_primary_contact: boolean | null
+          relationship_to_member: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          can_receive_alerts?: boolean | null
+          can_view_medical?: boolean | null
+          created_at?: string | null
+          id?: string
+          invitation_accepted_at?: string | null
+          is_primary_contact?: boolean | null
+          relationship_to_member: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          can_receive_alerts?: boolean | null
+          can_view_medical?: boolean | null
+          created_at?: string | null
+          id?: string
+          invitation_accepted_at?: string | null
+          is_primary_contact?: boolean | null
+          relationship_to_member?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      member_carers: {
+        Row: {
+          accepted_at: string | null
+          carer_id: string
+          id: string
+          invited_at: string | null
+          invited_by: string | null
+          member_id: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          carer_id: string
+          id?: string
+          invited_at?: string | null
+          invited_by?: string | null
+          member_id: string
+        }
+        Update: {
+          accepted_at?: string | null
+          carer_id?: string
+          id?: string
+          invited_at?: string | null
+          invited_by?: string | null
+          member_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_carers_carer_id_fkey"
+            columns: ["carer_id"]
+            isOneToOne: false
+            referencedRelation: "family_carers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_carers_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          allergies: string[] | null
+          care_level: string | null
+          city: string | null
+          country: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          emergency_contact_relationship: string | null
+          id: string
+          medical_conditions: string[] | null
+          medications: string[] | null
+          mobility_level: string | null
+          postal_code: string | null
+          subscription_started_at: string | null
+          subscription_status:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          subscription_tier: string | null
+          trial_ends_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          allergies?: string[] | null
+          care_level?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relationship?: string | null
+          id?: string
+          medical_conditions?: string[] | null
+          medications?: string[] | null
+          mobility_level?: string | null
+          postal_code?: string | null
+          subscription_started_at?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          subscription_tier?: string | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          allergies?: string[] | null
+          care_level?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relationship?: string | null
+          id?: string
+          medical_conditions?: string[] | null
+          medications?: string[] | null
+          mobility_level?: string | null
+          postal_code?: string | null
+          subscription_started_at?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          subscription_tier?: string | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      nurse_assignments: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          created_at: string | null
+          id: string
+          is_primary: boolean | null
+          member_id: string
+          notes: string | null
+          nurse_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          created_at?: string | null
+          id?: string
+          is_primary?: boolean | null
+          member_id: string
+          notes?: string | null
+          nurse_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          created_at?: string | null
+          id?: string
+          is_primary?: boolean | null
+          member_id?: string
+          notes?: string | null
+          nurse_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nurse_assignments_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string
+          first_name: string | null
+          id: string
+          language: string | null
+          last_name: string | null
+          onboarding_completed: boolean | null
+          phone: string | null
+          timezone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email: string
+          first_name?: string | null
+          id: string
+          language?: string | null
+          last_name?: string | null
+          onboarding_completed?: boolean | null
+          phone?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string
+          first_name?: string | null
+          id?: string
+          language?: string | null
+          last_name?: string | null
+          onboarding_completed?: boolean | null
+          phone?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_consents: {
+        Row: {
+          consent_type: Database["public"]["Enums"]["consent_type"]
+          created_at: string | null
+          granted: boolean
+          granted_at: string | null
+          id: string
+          ip_address: unknown | null
+          revoked_at: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          consent_type: Database["public"]["Enums"]["consent_type"]
+          created_at?: string | null
+          granted: boolean
+          granted_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          revoked_at?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          consent_type?: Database["public"]["Enums"]["consent_type"]
+          created_at?: string | null
+          granted?: boolean
+          granted_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          revoked_at?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "member" | "family_carer" | "nurse" | "facility_admin" | "admin"
+      consent_type:
+        | "terms_of_service"
+        | "privacy_policy"
+        | "data_processing"
+        | "marketing"
+      subscription_status:
+        | "trial"
+        | "active"
+        | "past_due"
+        | "cancelled"
+        | "incomplete"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +700,21 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["member", "family_carer", "nurse", "facility_admin", "admin"],
+      consent_type: [
+        "terms_of_service",
+        "privacy_policy",
+        "data_processing",
+        "marketing",
+      ],
+      subscription_status: [
+        "trial",
+        "active",
+        "past_due",
+        "cancelled",
+        "incomplete",
+      ],
+    },
   },
 } as const

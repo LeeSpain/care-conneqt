@@ -1,0 +1,55 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import MemberDashboard from './dashboard/MemberDashboard';
+import FamilyDashboard from './dashboard/FamilyDashboard';
+import NurseDashboard from './dashboard/NurseDashboard';
+import FacilityDashboard from './dashboard/FacilityDashboard';
+import AdminDashboard from './dashboard/AdminDashboard';
+
+export default function Dashboard() {
+  const { roles, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && roles.length === 0) {
+      navigate('/auth/login');
+    }
+  }, [roles, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Admin has access to everything
+  if (roles.includes('admin')) {
+    return <AdminDashboard />;
+  }
+
+  // Route to appropriate dashboard based on primary role
+  if (roles.includes('facility_admin')) {
+    return <FacilityDashboard />;
+  }
+
+  if (roles.includes('nurse')) {
+    return <NurseDashboard />;
+  }
+
+  if (roles.includes('family_carer')) {
+    return <FamilyDashboard />;
+  }
+
+  if (roles.includes('member')) {
+    return <MemberDashboard />;
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p>No valid role assigned. Please contact support.</p>
+    </div>
+  );
+}
