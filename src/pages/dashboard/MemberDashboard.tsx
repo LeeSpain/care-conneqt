@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Activity, Heart, MessageSquare, Shield, Calendar, Package } from 'lucide-react';
+import { Activity, Heart, MessageSquare, Shield, Calendar, Package, Users } from 'lucide-react';
+import { AIGuardianChat } from '@/components/AIGuardianChat';
 
 export default function MemberDashboard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [member, setMember] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [deviceCount, setDeviceCount] = useState(0);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -22,6 +27,16 @@ export default function MemberDashboard() {
         .single();
 
       setMember(data);
+      
+      if (data) {
+        const { count } = await supabase
+          .from('member_devices')
+          .select('*', { count: 'exact', head: true })
+          .eq('member_id', data.id);
+        
+        setDeviceCount(count || 0);
+      }
+      
       setLoading(false);
     };
 
@@ -40,7 +55,8 @@ export default function MemberDashboard() {
 
   return (
     <DashboardLayout title="My Dashboard">
-      <div className="space-y-6">
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2 space-y-6">
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
@@ -70,8 +86,10 @@ export default function MemberDashboard() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">Configure devices</p>
+              <div className="text-2xl font-bold">{deviceCount}</div>
+              <p className="text-xs text-muted-foreground">
+                {deviceCount === 0 ? 'Configure devices' : 'Active devices'}
+              </p>
             </CardContent>
           </Card>
 
@@ -132,7 +150,26 @@ export default function MemberDashboard() {
               <p className="text-sm text-muted-foreground mb-4">
                 Add or configure your monitoring devices
               </p>
-              <Button variant="outline" className="w-full">Configure</Button>
+              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/devices')}>
+                Configure
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/dashboard/family')}>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Users className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>Family & Carers</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Invite family members to stay connected
+              </p>
+              <Button variant="outline" className="w-full">Manage Invitations</Button>
             </CardContent>
           </Card>
 
@@ -149,11 +186,29 @@ export default function MemberDashboard() {
               <p className="text-sm text-muted-foreground mb-4">
                 Chat with your AI companion anytime
               </p>
-              <Button variant="outline" className="w-full">Start Chat</Button>
+              <Button variant="outline" className="w-full" onClick={() => setShowChat(!showChat)}>
+                {showChat ? 'Hide Chat' : 'Start Chat'}
+              </Button>
             </CardContent>
           </Card>
         </div>
       </div>
+      
+      <div className="lg:col-span-1">
+        {showChat ? (
+          <AIGuardianChat />
+        ) : (
+          <Card className="h-[600px] flex items-center justify-center">
+            <CardContent className="text-center">
+              <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">
+                Click "Start Chat" to talk with your AI Guardian
+              </p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </div>
     </DashboardLayout>
   );
 }

@@ -1,1 +1,4 @@
 project_id = "xuyokixtlmchqwibntep"
+
+[functions.ai-guardian-chat]
+verify_jwt = true

@@ -12,6 +12,8 @@ import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
+import DeviceManagement from "./pages/dashboard/DeviceManagement";
+import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,8 @@ const App = () => (
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
             <Route path="/onboarding" element={<ProtectedRoute><MemberOnboarding /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard/devices" element={<ProtectedRoute><DeviceManagement /></ProtectedRoute>} />
+            <Route path="/dashboard/family" element={<ProtectedRoute><FamilyInvitations /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

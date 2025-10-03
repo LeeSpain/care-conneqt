@@ -14,6 +14,104 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_logs: {
+        Row: {
+          activity_type: string
+          created_at: string | null
+          description: string
+          id: string
+          member_id: string
+          metadata: Json | null
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string | null
+          description: string
+          id?: string
+          member_id: string
+          metadata?: Json | null
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          member_id?: string
+          metadata?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_logs_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      alerts: {
+        Row: {
+          alert_type: string
+          created_at: string | null
+          description: string | null
+          device_id: string | null
+          id: string
+          member_id: string
+          metadata: Json | null
+          priority: Database["public"]["Enums"]["alert_priority"] | null
+          resolved_at: string | null
+          resolved_by: string | null
+          status: Database["public"]["Enums"]["alert_status"] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string | null
+          description?: string | null
+          device_id?: string | null
+          id?: string
+          member_id: string
+          metadata?: Json | null
+          priority?: Database["public"]["Enums"]["alert_priority"] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: Database["public"]["Enums"]["alert_status"] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string | null
+          description?: string | null
+          device_id?: string | null
+          id?: string
+          member_id?: string
+          metadata?: Json | null
+          priority?: Database["public"]["Enums"]["alert_priority"] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: Database["public"]["Enums"]["alert_status"] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alerts_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "member_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alerts_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -49,6 +147,41 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          member_id: string
+          metadata: Json | null
+          role: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          member_id: string
+          metadata?: Json | null
+          role: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          member_id?: string
+          metadata?: Json | null
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       clinical_notes: {
         Row: {
@@ -279,6 +412,107 @@ export type Database = {
         }
         Relationships: []
       }
+      family_invitations: {
+        Row: {
+          accepted_at: string | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          invitation_token: string | null
+          invited_by: string
+          invited_email: string
+          member_id: string
+          permissions: Json | null
+          relationship: string
+          status: Database["public"]["Enums"]["invitation_status"] | null
+          updated_at: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          invitation_token?: string | null
+          invited_by: string
+          invited_email: string
+          member_id: string
+          permissions?: Json | null
+          relationship: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          updated_at?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          invitation_token?: string | null
+          invited_by?: string
+          invited_email?: string
+          member_id?: string
+          permissions?: Json | null
+          relationship?: string
+          status?: Database["public"]["Enums"]["invitation_status"] | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_invitations_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      health_metrics: {
+        Row: {
+          created_at: string | null
+          device_id: string | null
+          id: string
+          member_id: string
+          metric_type: string
+          metric_unit: string | null
+          metric_value: number
+          recorded_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          device_id?: string | null
+          id?: string
+          member_id: string
+          metric_type: string
+          metric_unit?: string | null
+          metric_value: number
+          recorded_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          device_id?: string | null
+          id?: string
+          member_id?: string
+          metric_type?: string
+          metric_unit?: string | null
+          metric_value?: number
+          recorded_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "health_metrics_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "member_devices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "health_metrics_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       member_carers: {
         Row: {
           accepted_at: string | null
@@ -314,6 +548,56 @@ export type Database = {
           },
           {
             foreignKeyName: "member_carers_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_devices: {
+        Row: {
+          battery_level: number | null
+          created_at: string | null
+          device_name: string
+          device_serial: string | null
+          device_status: Database["public"]["Enums"]["device_status"] | null
+          device_type: Database["public"]["Enums"]["device_type"]
+          id: string
+          last_sync_at: string | null
+          member_id: string
+          notes: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          battery_level?: number | null
+          created_at?: string | null
+          device_name: string
+          device_serial?: string | null
+          device_status?: Database["public"]["Enums"]["device_status"] | null
+          device_type: Database["public"]["Enums"]["device_type"]
+          id?: string
+          last_sync_at?: string | null
+          member_id: string
+          notes?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          battery_level?: number | null
+          created_at?: string | null
+          device_name?: string
+          device_serial?: string | null
+          device_status?: Database["public"]["Enums"]["device_status"] | null
+          device_type?: Database["public"]["Enums"]["device_type"]
+          id?: string
+          last_sync_at?: string | null
+          member_id?: string
+          notes?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_devices_member_id_fkey"
             columns: ["member_id"]
             isOneToOne: false
             referencedRelation: "members"
@@ -446,6 +730,65 @@ export type Database = {
           },
         ]
       }
+      nurse_tasks: {
+        Row: {
+          completed_at: string | null
+          completed_by: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          member_id: string
+          notes: string | null
+          nurse_id: string
+          priority: Database["public"]["Enums"]["task_priority"] | null
+          status: Database["public"]["Enums"]["task_status"] | null
+          task_type: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          member_id: string
+          notes?: string | null
+          nurse_id: string
+          priority?: Database["public"]["Enums"]["task_priority"] | null
+          status?: Database["public"]["Enums"]["task_status"] | null
+          task_type: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          member_id?: string
+          notes?: string | null
+          nurse_id?: string
+          priority?: Database["public"]["Enums"]["task_priority"] | null
+          status?: Database["public"]["Enums"]["task_status"] | null
+          task_type?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nurse_tasks_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -562,18 +905,36 @@ export type Database = {
       }
     }
     Enums: {
+      alert_priority: "low" | "medium" | "high" | "critical"
+      alert_status:
+        | "new"
+        | "acknowledged"
+        | "in_progress"
+        | "resolved"
+        | "dismissed"
       app_role: "member" | "family_carer" | "nurse" | "facility_admin" | "admin"
       consent_type:
         | "terms_of_service"
         | "privacy_policy"
         | "data_processing"
         | "marketing"
+      device_status: "active" | "inactive" | "error" | "needs_battery"
+      device_type:
+        | "vivago_watch"
+        | "dosell_dispenser"
+        | "bbrain_sensor"
+        | "heart_monitor"
+        | "fall_detector"
+        | "other"
+      invitation_status: "pending" | "accepted" | "declined" | "expired"
       subscription_status:
         | "trial"
         | "active"
         | "past_due"
         | "cancelled"
         | "incomplete"
+      task_priority: "low" | "medium" | "high" | "urgent"
+      task_status: "pending" | "in_progress" | "completed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -701,6 +1062,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      alert_priority: ["low", "medium", "high", "critical"],
+      alert_status: [
+        "new",
+        "acknowledged",
+        "in_progress",
+        "resolved",
+        "dismissed",
+      ],
       app_role: ["member", "family_carer", "nurse", "facility_admin", "admin"],
       consent_type: [
         "terms_of_service",
@@ -708,6 +1077,16 @@ export const Constants = {
         "data_processing",
         "marketing",
       ],
+      device_status: ["active", "inactive", "error", "needs_battery"],
+      device_type: [
+        "vivago_watch",
+        "dosell_dispenser",
+        "bbrain_sensor",
+        "heart_monitor",
+        "fall_detector",
+        "other",
+      ],
+      invitation_status: ["pending", "accepted", "declined", "expired"],
       subscription_status: [
         "trial",
         "active",
@@ -715,6 +1094,8 @@ export const Constants = {
         "cancelled",
         "incomplete",
       ],
+      task_priority: ["low", "medium", "high", "urgent"],
+      task_status: ["pending", "in_progress", "completed", "cancelled"],
     },
   },
 } as const
