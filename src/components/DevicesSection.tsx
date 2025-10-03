@@ -1,19 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Watch, Radio, Home, Pill, Calendar, Activity } from "lucide-react";
+import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer } from "lucide-react";
 
 export const DevicesSection = () => {
   const devices = [
     {
       icon: Watch,
-      name: "Vivago Watch",
-      description: "24/7 activity and wellness monitoring",
+      name: "Vivago Smart Watch",
+      description: "24/7 activity and wellness monitoring with fall detection",
       price: "Included in Base / +€19.99",
       color: "text-secondary"
     },
     {
       icon: Radio,
       name: "SOS Pendant",
-      description: "One-touch emergency alert system",
+      description: "One-touch emergency alert system with GPS",
       price: "Alternative Base / +€19.99",
       color: "text-coral"
     },
@@ -27,23 +27,37 @@ export const DevicesSection = () => {
     {
       icon: Pill,
       name: "Dosell Smart Dispenser",
-      description: "Automated medication reminders",
+      description: "Automated medication reminders and tracking",
       price: "+€34.99/month",
       color: "text-lilac"
     },
     {
       icon: Calendar,
       name: "BBrain Calendar Clock",
-      description: "Memory support with reminders",
+      description: "Memory support with visual reminders",
       price: "+€19.99/month",
       color: "text-secondary"
     },
     {
       icon: Activity,
       name: "Health Monitors",
-      description: "Glucose, BP, scale, thermometer",
+      description: "Blood pressure, glucose, and vital signs tracking",
       price: "+€14.99/month each",
       color: "text-coral"
+    },
+    {
+      icon: Scale,
+      name: "Smart Weight Scale",
+      description: "Body composition tracking with automatic sync",
+      price: "+€14.99/month",
+      color: "text-primary"
+    },
+    {
+      icon: Thermometer,
+      name: "Smart Thermometer",
+      description: "Contactless temperature monitoring",
+      price: "+€14.99/month",
+      color: "text-lilac"
     }
   ];
 
@@ -55,31 +69,39 @@ export const DevicesSection = () => {
             Connected Device Ecosystem
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Medical-grade devices that seamlessly integrate with our AI-powered platform
+            Medical-grade devices that seamlessly integrate with our AI-powered care platform
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {devices.map((device) => (
-            <Card key={device.name} className="hover:shadow-lg transition-shadow duration-300 border hover:border-secondary/50">
+            <Card key={device.name} className="hover:shadow-lg transition-all duration-300 border-2 hover:border-secondary/50">
               <CardHeader>
                 <div className={`p-3 rounded-lg bg-gradient-to-br from-background to-muted w-fit mb-3`}>
                   <device.icon className={`h-8 w-8 ${device.color}`} />
                 </div>
-                <CardTitle className="text-xl font-['Poppins']">{device.name}</CardTitle>
-                <CardDescription>{device.description}</CardDescription>
+                <CardTitle className="text-lg font-['Poppins']">{device.name}</CardTitle>
+                <CardDescription className="min-h-[48px]">{device.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-lg font-semibold text-primary">{device.price}</div>
+                <div className="text-base font-semibold text-primary">{device.price}</div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground">
-            All devices include 12-month lease, setup support, and integration with your AI Guardian
-          </p>
+        <div className="mt-16 text-center max-w-3xl mx-auto">
+          <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+            <CardContent className="pt-6">
+              <p className="text-muted-foreground mb-4">
+                <strong>All devices include:</strong> 12-month lease, free shipping, setup support, 24/7 technical assistance, 
+                automatic replacement, and seamless integration with your AI Guardian and nurse dashboard.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Medical-grade quality • GDPR compliant • No purchase required
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
