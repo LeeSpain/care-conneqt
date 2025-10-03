@@ -9,12 +9,12 @@ export const Navigation = () => {
     <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Heart className="h-8 w-8 text-secondary" fill="currentColor" />
             <span className="text-2xl font-bold font-['Poppins'] text-primary">
               Care Conneqt
             </span>
-          </div>
+          </a>
           
           <div className="hidden md:flex items-center gap-8">
             <a href="/#solutions" className="text-foreground/80 hover:text-foreground transition-colors">
