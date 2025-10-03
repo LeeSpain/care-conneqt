@@ -26,11 +26,11 @@ export const Navigation = () => {
             <a href="/institutional-care" className="text-foreground/80 hover:text-foreground transition-colors">
               For Institutions
             </a>
-            <a href="/#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
-              Pricing
-            </a>
-            <a href="/#devices" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/devices" className="text-foreground/80 hover:text-foreground transition-colors">
               Devices
+            </a>
+            <a href="/our-nurses" className="text-foreground/80 hover:text-foreground transition-colors">
+              Our Nurses
             </a>
             <Button variant="outline" size="sm" asChild>
               <a href="/auth/login">Sign In</a>
@@ -59,11 +59,11 @@ export const Navigation = () => {
             <a href="/institutional-care" className="block text-foreground/80 hover:text-foreground">
               For Institutions
             </a>
-            <a href="/#pricing" className="block text-foreground/80 hover:text-foreground">
-              Pricing
-            </a>
-            <a href="/#devices" className="block text-foreground/80 hover:text-foreground">
+            <a href="/devices" className="block text-foreground/80 hover:text-foreground">
               Devices
+            </a>
+            <a href="/our-nurses" className="block text-foreground/80 hover:text-foreground">
+              Our Nurses
             </a>
             <div className="flex gap-2 pt-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>

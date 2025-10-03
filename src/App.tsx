@@ -16,6 +16,8 @@ import DeviceManagement from "./pages/dashboard/DeviceManagement";
 import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
 import PersonalCare from "./pages/PersonalCare";
 import InstitutionalCare from "./pages/InstitutionalCare";
+import Devices from "./pages/Devices";
+import OurNurses from "./pages/OurNurses";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/personal-care" element={<PersonalCare />} />
             <Route path="/institutional-care" element={<InstitutionalCare />} />
+            <Route path="/devices" element={<Devices />} />
+            <Route path="/our-nurses" element={<OurNurses />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
