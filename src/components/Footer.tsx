@@ -21,7 +21,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Solutions</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="/dashboard" className="hover:text-secondary transition-colors">Member Dashboard</a></li>
+              <li><a href="/dashboard?devmode=true" className="hover:text-secondary transition-colors">Member Dashboard</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">For Families</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">For Care Homes</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">For Insurers</a></li>

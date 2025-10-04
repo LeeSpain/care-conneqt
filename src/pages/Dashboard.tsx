@@ -10,12 +10,16 @@ import AdminDashboard from './dashboard/AdminDashboard';
 export default function Dashboard() {
   const { roles, loading } = useAuth();
   const navigate = useNavigate();
+  
+  // Dev mode bypass for quick testing
+  const urlParams = new URLSearchParams(window.location.search);
+  const devMode = urlParams.get('devmode') === 'true';
 
   useEffect(() => {
-    if (!loading && roles.length === 0) {
+    if (!devMode && !loading && roles.length === 0) {
       navigate('/auth/login');
     }
-  }, [roles, loading, navigate]);
+  }, [roles, loading, navigate, devMode]);
 
   if (loading) {
     return (
@@ -23,6 +27,11 @@ export default function Dashboard() {
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
+  }
+
+  // Dev mode bypass - default to Family Dashboard
+  if (devMode) {
+    return <FamilyDashboard />;
   }
 
   // Admin has access to everything
