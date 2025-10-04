@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Bell, LogOut, Settings, User } from 'lucide-react';
+import { Bell, LogOut, Settings, User, Calendar, Package, Users, MessageSquare } from 'lucide-react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -38,6 +38,45 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           <div className="flex-1">
             <h1 className="text-2xl font-bold text-foreground">{title}</h1>
           </div>
+
+          <nav className="hidden md:flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard/schedule')}
+              className="gap-2"
+            >
+              <Calendar className="h-4 w-4" />
+              Schedule
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard/devices')}
+              className="gap-2"
+            >
+              <Package className="h-4 w-4" />
+              Devices
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard/family')}
+              className="gap-2"
+            >
+              <Users className="h-4 w-4" />
+              Family
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard/ai-chat')}
+              className="gap-2"
+            >
+              <MessageSquare className="h-4 w-4" />
+              AI Guardian
+            </Button>
+          </nav>
 
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
