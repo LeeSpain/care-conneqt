@@ -4,14 +4,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Phone, Mail, Video, Calendar, MessageSquare, Stethoscope, Heart } from 'lucide-react';
+import { CareTeamMessaging } from '@/components/CareTeamMessaging';
 
 export default function CareTeamPage() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [primaryNurse, setPrimaryNurse] = useState<any>(null);
+  const [memberId, setMemberId] = useState<string>('');
 
   useEffect(() => {
     const fetchCareTeam = async () => {
@@ -25,6 +28,8 @@ export default function CareTeamPage() {
         .single();
 
       if (member) {
+        setMemberId(member.id);
+        
         // Get assigned nurse
         const { data: assignment } = await supabase
           .from('nurse_assignments')
@@ -87,58 +92,70 @@ export default function CareTeamPage() {
           </CardHeader>
           <CardContent>
             {primaryNurse ? (
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <Avatar className="h-16 w-16">
-                    <AvatarImage src={primaryNurse.profiles?.avatar_url} />
-                    <AvatarFallback>
-                      {primaryNurse.profiles?.first_name?.[0]}
-                      {primaryNurse.profiles?.last_name?.[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold text-lg">
-                          {primaryNurse.profiles?.first_name} {primaryNurse.profiles?.last_name}
-                        </h3>
-                        <Badge variant="secondary" className="mt-1">Primary Care Nurse</Badge>
-                        <div className="mt-3 space-y-2">
-                          <p className="text-sm text-muted-foreground flex items-center gap-2">
-                            <Mail className="h-4 w-4" />
-                            {primaryNurse.profiles?.email}
-                          </p>
-                          {primaryNurse.profiles?.phone && (
+              <Tabs defaultValue="info" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="info">Info & Contact</TabsTrigger>
+                  <TabsTrigger value="messages">Messages</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="info" className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="h-16 w-16">
+                      <AvatarImage src={primaryNurse.profiles?.avatar_url} />
+                      <AvatarFallback>
+                        {primaryNurse.profiles?.first_name?.[0]}
+                        {primaryNurse.profiles?.last_name?.[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="font-semibold text-lg">
+                            {primaryNurse.profiles?.first_name} {primaryNurse.profiles?.last_name}
+                          </h3>
+                          <Badge variant="secondary" className="mt-1">Primary Care Nurse</Badge>
+                          <div className="mt-3 space-y-2">
                             <p className="text-sm text-muted-foreground flex items-center gap-2">
-                              <Phone className="h-4 w-4" />
-                              {primaryNurse.profiles.phone}
+                              <Mail className="h-4 w-4" />
+                              {primaryNurse.profiles?.email}
                             </p>
-                          )}
+                            {primaryNurse.profiles?.phone && (
+                              <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                <Phone className="h-4 w-4" />
+                                {primaryNurse.profiles.phone}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </div>
+                      {primaryNurse.notes && (
+                        <p className="text-sm text-muted-foreground mt-4 p-3 bg-muted rounded-lg">
+                          {primaryNurse.notes}
+                        </p>
+                      )}
                     </div>
-                    {primaryNurse.notes && (
-                      <p className="text-sm text-muted-foreground mt-4 p-3 bg-muted rounded-lg">
-                        {primaryNurse.notes}
-                      </p>
-                    )}
                   </div>
-                </div>
-                <div className="flex gap-2 pt-4 border-t">
-                  <Button variant="outline" className="gap-2">
-                    <Video className="h-4 w-4" />
-                    Video Call
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <MessageSquare className="h-4 w-4" />
-                    Message
-                  </Button>
-                  <Button variant="outline" className="gap-2">
-                    <Calendar className="h-4 w-4" />
-                    Schedule
-                  </Button>
-                </div>
-              </div>
+                  <div className="flex gap-2 pt-4 border-t">
+                    <Button variant="outline" className="gap-2">
+                      <Video className="h-4 w-4" />
+                      Video Call
+                    </Button>
+                    <Button variant="outline" className="gap-2">
+                      <Calendar className="h-4 w-4" />
+                      Schedule
+                    </Button>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="messages">
+                  <CareTeamMessaging
+                    nurseId={primaryNurse.nurse_id}
+                    nurseName={`${primaryNurse.profiles?.first_name} ${primaryNurse.profiles?.last_name}`}
+                    nurseAvatar={primaryNurse.profiles?.avatar_url}
+                    memberId={memberId}
+                  />
+                </TabsContent>
+              </Tabs>
             ) : (
               <div className="text-center py-8">
                 <Stethoscope className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
