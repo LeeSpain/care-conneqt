@@ -1,71 +1,84 @@
 import { DashboardLayout } from '@/components/DashboardLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Bell, Heart, Activity, MessageSquare, Phone, Video } from 'lucide-react';
+import { MemberProfile } from '@/components/family-dashboard/MemberProfile';
+import { QuickStats } from '@/components/family-dashboard/QuickStats';
+import { HealthMonitoring } from '@/components/family-dashboard/HealthMonitoring';
+import { AlertsCenter } from '@/components/family-dashboard/AlertsCenter';
+import { DeviceStatus } from '@/components/family-dashboard/DeviceStatus';
+import { CareTeamPanel } from '@/components/family-dashboard/CareTeamPanel';
+import { ActivityTimeline } from '@/components/family-dashboard/ActivityTimeline';
+import { MedicationTracker } from '@/components/family-dashboard/MedicationTracker';
+import { HealthReports } from '@/components/family-dashboard/HealthReports';
+import { VideoCallScheduler } from '@/components/family-dashboard/VideoCallScheduler';
+import { ServiceAccess } from '@/components/family-dashboard/ServiceAccess';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function FamilyDashboard() {
+  const memberName = "Margaret Thompson";
+
   return (
     <DashboardLayout title="Family Dashboard">
       <div className="space-y-6">
-        {/* Connected Member */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Connected Member</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              You haven't connected with a member yet. Ask them to send you an invitation.
-            </p>
-          </CardContent>
-        </Card>
+        {/* Member Profile Header */}
+        <MemberProfile memberName={memberName} />
 
-        {/* Quick Actions */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Bell className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>Recent Alerts</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">No alerts today</p>
-              <Button variant="outline" className="w-full">View All</Button>
-            </CardContent>
-          </Card>
+        {/* Quick Stats Overview */}
+        <QuickStats memberName={memberName} />
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Activity className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>Health Reports</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">View detailed health insights</p>
-              <Button variant="outline" className="w-full">View Reports</Button>
-            </CardContent>
-          </Card>
+        {/* Main Dashboard Tabs */}
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="health">Health</TabsTrigger>
+            <TabsTrigger value="care">Care Team</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+            <TabsTrigger value="services">Services</TabsTrigger>
+          </TabsList>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Video className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>Connect</CardTitle>
+          {/* Overview Tab */}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div className="space-y-6">
+                <AlertsCenter />
+                <MedicationTracker />
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">Schedule a video call</p>
-              <Button variant="outline" className="w-full">Schedule</Button>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="space-y-6">
+                <DeviceStatus />
+                <ActivityTimeline />
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Health Tab */}
+          <TabsContent value="health" className="space-y-6">
+            <HealthMonitoring />
+            <div className="grid gap-6 lg:grid-cols-2">
+              <MedicationTracker />
+              <HealthReports />
+            </div>
+          </TabsContent>
+
+          {/* Care Team Tab */}
+          <TabsContent value="care" className="space-y-6">
+            <CareTeamPanel />
+            <div className="grid gap-6 lg:grid-cols-2">
+              <VideoCallScheduler />
+              <AlertsCenter />
+            </div>
+          </TabsContent>
+
+          {/* Activity Tab */}
+          <TabsContent value="activity" className="space-y-6">
+            <div className="grid gap-6 lg:grid-cols-2">
+              <ActivityTimeline />
+              <DeviceStatus />
+            </div>
+          </TabsContent>
+
+          {/* Services Tab */}
+          <TabsContent value="services" className="space-y-6">
+            <ServiceAccess />
+          </TabsContent>
+        </Tabs>
       </div>
     </DashboardLayout>
   );
