@@ -39,6 +39,8 @@ export const CareTeamMessaging = ({ nurseId, nurseName, nurseAvatar, memberId }:
   const [sending, setSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  console.log('CareTeamMessaging props:', { nurseId, nurseName, nurseAvatar, memberId });
+
   useEffect(() => {
     fetchMessages();
 

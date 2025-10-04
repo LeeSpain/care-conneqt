@@ -29,9 +29,10 @@ export default function CareTeamPage() {
 
       if (member) {
         setMemberId(member.id);
+        console.log('Member ID:', member.id);
         
         // Get assigned nurse
-        const { data: assignment } = await supabase
+        const { data: assignment, error: assignmentError } = await supabase
           .from('nurse_assignments')
           .select(`
             *,
@@ -47,8 +48,12 @@ export default function CareTeamPage() {
           .eq('is_primary', true)
           .single();
 
+        console.log('Nurse assignment data:', assignment);
+        console.log('Assignment error:', assignmentError);
+
         if (assignment) {
           setPrimaryNurse(assignment);
+          console.log('Primary nurse set:', assignment);
         }
       }
 
