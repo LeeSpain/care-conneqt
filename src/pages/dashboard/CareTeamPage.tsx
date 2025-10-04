@@ -32,29 +32,40 @@ export default function CareTeamPage() {
         console.log('Member ID:', member.id);
         
         // Get assigned nurse
-        const { data: assignment, error: assignmentError } = await supabase
-          .from('nurse_assignments')
-          .select(`
-            *,
-            profiles:nurse_id (
-              first_name,
-              last_name,
-              email,
-              phone,
-              avatar_url
-            )
-          `)
-          .eq('member_id', member.id)
-          .eq('is_primary', true)
-          .single();
+          const { data: assignment, error: assignmentError } = await supabase
+            .from('nurse_assignments')
+            .select(`
+              *,
+              profiles:nurse_id (
+                first_name,
+                last_name,
+                email,
+                phone,
+                avatar_url
+              )
+            `)
+            .eq('member_id', member.id)
+            .eq('is_primary', true)
+            .maybeSingle();
 
-        console.log('Nurse assignment data:', assignment);
-        console.log('Assignment error:', assignmentError);
+          console.log('Nurse assignment data:', assignment);
+          console.log('Assignment error:', assignmentError);
 
-        if (assignment) {
-          setPrimaryNurse(assignment);
-          console.log('Primary nurse set:', assignment);
-        }
+          if (assignment) {
+            // Fallback: if profile wasn't embedded (due to join/RLS), fetch it directly
+            if (!assignment.profiles && assignment.nurse_id) {
+              const { data: nurseProfile, error: nurseProfileError } = await supabase
+                .from('profiles')
+                .select('first_name,last_name,email,phone,avatar_url')
+                .eq('id', assignment.nurse_id)
+                .maybeSingle();
+              console.log('Fetched nurse profile (fallback):', nurseProfile, nurseProfileError);
+              setPrimaryNurse({ ...assignment, profiles: nurseProfile || null });
+            } else {
+              setPrimaryNurse(assignment);
+            }
+            console.log('Primary nurse set:', assignment);
+          }
       }
 
       setLoading(false);
