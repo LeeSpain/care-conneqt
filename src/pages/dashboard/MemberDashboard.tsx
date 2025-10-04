@@ -110,9 +110,9 @@ export default function MemberDashboard() {
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold capitalize">{member?.subscription_status || 'Trial'}</div>
+              <div className="text-2xl font-bold capitalize">{member?.subscription_status || 'Active'}</div>
               <p className="text-xs text-muted-foreground">
-                {member?.subscription_tier || 'Essential Plan'}
+                {member?.subscription_tier || 'Base Membership'}
               </p>
             </CardContent>
           </Card>

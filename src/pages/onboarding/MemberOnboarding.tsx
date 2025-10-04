@@ -9,6 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { packages } from '@/data/pricing';
+import { Check } from 'lucide-react';
 
 export default function MemberOnboarding() {
   const [step, setStep] = useState(1);
@@ -22,7 +24,7 @@ export default function MemberOnboarding() {
   const [address, setAddress] = useState({ line1: '', line2: '', city: '', postalCode: '', country: 'GB' });
   const [emergency, setEmergency] = useState({ name: '', phone: '', relationship: '' });
   const [medical, setMedical] = useState({ conditions: '', medications: '', allergies: '' });
-  const [selectedTier, setSelectedTier] = useState('essential');
+  const [selectedTier, setSelectedTier] = useState('base');
 
   const totalSteps = 6;
   const progress = (step / totalSteps) * 100;
@@ -60,7 +62,6 @@ export default function MemberOnboarding() {
         medications: medical.medications.split(',').map(s => s.trim()).filter(Boolean),
         allergies: medical.allergies.split(',').map(s => s.trim()).filter(Boolean),
         subscription_tier: selectedTier,
-        trial_ends_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
       });
 
       if (memberError) throw memberError;
@@ -240,23 +241,35 @@ export default function MemberOnboarding() {
           {step === 5 && (
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Choose Your Plan</h3>
-              <p className="text-sm text-muted-foreground">Start with a 14-day free trial</p>
+              <p className="text-sm text-muted-foreground">Select the care package that best fits your needs</p>
               <div className="grid gap-4">
-                {['essential', 'plus', 'premium'].map((tier) => (
+                {packages.map((pkg) => (
                   <Card
-                    key={tier}
+                    key={pkg.id}
                     className={`cursor-pointer transition-all ${
-                      selectedTier === tier ? 'ring-2 ring-primary' : ''
+                      selectedTier === pkg.id ? 'ring-2 ring-primary' : ''
                     }`}
-                    onClick={() => setSelectedTier(tier)}
+                    onClick={() => setSelectedTier(pkg.id)}
                   >
-                    <CardContent className="pt-6">
-                      <h4 className="font-bold capitalize mb-2">{tier} Plan</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {tier === 'essential' && '£99/month - Basic monitoring'}
-                        {tier === 'plus' && '£149/month - Enhanced features'}
-                        {tier === 'premium' && '£199/month - Full service'}
-                      </p>
+                    <CardContent className="pt-6 space-y-3">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h4 className="font-bold mb-1">{pkg.name}</h4>
+                          <p className="text-sm text-muted-foreground mb-2">{pkg.description}</p>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-primary">€{pkg.price}</div>
+                          <div className="text-xs text-muted-foreground">/month</div>
+                        </div>
+                      </div>
+                      <ul className="space-y-2">
+                        {pkg.features.slice(0, 3).map((feature, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm">
+                            <Check className="h-4 w-4 text-secondary mt-0.5 flex-shrink-0" />
+                            <span className="text-muted-foreground">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
                   </Card>
                 ))}
