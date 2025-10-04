@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import MemberDashboard from './dashboard/MemberDashboard';
 import FamilyDashboard from './dashboard/FamilyDashboard';
@@ -9,17 +7,10 @@ import AdminDashboard from './dashboard/AdminDashboard';
 
 export default function Dashboard() {
   const { roles, loading } = useAuth();
-  const navigate = useNavigate();
   
   // Dev mode bypass for quick testing
   const urlParams = new URLSearchParams(window.location.search);
   const devMode = urlParams.get('devmode') === 'true';
-
-  useEffect(() => {
-    if (!devMode && !loading && roles.length === 0) {
-      navigate('/auth/login');
-    }
-  }, [roles, loading, navigate, devMode]);
 
   if (loading) {
     return (
@@ -56,9 +47,5 @@ export default function Dashboard() {
     return <MemberDashboard />;
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <p>No valid role assigned. Please contact support.</p>
-    </div>
-  );
+  return <MemberDashboard />;
 }
