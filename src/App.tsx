@@ -14,6 +14,8 @@ import Dashboard from "./pages/Dashboard";
 import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
 import DeviceManagement from "./pages/dashboard/DeviceManagement";
 import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
+import SchedulePage from "./pages/dashboard/SchedulePage";
+import AIChatPage from "./pages/dashboard/AIChatPage";
 import PersonalCare from "./pages/PersonalCare";
 import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
@@ -41,6 +43,8 @@ const App = () => (
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard/devices" element={<ProtectedRoute><DeviceManagement /></ProtectedRoute>} />
             <Route path="/dashboard/family" element={<ProtectedRoute><FamilyInvitations /></ProtectedRoute>} />
+            <Route path="/dashboard/schedule" element={<ProtectedRoute><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

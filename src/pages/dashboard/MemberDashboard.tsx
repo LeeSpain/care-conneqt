@@ -5,8 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Activity, Heart, MessageSquare, Shield, Calendar, Package, Users } from 'lucide-react';
-import { AIGuardianChat } from '@/components/AIGuardianChat';
+import { Activity, Heart, MessageSquare, Shield, Calendar, Package } from 'lucide-react';
 
 export default function MemberDashboard() {
   const { user } = useAuth();
@@ -14,7 +13,6 @@ export default function MemberDashboard() {
   const [member, setMember] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [deviceCount, setDeviceCount] = useState(0);
-  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -55,8 +53,7 @@ export default function MemberDashboard() {
 
   return (
     <DashboardLayout title="My Dashboard">
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="space-y-6">
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
@@ -118,97 +115,84 @@ export default function MemberDashboard() {
           </Card>
         </div>
 
-        {/* Action Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Calendar className="h-6 w-6 text-primary" />
+        {/* Upcoming Appointments */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Upcoming Appointments</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 border rounded-lg">
+                <div className="flex items-center gap-4">
+                  <Calendar className="h-8 w-8 text-primary" />
+                  <div>
+                    <p className="font-medium">Video Check-in with Nurse Sarah</p>
+                    <p className="text-sm text-muted-foreground">Tomorrow at 10:00 AM</p>
+                  </div>
                 </div>
-                <CardTitle>Schedule Check-in</CardTitle>
+                <Button variant="outline" size="sm">View Details</Button>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Book a video call with your assigned nurse
-              </p>
-              <Button variant="outline" className="w-full">Schedule Now</Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Package className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>Manage Devices</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Add or configure your monitoring devices
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/devices')}>
-                Configure
+              <Button variant="ghost" className="w-full" onClick={() => navigate('/dashboard/schedule')}>
+                View All Appointments
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/dashboard/family')}>
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Users className="h-6 w-6 text-primary" />
+        {/* Recent Notifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Notifications</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 p-4 border rounded-lg">
+                <Shield className="h-5 w-5 text-green-500 mt-0.5" />
+                <div className="flex-1">
+                  <p className="font-medium">Device Sync Complete</p>
+                  <p className="text-sm text-muted-foreground">All your devices are connected and monitoring</p>
+                  <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
                 </div>
-                <CardTitle>Family & Carers</CardTitle>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Invite family members to stay connected
-              </p>
-              <Button variant="outline" className="w-full">Manage Invitations</Button>
-            </CardContent>
-          </Card>
+              <div className="flex items-start gap-4 p-4 border rounded-lg">
+                <Heart className="h-5 w-5 text-blue-500 mt-0.5" />
+                <div className="flex-1">
+                  <p className="font-medium">Health Metrics Updated</p>
+                  <p className="text-sm text-muted-foreground">Your daily health report is ready</p>
+                  <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <MessageSquare className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>AI Guardian</CardTitle>
+        {/* Connected Devices Summary */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Connected Devices</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {deviceCount > 0 ? (
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  You have {deviceCount} device{deviceCount !== 1 ? 's' : ''} actively monitoring your health
+                </p>
+                <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/devices')}>
+                  Manage Devices
+                </Button>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Chat with your AI companion anytime
-              </p>
-              <Button variant="outline" className="w-full" onClick={() => setShowChat(!showChat)}>
-                {showChat ? 'Hide Chat' : 'Start Chat'}
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+            ) : (
+              <div className="text-center py-8">
+                <Package className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground mb-4">No devices connected yet</p>
+                <Button onClick={() => navigate('/dashboard/devices')}>
+                  Add Your First Device
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
-      
-      <div className="lg:col-span-1">
-        {showChat ? (
-          <AIGuardianChat />
-        ) : (
-          <Card className="h-[600px] flex items-center justify-center">
-            <CardContent className="text-center">
-              <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground">
-                Click "Start Chat" to talk with your AI Guardian
-              </p>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    </div>
     </DashboardLayout>
   );
 }
