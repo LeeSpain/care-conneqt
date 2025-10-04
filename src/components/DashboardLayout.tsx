@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Bell, LogOut, Settings, User, Calendar, Package, Users, MessageSquare } from 'lucide-react';
+import { Bell, LogOut, Settings, User, Calendar, Package, Users, MessageSquare, Home } from 'lucide-react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -40,6 +40,15 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           </div>
 
           <nav className="hidden md:flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate('/dashboard')}
+              className="gap-2"
+            >
+              <Home className="h-4 w-4" />
+              Dashboard
+            </Button>
             <Button 
               variant="ghost" 
               size="sm"
