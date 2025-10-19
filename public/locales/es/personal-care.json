@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "title": "Vida Independiente con Tranquilidad 24/7",
+    "description": "Atención dirigida por enfermeras y potenciada por IA que combina dispositivos inteligentes, monitoreo de salud y soporte virtual para personas mayores que envejecen en casa.",
+    "getStarted": "Comenzar",
+    "bookDemo": "Reservar Demo"
+  },
+  "problem": {
+    "title": "El Desafío de Envejecer en Casa",
+    "safety": {
+      "title": "Preocupaciones de Seguridad",
+      "description": "Caídas, desorientación, errores de medicación"
+    },
+    "response": {
+      "title": "Respuesta de Emergencia",
+      "description": "¿Qué pasa si algo sucede?"
+    },
+    "cost": {
+      "title": "Costo de Atención",
+      "description": "La vida asistida cuesta €3.000-€6.000/mes"
+    }
+  },
+  "howItWorks": {
+    "title": "Cómo Funciona",
+    "subtitle": "Comienza en tres simples pasos",
+    "step1": {
+      "title": "Elige Tus Dispositivos",
+      "description": "Selecciona entre relojes inteligentes, colgantes SOS, dispensadores de medicamentos y monitores de salud. Los dispositivos llegan preconfigurados y listos para usar en 3-5 días."
+    },
+    "step2": {
+      "title": "El Guardián IA Aprende Tu Rutina",
+      "description": "Nuestro compañero de IA multilingüe (inglés, español, holandés) monitorea patrones de actividad 24/7, proporciona controles diarios y alerta a las enfermeras sobre cualquier cambio preocupante."
+    },
+    "step3": {
+      "title": "Las Enfermeras Responden Cuando Es Necesario",
+      "description": "Cuando se activan alertas o ocurren emergencias, nuestro centro de llamadas dirigido por enfermeras 24/7 responde inmediatamente. Los paneles familiares mantienen a todos informados en tiempo real."
+    }
+  },
+  "features": {
+    "title": "Solución de Cuidado Completa",
+    "subtitle": "Todo lo que necesitas para vivir de forma independiente"
+  },
+  "whoItsFor": {
+    "title": "Para Quién Es",
+    "subtitle": "Diseñado para diversas necesidades de cuidado"
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen las Familias",
+    "subtitle": "Historias reales de nuestra comunidad Care Conneqt",
+    "averageRating": "Calificación Promedio"
+  },
+  "calculator": {
+    "title": "Construye Tu Paquete de Cuidado",
+    "subtitle": "Personaliza tu plan",
+    "basePackage": "Paquete Base",
+    "additionalDevices": "Dispositivos Adicionales",
+    "familyDashboards": "Paneles Familiares",
+    "monthlyTotal": "Total Mensual",
+    "getStarted": "Comenzar Ahora"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Todo lo que necesitas saber"
+  },
+  "guarantee": {
+    "title": "Nuestro Compromiso Contigo",
+    "subtitle": "Precios transparentes. Garantía sin riesgo. Tu tranquilidad.",
+    "agreement": "Acuerdo de 24 Meses",
+    "noSetup": "Sin Tarifas de Configuración",
+    "protection": "Protección de Dispositivos",
+    "uptime": "99.9% de Tiempo Activo"
+  },
+  "finalCTA": {
+    "title": "¿Listo para Comenzar?",
+    "description": "Únete a miles de familias en toda Europa",
+    "button": "Comienza Tu Prueba Gratuita"
+  }
+}

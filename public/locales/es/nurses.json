@@ -1,0 +1,9 @@
+{
+  "title": "Nuestras Enfermeras",
+  "subtitle": "Equipo de atención profesional disponible 24/7",
+  "stats": {
+    "nurses": "Enfermeras Profesionales",
+    "response": "Tiempo de Respuesta Promedio",
+    "satisfaction": "Satisfacción del Paciente"
+  }
+}

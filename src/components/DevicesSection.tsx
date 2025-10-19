@@ -1,7 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const DevicesSection = () => {
+  const { t } = useTranslation('home');
+  
   const devices = [
     {
       icon: Watch,
@@ -66,10 +69,10 @@ export const DevicesSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold font-['Poppins'] text-primary mb-4">
-            Connected Device Ecosystem
+            {t('devices.title')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Medical-grade devices that seamlessly integrate with our AI-powered care platform
+            {t('devices.subtitle')}
           </p>
         </div>
 

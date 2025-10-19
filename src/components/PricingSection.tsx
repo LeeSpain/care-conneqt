@@ -2,8 +2,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 export const PricingSection = () => {
+  const { t } = useTranslation('home');
+  
   const packages = [
     {
       name: "Base Membership",
@@ -70,10 +73,10 @@ export const PricingSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold font-['Poppins'] text-primary mb-4">
-            Flexible Pricing Plans
+            {t('pricing.title')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose the right level of care for your needs. All plans include multilingual support.
+            {t('pricing.subtitle')}
           </p>
         </div>
 
@@ -89,7 +92,7 @@ export const PricingSection = () => {
             >
               {pkg.popular && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white">
-                  Most Popular
+                  {t('pricing.tiers.independent.popular')}
                 </Badge>
               )}
               <CardHeader>
@@ -116,7 +119,7 @@ export const PricingSection = () => {
                       : 'bg-primary hover:bg-primary/90'
                   }`}
                 >
-                  Get Started
+                  {t('buttons.getStarted', 'Get Started')}
                 </Button>
               </CardContent>
             </Card>
@@ -125,10 +128,10 @@ export const PricingSection = () => {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground mb-4">
-            Add Family/Carer Dashboards for just <span className="font-semibold text-secondary">€2.99/month</span> per user
+            {t('pricing.addons.title')} <span className="font-semibold text-secondary">€2.99/month</span> {t('pricing.addons.subtitle')}
           </p>
           <Button variant="outline" size="lg">
-            View All Add-ons & Devices
+            {t('buttons.viewAll', 'View All Add-ons & Devices')}
           </Button>
         </div>
       </div>

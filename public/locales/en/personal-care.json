@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "title": "Independent Living with 24/7 Peace of Mind",
+    "description": "Nurse-led, AI-powered care combining smart devices, health monitoring, and virtual support for seniors aging at home.",
+    "getStarted": "Get Started",
+    "bookDemo": "Book a Demo"
+  },
+  "problem": {
+    "title": "The Challenge of Aging at Home",
+    "safety": {
+      "title": "Safety Concerns",
+      "description": "Falls, wandering, medication errors"
+    },
+    "response": {
+      "title": "Emergency Response",
+      "description": "What if something happens?"
+    },
+    "cost": {
+      "title": "Cost of Care",
+      "description": "Assisted living costs €3,000-€6,000/month"
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Get started in three simple steps",
+    "step1": {
+      "title": "Choose Your Devices",
+      "description": "Select from smart watches, SOS pendants, medication dispensers, and health monitors. Devices arrive pre-configured and ready to use in 3-5 days."
+    },
+    "step2": {
+      "title": "AI Guardian Learns Your Routine",
+      "description": "Our multilingual AI companion (English, Spanish, Dutch) monitors activity patterns 24/7, provides daily check-ins, and alerts nurses to any concerning changes."
+    },
+    "step3": {
+      "title": "Nurses Respond When Needed",
+      "description": "When alerts trigger or emergencies occur, our 24/7 nurse-led call center responds immediately. Family dashboards keep everyone informed in real-time."
+    }
+  },
+  "features": {
+    "title": "Complete Care Solution",
+    "subtitle": "Everything you need for independent living"
+  },
+  "whoItsFor": {
+    "title": "Who It's For",
+    "subtitle": "Designed for various care needs"
+  },
+  "testimonials": {
+    "title": "What Families Are Saying",
+    "subtitle": "Real stories from our Care Conneqt community",
+    "averageRating": "Average Rating"
+  },
+  "calculator": {
+    "title": "Build Your Care Package",
+    "subtitle": "Customize your plan",
+    "basePackage": "Base Package",
+    "additionalDevices": "Additional Devices",
+    "familyDashboards": "Family Dashboards",
+    "monthlyTotal": "Monthly Total",
+    "getStarted": "Get Started Now"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know"
+  },
+  "guarantee": {
+    "title": "Our Commitment to You",
+    "subtitle": "Transparent pricing. Risk-free guarantee. Your peace of mind.",
+    "agreement": "24-Month Agreement",
+    "noSetup": "No Setup Fees",
+    "protection": "Device Protection",
+    "uptime": "99.9% Uptime"
+  },
+  "finalCTA": {
+    "title": "Ready to Get Started?",
+    "description": "Join thousands of families across Europe",
+    "button": "Start Your Free Trial"
+  }
+}

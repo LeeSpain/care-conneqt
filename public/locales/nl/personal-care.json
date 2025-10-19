@@ -1,0 +1,78 @@
+{
+  "hero": {
+    "title": "Zelfstandig Leven met 24/7 Gemoedsrust",
+    "description": "Door verpleegkundigen geleide, AI-aangedreven zorg die slimme apparaten, gezondheidsmonitoring en virtuele ondersteuning combineert voor senioren die thuis ouder worden.",
+    "getStarted": "Begin Nu",
+    "bookDemo": "Demo Boeken"
+  },
+  "problem": {
+    "title": "De Uitdaging van Thuis Ouder Worden",
+    "safety": {
+      "title": "Veiligheidszorgen",
+      "description": "Vallen, dwalen, medicatiefouten"
+    },
+    "response": {
+      "title": "Noodhulp",
+      "description": "Wat als er iets gebeurt?"
+    },
+    "cost": {
+      "title": "Zorgkosten",
+      "description": "Begeleid wonen kost €3.000-€6.000/maand"
+    }
+  },
+  "howItWorks": {
+    "title": "Hoe Het Werkt",
+    "subtitle": "Begin in drie eenvoudige stappen",
+    "step1": {
+      "title": "Kies Uw Apparaten",
+      "description": "Selecteer uit smartwatches, SOS-hangers, medicijndispensers en gezondheidsmonitoren. Apparaten komen vooraf geconfigureerd en klaar voor gebruik binnen 3-5 dagen."
+    },
+    "step2": {
+      "title": "AI Bewaker Leert Uw Routine",
+      "description": "Onze meertalige AI-metgezel (Engels, Spaans, Nederlands) monitort activiteitspatronen 24/7, biedt dagelijkse check-ins en waarschuwt verpleegkundigen bij verontrustende veranderingen."
+    },
+    "step3": {
+      "title": "Verpleegkundigen Reageren Indien Nodig",
+      "description": "Wanneer waarschuwingen worden geactiveerd of noodsituaties zich voordoen, reageert ons 24/7 callcenter onder leiding van verpleegkundigen onmiddellijk. Gezinsdashboards houden iedereen in realtime geïnformeerd."
+    }
+  },
+  "features": {
+    "title": "Complete Zorgoplossing",
+    "subtitle": "Alles wat u nodig heeft voor zelfstandig leven"
+  },
+  "whoItsFor": {
+    "title": "Voor Wie Het Is",
+    "subtitle": "Ontworpen voor verschillende zorgbehoeften"
+  },
+  "testimonials": {
+    "title": "Wat Gezinnen Zeggen",
+    "subtitle": "Echte verhalen van onze Care Conneqt gemeenschap",
+    "averageRating": "Gemiddelde Beoordeling"
+  },
+  "calculator": {
+    "title": "Bouw Uw Zorgpakket",
+    "subtitle": "Pas uw plan aan",
+    "basePackage": "Basispakket",
+    "additionalDevices": "Extra Apparaten",
+    "familyDashboards": "Gezinsdashboards",
+    "monthlyTotal": "Maandelijks Totaal",
+    "getStarted": "Nu Beginnen"
+  },
+  "faq": {
+    "title": "Veelgestelde Vragen",
+    "subtitle": "Alles wat u moet weten"
+  },
+  "guarantee": {
+    "title": "Onze Toewijding aan U",
+    "subtitle": "Transparante prijzen. Risicovrije garantie. Uw gemoedsrust.",
+    "agreement": "24 Maanden Overeenkomst",
+    "noSetup": "Geen Installatiekosten",
+    "protection": "Apparaatbescherming",
+    "uptime": "99.9% Uptime"
+  },
+  "finalCTA": {
+    "title": "Klaar om te Beginnen?",
+    "description": "Sluit u aan bij duizenden gezinnen in heel Europa",
+    "button": "Start Uw Gratis Proefperiode"
+  }
+}

@@ -1,7 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot, MessageCircle, Brain, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const AISection = () => {
+  const { t } = useTranslation('home');
+  
   const aiAgents = [
     {
       icon: MessageCircle,
@@ -32,10 +35,10 @@ export const AISection = () => {
             AI-Powered Intelligence
           </div>
           <h2 className="text-4xl font-bold font-['Poppins'] text-primary mb-4">
-            Three AI Agents Working for You
+            {t('ai.title')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Advanced artificial intelligence that enhances human care, never replaces it
+            {t('ai.subtitle')}
           </p>
         </div>
 

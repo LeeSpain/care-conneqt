@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "title": "Enterprise Zorgoplossingen",
+    "subtitle": "Schaalbare oplossingen voor instellingen",
+    "getStarted": "Contact Verkoop"
+  },
+  "solutions": {
+    "title": "Oplossingstypes",
+    "careHomes": "Verpleeghuizen",
+    "municipalities": "Gemeenten",
+    "insurers": "Verzekeraars",
+    "employers": "Werkgevers"
+  },
+  "features": {
+    "title": "Enterprise Functies",
+    "subtitle": "Gebouwd voor schaal en compliance"
+  },
+  "pricing": {
+    "title": "Volumeprijzen",
+    "subtitle": "Flexibele contracten voor uw behoeften"
+  },
+  "compliance": {
+    "title": "Compliance & Beveiliging",
+    "gdpr": "AVG-Conform",
+    "iso": "ISO 27001 Gecertificeerd",
+    "hipaa": "HIPAA Klaar"
+  },
+  "contact": {
+    "title": "Neem Contact Op",
+    "subtitle": "Laten we uw behoeften bespreken",
+    "name": "Naam",
+    "email": "E-mail",
+    "company": "Bedrijf",
+    "message": "Bericht",
+    "submit": "Verstuur Bericht"
+  }
+}

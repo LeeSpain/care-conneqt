@@ -1,26 +1,29 @@
 import { Shield, Globe, Lock, Award, Phone, Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import facilityImage from "@/assets/facility-dashboard.jpg";
 
 export const TrustSection = () => {
+  const { t } = useTranslation('home');
+  
   const trustFactors = [
     {
       icon: Shield,
-      title: "GDPR Compliant",
+      title: t('trust.compliant'),
       description: "Full EU data protection compliance"
     },
     {
       icon: Globe,
       title: "Multi-Country",
-      description: "Spain, UK, Netherlands coverage"
+      description: t('footer.operating')
     },
     {
       icon: Lock,
-      title: "Secure Hosting",
+      title: t('trust.encrypted'),
       description: "EU-based encrypted infrastructure"
     },
     {
       icon: Award,
-      title: "Medical Grade",
+      title: t('trust.medical'),
       description: "CE certified devices and protocols"
     },
     {
@@ -40,7 +43,7 @@ export const TrustSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold font-['Poppins'] text-primary mb-4">
-            Trust & Compliance
+            {t('trust.title')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Enterprise-grade security and healthcare compliance you can rely on

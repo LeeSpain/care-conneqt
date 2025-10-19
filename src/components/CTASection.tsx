@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const CTASection = () => {
+  const { t } = useTranslation('home');
+  
   return (
     <section className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,11 +15,10 @@ export const CTASection = () => {
             
             <div className="relative text-center space-y-6">
               <h2 className="text-4xl font-bold font-['Poppins']">
-                Ready to Get Started?
+                {t('cta.title')}
               </h2>
               <p className="text-xl text-white/90 max-w-2xl mx-auto">
-                Join thousands of families and hundreds of institutions providing better care 
-                with AI-powered, nurse-led remote monitoring.
+                {t('cta.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -26,7 +28,7 @@ export const CTASection = () => {
                   asChild
                 >
                   <a href="/auth/signup">
-                    Get Started
+                    {t('buttons.getStarted')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </Button>
@@ -36,22 +38,22 @@ export const CTASection = () => {
                   className="border-2 border-white text-white hover:bg-white/10"
                 >
                   <Phone className="mr-2 h-4 w-4" />
-                  Book a Demo
+                  {t('buttons.bookDemo')}
                 </Button>
               </div>
 
               <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-white/80">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  No setup fees
+                  {t('hero.benefits.noSetup')}
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  24-month service agreement
+                  {t('hero.benefits.agreement')}
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-green" />
-                  Device protection included
+                  {t('hero.benefits.protection')}
                 </div>
               </div>
             </div>
