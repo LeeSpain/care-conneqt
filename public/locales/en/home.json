@@ -40,92 +40,188 @@
     }
   },
   "pricing": {
-    "title": "Choose Your Care Package",
-    "subtitle": "Transparent pricing. No hidden fees. Cancel anytime after 24 months.",
+    "title": "Flexible Care Plans",
+    "subtitle": "Choose the right level of support",
+    "perMonth": "/month",
     "tiers": {
       "base": {
-        "name": "Base Package",
-        "price": "€49.99",
-        "description": "Essential monitoring and support",
-        "features": {
-          "watch": "Smart Watch (Fall Detection)",
-          "pendant": "SOS Pendant",
-          "ai": "AI Guardian (3 languages)",
-          "nurses": "24/7 Nurse Call Center",
-          "dashboard": "Family Dashboard"
-        }
+        "name": "Base Membership",
+        "price": "49.99",
+        "description": "Essential care for independent living",
+        "features": [
+          "1 Device (Vivago Watch or SOS Pendant)",
+          "AI Guardian (EN/ES/NL)",
+          "Member Dashboard",
+          "Monthly Nurse Check-in",
+          "24/7 Emergency Call Center",
+          "Clinical notes & family notifications"
+        ]
       },
       "independent": {
         "name": "Independent Living",
-        "price": "€89.99",
+        "price": "69.99",
+        "description": "Enhanced monitoring and emergency response",
         "popular": "Most Popular",
-        "description": "Everything in Base, plus:",
-        "features": {
-          "motion": "Motion Sensors (3 rooms)",
-          "door": "Door/Window Sensors (2)",
-          "checkIns": "Daily AI Check-ins",
-          "reports": "Weekly Health Reports",
-          "family": "2 Family Dashboards"
-        }
+        "features": [
+          "Everything in Base Membership",
+          "2 Devices included",
+          "Weekly Nurse Check-ins",
+          "Priority Emergency Response",
+          "Advanced Activity Monitoring",
+          "Family Dashboard (2 users)"
+        ]
       },
       "chronic": {
-        "name": "Chronic Disease",
-        "price": "€139.99",
-        "description": "Everything in Independent Living, plus:",
-        "features": {
-          "bp": "Blood Pressure Monitor",
-          "glucose": "Glucose Monitor",
-          "scale": "Smart Weight Scale",
-          "medication": "Medication Dispenser",
-          "monitoring": "Continuous Health Monitoring"
-        }
+        "name": "Chronic Disease Mgmt",
+        "price": "119.99",
+        "description": "Comprehensive health monitoring",
+        "features": [
+          "Everything in Independent Living",
+          "4 Devices (health monitoring suite)",
+          "Daily Nurse Monitoring",
+          "Medication Management",
+          "Vital Signs Tracking",
+          "Care Coordinator",
+          "Unlimited Family Dashboards"
+        ]
       },
       "mental": {
-        "name": "Mental Health Support",
-        "price": "€69.99",
-        "description": "Specialized mental wellness monitoring",
-        "features": {
-          "watch": "Smart Watch (Stress & Sleep)",
-          "companion": "AI Wellness Companion",
-          "nurses": "Mental Health Nurses",
-          "checkIns": "Daily Mood Check-ins",
-          "dashboard": "Family Dashboard"
-        }
+        "name": "Mental Health & Wellness",
+        "price": "159.99",
+        "description": "Complete support with therapy access",
+        "features": [
+          "Everything in Chronic Disease Mgmt",
+          "Weekly Therapy Sessions",
+          "Mental Health Specialist",
+          "Social Wellness Activities",
+          "Mood & Anxiety Tracking",
+          "Crisis Intervention Support",
+          "Caregiver Support Programs"
+        ]
       }
     },
     "addons": {
       "title": "Additional Devices",
-      "subtitle": "Customize your package"
+      "subtitle": "to customize your care package"
     }
   },
   "devices": {
     "title": "Medical-Grade Devices",
-    "subtitle": "Pre-configured and ready to use"
-  },
-  "ai": {
-    "title": "AI-Powered Care Team",
-    "subtitle": "Intelligent support working alongside our nurses",
-    "agents": {
-      "sales": {
-        "name": "Sales & Support Agent",
-        "description": "Instant answers about services, pricing, and setup"
+    "subtitle": "Connected health monitoring you can trust",
+    "allInclude": "All devices include:",
+    "includeDetails": "12-month lease, free shipping, setup support, 24/7 technical assistance, automatic replacement, and seamless integration with your AI Guardian and nurse dashboard.",
+    "quality": "Medical-grade quality • GDPR compliant • No purchase required",
+    "items": {
+      "watch": {
+        "name": "Vivago Smart Watch",
+        "description": "24/7 activity and wellness monitoring with fall detection",
+        "price": "Included in Base / +€19.99"
       },
-      "guardian": {
-        "name": "AI Guardian",
-        "description": "24/7 activity monitoring, daily check-ins, and smart alerts"
+      "pendant": {
+        "name": "SOS Pendant",
+        "description": "One-touch emergency alert system with GPS",
+        "price": "Alternative Base / +€19.99"
       },
-      "nurse": {
-        "name": "Nurse AI Assistant",
-        "description": "Clinical decision support and patient insights"
+      "domi": {
+        "name": "Vivago Domi",
+        "description": "Home movement and safety sensors",
+        "price": "+€29.99/month"
+      },
+      "dispenser": {
+        "name": "Dosell Smart Dispenser",
+        "description": "Automated medication reminders and tracking",
+        "price": "+€34.99/month"
+      },
+      "calendar": {
+        "name": "BBrain Calendar Clock",
+        "description": "Memory support with visual reminders",
+        "price": "+€19.99/month"
+      },
+      "monitors": {
+        "name": "Health Monitors",
+        "description": "Blood pressure, glucose, and vital signs tracking",
+        "price": "+€14.99/month each"
+      },
+      "scale": {
+        "name": "Smart Weight Scale",
+        "description": "Body composition tracking with automatic sync",
+        "price": "+€14.99/month"
+      },
+      "thermometer": {
+        "name": "Smart Thermometer",
+        "description": "Contactless temperature monitoring",
+        "price": "+€14.99/month"
       }
     }
   },
+  "ai": {
+    "badge": "AI-Powered Intelligence",
+    "title": "AI-Powered Care Team",
+    "subtitle": "Multilingual AI agents working alongside nurses",
+    "agents": {
+      "sales": {
+        "name": "AI Sales & Support",
+        "description": "24/7 multilingual assistant for enquiries, sign-ups, and customer support",
+        "features": ["Instant responses", "Lead capture", "Smart upselling"]
+      },
+      "guardian": {
+        "name": "AI Guardian",
+        "description": "Your personal health companion with proactive monitoring and daily check-ins",
+        "features": ["Daily wellness", "Mood tracking", "Emergency escalation"]
+      },
+      "nurse": {
+        "name": "Nurse AI Assistant",
+        "description": "Backend intelligence that helps nurses monitor multiple clients efficiently",
+        "features": ["Risk scoring", "Report drafting", "Anomaly detection"]
+      }
+    },
+    "privacy": {
+      "title": "Privacy-First AI",
+      "description": "All AI processing is GDPR compliant with EU-based hosting. Your data never leaves secure servers, and AI insights are always reviewed by qualified nurses before any action is taken."
+    }
+  },
   "trust": {
-    "title": "Trusted by Families Across Europe",
+    "title": "Built on Trust & Compliance",
+    "subtitle": "Enterprise-grade security and healthcare compliance you can rely on",
     "compliant": "GDPR Compliant",
-    "certified": "ISO 27001 Certified",
-    "medical": "Medical-Grade Devices",
-    "encrypted": "End-to-End Encrypted"
+    "encrypted": "End-to-End Encrypted",
+    "medical": "Medical-Grade Certified",
+    "factors": {
+      "compliant": {
+        "title": "GDPR Compliant",
+        "description": "Full EU data protection compliance"
+      },
+      "multiCountry": {
+        "title": "Multi-Country",
+        "description": "Operating in Spain, UK, and Netherlands"
+      },
+      "encrypted": {
+        "title": "End-to-End Encrypted",
+        "description": "EU-based encrypted infrastructure"
+      },
+      "medical": {
+        "title": "Medical-Grade Certified",
+        "description": "CE certified devices and protocols"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Always-on emergency response"
+      },
+      "nurseLed": {
+        "title": "Nurse-Led Care",
+        "description": "Qualified healthcare professionals"
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise Ready",
+      "description": "Our platform is trusted by care facilities, insurers, and municipalities across Europe. With white-label options, dedicated account management, and comprehensive API integrations, we scale with your organization.",
+      "imageAlt": "Care Conneqt facility dashboard monitoring",
+      "stats": {
+        "facilities": "Facilities",
+        "residents": "Residents",
+        "uptime": "Uptime"
+      }
+    }
   },
   "cta": {
     "title": "Ready to Get Started?",

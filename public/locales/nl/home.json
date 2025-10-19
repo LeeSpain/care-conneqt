@@ -40,62 +40,69 @@
     }
   },
   "pricing": {
-    "title": "Kies Uw Zorgpakket",
-    "subtitle": "Transparante prijzen. Geen verborgen kosten. Annuleer op elk moment na 24 maanden.",
+    "title": "Flexibele Zorgplannen",
+    "subtitle": "Kies het juiste ondersteuningsniveau",
+    "perMonth": "/maand",
     "tiers": {
       "base": {
-        "name": "Basispakket",
-        "price": "€49,99",
-        "description": "Essentiële monitoring en ondersteuning",
-        "features": {
-          "watch": "Smartwatch (Valdetectie)",
-          "pendant": "SOS-Hanger",
-          "ai": "AI Bewaker (3 talen)",
-          "nurses": "24/7 Verpleegkundige Callcenter",
-          "dashboard": "Gezinsdashboard"
-        }
+        "name": "Basis Lidmaatschap",
+        "price": "49.99",
+        "description": "Essentiële zorg voor zelfstandig leven",
+        "features": [
+          "1 Apparaat (Vivago Horloge of SOS Hanger)",
+          "AI Bewaker (EN/ES/NL)",
+          "Leden Dashboard",
+          "Maandelijkse Verpleegkundige Check",
+          "24/7 Noodcallcenter",
+          "Klinische notities en gezinsmeldingen"
+        ]
       },
       "independent": {
         "name": "Zelfstandig Leven",
-        "price": "€89,99",
+        "price": "69.99",
+        "description": "Verbeterde monitoring en noodhulp",
         "popular": "Meest Populair",
-        "description": "Alles in Basis, plus:",
-        "features": {
-          "motion": "Bewegingssensoren (3 kamers)",
-          "door": "Deur/Raamsensoren (2)",
-          "checkIns": "Dagelijkse AI Check-ins",
-          "reports": "Wekelijkse Gezondheidsrapporten",
-          "family": "2 Gezinsdashboards"
-        }
+        "features": [
+          "Alles in Basis Lidmaatschap",
+          "2 Apparaten inbegrepen",
+          "Wekelijkse Verpleegkundige Checks",
+          "Prioriteit Noodhulp",
+          "Geavanceerde Activiteitsmonitoring",
+          "Gezinsdashboard (2 gebruikers)"
+        ]
       },
       "chronic": {
-        "name": "Chronische Ziekte",
-        "price": "€139,99",
-        "description": "Alles in Zelfstandig Leven, plus:",
-        "features": {
-          "bp": "Bloeddrukmeter",
-          "glucose": "Glucosemeter",
-          "scale": "Slimme Weegschaal",
-          "medication": "Medicijndispenser",
-          "monitoring": "Continue Gezondheidsmonitoring"
-        }
+        "name": "Chronische Ziektebeheer",
+        "price": "119.99",
+        "description": "Uitgebreide gezondheidsmonitoring",
+        "features": [
+          "Alles in Zelfstandig Leven",
+          "4 Apparaten (gezondheidsmonitoringsuite)",
+          "Dagelijkse Verpleegkundige Monitoring",
+          "Medicatiebeheer",
+          "Vitale Functies Tracking",
+          "Zorgcoördinator",
+          "Onbeperkte Gezinsdashboards"
+        ]
       },
       "mental": {
-        "name": "Geestelijke Gezondheidsondersteuning",
-        "price": "€69,99",
-        "description": "Gespecialiseerde monitoring van mentaal welzijn",
-        "features": {
-          "watch": "Smartwatch (Stress en Slaap)",
-          "companion": "AI Welzijnsmetgezel",
-          "nurses": "Verpleegkundigen Geestelijke Gezondheid",
-          "checkIns": "Dagelijkse Stemmingscontroles",
-          "dashboard": "Gezinsdashboard"
-        }
+        "name": "Geestelijke Gezondheid & Welzijn",
+        "price": "159.99",
+        "description": "Volledige ondersteuning met therapietoegang",
+        "features": [
+          "Alles in Chronische Ziektebeheer",
+          "Wekelijkse Therapiesessies",
+          "Geestelijke Gezondheid Specialist",
+          "Sociale Welzijnsactiviteiten",
+          "Stemming & Angst Tracking",
+          "Crisis Interventie Ondersteuning",
+          "Mantelzorger Ondersteuningsprogramma's"
+        ]
       }
     },
     "addons": {
       "title": "Extra Apparaten",
-      "subtitle": "Pas uw pakket aan"
+      "subtitle": "om uw zorgpakket aan te passen"
     }
   },
   "devices": {

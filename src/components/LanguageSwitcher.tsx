@@ -22,7 +22,8 @@ export const LanguageSwitcher = () => {
     localStorage.setItem('i18nextLng', lng);
   };
 
-  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+  const currentLang = i18n.language.split('-')[0];
+  const currentLanguage = languages.find(lang => lang.code === currentLang) || languages[0];
 
   return (
     <DropdownMenu>
@@ -38,7 +39,7 @@ export const LanguageSwitcher = () => {
           <DropdownMenuItem
             key={language.code}
             onClick={() => changeLanguage(language.code)}
-            className={i18n.language === language.code ? 'bg-accent' : ''}
+            className={currentLang === language.code ? 'bg-accent' : ''}
           >
             <span className="mr-2">{language.flag}</span>
             {language.name}

@@ -3,70 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "@/lib/intl";
 
 export const PricingSection = () => {
-  const { t } = useTranslation('home');
-  
-  const packages = [
-    {
-      name: "Base Membership",
-      price: "49.99",
-      description: "Essential care for independent living",
-      features: [
-        "1 Device (Vivago Watch or SOS Pendant)",
-        "AI Guardian (EN/ES/NL)",
-        "Member Dashboard",
-        "Monthly Nurse Check-in",
-        "24/7 Emergency Call Center",
-        "Clinical notes & family notifications"
-      ],
-      popular: false
-    },
-    {
-      name: "Independent Living",
-      price: "69.99",
-      description: "Enhanced monitoring and emergency response",
-      features: [
-        "Everything in Base Membership",
-        "2 Devices included",
-        "Weekly Nurse Check-ins",
-        "Priority Emergency Response",
-        "Advanced Activity Monitoring",
-        "Family Dashboard (2 users)"
-      ],
-      popular: true
-    },
-    {
-      name: "Chronic Disease Mgmt",
-      price: "119.99",
-      description: "Comprehensive health monitoring",
-      features: [
-        "Everything in Independent Living",
-        "4 Devices (health monitoring suite)",
-        "Daily Nurse Monitoring",
-        "Medication Management",
-        "Vital Signs Tracking",
-        "Care Coordinator",
-        "Unlimited Family Dashboards"
-      ],
-      popular: false
-    },
-    {
-      name: "Mental Health & Wellness",
-      price: "159.99",
-      description: "Complete support with therapy access",
-      features: [
-        "Everything in Chronic Disease Mgmt",
-        "Weekly Therapy Sessions",
-        "Mental Health Specialist",
-        "Social Wellness Activities",
-        "Mood & Anxiety Tracking",
-        "Crisis Intervention Support",
-        "Caregiver Support Programs"
-      ],
-      popular: false
-    }
-  ];
+  const { t, i18n } = useTranslation('home');
 
   return (
     <section id="pricing" className="py-20">
@@ -81,31 +21,35 @@ export const PricingSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {packages.map((pkg) => (
+          {['base', 'independent', 'chronic', 'mental'].map((tier) => (
             <Card 
-              key={pkg.name}
+              key={tier}
               className={`relative ${
-                pkg.popular 
+                tier === 'independent'
                   ? 'border-2 border-secondary shadow-xl scale-105' 
                   : 'border hover:border-secondary/50'
               } transition-all duration-300`}
             >
-              {pkg.popular && (
+              {tier === 'independent' && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white">
-                  {t('pricing.tiers.independent.popular')}
+                  {t(`pricing.tiers.${tier}.popular`)}
                 </Badge>
               )}
               <CardHeader>
-                <CardTitle className="text-xl font-['Poppins']">{pkg.name}</CardTitle>
-                <CardDescription>{pkg.description}</CardDescription>
+                <CardTitle className="text-xl font-['Poppins']">
+                  {t(`pricing.tiers.${tier}.name`)}
+                </CardTitle>
+                <CardDescription>{t(`pricing.tiers.${tier}.description`)}</CardDescription>
                 <div className="pt-4">
-                  <span className="text-4xl font-bold text-primary">€{pkg.price}</span>
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-4xl font-bold text-primary">
+                    {formatCurrency(parseFloat(t(`pricing.tiers.${tier}.price`)), 'EUR', i18n.language)}
+                  </span>
+                  <span className="text-muted-foreground">{t('pricing.perMonth')}</span>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <ul className="space-y-3">
-                  {pkg.features.map((feature, idx) => (
+                  {(t(`pricing.tiers.${tier}.features`, { returnObjects: true }) as string[]).map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <Check className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-muted-foreground">{feature}</span>
@@ -114,12 +58,12 @@ export const PricingSection = () => {
                 </ul>
                 <Button 
                   className={`w-full ${
-                    pkg.popular 
+                    tier === 'independent'
                       ? 'bg-secondary hover:bg-secondary/90' 
                       : 'bg-primary hover:bg-primary/90'
                   }`}
                 >
-                  {t('buttons.getStarted', 'Get Started')}
+                  {t('common:buttons.getStarted')}
                 </Button>
               </CardContent>
             </Card>
@@ -128,10 +72,10 @@ export const PricingSection = () => {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground mb-4">
-            {t('pricing.addons.title')} <span className="font-semibold text-secondary">€2.99/month</span> {t('pricing.addons.subtitle')}
+            {t('pricing.addons.title')} <span className="font-semibold text-secondary">{formatCurrency(2.99, 'EUR', i18n.language)}{t('pricing.perMonth')}</span> {t('pricing.addons.subtitle')}
           </p>
           <Button variant="outline" size="lg">
-            {t('buttons.viewAll', 'View All Add-ons & Devices')}
+            {t('common:buttons.viewAll')}
           </Button>
         </div>
       </div>

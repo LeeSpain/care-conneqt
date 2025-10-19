@@ -3,7 +3,18 @@
     "title": "Independent Living with 24/7 Peace of Mind",
     "description": "Nurse-led, AI-powered care combining smart devices, health monitoring, and virtual support for seniors aging at home.",
     "getStarted": "Get Started",
-    "bookDemo": "Book a Demo"
+    "bookDemo": "Book a Demo",
+    "benefits": {
+      "agreement": "24-Month Service Agreement",
+      "noSetup": "No Setup Fees",
+      "protection": "Device Protection Included"
+    },
+    "stats": {
+      "members": "Active Members",
+      "satisfaction": "Satisfaction Rate",
+      "countries": "Countries Covered"
+    },
+    "imageAlt": "Senior living independently with Care Conneqt smart health monitoring"
   },
   "problem": {
     "title": "The Challenge of Aging at Home",
@@ -38,7 +49,33 @@
   },
   "features": {
     "title": "Complete Care Solution",
-    "subtitle": "Everything you need for independent living"
+    "subtitle": "Everything you need for independent living",
+    "items": {
+      "aiGuardian": {
+        "title": "AI Guardian",
+        "description": "24/7 multilingual companion (EN/ES/NL) for daily check-ins, medication reminders, and proactive health monitoring"
+      },
+      "devices": {
+        "title": "Health Monitoring Devices",
+        "description": "Vivago watches, BBrain sleep monitors, medication dispensers, and vital sign trackers that sync automatically"
+      },
+      "nurseSupport": {
+        "title": "24/7 Nurse Support",
+        "description": "Emergency call center + scheduled check-ins (monthly, weekly, or daily depending on your plan)"
+      },
+      "familyDashboard": {
+        "title": "Family Dashboard",
+        "description": "Real-time updates, activity reports, and instant alerts shared with designated family members and carers"
+      },
+      "emergency": {
+        "title": "Emergency Response",
+        "description": "Priority escalation protocols with GPS tracking, fall detection, and direct nurse communication"
+      },
+      "peaceOfMind": {
+        "title": "Peace of Mind",
+        "description": "GDPR compliant, medical-grade devices, encrypted data, and nurse-led care you can trust"
+      }
+    }
   },
   "whoItsFor": {
     "title": "Who It's For",

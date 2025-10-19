@@ -40,62 +40,69 @@
     }
   },
   "pricing": {
-    "title": "Elige Tu Paquete de Cuidado",
-    "subtitle": "Precios transparentes. Sin tarifas ocultas. Cancela en cualquier momento después de 24 meses.",
+    "title": "Planes de Atención Flexibles",
+    "subtitle": "Elija el nivel adecuado de soporte",
+    "perMonth": "/mes",
     "tiers": {
       "base": {
-        "name": "Paquete Base",
-        "price": "€49,99",
-        "description": "Monitoreo y soporte esencial",
-        "features": {
-          "watch": "Reloj Inteligente (Detección de Caídas)",
-          "pendant": "Colgante SOS",
-          "ai": "Guardián IA (3 idiomas)",
-          "nurses": "Centro de Llamadas de Enfermeras 24/7",
-          "dashboard": "Panel Familiar"
-        }
+        "name": "Membresía Base",
+        "price": "49.99",
+        "description": "Atención esencial para vida independiente",
+        "features": [
+          "1 Dispositivo (Reloj Vivago o Colgante SOS)",
+          "Guardián IA (EN/ES/NL)",
+          "Panel de Miembro",
+          "Chequeo Mensual de Enfermera",
+          "Centro de Llamadas de Emergencia 24/7",
+          "Notas clínicas y notificaciones familiares"
+        ]
       },
       "independent": {
         "name": "Vida Independiente",
-        "price": "€89,99",
+        "price": "69.99",
+        "description": "Monitoreo mejorado y respuesta a emergencias",
         "popular": "Más Popular",
-        "description": "Todo en Base, más:",
-        "features": {
-          "motion": "Sensores de Movimiento (3 habitaciones)",
-          "door": "Sensores de Puerta/Ventana (2)",
-          "checkIns": "Controles Diarios de IA",
-          "reports": "Informes de Salud Semanales",
-          "family": "2 Paneles Familiares"
-        }
+        "features": [
+          "Todo en Membresía Base",
+          "2 Dispositivos incluidos",
+          "Chequeos Semanales de Enfermera",
+          "Respuesta de Emergencia Prioritaria",
+          "Monitoreo de Actividad Avanzado",
+          "Panel Familiar (2 usuarios)"
+        ]
       },
       "chronic": {
-        "name": "Enfermedad Crónica",
-        "price": "€139,99",
-        "description": "Todo en Vida Independiente, más:",
-        "features": {
-          "bp": "Monitor de Presión Arterial",
-          "glucose": "Monitor de Glucosa",
-          "scale": "Báscula Inteligente",
-          "medication": "Dispensador de Medicamentos",
-          "monitoring": "Monitoreo Continuo de Salud"
-        }
+        "name": "Gestión de Enfermedades Crónicas",
+        "price": "119.99",
+        "description": "Monitoreo de salud integral",
+        "features": [
+          "Todo en Vida Independiente",
+          "4 Dispositivos (suite de monitoreo)",
+          "Monitoreo Diario de Enfermera",
+          "Gestión de Medicamentos",
+          "Seguimiento de Signos Vitales",
+          "Coordinador de Atención",
+          "Paneles Familiares Ilimitados"
+        ]
       },
       "mental": {
-        "name": "Apoyo de Salud Mental",
-        "price": "€69,99",
-        "description": "Monitoreo especializado de bienestar mental",
-        "features": {
-          "watch": "Reloj Inteligente (Estrés y Sueño)",
-          "companion": "Compañero de Bienestar IA",
-          "nurses": "Enfermeras de Salud Mental",
-          "checkIns": "Controles de Ánimo Diarios",
-          "dashboard": "Panel Familiar"
-        }
+        "name": "Salud Mental y Bienestar",
+        "price": "159.99",
+        "description": "Soporte completo con acceso a terapia",
+        "features": [
+          "Todo en Gestión de Enfermedades Crónicas",
+          "Sesiones de Terapia Semanales",
+          "Especialista en Salud Mental",
+          "Actividades de Bienestar Social",
+          "Seguimiento de Estado de Ánimo",
+          "Soporte de Intervención en Crisis",
+          "Programas de Apoyo al Cuidador"
+        ]
       }
     },
     "addons": {
       "title": "Dispositivos Adicionales",
-      "subtitle": "Personaliza tu paquete"
+      "subtitle": "para personalizar su paquete"
     }
   },
   "devices": {
