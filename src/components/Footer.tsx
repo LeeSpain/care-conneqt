@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Shield } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -7,8 +7,16 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Heart className="h-6 w-6 text-secondary" fill="currentColor" />
-              <span className="text-xl font-bold font-['Poppins']">Care Conneqt</span>
+              <div 
+                className="p-1.5 rounded-lg"
+                style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
+              >
+                <Shield className="h-5 w-5 text-white" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold font-['Poppins']">Care Conneqt</span>
+                <span className="text-xs text-white/60 font-medium">Command Centre</span>
+              </div>
             </div>
             <p className="text-white/80 text-sm">
               Connected Health. Human Care.

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Heart, Menu } from "lucide-react";
+import { Shield, Menu } from "lucide-react";
 import { useState } from "react";
 
 export const Navigation = () => {
@@ -10,10 +10,20 @@ export const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Heart className="h-8 w-8 text-secondary" fill="currentColor" />
-            <span className="text-2xl font-bold font-['Poppins'] text-primary">
-              Care Conneqt
-            </span>
+            <div 
+              className="p-1.5 rounded-lg"
+              style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
+            >
+              <Shield className="h-5 w-5 text-white" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold font-['Poppins'] text-primary leading-tight">
+                Care Conneqt
+              </span>
+              <span className="text-[10px] text-muted-foreground font-medium leading-tight">
+                Command Centre
+              </span>
+            </div>
           </a>
           
           <div className="hidden md:flex items-center gap-8">

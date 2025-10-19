@@ -5,12 +5,12 @@ import heroImage from "@/assets/hero-care.jpg";
 export const HeroSection = () => {
   return (
     <section className="relative pt-24 pb-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/5 via-background to-emerald-green/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-green/10 text-secondary text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium">
               <Shield className="h-4 w-4" />
               GDPR Compliant • Multi-Country Coverage
             </div>
@@ -28,15 +28,15 @@ export const HeroSection = () => {
 
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
-                <Heart className="h-5 w-5 text-coral" />
+                <Heart className="h-5 w-5 text-secondary" />
                 <span className="text-foreground/80">24/7 Nurse Support</span>
               </div>
               <div className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-secondary" />
+                <Shield className="h-5 w-5 text-primary" />
                 <span className="text-foreground/80">AI Guardian</span>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-lilac" />
+                <Users className="h-5 w-5 text-secondary" />
                 <span className="text-foreground/80">Family Connected</span>
               </div>
             </div>
@@ -78,7 +78,7 @@ export const HeroSection = () => {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-lilac/20 rounded-3xl transform rotate-3" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl transform rotate-3" />
             <img
               src={heroImage}
               alt="Senior using Care Conneqt smart health monitoring"

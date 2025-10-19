@@ -8,110 +8,102 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Care Conneqt Design System */
-    /* Primary Colors */
-    --deep-blue: 221 71% 32%;
-    --emerald-green: 158 64% 52%;
-    
-    /* Secondary Colors */
-    --lilac: 252 48% 73%;
-    --coral: 16 100% 65%;
-    
-    /* Neutrals */
-    --slate: 215 20% 65%;
-    --light-gray: 210 40% 98%;
+    /* Care Conneqt Command Centre Design System */
+    /* Professional Blue + Teal Palette */
     
     /* Core Theme Tokens */
-    --background: 0 0% 100%;
-    --foreground: 221 71% 32%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 221 71% 32%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 221 71% 32%;
-
-    --primary: 221 71% 32%;
+    --primary: 215 85% 35%; /* Deep professional blue */
+    --primary-hover: 215 85% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 158 64% 52%;
+    --secondary: 185 75% 45%; /* Teal/cyan accent */
+    --secondary-hover: 185 75% 40%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 98%;
-    --muted-foreground: 215 20% 65%;
+    --accent: 185 65% 90%; /* Light teal */
+    --accent-foreground: 215 25% 15%;
 
-    --accent: 252 48% 73%;
-    --accent-foreground: 221 71% 32%;
-
-    --destructive: 0 84.2% 60.2%;
+    --success: 142 70% 45%;
+    --warning: 38 90% 50%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 71% 32%;
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --muted: 210 15% 92%;
+    --muted-foreground: 215 20% 45%;
+
+    --border: 215 20% 88%;
+    --input: 215 20% 88%;
+    --ring: 215 85% 35%;
 
     --radius: 0.75rem;
     
-    /* Custom Healthcare Tokens */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--deep-blue)), hsl(var(--emerald-green)));
-    --gradient-card: linear-gradient(180deg, hsl(var(--background)), hsl(var(--light-gray)));
-    --shadow-soft: 0 2px 20px -4px hsl(var(--deep-blue) / 0.15);
-    --shadow-hover: 0 8px 30px -6px hsl(var(--deep-blue) / 0.25);
+    /* Command Centre Sidebar Colors */
+    --sidebar-background: 215 30% 18%; /* Dark blue-grey */
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 185 75% 45%; /* Teal accent */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 30% 24%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 215 30% 22%;
+    --sidebar-ring: 185 75% 45%;
+
+    /* Command Centre Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(210 20% 98%), hsl(210 15% 95%));
+    --shadow-soft: 0 2px 20px -4px hsl(215 85% 35% / 0.15);
+    --shadow-hover: 0 8px 30px -6px hsl(215 85% 35% / 0.25);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 221 71% 12%;
-    --foreground: 210 40% 98%;
-
-    --card: 221 71% 16%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 221 71% 16%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 158 64% 52%;
+    --primary: 185 75% 45%; /* Teal primary in dark mode */
+    --primary-hover: 185 75% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 221 71% 24%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 215 30% 24%;
+    --secondary-foreground: 210 20% 95%;
 
-    --muted: 221 71% 20%;
-    --muted-foreground: 215 20% 75%;
+    --accent: 185 65% 90%;
+    --accent-foreground: 215 30% 12%;
 
-    --accent: 252 48% 73%;
-    --accent-foreground: 221 71% 12%;
+    --success: 142 70% 45%;
+    --warning: 38 90% 50%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 20% 95%;
 
-    --destructive: 0 62.8% 40%;
-    --destructive-foreground: 210 40% 98%;
+    --background: 215 30% 12%;
+    --foreground: 210 20% 95%;
 
-    --border: 221 71% 24%;
-    --input: 221 71% 24%;
-    --ring: 158 64% 52%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --card: 215 30% 15%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 215 30% 15%;
+    --popover-foreground: 210 20% 95%;
+
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 20% 65%;
+
+    --border: 215 30% 22%;
+    --input: 215 30% 22%;
+    --ring: 185 75% 45%;
+
+    --sidebar-background: 215 35% 10%; /* Even darker in dark mode */
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 185 75% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 215 35% 15%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 215 35% 12%;
+    --sidebar-ring: 185 75% 45%;
   }
 }
 
