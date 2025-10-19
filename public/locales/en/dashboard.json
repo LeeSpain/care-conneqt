@@ -1,0 +1,65 @@
+{
+  "quickStats": {
+    "heartRate": "Heart Rate",
+    "activityToday": "Activity Today",
+    "activeAlerts": "Active Alerts",
+    "medications": "Medications",
+    "bpm": "BPM",
+    "steps": "steps",
+    "alerts": "alerts",
+    "dueToday": "due today"
+  },
+  "healthMonitoring": {
+    "title": "Health Monitoring",
+    "vitals": "Vitals",
+    "trends": "Trends",
+    "bloodPressure": "Blood Pressure",
+    "glucose": "Glucose",
+    "weight": "Weight",
+    "oxygen": "Oxygen",
+    "temperature": "Temperature"
+  },
+  "careTeam": {
+    "title": "Care Team",
+    "primaryNurse": "Primary Nurse",
+    "careCoordinator": "Care Coordinator",
+    "contact": "Contact",
+    "schedule": "Schedule"
+  },
+  "activity": {
+    "title": "Activity Timeline",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week"
+  },
+  "medication": {
+    "title": "Medication Tracker",
+    "taken": "Taken",
+    "missed": "Missed",
+    "upcoming": "Upcoming",
+    "scheduleTime": "Schedule Time"
+  },
+  "devices": {
+    "title": "Device Status",
+    "online": "Online",
+    "offline": "Offline",
+    "lastSync": "Last sync",
+    "batteryLevel": "Battery"
+  },
+  "alerts": {
+    "title": "Alerts Center",
+    "priority": "Priority",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "resolve": "Resolve",
+    "view": "View Details"
+  },
+  "profile": {
+    "title": "Member Profile",
+    "personalInfo": "Personal Information",
+    "medicalInfo": "Medical Information",
+    "emergencyContact": "Emergency Contact",
+    "edit": "Edit Profile"
+  }
+}

@@ -1,17 +1,20 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Building2, Heart, TrendingUp, Shield, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const SolutionsSection = () => {
+  const { t } = useTranslation('home');
+  
   return (
     <section id="solutions" className="py-20 bg-muted">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold font-['Poppins'] text-primary mb-4">
-            Care Solutions for Everyone
+            {t('solutions.title')}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Whether you're caring for family or managing a facility, we have the right solution
+            {t('solutions.subtitle')}
           </p>
         </div>
 
@@ -24,10 +27,10 @@ export const SolutionsSection = () => {
                 <div className="p-3 rounded-lg bg-secondary/10">
                   <Users className="h-6 w-6 text-secondary" />
                 </div>
-                <CardTitle className="text-2xl font-['Poppins']">For Families</CardTitle>
+                <CardTitle className="text-2xl font-['Poppins']">{t('solutions.families.title')}</CardTitle>
               </div>
               <CardDescription className="text-base">
-                Direct-to-Consumer Care
+                {t('solutions.families.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -40,21 +43,21 @@ export const SolutionsSection = () => {
                   <Heart className="h-5 w-5 text-coral mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="font-semibold">Personal AI Guardian</div>
-                    <div className="text-sm text-muted-foreground">Daily check-ins and proactive monitoring</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.families.features.ai')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Shield className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="font-semibold">24/7 Emergency Response</div>
-                    <div className="text-sm text-muted-foreground">Nurse-led call center integration</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.families.features.nurses')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Users className="h-5 w-5 text-lilac mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="font-semibold">Family Dashboards</div>
-                    <div className="text-sm text-muted-foreground">Stay connected with alerts and reports</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.families.features.dashboard')}</div>
                   </div>
                 </div>
               </div>
@@ -81,10 +84,10 @@ export const SolutionsSection = () => {
                 <div className="p-3 rounded-lg bg-primary/10">
                   <Building2 className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle className="text-2xl font-['Poppins']">For Institutions</CardTitle>
+                <CardTitle className="text-2xl font-['Poppins']">{t('solutions.institutions.title')}</CardTitle>
               </div>
               <CardDescription className="text-base">
-                Enterprise & Partner Solutions
+                {t('solutions.institutions.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -104,7 +107,7 @@ export const SolutionsSection = () => {
                   <Shield className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="font-semibold">Compliance & Reporting</div>
-                    <div className="text-sm text-muted-foreground">Automated logs and audit trails</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.institutions.features.compliance')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

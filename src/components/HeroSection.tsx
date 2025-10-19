@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Heart, Users } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero-care.jpg";
 
 export const HeroSection = () => {
+  const { t } = useTranslation('home');
+  
   return (
     <section className="relative pt-24 pb-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
@@ -12,18 +15,16 @@ export const HeroSection = () => {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium">
               <Shield className="h-4 w-4" />
-              GDPR Compliant • Multi-Country Coverage
+              {t('hero.benefits.agreement')} • {t('hero.benefits.noSetup')}
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-bold font-['Poppins'] text-primary leading-tight">
-              Connected Health.<br />
-              <span className="text-secondary">Human Care.</span>
+              {t('hero.title')}<br />
+              <span className="text-secondary">{t('hero.subtitle')}</span>
             </h1>
             
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Nurse-led, AI-powered remote care through connected devices. 
-              Empowering seniors to live independently with 24/7 peace of mind 
-              across Spain, UK, and Netherlands.
+              {t('hero.description')}
             </p>
 
             <div className="flex flex-wrap gap-6">
@@ -48,7 +49,7 @@ export const HeroSection = () => {
                 asChild
               >
                 <a href="/auth/signup">
-                  Get Started
+                  {t('hero.benefits.getStarted', { defaultValue: 'Get Started' })}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
@@ -56,23 +57,24 @@ export const HeroSection = () => {
                 size="lg" 
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary/5"
+                asChild
               >
-                For Institutions
+                <a href="/institutional-care">For Institutions</a>
               </Button>
             </div>
 
             <div className="flex items-center gap-8 pt-4">
               <div>
                 <div className="text-3xl font-bold text-primary">10k+</div>
-                <div className="text-sm text-muted-foreground">Active Members</div>
+                <div className="text-sm text-muted-foreground">{t('hero.activeMembers')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary">98%</div>
-                <div className="text-sm text-muted-foreground">Satisfaction</div>
+                <div className="text-sm text-muted-foreground">{t('hero.satisfaction')}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary">3</div>
-                <div className="text-sm text-muted-foreground">Countries</div>
+                <div className="text-sm text-muted-foreground">{t('hero.countries')}</div>
               </div>
             </div>
           </div>

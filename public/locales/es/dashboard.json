@@ -1,0 +1,65 @@
+{
+  "quickStats": {
+    "heartRate": "Ritmo Cardíaco",
+    "activityToday": "Actividad Hoy",
+    "activeAlerts": "Alertas Activas",
+    "medications": "Medicamentos",
+    "bpm": "LPM",
+    "steps": "pasos",
+    "alerts": "alertas",
+    "dueToday": "pendientes hoy"
+  },
+  "healthMonitoring": {
+    "title": "Monitoreo de Salud",
+    "vitals": "Signos Vitales",
+    "trends": "Tendencias",
+    "bloodPressure": "Presión Arterial",
+    "glucose": "Glucosa",
+    "weight": "Peso",
+    "oxygen": "Oxígeno",
+    "temperature": "Temperatura"
+  },
+  "careTeam": {
+    "title": "Equipo de Atención",
+    "primaryNurse": "Enfermera Principal",
+    "careCoordinator": "Coordinador de Atención",
+    "contact": "Contacto",
+    "schedule": "Horario"
+  },
+  "activity": {
+    "title": "Línea de Tiempo de Actividad",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "thisWeek": "Esta Semana"
+  },
+  "medication": {
+    "title": "Rastreador de Medicamentos",
+    "taken": "Tomado",
+    "missed": "Omitido",
+    "upcoming": "Próximo",
+    "scheduleTime": "Hora Programada"
+  },
+  "devices": {
+    "title": "Estado de Dispositivos",
+    "online": "En Línea",
+    "offline": "Desconectado",
+    "lastSync": "Última sincronización",
+    "batteryLevel": "Batería"
+  },
+  "alerts": {
+    "title": "Centro de Alertas",
+    "priority": "Prioridad",
+    "high": "Alta",
+    "medium": "Media",
+    "low": "Baja",
+    "resolve": "Resolver",
+    "view": "Ver Detalles"
+  },
+  "profile": {
+    "title": "Perfil del Miembro",
+    "personalInfo": "Información Personal",
+    "medicalInfo": "Información Médica",
+    "emergencyContact": "Contacto de Emergencia",
+    "edit": "Editar Perfil"
+  }
+}

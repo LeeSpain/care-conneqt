@@ -1,0 +1,65 @@
+{
+  "quickStats": {
+    "heartRate": "Hartslag",
+    "activityToday": "Activiteit Vandaag",
+    "activeAlerts": "Actieve Waarschuwingen",
+    "medications": "Medicijnen",
+    "bpm": "SLM",
+    "steps": "stappen",
+    "alerts": "waarschuwingen",
+    "dueToday": "vandaag te nemen"
+  },
+  "healthMonitoring": {
+    "title": "Gezondheidsmonitoring",
+    "vitals": "Vitale Functies",
+    "trends": "Trends",
+    "bloodPressure": "Bloeddruk",
+    "glucose": "Glucose",
+    "weight": "Gewicht",
+    "oxygen": "Zuurstof",
+    "temperature": "Temperatuur"
+  },
+  "careTeam": {
+    "title": "Zorgteam",
+    "primaryNurse": "Hoofdverpleegkundige",
+    "careCoordinator": "Zorgcoördinator",
+    "contact": "Contact",
+    "schedule": "Planning"
+  },
+  "activity": {
+    "title": "Activiteitentijdlijn",
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "thisWeek": "Deze Week"
+  },
+  "medication": {
+    "title": "Medicijntracker",
+    "taken": "Ingenomen",
+    "missed": "Gemist",
+    "upcoming": "Komend",
+    "scheduleTime": "Geplande Tijd"
+  },
+  "devices": {
+    "title": "Apparaatstatus",
+    "online": "Online",
+    "offline": "Offline",
+    "lastSync": "Laatste sync",
+    "batteryLevel": "Batterij"
+  },
+  "alerts": {
+    "title": "Waarschuwingencentrum",
+    "priority": "Prioriteit",
+    "high": "Hoog",
+    "medium": "Gemiddeld",
+    "low": "Laag",
+    "resolve": "Oplossen",
+    "view": "Bekijk Details"
+  },
+  "profile": {
+    "title": "Ledenprofiel",
+    "personalInfo": "Persoonlijke Informatie",
+    "medicalInfo": "Medische Informatie",
+    "emergencyContact": "Noodcontact",
+    "edit": "Profiel Bewerken"
+  }
+}
