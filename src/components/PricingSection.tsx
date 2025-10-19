@@ -21,53 +21,60 @@ export const PricingSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {['base', 'independent', 'chronic', 'mental'].map((tier) => (
-            <Card 
-              key={tier}
-              className={`relative ${
-                tier === 'independent'
-                  ? 'border-2 border-secondary shadow-xl scale-105' 
-                  : 'border hover:border-secondary/50'
-              } transition-all duration-300`}
-            >
-              {tier === 'independent' && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white">
-                  {t(`pricing.tiers.${tier}.popular`)}
-                </Badge>
-              )}
-              <CardHeader>
-                <CardTitle className="text-xl font-['Poppins']">
-                  {t(`pricing.tiers.${tier}.name`)}
-                </CardTitle>
-                <CardDescription>{t(`pricing.tiers.${tier}.description`)}</CardDescription>
-                <div className="pt-4">
-                  <span className="text-4xl font-bold text-primary">
-                    {formatCurrency(parseFloat(t(`pricing.tiers.${tier}.price`)), 'EUR', i18n.language)}
-                  </span>
-                  <span className="text-muted-foreground">{t('pricing.perMonth')}</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <ul className="space-y-3">
-                  {(t(`pricing.tiers.${tier}.features`, { returnObjects: true }) as string[]).map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <Check className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button 
-                  className={`w-full ${
-                    tier === 'independent'
-                      ? 'bg-secondary hover:bg-secondary/90' 
-                      : 'bg-primary hover:bg-primary/90'
-                  }`}
-                >
-                  {t('common:buttons.getStarted')}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+          {['base', 'independent', 'chronic', 'mental'].map((tier) => {
+            const featuresData = t(`pricing.tiers.${tier}.features`, { returnObjects: true });
+            const features = Array.isArray(featuresData) ? featuresData : [];
+            
+            return (
+              <Card 
+                key={tier}
+                className={`relative ${
+                  tier === 'independent'
+                    ? 'border-2 border-secondary shadow-xl scale-105' 
+                    : 'border hover:border-secondary/50'
+                } transition-all duration-300`}
+              >
+                {tier === 'independent' && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-white">
+                    {t(`pricing.tiers.${tier}.popular`)}
+                  </Badge>
+                )}
+                <CardHeader>
+                  <CardTitle className="text-xl font-['Poppins']">
+                    {t(`pricing.tiers.${tier}.name`)}
+                  </CardTitle>
+                  <CardDescription>{t(`pricing.tiers.${tier}.description`)}</CardDescription>
+                  <div className="pt-4">
+                    <span className="text-4xl font-bold text-primary">
+                      {formatCurrency(parseFloat(t(`pricing.tiers.${tier}.price`)), 'EUR', i18n.language)}
+                    </span>
+                    <span className="text-muted-foreground">{t('pricing.perMonth')}</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {features.length > 0 && (
+                    <ul className="space-y-3">
+                      {features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <Check className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
+                          <span className="text-sm text-muted-foreground">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <Button 
+                    className={`w-full ${
+                      tier === 'independent'
+                        ? 'bg-secondary hover:bg-secondary/90' 
+                        : 'bg-primary hover:bg-primary/90'
+                    }`}
+                  >
+                    {t('common:buttons.getStarted')}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="mt-12 text-center">

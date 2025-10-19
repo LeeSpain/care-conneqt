@@ -32,7 +32,8 @@ export const AISection = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {agents.map((agent) => {
             const Icon = agentIcons[agent as keyof typeof agentIcons];
-            const features = t(`ai.agents.${agent}.features`, { returnObjects: true }) as string[];
+            const featuresData = t(`ai.agents.${agent}.features`, { returnObjects: true });
+            const features = Array.isArray(featuresData) ? featuresData : [];
             
             return (
               <Card key={agent} className="border-2 hover:border-lilac/50 transition-all duration-300">
@@ -48,14 +49,16 @@ export const AISection = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-2">
-                    {features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="h-1.5 w-1.5 rounded-full bg-lilac" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  {features.length > 0 && (
+                    <ul className="space-y-2">
+                      {features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <div className="h-1.5 w-1.5 rounded-full bg-lilac" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </CardContent>
               </Card>
             );
