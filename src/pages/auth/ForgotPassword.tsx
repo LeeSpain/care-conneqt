@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 
 export default function ForgotPassword() {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
@@ -23,7 +25,7 @@ export default function ForgotPassword() {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success('Password reset email sent!');
+      toast.success(t('forgotPassword.emailSent'));
       setSent(true);
     }
     
@@ -34,14 +36,14 @@ export default function ForgotPassword() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Check your email</h2>
+          <h2 className="text-2xl font-bold text-foreground">{t('forgotPassword.checkEmail')}</h2>
           <p className="text-muted-foreground">
-            We've sent password reset instructions to <strong>{email}</strong>
+            {t('forgotPassword.sentTo')} <strong>{email}</strong>
           </p>
           <Link to="/auth/login">
             <Button variant="outline" className="mt-4">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to login
+              {t('forgotPassword.backToLogin')}
             </Button>
           </Link>
         </div>
@@ -55,17 +57,17 @@ export default function ForgotPassword() {
         <div>
           <Link to="/auth/login" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to login
+            {t('forgotPassword.backToLogin')}
           </Link>
-          <h2 className="text-3xl font-bold text-foreground">Reset your password</h2>
+          <h2 className="text-3xl font-bold text-foreground">{t('forgotPassword.title')}</h2>
           <p className="mt-2 text-muted-foreground">
-            Enter your email and we'll send you reset instructions
+            {t('forgotPassword.subtitle')}
           </p>
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleReset}>
           <div>
-            <Label htmlFor="email">Email address</Label>
+            <Label htmlFor="email">{t('forgotPassword.email')}</Label>
             <Input
               id="email"
               type="email"
@@ -78,7 +80,7 @@ export default function ForgotPassword() {
           </div>
 
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Sending...' : 'Send reset instructions'}
+            {loading ? t('forgotPassword.sending') : t('forgotPassword.sendButton')}
           </Button>
         </form>
       </div>

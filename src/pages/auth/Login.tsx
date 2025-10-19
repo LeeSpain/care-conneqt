@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +36,7 @@ export default function Login() {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success('Welcome back!');
+      toast.success(t('login.success'));
     }
     
     setLoading(false);
@@ -45,14 +47,14 @@ export default function Login() {
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="text-3xl font-bold text-foreground">Welcome back</h2>
-            <p className="mt-2 text-muted-foreground">Sign in to your Care Conneqt account</p>
+            <h2 className="text-3xl font-bold text-foreground">{t('login.title')}</h2>
+            <p className="mt-2 text-muted-foreground">{t('login.subtitle')}</p>
           </div>
           
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email">{t('login.email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -65,7 +67,7 @@ export default function Login() {
               </div>
               
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('login.password')}</Label>
                 <div className="relative mt-1">
                   <Input
                     id="password"
@@ -88,19 +90,19 @@ export default function Login() {
 
             <div className="flex items-center justify-between">
               <Link to="/auth/forgot-password" className="text-sm text-primary hover:underline">
-                Forgot your password?
+                {t('login.forgotPassword')}
               </Link>
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? t('login.signingIn') : t('login.signIn')}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
+            {t('login.noAccount')}{' '}
             <Link to="/auth/signup" className="font-medium text-primary hover:underline">
-              Sign up
+              {t('login.signUp')}
             </Link>
           </p>
         </div>
@@ -110,10 +112,10 @@ export default function Login() {
         <div className="h-full flex items-center justify-center p-12">
           <div className="max-w-md">
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Peace of mind for you and your loved ones
+              {t('login.sidebarTitle')}
             </h3>
             <p className="text-muted-foreground">
-              24/7 remote care monitoring with AI-powered insights and real-time alerts.
+              {t('login.sidebarDescription')}
             </p>
           </div>
         </div>

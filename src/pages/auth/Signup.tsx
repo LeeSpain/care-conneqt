@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { toast } from 'sonner';
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function Signup() {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,12 +31,12 @@ export default function Signup() {
     e.preventDefault();
     
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error(t('signup.passwordMismatch'));
       return;
     }
 
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      toast.error(t('signup.passwordLength'));
       return;
     }
 
@@ -63,7 +65,7 @@ export default function Signup() {
         role: 'member',
       });
 
-      toast.success('Account created! Welcome to Care Conneqt');
+      toast.success(t('signup.success'));
       navigate('/onboarding');
     }
     
@@ -75,15 +77,15 @@ export default function Signup() {
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="text-3xl font-bold text-foreground">Create your account</h2>
-            <p className="mt-2 text-muted-foreground">Start your journey with Care Conneqt</p>
+            <h2 className="text-3xl font-bold text-foreground">{t('signup.title')}</h2>
+            <p className="mt-2 text-muted-foreground">{t('signup.subtitle')}</p>
           </div>
           
           <form className="mt-8 space-y-6" onSubmit={handleSignup}>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName">First name</Label>
+                  <Label htmlFor="firstName">{t('signup.firstName')}</Label>
                   <Input
                     id="firstName"
                     type="text"
@@ -94,7 +96,7 @@ export default function Signup() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="lastName">Last name</Label>
+                  <Label htmlFor="lastName">{t('signup.lastName')}</Label>
                   <Input
                     id="lastName"
                     type="text"
@@ -107,7 +109,7 @@ export default function Signup() {
               </div>
 
               <div>
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email">{t('signup.email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -120,7 +122,7 @@ export default function Signup() {
               </div>
               
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('signup.password')}</Label>
                 <div className="relative mt-1">
                   <Input
                     id="password"
@@ -141,7 +143,7 @@ export default function Signup() {
               </div>
 
               <div>
-                <Label htmlFor="confirmPassword">Confirm password</Label>
+                <Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -155,14 +157,14 @@ export default function Signup() {
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Creating account...' : 'Create account'}
+              {loading ? t('signup.creating') : t('signup.createAccount')}
             </Button>
           </form>
 
           <p className="text-center text-sm text-muted-foreground">
-            Already have an account?{' '}
+            {t('signup.haveAccount')}{' '}
             <Link to="/auth/login" className="font-medium text-primary hover:underline">
-              Sign in
+              {t('signup.signIn')}
             </Link>
           </p>
         </div>
@@ -172,10 +174,10 @@ export default function Signup() {
         <div className="h-full flex items-center justify-center p-12">
           <div className="max-w-md">
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Join thousands of families
+              {t('signup.sidebarTitle')}
             </h3>
             <p className="text-muted-foreground">
-              Experience the future of remote care with our AI-powered platform.
+              {t('signup.sidebarDescription')}
             </p>
           </div>
         </div>
