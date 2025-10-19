@@ -4,8 +4,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer, Shield, Zap, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Devices() {
+  const { t } = useTranslation();
   const devices = [
     {
       icon: Watch,
@@ -402,17 +404,16 @@ export default function Devices() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="max-w-3xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
             <CardContent className="p-12 text-center">
-              <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('home:cta.title')}</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Choose your care package and customize with the devices that matter most to you. 
-                All devices include setup, monitoring, and support.
+                {t('home:cta.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-secondary hover:bg-secondary/90" asChild>
-                  <a href="/personal-care">View Care Packages</a>
+                  <a href="/personal-care">{t('common:buttons.learnMore')}</a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="/auth/signup">Get Started Now</a>
+                  <a href="/auth/signup">{t('common:buttons.getStarted')}</a>
                 </Button>
               </div>
             </CardContent>

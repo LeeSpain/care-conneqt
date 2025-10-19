@@ -7,8 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Building2, Mail, Phone, User, Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const ContactForm = () => {
+  const { t } = useTranslation('institutional-care');
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     organizationName: '',
@@ -55,10 +57,10 @@ export const ContactForm = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              Get Started Today
+              {t('contact.title')}
             </h2>
             <p className="text-lg text-muted-foreground">
-              Tell us about your organization and we'll create a custom solution and quote for your needs.
+              {t('contact.subtitle')}
             </p>
           </div>
 
@@ -217,7 +219,7 @@ export const ContactForm = () => {
                 </div>
 
                 <Button type="submit" size="lg" className="w-full bg-secondary hover:bg-secondary/90">
-                  Request Demo & Quote
+                  {t('contact.submit')}
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">

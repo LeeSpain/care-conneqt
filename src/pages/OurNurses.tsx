@@ -13,6 +13,7 @@ import nurseEmma from '@/assets/nurse-emma.jpg';
 import nurseAisha from '@/assets/nurse-aisha.jpg';
 
 export default function OurNurses() {
+  const { t } = useTranslation();
   const nurses = [
     {
       name: 'Sarah Thompson',
@@ -364,17 +365,16 @@ export default function OurNurses() {
           <Card className="max-w-3xl mx-auto bg-gradient-to-br from-secondary/5 to-primary/5 border-secondary/20">
             <CardContent className="p-12 text-center">
               <Heart className="h-12 w-12 text-secondary mx-auto mb-4" />
-              <h2 className="text-3xl font-bold mb-4">Experience Expert Nursing Care</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('home:cta.title')}</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Join thousands of families who trust our experienced nursing team for peace of mind, 
-                24/7 support, and proactive health monitoring.
+                {t('home:cta.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-secondary hover:bg-secondary/90" asChild>
-                  <a href="/personal-care">View Care Packages</a>
+                  <a href="/personal-care">{t('common:buttons.learnMore')}</a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="/auth/signup">Get Started Today</a>
+                  <a href="/auth/signup">{t('common:buttons.getStarted')}</a>
                 </Button>
               </div>
             </CardContent>

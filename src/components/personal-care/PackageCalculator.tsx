@@ -385,27 +385,27 @@ export const PackageCalculator = () => {
                 <div className="bg-primary/5 -mx-6 -mb-6 px-6 py-6 rounded-b-lg">
                   <div className="flex justify-between items-baseline mb-6">
                     <div>
-                      <div className="text-sm text-muted-foreground mb-1">MONTHLY TOTAL</div>
+                      <div className="text-sm text-muted-foreground mb-1">{t('personal-care:calculator.monthlyTotal')}</div>
                       <div className="text-4xl font-bold text-primary">€{totalPrice.toFixed(2)}</div>
                     </div>
                   </div>
                   
                   <Button className="w-full h-12 text-base bg-secondary hover:bg-secondary/90" asChild>
-                    <a href="/auth/signup">Get Started Now</a>
+                    <a href="/auth/signup">{t('personal-care:calculator.getStarted')}</a>
                   </Button>
                   
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
-                      <span>24-month service agreement</span>
+                      <span>{t('personal-care:guarantee.agreement')}</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
-                      <span>No setup fees or hidden costs</span>
+                      <span>{t('personal-care:guarantee.noSetup')}</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <Check className="h-3 w-3 text-secondary" />
-                      <span>Device protection included</span>
+                      <span>{t('personal-care:guarantee.protection')}</span>
                     </div>
                   </div>
 

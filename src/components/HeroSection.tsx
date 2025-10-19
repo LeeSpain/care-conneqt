@@ -30,15 +30,15 @@ export const HeroSection = () => {
             <div className="flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
                 <Heart className="h-5 w-5 text-secondary" />
-                <span className="text-foreground/80">24/7 Nurse Support</span>
+                <span className="text-foreground/80">{t('trust.factors.support.title')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-primary" />
-                <span className="text-foreground/80">AI Guardian</span>
+                <span className="text-foreground/80">{t('ai.agents.guardian.name')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-secondary" />
-                <span className="text-foreground/80">Family Connected</span>
+                <span className="text-foreground/80">{t('solutions.families.features.dashboard')}</span>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ export const HeroSection = () => {
                 className="border-primary text-primary hover:bg-primary/5"
                 asChild
               >
-                <a href="/institutional-care">For Institutions</a>
+                <a href="/institutional-care">{t('common:nav.forInstitutions')}</a>
               </Button>
             </div>
 
@@ -83,7 +83,7 @@ export const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl transform rotate-3" />
             <img
               src={heroImage}
-              alt="Senior using Care Conneqt smart health monitoring"
+              alt={t('trust.enterprise.imageAlt')}
               className="relative rounded-3xl shadow-2xl w-full"
             />
           </div>
