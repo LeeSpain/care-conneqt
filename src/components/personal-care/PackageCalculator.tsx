@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,6 +12,7 @@ import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const PackageCalculator = () => {
+  const { t } = useTranslation('personal-care');
   const [selectedPackage, setSelectedPackage] = useState(packages[1].id);
   const [selectedDevices, setSelectedDevices] = useState<string[]>([]);
   const [additionalDashboards, setAdditionalDashboards] = useState(0);

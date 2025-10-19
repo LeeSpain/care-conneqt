@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
