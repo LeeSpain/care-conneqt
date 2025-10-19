@@ -13,10 +13,7 @@ export const Footer = () => {
               >
                 <Shield className="h-5 w-5 text-white" />
               </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold font-['Poppins']">Care Conneqt</span>
-                <span className="text-xs text-white/60 font-medium">Command Centre</span>
-              </div>
+              <span className="text-xl font-bold font-['Poppins']">Care Conneqt</span>
             </div>
             <p className="text-white/80 text-sm">
               Connected Health. Human Care.

@@ -49,14 +49,9 @@ export function AppSidebar() {
             <Shield className="h-6 w-6 text-white" />
           </div>
           {!isCollapsed && (
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-sidebar-foreground font-['Poppins']">
-                Care Conneqt
-              </span>
-              <span className="text-xs text-sidebar-foreground/60 font-medium">
-                Command Centre
-              </span>
-            </div>
+            <span className="text-lg font-bold text-sidebar-foreground font-['Poppins']">
+              Care Conneqt
+            </span>
           )}
         </div>
       </SidebarHeader>

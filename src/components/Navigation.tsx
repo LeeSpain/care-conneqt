@@ -16,14 +16,9 @@ export const Navigation = () => {
             >
               <Shield className="h-5 w-5 text-white" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold font-['Poppins'] text-primary leading-tight">
-                Care Conneqt
-              </span>
-              <span className="text-[10px] text-muted-foreground font-medium leading-tight">
-                Command Centre
-              </span>
-            </div>
+            <span className="text-2xl font-bold font-['Poppins'] text-primary">
+              Care Conneqt
+            </span>
           </a>
           
           <div className="hidden md:flex items-center gap-8">
