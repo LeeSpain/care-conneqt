@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Shield, Menu } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useTranslation('common');
 
   return (
     <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
@@ -23,25 +26,26 @@ export const Navigation = () => {
           
           <div className="hidden md:flex items-center gap-8">
             <a href="/#solutions" className="text-foreground/80 hover:text-foreground transition-colors">
-              Solutions
+              {t('nav.solutions')}
             </a>
             <a href="/personal-care" className="text-foreground/80 hover:text-foreground transition-colors">
-              For Families
+              {t('nav.forFamilies')}
             </a>
             <a href="/institutional-care" className="text-foreground/80 hover:text-foreground transition-colors">
-              For Institutions
+              {t('nav.forInstitutions')}
             </a>
             <a href="/devices" className="text-foreground/80 hover:text-foreground transition-colors">
-              Devices
+              {t('nav.devices')}
             </a>
             <a href="/our-nurses" className="text-foreground/80 hover:text-foreground transition-colors">
-              Our Nurses
+              {t('nav.ourNurses')}
             </a>
+            <LanguageSwitcher />
             <Button variant="outline" size="sm" asChild>
-              <a href="/auth/login">Sign In</a>
+              <a href="/auth/login">{t('nav.signIn')}</a>
             </Button>
             <Button size="sm" className="bg-secondary hover:bg-secondary/90" asChild>
-              <a href="/auth/signup">Get Started</a>
+              <a href="/auth/signup">{t('nav.getStarted')}</a>
             </Button>
           </div>
 
@@ -56,26 +60,29 @@ export const Navigation = () => {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
             <a href="/#solutions" className="block text-foreground/80 hover:text-foreground">
-              Solutions
+              {t('nav.solutions')}
             </a>
             <a href="/personal-care" className="block text-foreground/80 hover:text-foreground">
-              For Families
+              {t('nav.forFamilies')}
             </a>
             <a href="/institutional-care" className="block text-foreground/80 hover:text-foreground">
-              For Institutions
+              {t('nav.forInstitutions')}
             </a>
             <a href="/devices" className="block text-foreground/80 hover:text-foreground">
-              Devices
+              {t('nav.devices')}
             </a>
             <a href="/our-nurses" className="block text-foreground/80 hover:text-foreground">
-              Our Nurses
+              {t('nav.ourNurses')}
             </a>
+            <div className="pt-2">
+              <LanguageSwitcher />
+            </div>
             <div className="flex gap-2 pt-2">
               <Button variant="outline" size="sm" className="flex-1" asChild>
-                <a href="/auth/login">Sign In</a>
+                <a href="/auth/login">{t('nav.signIn')}</a>
               </Button>
               <Button size="sm" className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
-                <a href="/auth/signup">Get Started</a>
+                <a href="/auth/signup">{t('nav.getStarted')}</a>
               </Button>
             </div>
           </div>

@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "solutions": "Solutions",
+    "forFamilies": "For Families",
+    "forInstitutions": "For Institutions",
+    "devices": "Devices",
+    "ourNurses": "Our Nurses",
+    "signIn": "Sign In",
+    "getStarted": "Get Started"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "schedule": "Schedule",
+    "careTeam": "Care Team",
+    "devices": "Devices",
+    "family": "Family",
+    "subscription": "Subscription",
+    "aiGuardian": "AI Guardian",
+    "settings": "Settings",
+    "tasks": "Tasks",
+    "deviceManagement": "Device Management",
+    "invitations": "Invitations",
+    "aiChat": "AI Chat"
+  },
+  "footer": {
+    "tagline": "Connected Health. Human Care.",
+    "operating": "Operating in Spain, UK, and Netherlands",
+    "solutions": "Solutions",
+    "forFamilies": "For Families",
+    "forInstitutions": "For Institutions",
+    "resources": "Resources",
+    "devices": "Devices",
+    "ourNurses": "Our Nurses",
+    "helpCenter": "Help Center",
+    "company": "Company",
+    "about": "About",
+    "careers": "Careers",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "copyright": "© 2025 Care Conneqt. All rights reserved.",
+    "languages": "Languages"
+  },
+  "buttons": {
+    "getStarted": "Get Started",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "learnMore": "Learn More",
+    "bookDemo": "Book a Demo",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "viewAll": "View All"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This Week",
+    "lastWeek": "Last Week",
+    "thisMonth": "This Month",
+    "lastSync": "Last sync"
+  }
+}

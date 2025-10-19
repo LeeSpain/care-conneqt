@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "solutions": "Oplossingen",
+    "forFamilies": "Voor Gezinnen",
+    "forInstitutions": "Voor Instellingen",
+    "devices": "Apparaten",
+    "ourNurses": "Onze Verpleegkundigen",
+    "signIn": "Inloggen",
+    "getStarted": "Begin Nu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "schedule": "Agenda",
+    "careTeam": "Zorgteam",
+    "devices": "Apparaten",
+    "family": "Familie",
+    "subscription": "Abonnement",
+    "aiGuardian": "AI Bewaker",
+    "settings": "Instellingen",
+    "tasks": "Taken",
+    "deviceManagement": "Apparaatbeheer",
+    "invitations": "Uitnodigingen",
+    "aiChat": "AI Chat"
+  },
+  "footer": {
+    "tagline": "Verbonden Gezondheid. Menselijke Zorg.",
+    "operating": "Actief in Spanje, VK en Nederland",
+    "solutions": "Oplossingen",
+    "forFamilies": "Voor Gezinnen",
+    "forInstitutions": "Voor Instellingen",
+    "resources": "Bronnen",
+    "devices": "Apparaten",
+    "ourNurses": "Onze Verpleegkundigen",
+    "helpCenter": "Helpcentrum",
+    "company": "Bedrijf",
+    "about": "Over Ons",
+    "careers": "Carrières",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Voorwaarden",
+    "copyright": "© 2025 Care Conneqt. Alle rechten voorbehouden.",
+    "languages": "Talen"
+  },
+  "buttons": {
+    "getStarted": "Begin Nu",
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "submit": "Verzenden",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "confirm": "Bevestigen",
+    "learnMore": "Meer Informatie",
+    "bookDemo": "Demo Boeken",
+    "close": "Sluiten",
+    "back": "Terug",
+    "next": "Volgende",
+    "loading": "Laden...",
+    "viewAll": "Alles Bekijken"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "pending": "In Behandeling",
+    "completed": "Voltooid",
+    "failed": "Mislukt"
+  },
+  "time": {
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "tomorrow": "Morgen",
+    "thisWeek": "Deze Week",
+    "lastWeek": "Vorige Week",
+    "thisMonth": "Deze Maand",
+    "lastSync": "Laatste sync"
+  }
+}

@@ -1,5 +1,6 @@
 import { Shield, Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, ChevronLeft } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Sidebar,
   SidebarContent,
@@ -15,21 +16,22 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 
-const navigationItems = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
-  { title: "Schedule", url: "/dashboard/schedule", icon: Calendar },
-  { title: "Care Team", url: "/dashboard/care-team", icon: UserCog },
-  { title: "Devices", url: "/dashboard/devices", icon: Package },
-  { title: "Family", url: "/dashboard/family", icon: Users },
-  { title: "Subscription", url: "/dashboard/subscriptions", icon: CreditCard },
-  { title: "AI Guardian", url: "/dashboard/ai-chat", icon: MessageSquare },
-  { title: "Settings", url: "/settings", icon: Settings },
-];
-
 export function AppSidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const isCollapsed = state === "collapsed";
+  const { t } = useTranslation('common');
+
+  const navigationItems = [
+    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
+    { title: t('sidebar.schedule'), url: "/dashboard/schedule", icon: Calendar },
+    { title: t('sidebar.careTeam'), url: "/dashboard/care-team", icon: UserCog },
+    { title: t('sidebar.devices'), url: "/dashboard/devices", icon: Package },
+    { title: t('sidebar.family'), url: "/dashboard/family", icon: Users },
+    { title: t('sidebar.subscription'), url: "/dashboard/subscriptions", icon: CreditCard },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.settings'), url: "/settings", icon: Settings },
+  ];
 
   const isActive = (path: string) => {
     if (path === "/dashboard") {

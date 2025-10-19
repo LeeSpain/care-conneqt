@@ -1,0 +1,135 @@
+{
+  "hero": {
+    "title": "Care Conneqt",
+    "subtitle": "Connected Health. Human Care.",
+    "tagline": "Your loved ones. Safe at home. 24/7 peace of mind.",
+    "description": "Nurse-led, AI-powered home care combining smart devices, health monitoring, and virtual support. Live independently with confidence.",
+    "activeMembers": "Active Members",
+    "satisfaction": "Satisfaction Rate",
+    "countries": "Countries",
+    "benefits": {
+      "agreement": "24-Month Service Agreement",
+      "noSetup": "No Setup Fees",
+      "protection": "Device Protection Included"
+    }
+  },
+  "solutions": {
+    "title": "Solutions for Every Care Need",
+    "subtitle": "Whether you're caring for family or managing care at scale",
+    "families": {
+      "title": "For Families",
+      "description": "Give your loved ones independence with 24/7 nurse support and AI monitoring",
+      "features": {
+        "devices": "Smart devices & health monitors",
+        "ai": "AI companion with daily check-ins",
+        "nurses": "24/7 nurse-led call center",
+        "dashboard": "Family dashboard & alerts"
+      },
+      "pricing": "Starting at €49.99/month"
+    },
+    "institutions": {
+      "title": "For Institutions",
+      "description": "Enterprise care solutions for assisted living, municipalities, and healthcare providers",
+      "features": {
+        "bulk": "Bulk device deployment",
+        "integration": "EHR integration",
+        "compliance": "GDPR & ISO compliance",
+        "analytics": "Advanced analytics"
+      },
+      "pricing": "Volume pricing available"
+    }
+  },
+  "pricing": {
+    "title": "Choose Your Care Package",
+    "subtitle": "Transparent pricing. No hidden fees. Cancel anytime after 24 months.",
+    "tiers": {
+      "base": {
+        "name": "Base Package",
+        "price": "€49.99",
+        "description": "Essential monitoring and support",
+        "features": {
+          "watch": "Smart Watch (Fall Detection)",
+          "pendant": "SOS Pendant",
+          "ai": "AI Guardian (3 languages)",
+          "nurses": "24/7 Nurse Call Center",
+          "dashboard": "Family Dashboard"
+        }
+      },
+      "independent": {
+        "name": "Independent Living",
+        "price": "€89.99",
+        "popular": "Most Popular",
+        "description": "Everything in Base, plus:",
+        "features": {
+          "motion": "Motion Sensors (3 rooms)",
+          "door": "Door/Window Sensors (2)",
+          "checkIns": "Daily AI Check-ins",
+          "reports": "Weekly Health Reports",
+          "family": "2 Family Dashboards"
+        }
+      },
+      "chronic": {
+        "name": "Chronic Disease",
+        "price": "€139.99",
+        "description": "Everything in Independent Living, plus:",
+        "features": {
+          "bp": "Blood Pressure Monitor",
+          "glucose": "Glucose Monitor",
+          "scale": "Smart Weight Scale",
+          "medication": "Medication Dispenser",
+          "monitoring": "Continuous Health Monitoring"
+        }
+      },
+      "mental": {
+        "name": "Mental Health Support",
+        "price": "€69.99",
+        "description": "Specialized mental wellness monitoring",
+        "features": {
+          "watch": "Smart Watch (Stress & Sleep)",
+          "companion": "AI Wellness Companion",
+          "nurses": "Mental Health Nurses",
+          "checkIns": "Daily Mood Check-ins",
+          "dashboard": "Family Dashboard"
+        }
+      }
+    },
+    "addons": {
+      "title": "Additional Devices",
+      "subtitle": "Customize your package"
+    }
+  },
+  "devices": {
+    "title": "Medical-Grade Devices",
+    "subtitle": "Pre-configured and ready to use"
+  },
+  "ai": {
+    "title": "AI-Powered Care Team",
+    "subtitle": "Intelligent support working alongside our nurses",
+    "agents": {
+      "sales": {
+        "name": "Sales & Support Agent",
+        "description": "Instant answers about services, pricing, and setup"
+      },
+      "guardian": {
+        "name": "AI Guardian",
+        "description": "24/7 activity monitoring, daily check-ins, and smart alerts"
+      },
+      "nurse": {
+        "name": "Nurse AI Assistant",
+        "description": "Clinical decision support and patient insights"
+      }
+    }
+  },
+  "trust": {
+    "title": "Trusted by Families Across Europe",
+    "compliant": "GDPR Compliant",
+    "certified": "ISO 27001 Certified",
+    "medical": "Medical-Grade Devices",
+    "encrypted": "End-to-End Encrypted"
+  },
+  "cta": {
+    "title": "Ready to Get Started?",
+    "description": "Join thousands of families who trust Care Conneqt for peace of mind",
+    "button": "Start Your Free Trial"
+  }
+}

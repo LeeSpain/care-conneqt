@@ -1,0 +1,135 @@
+{
+  "hero": {
+    "title": "Care Conneqt",
+    "subtitle": "Salud Conectada. Cuidado Humano.",
+    "tagline": "Tus seres queridos. Seguros en casa. Tranquilidad 24/7.",
+    "description": "Atención domiciliaria dirigida por enfermeras y potenciada por IA que combina dispositivos inteligentes, monitoreo de salud y soporte virtual. Vive de forma independiente con confianza.",
+    "activeMembers": "Miembros Activos",
+    "satisfaction": "Tasa de Satisfacción",
+    "countries": "Países",
+    "benefits": {
+      "agreement": "Acuerdo de Servicio de 24 Meses",
+      "noSetup": "Sin Tarifas de Configuración",
+      "protection": "Protección de Dispositivos Incluida"
+    }
+  },
+  "solutions": {
+    "title": "Soluciones para Cada Necesidad de Cuidado",
+    "subtitle": "Ya sea que cuides a tu familia o gestiones atención a gran escala",
+    "families": {
+      "title": "Para Familias",
+      "description": "Dale a tus seres queridos independencia con soporte de enfermeras 24/7 y monitoreo de IA",
+      "features": {
+        "devices": "Dispositivos inteligentes y monitores de salud",
+        "ai": "Compañero de IA con controles diarios",
+        "nurses": "Centro de llamadas dirigido por enfermeras 24/7",
+        "dashboard": "Panel familiar y alertas"
+      },
+      "pricing": "Desde €49,99/mes"
+    },
+    "institutions": {
+      "title": "Para Instituciones",
+      "description": "Soluciones de atención empresarial para residencias asistidas, municipios y proveedores de salud",
+      "features": {
+        "bulk": "Despliegue masivo de dispositivos",
+        "integration": "Integración con EHR",
+        "compliance": "Cumplimiento GDPR e ISO",
+        "analytics": "Análisis avanzados"
+      },
+      "pricing": "Precios por volumen disponibles"
+    }
+  },
+  "pricing": {
+    "title": "Elige Tu Paquete de Cuidado",
+    "subtitle": "Precios transparentes. Sin tarifas ocultas. Cancela en cualquier momento después de 24 meses.",
+    "tiers": {
+      "base": {
+        "name": "Paquete Base",
+        "price": "€49,99",
+        "description": "Monitoreo y soporte esencial",
+        "features": {
+          "watch": "Reloj Inteligente (Detección de Caídas)",
+          "pendant": "Colgante SOS",
+          "ai": "Guardián IA (3 idiomas)",
+          "nurses": "Centro de Llamadas de Enfermeras 24/7",
+          "dashboard": "Panel Familiar"
+        }
+      },
+      "independent": {
+        "name": "Vida Independiente",
+        "price": "€89,99",
+        "popular": "Más Popular",
+        "description": "Todo en Base, más:",
+        "features": {
+          "motion": "Sensores de Movimiento (3 habitaciones)",
+          "door": "Sensores de Puerta/Ventana (2)",
+          "checkIns": "Controles Diarios de IA",
+          "reports": "Informes de Salud Semanales",
+          "family": "2 Paneles Familiares"
+        }
+      },
+      "chronic": {
+        "name": "Enfermedad Crónica",
+        "price": "€139,99",
+        "description": "Todo en Vida Independiente, más:",
+        "features": {
+          "bp": "Monitor de Presión Arterial",
+          "glucose": "Monitor de Glucosa",
+          "scale": "Báscula Inteligente",
+          "medication": "Dispensador de Medicamentos",
+          "monitoring": "Monitoreo Continuo de Salud"
+        }
+      },
+      "mental": {
+        "name": "Apoyo de Salud Mental",
+        "price": "€69,99",
+        "description": "Monitoreo especializado de bienestar mental",
+        "features": {
+          "watch": "Reloj Inteligente (Estrés y Sueño)",
+          "companion": "Compañero de Bienestar IA",
+          "nurses": "Enfermeras de Salud Mental",
+          "checkIns": "Controles de Ánimo Diarios",
+          "dashboard": "Panel Familiar"
+        }
+      }
+    },
+    "addons": {
+      "title": "Dispositivos Adicionales",
+      "subtitle": "Personaliza tu paquete"
+    }
+  },
+  "devices": {
+    "title": "Dispositivos de Grado Médico",
+    "subtitle": "Preconfigurados y listos para usar"
+  },
+  "ai": {
+    "title": "Equipo de Atención Potenciado por IA",
+    "subtitle": "Soporte inteligente trabajando junto a nuestras enfermeras",
+    "agents": {
+      "sales": {
+        "name": "Agente de Ventas y Soporte",
+        "description": "Respuestas instantáneas sobre servicios, precios y configuración"
+      },
+      "guardian": {
+        "name": "Guardián IA",
+        "description": "Monitoreo de actividad 24/7, controles diarios y alertas inteligentes"
+      },
+      "nurse": {
+        "name": "Asistente de Enfermera IA",
+        "description": "Soporte para decisiones clínicas e información del paciente"
+      }
+    }
+  },
+  "trust": {
+    "title": "Confiado por Familias en Toda Europa",
+    "compliant": "Cumplimiento GDPR",
+    "certified": "Certificado ISO 27001",
+    "medical": "Dispositivos de Grado Médico",
+    "encrypted": "Encriptado de Extremo a Extremo"
+  },
+  "cta": {
+    "title": "¿Listo para Comenzar?",
+    "description": "Únete a miles de familias que confían en Care Conneqt para su tranquilidad",
+    "button": "Comienza Tu Prueba Gratuita"
+  }
+}

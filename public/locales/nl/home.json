@@ -1,0 +1,135 @@
+{
+  "hero": {
+    "title": "Care Conneqt",
+    "subtitle": "Verbonden Gezondheid. Menselijke Zorg.",
+    "tagline": "Uw dierbaren. Veilig thuis. 24/7 gemoedsrust.",
+    "description": "Door verpleegkundigen geleide, AI-aangedreven thuiszorg die slimme apparaten, gezondheidsmonitoring en virtuele ondersteuning combineert. Leef onafhankelijk met vertrouwen.",
+    "activeMembers": "Actieve Leden",
+    "satisfaction": "Tevredenheidsscore",
+    "countries": "Landen",
+    "benefits": {
+      "agreement": "24 Maanden Serviceovereenkomst",
+      "noSetup": "Geen Installatiekosten",
+      "protection": "Apparaatbescherming Inbegrepen"
+    }
+  },
+  "solutions": {
+    "title": "Oplossingen voor Elke Zorgbehoefte",
+    "subtitle": "Of u nu voor familie zorgt of zorg op grote schaal beheert",
+    "families": {
+      "title": "Voor Gezinnen",
+      "description": "Geef uw dierbaren onafhankelijkheid met 24/7 verpleegkundige ondersteuning en AI-monitoring",
+      "features": {
+        "devices": "Slimme apparaten en gezondheidsmonitoren",
+        "ai": "AI-metgezel met dagelijkse check-ins",
+        "nurses": "24/7 callcenter onder leiding van verpleegkundigen",
+        "dashboard": "Gezinsdashboard en waarschuwingen"
+      },
+      "pricing": "Vanaf €49,99/maand"
+    },
+    "institutions": {
+      "title": "Voor Instellingen",
+      "description": "Enterprise zorgoplossingen voor assisted living, gemeenten en zorgaanbieders",
+      "features": {
+        "bulk": "Bulk apparaatimplementatie",
+        "integration": "EPD-integratie",
+        "compliance": "AVG en ISO-compliance",
+        "analytics": "Geavanceerde analyses"
+      },
+      "pricing": "Volumeprijzen beschikbaar"
+    }
+  },
+  "pricing": {
+    "title": "Kies Uw Zorgpakket",
+    "subtitle": "Transparante prijzen. Geen verborgen kosten. Annuleer op elk moment na 24 maanden.",
+    "tiers": {
+      "base": {
+        "name": "Basispakket",
+        "price": "€49,99",
+        "description": "Essentiële monitoring en ondersteuning",
+        "features": {
+          "watch": "Smartwatch (Valdetectie)",
+          "pendant": "SOS-Hanger",
+          "ai": "AI Bewaker (3 talen)",
+          "nurses": "24/7 Verpleegkundige Callcenter",
+          "dashboard": "Gezinsdashboard"
+        }
+      },
+      "independent": {
+        "name": "Zelfstandig Leven",
+        "price": "€89,99",
+        "popular": "Meest Populair",
+        "description": "Alles in Basis, plus:",
+        "features": {
+          "motion": "Bewegingssensoren (3 kamers)",
+          "door": "Deur/Raamsensoren (2)",
+          "checkIns": "Dagelijkse AI Check-ins",
+          "reports": "Wekelijkse Gezondheidsrapporten",
+          "family": "2 Gezinsdashboards"
+        }
+      },
+      "chronic": {
+        "name": "Chronische Ziekte",
+        "price": "€139,99",
+        "description": "Alles in Zelfstandig Leven, plus:",
+        "features": {
+          "bp": "Bloeddrukmeter",
+          "glucose": "Glucosemeter",
+          "scale": "Slimme Weegschaal",
+          "medication": "Medicijndispenser",
+          "monitoring": "Continue Gezondheidsmonitoring"
+        }
+      },
+      "mental": {
+        "name": "Geestelijke Gezondheidsondersteuning",
+        "price": "€69,99",
+        "description": "Gespecialiseerde monitoring van mentaal welzijn",
+        "features": {
+          "watch": "Smartwatch (Stress en Slaap)",
+          "companion": "AI Welzijnsmetgezel",
+          "nurses": "Verpleegkundigen Geestelijke Gezondheid",
+          "checkIns": "Dagelijkse Stemmingscontroles",
+          "dashboard": "Gezinsdashboard"
+        }
+      }
+    },
+    "addons": {
+      "title": "Extra Apparaten",
+      "subtitle": "Pas uw pakket aan"
+    }
+  },
+  "devices": {
+    "title": "Medische Apparaten",
+    "subtitle": "Vooraf geconfigureerd en klaar voor gebruik"
+  },
+  "ai": {
+    "title": "AI-Aangedreven Zorgteam",
+    "subtitle": "Intelligente ondersteuning die samenwerkt met onze verpleegkundigen",
+    "agents": {
+      "sales": {
+        "name": "Verkoop en Ondersteuningsagent",
+        "description": "Directe antwoorden over diensten, prijzen en installatie"
+      },
+      "guardian": {
+        "name": "AI Bewaker",
+        "description": "24/7 activiteitsmonitoring, dagelijkse check-ins en slimme waarschuwingen"
+      },
+      "nurse": {
+        "name": "Verpleegkundige AI-Assistent",
+        "description": "Klinische beslissingsondersteuning en patiëntinzichten"
+      }
+    }
+  },
+  "trust": {
+    "title": "Vertrouwd door Gezinnen in Heel Europa",
+    "compliant": "AVG-Conform",
+    "certified": "ISO 27001 Gecertificeerd",
+    "medical": "Medische Apparaten",
+    "encrypted": "End-to-End Versleuteld"
+  },
+  "cta": {
+    "title": "Klaar om te Beginnen?",
+    "description": "Sluit u aan bij duizenden gezinnen die Care Conneqt vertrouwen voor gemoedsrust",
+    "button": "Start Uw Gratis Proefperiode"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "solutions": "Soluciones",
+    "forFamilies": "Para Familias",
+    "forInstitutions": "Para Instituciones",
+    "devices": "Dispositivos",
+    "ourNurses": "Nuestras Enfermeras",
+    "signIn": "Iniciar Sesión",
+    "getStarted": "Comenzar"
+  },
+  "sidebar": {
+    "dashboard": "Panel Principal",
+    "schedule": "Calendario",
+    "careTeam": "Equipo de Atención",
+    "devices": "Dispositivos",
+    "family": "Familia",
+    "subscription": "Suscripción",
+    "aiGuardian": "Guardián IA",
+    "settings": "Configuración",
+    "tasks": "Tareas",
+    "deviceManagement": "Gestión de Dispositivos",
+    "invitations": "Invitaciones",
+    "aiChat": "Chat IA"
+  },
+  "footer": {
+    "tagline": "Salud Conectada. Cuidado Humano.",
+    "operating": "Operando en España, Reino Unido y Países Bajos",
+    "solutions": "Soluciones",
+    "forFamilies": "Para Familias",
+    "forInstitutions": "Para Instituciones",
+    "resources": "Recursos",
+    "devices": "Dispositivos",
+    "ourNurses": "Nuestras Enfermeras",
+    "helpCenter": "Centro de Ayuda",
+    "company": "Empresa",
+    "about": "Acerca de",
+    "careers": "Carreras",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "copyright": "© 2025 Care Conneqt. Todos los derechos reservados.",
+    "languages": "Idiomas"
+  },
+  "buttons": {
+    "getStarted": "Comenzar",
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "submit": "Enviar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "learnMore": "Más Información",
+    "bookDemo": "Reservar Demo",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "loading": "Cargando...",
+    "viewAll": "Ver Todo"
+  },
+  "status": {
+    "online": "En Línea",
+    "offline": "Desconectado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "pending": "Pendiente",
+    "completed": "Completado",
+    "failed": "Fallido"
+  },
+  "time": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "tomorrow": "Mañana",
+    "thisWeek": "Esta Semana",
+    "lastWeek": "Última Semana",
+    "thisMonth": "Este Mes",
+    "lastSync": "Última sincronización"
+  }
+}
