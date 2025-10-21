@@ -1,43 +1,46 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, FileCheck, Lock, Eye, AlertTriangle, Award } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const ComplianceSection = () => {
+  const { t } = useTranslation('institutional-care');
+  
   const compliance = [
     {
       icon: Shield,
-      title: 'GDPR Compliant',
-      description: 'Full compliance with EU General Data Protection Regulation, including data subject rights and privacy by design.',
-      certifications: ['ISO 27001', 'Data Protection Officer', 'Privacy Impact Assessments', 'Right to erasure']
+      title: t('complianceSection.gdpr.title'),
+      description: t('complianceSection.gdpr.description'),
+      certifications: t('complianceSection.gdpr.certifications', { returnObjects: true }) as string[]
     },
     {
       icon: FileCheck,
-      title: 'CQC Alignment',
-      description: 'Tools and reporting designed to support Care Quality Commission requirements and inspection readiness.',
-      certifications: ['Safe', 'Effective', 'Caring', 'Responsive', 'Well-led domains']
+      title: t('complianceSection.cqc.title'),
+      description: t('complianceSection.cqc.description'),
+      certifications: t('complianceSection.cqc.certifications', { returnObjects: true }) as string[]
     },
     {
       icon: Lock,
-      title: 'Data Security',
-      description: 'Enterprise-grade security with encryption at rest and in transit, regular penetration testing, and SOC 2 compliance.',
-      certifications: ['AES-256 encryption', 'TLS 1.3', 'Regular pen testing', 'Vulnerability scanning']
+      title: t('complianceSection.security.title'),
+      description: t('complianceSection.security.description'),
+      certifications: t('complianceSection.security.certifications', { returnObjects: true }) as string[]
     },
     {
       icon: Eye,
-      title: 'Audit Trail',
-      description: 'Complete audit logging of all data access, changes, and system events for compliance and investigation purposes.',
-      certifications: ['Access logs', 'Change tracking', 'Event monitoring', 'Exportable reports']
+      title: t('complianceSection.audit.title'),
+      description: t('complianceSection.audit.description'),
+      certifications: t('complianceSection.audit.certifications', { returnObjects: true }) as string[]
     },
     {
       icon: AlertTriangle,
-      title: 'Risk Management',
-      description: 'Built-in risk assessment tools and escalation protocols aligned with social care safeguarding requirements.',
-      certifications: ['Risk stratification', 'Safeguarding alerts', 'Incident reporting', 'Duty of care tracking']
+      title: t('complianceSection.risk.title'),
+      description: t('complianceSection.risk.description'),
+      certifications: t('complianceSection.risk.certifications', { returnObjects: true }) as string[]
     },
     {
       icon: Award,
-      title: 'Industry Standards',
-      description: 'Compliance with NHS Digital standards, local authority requirements, and care sector best practices.',
-      certifications: ['NHS compatible', 'Council integration', 'Care standards', 'Best practice guidelines']
+      title: t('complianceSection.standards.title'),
+      description: t('complianceSection.standards.description'),
+      certifications: t('complianceSection.standards.certifications', { returnObjects: true }) as string[]
     }
   ];
 
@@ -46,11 +49,10 @@ export const ComplianceSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Compliance & Security
+            {t('complianceSection.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Built with regulatory compliance and data security at the core. Meeting and exceeding 
-            industry standards to protect your organization and residents.
+            {t('complianceSection.subtitle')}
           </p>
         </div>
 
@@ -82,45 +84,25 @@ export const ComplianceSection = () => {
           <CardContent className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4">Security Certifications</h3>
+                <h3 className="text-xl font-bold mb-4">{t('complianceSection.certifications.title')}</h3>
                 <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">ISO 27001 Information Security</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">SOC 2 Type II Compliance</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">Cyber Essentials Plus</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">Annual Penetration Testing</span>
-                  </li>
+                  {(t('complianceSection.certifications.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-4">Data Protection</h3>
+                <h3 className="text-xl font-bold mb-4">{t('complianceSection.dataProtection.title')}</h3>
                 <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">UK-based data centers</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">Encrypted backups (daily)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">Disaster recovery plan</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                    <span className="text-sm text-muted-foreground">99.9% uptime SLA</span>
-                  </li>
+                  {(t('complianceSection.dataProtection.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

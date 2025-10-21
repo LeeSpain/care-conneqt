@@ -1,69 +1,47 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Rocket, Users, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 export const ContractFlexibility = () => {
+  const { t } = useTranslation('institutional-care');
+  
   const options = [
     {
       icon: Rocket,
-      title: 'Pilot Programs',
-      duration: '3-6 Months',
-      badge: 'Trial Period',
-      description: 'Test Care Conneqt with a small group before full deployment. Perfect for proof of concept and stakeholder buy-in.',
-      features: [
-        'Limited deployment (5-15 residents)',
-        'Full feature access',
-        'Dedicated implementation support',
-        'Performance reporting',
-        'Option to expand'
-      ],
-      ideal: 'Organizations evaluating new technology or seeking board approval'
+      title: t('contractFlexibility.pilot.title'),
+      duration: t('contractFlexibility.pilot.duration'),
+      badge: t('contractFlexibility.pilot.badge'),
+      description: t('contractFlexibility.pilot.description'),
+      features: t('contractFlexibility.pilot.features', { returnObjects: true }) as string[],
+      ideal: t('contractFlexibility.pilot.ideal')
     },
     {
       icon: Calendar,
-      title: 'Standard Agreement',
-      duration: '12 Months',
-      badge: 'Flexible',
-      description: 'Annual agreements provide flexibility while ensuring quality care. Renewable with improved terms based on usage.',
-      features: [
-        'Annual commitment',
-        'Competitive pricing',
-        'Quarterly business reviews',
-        'Standard support',
-        'Renewal discounts available'
-      ],
-      ideal: 'Organizations wanting shorter commitments with renewal flexibility'
+      title: t('contractFlexibility.standard.title'),
+      duration: t('contractFlexibility.standard.duration'),
+      badge: t('contractFlexibility.standard.badge'),
+      description: t('contractFlexibility.standard.description'),
+      features: t('contractFlexibility.standard.features', { returnObjects: true }) as string[],
+      ideal: t('contractFlexibility.standard.ideal')
     },
     {
       icon: Users,
-      title: 'Preferred Partnership',
-      duration: '24 Months',
-      badge: 'Most Popular',
-      description: 'Two-year partnerships offer optimal pricing and priority support. Best value for growing organizations.',
-      features: [
-        '24-month commitment',
-        'Preferred pricing tier',
-        'Priority support access',
-        'Free quarterly training',
-        'Feature preview access'
-      ],
-      ideal: 'Established facilities looking for long-term stability and best value'
+      title: t('contractFlexibility.preferred.title'),
+      duration: t('contractFlexibility.preferred.duration'),
+      badge: t('contractFlexibility.preferred.badge'),
+      description: t('contractFlexibility.preferred.description'),
+      features: t('contractFlexibility.preferred.features', { returnObjects: true }) as string[],
+      ideal: t('contractFlexibility.preferred.ideal')
     },
     {
       icon: TrendingUp,
-      title: 'Enterprise Partnership',
-      duration: '36 Months',
-      badge: 'Maximum Value',
-      description: 'Long-term partnerships unlock maximum benefits including custom development and strategic account management.',
-      features: [
-        '36-month commitment',
-        'Maximum pricing discount',
-        'Dedicated account manager',
-        'Custom feature development',
-        'Strategic partnership benefits',
-        'Executive quarterly reviews'
-      ],
-      ideal: 'Large organizations and multi-site operators seeking maximum value'
+      title: t('contractFlexibility.enterprise.title'),
+      duration: t('contractFlexibility.enterprise.duration'),
+      badge: t('contractFlexibility.enterprise.badge'),
+      description: t('contractFlexibility.enterprise.description'),
+      features: t('contractFlexibility.enterprise.features', { returnObjects: true }) as string[],
+      ideal: t('contractFlexibility.enterprise.ideal')
     }
   ];
 
@@ -72,10 +50,10 @@ export const ContractFlexibility = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Flexible Agreement Options
+            {t('contractFlexibility.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Choose the contract term that matches your organization's needs, budget cycle, and strategic planning horizon.
+            {t('contractFlexibility.subtitle')}
           </p>
         </div>
 
@@ -116,8 +94,7 @@ export const ContractFlexibility = () => {
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            All agreements include full access to our platform, 24/7 monitoring services, regular system updates, 
-            and the ability to scale up or down based on your needs. Contact us to discuss custom terms.
+            {t('contractFlexibility.footer')}
           </p>
         </div>
       </div>

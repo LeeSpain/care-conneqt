@@ -1,59 +1,34 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Building2, Users, Shield, Briefcase } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const SolutionTypes = () => {
+  const { t } = useTranslation('institutional-care');
+  
   const solutions = [
     {
       icon: Building2,
-      title: 'Care Homes & Facilities',
-      description: 'Multi-resident monitoring with centralized dashboards, staff alerts, and comprehensive reporting for enhanced care quality.',
-      features: [
-        'Centralized admin dashboard',
-        'Staff mobile alerts',
-        'Fall detection & prevention',
-        'Medication reminders',
-        'Family portal access',
-        'CQC compliance reporting'
-      ]
+      title: t('solutionTypes.careHomes.title'),
+      description: t('solutionTypes.careHomes.description'),
+      features: t('solutionTypes.careHomes.features', { returnObjects: true }) as string[]
     },
     {
       icon: Users,
-      title: 'Municipalities & Social Care',
-      description: 'Community-wide programs enabling independent living with real-time monitoring and resource optimization.',
-      features: [
-        'Population health analytics',
-        'Resource allocation tools',
-        'Multi-site management',
-        'Local authority integration',
-        'Risk stratification',
-        'Budget optimization'
-      ]
+      title: t('solutionTypes.municipalities.title'),
+      description: t('solutionTypes.municipalities.description'),
+      features: t('solutionTypes.municipalities.features', { returnObjects: true }) as string[]
     },
     {
       icon: Shield,
-      title: 'Insurance Providers',
-      description: 'Risk mitigation and preventive care solutions that reduce claims while improving member outcomes.',
-      features: [
-        'Claims reduction analytics',
-        'Risk assessment tools',
-        'Member engagement portal',
-        'Preventive care tracking',
-        'ROI reporting',
-        'White-label options'
-      ]
+      title: t('solutionTypes.insurers.title'),
+      description: t('solutionTypes.insurers.description'),
+      features: t('solutionTypes.insurers.features', { returnObjects: true }) as string[]
     },
     {
       icon: Briefcase,
-      title: 'Corporate Wellness',
-      description: 'Employee care programs for aging workforce or executive care packages with professional monitoring.',
-      features: [
-        'Employee care benefits',
-        'Executive protection',
-        'Aging workforce support',
-        'HR dashboard integration',
-        'Wellness ROI tracking',
-        'Flexible coverage options'
-      ]
+      title: t('solutionTypes.employers.title'),
+      description: t('solutionTypes.employers.description'),
+      features: t('solutionTypes.employers.features', { returnObjects: true }) as string[]
     }
   ];
 
@@ -62,10 +37,10 @@ export const SolutionTypes = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Solutions for Every Organization
+            {t('solutionTypes.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Tailored care technology solutions designed for your specific organizational needs and objectives.
+            {t('solutionTypes.subtitle')}
           </p>
         </div>
 

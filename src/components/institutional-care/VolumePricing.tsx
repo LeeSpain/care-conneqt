@@ -2,8 +2,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Building, Building2, Factory, Network } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 export const VolumePricing = () => {
+  const { t } = useTranslation('institutional-care');
+  
   const scrollToContact = () => {
     document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -11,67 +14,39 @@ export const VolumePricing = () => {
   const tiers = [
     {
       icon: Building,
-      name: 'Small Facilities',
-      range: '5-25 Residents',
-      description: 'Perfect for boutique care homes and small residential facilities',
-      features: [
-        'Full platform access',
-        'Standard device allocation',
-        'Email & phone support',
-        'Monthly reporting',
-        'Pilot program eligible'
-      ],
-      savings: 'Volume discounts available'
+      name: t('volumePricing.small.name'),
+      range: t('volumePricing.small.range'),
+      description: t('volumePricing.small.description'),
+      features: t('volumePricing.small.features', { returnObjects: true }) as string[],
+      savings: t('volumePricing.small.savings'),
+      badge: undefined
     },
     {
       icon: Building2,
-      name: 'Medium Facilities',
-      range: '26-100 Residents',
-      badge: 'Popular',
-      description: 'Ideal for established care homes and multi-unit facilities',
-      features: [
-        'Everything in Small +',
-        'Priority support access',
-        'Bi-weekly business reviews',
-        'Custom reporting',
-        'Staff training included',
-        'API access available'
-      ],
-      savings: 'Significant per-resident savings'
+      name: t('volumePricing.medium.name'),
+      range: t('volumePricing.medium.range'),
+      badge: t('volumePricing.medium.badge'),
+      description: t('volumePricing.medium.description'),
+      features: t('volumePricing.medium.features', { returnObjects: true }) as string[],
+      savings: t('volumePricing.medium.savings')
     },
     {
       icon: Factory,
-      name: 'Large Facilities',
-      range: '100-500 Residents',
-      description: 'For large care organizations and municipal programs',
-      features: [
-        'Everything in Medium +',
-        'Dedicated account manager',
-        'Weekly performance reviews',
-        'Advanced analytics',
-        'White-label options',
-        'Custom integrations',
-        'SLA guarantees'
-      ],
-      savings: 'Maximum volume discounts'
+      name: t('volumePricing.large.name'),
+      range: t('volumePricing.large.range'),
+      description: t('volumePricing.large.description'),
+      features: t('volumePricing.large.features', { returnObjects: true }) as string[],
+      savings: t('volumePricing.large.savings'),
+      badge: undefined
     },
     {
       icon: Network,
-      name: 'Enterprise',
-      range: '500+ or Multi-Site',
-      badge: 'Best Value',
-      description: 'Multi-location operators and enterprise organizations',
-      features: [
-        'Everything in Large +',
-        'Strategic partnership',
-        'Custom feature development',
-        'Executive account team',
-        'Multi-site management tools',
-        'Flexible deployment models',
-        'Enterprise SLAs',
-        'Preferred pricing structure'
-      ],
-      savings: 'Custom enterprise pricing'
+      name: t('volumePricing.enterprise.name'),
+      range: t('volumePricing.enterprise.range'),
+      badge: t('volumePricing.enterprise.badge'),
+      description: t('volumePricing.enterprise.description'),
+      features: t('volumePricing.enterprise.features', { returnObjects: true }) as string[],
+      savings: t('volumePricing.enterprise.savings')
     }
   ];
 
@@ -80,11 +55,10 @@ export const VolumePricing = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Volume-Based Pricing
+            {t('volumePricing.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Pricing that scales with your organization. The more residents or employees you cover, 
-            the better your per-unit economics.
+            {t('volumePricing.subtitle')}
           </p>
         </div>
 
@@ -125,33 +99,32 @@ export const VolumePricing = () => {
 
         <Card className="max-w-3xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
           <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Ready to Discuss Your Needs?</h3>
+            <h3 className="text-2xl font-bold mb-4">{t('volumePricing.cta.title')}</h3>
             <p className="text-muted-foreground mb-6">
-              Every organization is unique. We'll work with you to create a custom quote based on your 
-              specific requirements, resident count, contract term, and integration needs.
+              {t('volumePricing.cta.description')}
             </p>
             <Button 
               size="lg" 
               className="bg-secondary hover:bg-secondary/90"
               onClick={scrollToContact}
             >
-              Request Custom Quote
+              {t('volumePricing.cta.button')}
             </Button>
           </CardContent>
         </Card>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
           <div className="p-4">
-            <div className="text-3xl font-bold text-secondary mb-2">No Setup Fees</div>
-            <div className="text-sm text-muted-foreground">Implementation and training included</div>
+            <div className="text-3xl font-bold text-secondary mb-2">{t('volumePricing.benefits.noSetup')}</div>
+            <div className="text-sm text-muted-foreground">{t('volumePricing.benefits.noSetupDesc')}</div>
           </div>
           <div className="p-4">
-            <div className="text-3xl font-bold text-secondary mb-2">Transparent</div>
-            <div className="text-sm text-muted-foreground">No hidden costs or surprise charges</div>
+            <div className="text-3xl font-bold text-secondary mb-2">{t('volumePricing.benefits.transparent')}</div>
+            <div className="text-sm text-muted-foreground">{t('volumePricing.benefits.transparentDesc')}</div>
           </div>
           <div className="p-4">
-            <div className="text-3xl font-bold text-secondary mb-2">Flexible</div>
-            <div className="text-sm text-muted-foreground">Scale up or down as needs change</div>
+            <div className="text-3xl font-bold text-secondary mb-2">{t('volumePricing.benefits.flexible')}</div>
+            <div className="text-sm text-muted-foreground">{t('volumePricing.benefits.flexibleDesc')}</div>
           </div>
         </div>
       </div>

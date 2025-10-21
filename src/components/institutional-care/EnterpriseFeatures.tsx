@@ -1,44 +1,47 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { LayoutDashboard, BarChart3, Puzzle, Headphones, FileCheck, Zap } from 'lucide-react';
 import facilityDashboard from '@/assets/facility-dashboard.jpg';
+import { useTranslation } from 'react-i18next';
 
 export const EnterpriseFeatures = () => {
+  const { t } = useTranslation('institutional-care');
+  
   const features = [
     {
       icon: LayoutDashboard,
-      title: 'Advanced Admin Dashboard',
-      description: 'Comprehensive control center with real-time monitoring, alerts management, and multi-location oversight.',
-      highlights: ['Multi-site management', 'Role-based access', 'Custom views', 'Mobile app']
+      title: t('enterpriseFeatures.dashboard.title'),
+      description: t('enterpriseFeatures.dashboard.description'),
+      highlights: t('enterpriseFeatures.dashboard.highlights', { returnObjects: true }) as string[]
     },
     {
       icon: BarChart3,
-      title: 'Analytics & Reporting',
-      description: 'Deep insights into care quality, resource utilization, and outcome metrics with exportable reports.',
-      highlights: ['Custom reports', 'KPI tracking', 'Trend analysis', 'API data export']
+      title: t('enterpriseFeatures.analytics.title'),
+      description: t('enterpriseFeatures.analytics.description'),
+      highlights: t('enterpriseFeatures.analytics.highlights', { returnObjects: true }) as string[]
     },
     {
       icon: Puzzle,
-      title: 'API Integration',
-      description: 'Connect seamlessly with your existing care management systems, EHR, and local authority platforms.',
-      highlights: ['RESTful API', 'Webhook support', 'FHIR compatible', 'Custom integrations']
+      title: t('enterpriseFeatures.integration.title'),
+      description: t('enterpriseFeatures.integration.description'),
+      highlights: t('enterpriseFeatures.integration.highlights', { returnObjects: true }) as string[]
     },
     {
       icon: Headphones,
-      title: 'Dedicated Support',
-      description: 'Enterprise-grade support with dedicated account management, priority response, and training programs.',
-      highlights: ['Account manager', 'Priority support', 'Training included', 'Quarterly reviews']
+      title: t('enterpriseFeatures.support.title'),
+      description: t('enterpriseFeatures.support.description'),
+      highlights: t('enterpriseFeatures.support.highlights', { returnObjects: true }) as string[]
     },
     {
       icon: FileCheck,
-      title: 'SLA Guarantees',
-      description: '99.9% uptime guarantee with comprehensive service level agreements and incident response protocols.',
-      highlights: ['99.9% uptime', 'Response SLAs', 'Incident reporting', 'Performance metrics']
+      title: t('enterpriseFeatures.sla.title'),
+      description: t('enterpriseFeatures.sla.description'),
+      highlights: t('enterpriseFeatures.sla.highlights', { returnObjects: true }) as string[]
     },
     {
       icon: Zap,
-      title: 'Custom Onboarding',
-      description: 'Tailored implementation process with data migration, staff training, and gradual rollout options.',
-      highlights: ['Data migration', 'Staff training', 'Phased rollout', 'Change management']
+      title: t('enterpriseFeatures.onboarding.title'),
+      description: t('enterpriseFeatures.onboarding.description'),
+      highlights: t('enterpriseFeatures.onboarding.highlights', { returnObjects: true }) as string[]
     }
   ];
 
@@ -47,10 +50,10 @@ export const EnterpriseFeatures = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Enterprise-Grade Features
+            {t('enterpriseFeatures.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional tools and support designed for organizations managing care at scale.
+            {t('enterpriseFeatures.subtitle')}
           </p>
         </div>
 

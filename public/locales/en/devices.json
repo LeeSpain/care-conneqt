@@ -1,8 +1,268 @@
 {
-  "title": "Connected Device Ecosystem",
-  "subtitle": "Medical-grade devices that seamlessly integrate",
-  "included": "Included in Base",
-  "perMonth": "/month",
-  "allInclude": "All devices include",
-  "features": "12-month lease, free shipping, setup support, 24/7 technical assistance, automatic replacement, and seamless integration"
+  "hero": {
+    "badge": "Medical-Grade Technology",
+    "title": "Connected Devices for",
+    "titleHighlight": "Complete Peace of Mind",
+    "subtitle": "Professional-grade health monitoring devices that seamlessly connect to our AI-powered care platform and 24/7 nurse response center. All devices include free shipping, setup, and replacement.",
+    "features": {
+      "medicalGrade": "Medical Grade",
+      "plugPlay": "Plug & Play Setup",
+      "support": "24/7 Tech Support"
+    }
+  },
+  "devices": {
+    "vivagoWatch": {
+      "name": "Vivago Smart Watch",
+      "tagline": "Your 24/7 Wellness Guardian",
+      "description": "Advanced wrist-worn device with continuous activity monitoring, fall detection, and emergency alerts. FDA-cleared technology trusted by healthcare professionals worldwide.",
+      "price": "Included in Base Package or +€19.99/month",
+      "features": [
+        "Automatic fall detection",
+        "Heart rate monitoring",
+        "Sleep quality tracking",
+        "Activity level analysis",
+        "Emergency SOS button",
+        "Water-resistant (IPX7)",
+        "7-day battery life",
+        "Cellular connectivity (no phone needed)"
+      ],
+      "specs": {
+        "batteryLife": "5-7 days",
+        "waterResistance": "IPX7 (shower safe)",
+        "connectivity": "4G LTE cellular",
+        "weight": "45g",
+        "certification": "FDA cleared, CE certified"
+      }
+    },
+    "sosPendant": {
+      "name": "SOS Pendant",
+      "tagline": "Emergency Help at Your Fingertips",
+      "description": "Lightweight, discreet emergency alert pendant with GPS location tracking. One-press activation connects you directly to our 24/7 nurse response center.",
+      "price": "Alternative Base Device or +€19.99/month",
+      "features": [
+        "One-touch emergency alert",
+        "GPS location tracking",
+        "Two-way voice communication",
+        "Waterproof design",
+        "Long battery life (30+ days)",
+        "Range: works anywhere with cellular",
+        "Multiple wearing options (neck/wrist)",
+        "Automatic low battery alerts"
+      ],
+      "specs": {
+        "batteryLife": "30+ days",
+        "waterResistance": "IPX7 (fully waterproof)",
+        "connectivity": "4G LTE cellular",
+        "weight": "35g",
+        "range": "Nationwide coverage"
+      }
+    },
+    "vivagoDomi": {
+      "name": "Vivago Domi",
+      "tagline": "Smart Home Safety Sensors",
+      "description": "Advanced home monitoring system with motion sensors, door sensors, and environmental monitoring. Detects unusual patterns and potential safety issues.",
+      "price": "+€29.99/month",
+      "features": [
+        "Motion detection sensors",
+        "Door/window sensors",
+        "Temperature monitoring",
+        "Humidity tracking",
+        "Activity pattern analysis",
+        "Bathroom safety monitoring",
+        "Night-time movement alerts",
+        "Easy plug-and-play installation"
+      ],
+      "specs": {
+        "sensorsIncluded": "4-6 sensors",
+        "batteryLife": "1-2 years (per sensor)",
+        "connectivity": "WiFi + cellular backup",
+        "range": "100m indoor",
+        "installation": "Plug & play, no wiring"
+      }
+    },
+    "dosellDispenser": {
+      "name": "Dosell Smart Dispenser",
+      "tagline": "Never Miss Your Medication",
+      "description": "Automated medication management system with timed reminders, dose tracking, and family notifications. Perfect for complex medication schedules.",
+      "price": "+€34.99/month",
+      "features": [
+        "Automated dose dispensing",
+        "Audio & visual reminders",
+        "Missed dose alerts to family",
+        "Tamper-proof locking",
+        "28-day medication storage",
+        "Medication history tracking",
+        "Pharmacist-friendly design",
+        "Backup power supply"
+      ],
+      "specs": {
+        "capacity": "28 days of medication",
+        "doseTimes": "Up to 6 per day",
+        "connectivity": "WiFi + 4G backup",
+        "power": "Mains powered + battery backup",
+        "dimensions": "25cm x 20cm x 12cm"
+      }
+    },
+    "bbrainClock": {
+      "name": "BBrain Calendar Clock",
+      "tagline": "Memory Support Made Simple",
+      "description": "Large-display digital calendar clock with clear date, time, and appointment reminders. Reduces confusion and supports daily routines for memory challenges.",
+      "price": "+€19.99/month",
+      "features": [
+        "Extra-large display (10 inch)",
+        "Date, time, and day clearly shown",
+        "Medication reminders",
+        "Appointment alerts",
+        "Custom voice messages from family",
+        "Photo display capability",
+        "Simple, confusion-free interface",
+        "Wall-mounted or tabletop"
+      ],
+      "specs": {
+        "display": "10-inch LCD",
+        "connectivity": "WiFi",
+        "power": "Mains powered",
+        "dimensions": "26cm x 18cm",
+        "visibility": "High contrast, anti-glare"
+      }
+    },
+    "healthMonitors": {
+      "name": "Health Monitors",
+      "tagline": "Clinical-Grade Vital Signs",
+      "description": "Professional health monitoring devices including blood pressure monitors, pulse oximeters, and glucose meters. Automatic sync to your health dashboard.",
+      "price": "+€14.99/month each",
+      "features": [
+        "Automatic data sync",
+        "Clinical accuracy",
+        "Irregular heartbeat detection",
+        "Trend analysis & alerts",
+        "Share data with GP",
+        "Multiple user profiles",
+        "Large, easy-read displays",
+        "Voice-guided measurements"
+      ],
+      "specs": {
+        "accuracy": "Clinical grade",
+        "connectivity": "Bluetooth + cellular",
+        "memory": "60-100 readings",
+        "certifications": "CE medical, FDA listed",
+        "battery": "3-6 months"
+      }
+    },
+    "smartScale": {
+      "name": "Smart Weight Scale",
+      "tagline": "Complete Body Composition",
+      "description": "Advanced body composition scale measuring weight, BMI, body fat, muscle mass, and more. Track trends and receive health insights.",
+      "price": "+€14.99/month",
+      "features": [
+        "Weight tracking",
+        "Body fat percentage",
+        "Muscle mass measurement",
+        "BMI calculation",
+        "Bone density estimation",
+        "Water percentage",
+        "Automatic user recognition",
+        "Trend charts & insights"
+      ],
+      "specs": {
+        "maxWeight": "180kg / 400lbs",
+        "accuracy": "±0.1kg",
+        "connectivity": "WiFi + Bluetooth",
+        "users": "Up to 8 profiles",
+        "battery": "12 months (AAA x4)"
+      }
+    },
+    "smartThermometer": {
+      "name": "Smart Thermometer",
+      "tagline": "Instant, Contactless Temperature",
+      "description": "Medical-grade infrared thermometer with contactless measurement. Instant readings with fever alerts and automatic health record updates.",
+      "price": "+€14.99/month",
+      "features": [
+        "Contactless measurement",
+        "Instant 1-second reading",
+        "Fever alert system",
+        "Memory for 30 readings",
+        "Adult & child modes",
+        "Large LCD display",
+        "Silent mode option",
+        "Automatic sync to health log"
+      ],
+      "specs": {
+        "accuracy": "±0.2°C",
+        "distance": "1-3cm",
+        "speed": "1 second",
+        "display": "Backlit LCD",
+        "battery": "6-12 months (AAA x2)"
+      }
+    }
+  },
+  "included": {
+    "title": "What's Included With Every Device",
+    "deviceProtection": {
+      "title": "Device Protection",
+      "items": [
+        "Free replacement if damaged or faulty",
+        "24/7 technical support",
+        "Automatic firmware updates",
+        "Return shipping included"
+      ]
+    },
+    "easySetup": {
+      "title": "Easy Setup",
+      "items": [
+        "Pre-configured and ready to use",
+        "Free UK delivery (3-5 days)",
+        "Setup guide & video tutorials",
+        "Live setup assistance available"
+      ]
+    },
+    "integration": {
+      "title": "Integration & Monitoring",
+      "items": [
+        "Automatic sync to health dashboard",
+        "AI analysis and alerts",
+        "Nurse monitoring 24/7",
+        "Family portal access"
+      ]
+    },
+    "qualityGuarantee": {
+      "title": "Quality Guarantee",
+      "items": [
+        "Medical-grade quality",
+        "CE certified & FDA cleared",
+        "GDPR compliant data handling",
+        "Clinically validated accuracy"
+      ]
+    }
+  },
+  "specLabels": {
+    "batteryLife": "Battery Life",
+    "waterResistance": "Water Resistance",
+    "connectivity": "Connectivity",
+    "weight": "Weight",
+    "certification": "Certification",
+    "range": "Range",
+    "sensorsIncluded": "Sensors Included",
+    "installation": "Installation",
+    "capacity": "Capacity",
+    "doseTimes": "Dose Times",
+    "power": "Power",
+    "dimensions": "Dimensions",
+    "display": "Display",
+    "visibility": "Visibility",
+    "accuracy": "Accuracy",
+    "memory": "Memory",
+    "certifications": "Certifications",
+    "battery": "Battery",
+    "maxWeight": "Max Weight",
+    "users": "Users",
+    "distance": "Distance",
+    "speed": "Speed"
+  },
+  "cta": {
+    "addToPackage": "Add to Package",
+    "viewPlans": "View Full Plans",
+    "keyFeatures": "Key Features:",
+    "technicalSpecs": "Technical Specifications"
+  }
 }
