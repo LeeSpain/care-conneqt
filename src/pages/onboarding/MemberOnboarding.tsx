@@ -11,12 +11,35 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { packages } from '@/data/pricing';
 import { Check } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function MemberOnboarding() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { user, refreshProfile } = useAuth();
+  const { user, roles, refreshProfile } = useAuth();
   const navigate = useNavigate();
+
+  // Skip onboarding for nurses
+  useEffect(() => {
+    const skipForNurse = async () => {
+      if (!user || roles.length === 0) return;
+      
+      if (roles.includes('nurse') || roles.includes('facility_admin') || roles.includes('admin')) {
+        // Mark onboarding as complete for non-member roles
+        const { error } = await supabase
+          .from('profiles')
+          .update({ onboarding_completed: true })
+          .eq('id', user.id);
+        
+        if (!error) {
+          await refreshProfile();
+          navigate('/dashboard');
+        }
+      }
+    };
+
+    skipForNurse();
+  }, [user, roles, navigate, refreshProfile]);
 
   // Form state
   const [dateOfBirth, setDateOfBirth] = useState('');
