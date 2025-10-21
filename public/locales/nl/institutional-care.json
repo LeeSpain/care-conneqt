@@ -1,29 +1,398 @@
 {
   "hero": {
-    "title": "Enterprise Zorgoplossingen",
-    "subtitle": "Schaalbare oplossingen voor instellingen",
-    "getStarted": "Contact Verkoop"
+    "title": "Schaalbare Zorgtechnologie voor Uw Organisatie",
+    "subtitle": "Versterk zorginstellingen, gemeenten, verzekeraars en werkgevers met AI-monitoring, compliance-tools en flexibele overeenkomsten op maat.",
+    "badge": "Zorgoplossingen op Enterprise-niveau",
+    "getStarted": "Demo Aanvragen",
+    "exploreSolutions": "Oplossingen Verkennen",
+    "stats": {
+      "emergencyReduction": "Reductie Noodoproepen",
+      "gdprCompliant": "AVG-Conform",
+      "support": "Professionele Ondersteuning"
+    }
   },
-  "solutions": {
-    "title": "Oplossingstypes",
-    "careHomes": "Verpleeghuizen",
-    "municipalities": "Gemeenten",
-    "insurers": "Verzekeraars",
-    "employers": "Werkgevers"
+  "solutionTypes": {
+    "title": "Oplossingen voor Elke Organisatie",
+    "subtitle": "Op maat gemaakte zorgtechnologieoplossingen ontworpen voor uw specifieke organisatorische behoeften en doelstellingen.",
+    "careHomes": {
+      "title": "Zorginstellingen & Voorzieningen",
+      "description": "Multi-bewoner monitoring met gecentraliseerde dashboards, personeelsalerts en uitgebreide rapportage voor verbeterde zorgkwaliteit.",
+      "features": [
+        "Gecentraliseerd admin dashboard",
+        "Mobiele personeelsalerts",
+        "Val detectie & preventie",
+        "Medicatie herinneringen",
+        "Familie portaal toegang",
+        "CQC compliance rapportage"
+      ]
+    },
+    "municipalities": {
+      "title": "Gemeenten & Sociale Zorg",
+      "description": "Gemeentelijke programma's die zelfstandig leven mogelijk maken met real-time monitoring en resource optimalisatie.",
+      "features": [
+        "Bevolkingsgezondheid analytics",
+        "Resource allocatie tools",
+        "Multi-locatie management",
+        "Lokale autoriteit integratie",
+        "Risico stratificatie",
+        "Budget optimalisatie"
+      ]
+    },
+    "insurers": {
+      "title": "Verzekeringsmaatschappijen",
+      "description": "Risicobeperking en preventieve zorgoplossingen die claims verminderen terwijl lidmaatresultaten verbeteren.",
+      "features": [
+        "Claims reductie analytics",
+        "Risicobeoordeling tools",
+        "Lid betrokkenheid portaal",
+        "Preventieve zorg tracking",
+        "ROI rapportage",
+        "White-label opties"
+      ]
+    },
+    "employers": {
+      "title": "Bedrijfswelzijn",
+      "description": "Werknemers zorgprogramma's voor vergrijzend personeelsbestand of executive zorgpakketten met professionele monitoring.",
+      "features": [
+        "Werknemers zorg voordelen",
+        "Executive bescherming",
+        "Vergrijzend personeelsbestand ondersteuning",
+        "HR dashboard integratie",
+        "Welzijn ROI tracking",
+        "Flexibele dekkingsopties"
+      ]
+    }
   },
-  "features": {
-    "title": "Enterprise Functies",
-    "subtitle": "Gebouwd voor schaal en compliance"
+  "enterpriseFeatures": {
+    "title": "Enterprise-niveau Functies",
+    "subtitle": "Professionele tools en ondersteuning ontworpen voor organisaties die zorg op schaal beheren.",
+    "dashboard": {
+      "title": "Geavanceerd Admin Dashboard",
+      "description": "Uitgebreid controlecentrum met real-time monitoring, alertbeheer en multi-locatie toezicht.",
+      "highlights": ["Multi-locatie management", "Rol-gebaseerde toegang", "Aangepaste weergaves", "Mobiele app"]
+    },
+    "analytics": {
+      "title": "Analytics & Rapportage",
+      "description": "Diepgaande inzichten in zorgkwaliteit, resource gebruik en uitkomst metrics met exporteerbare rapporten.",
+      "highlights": ["Aangepaste rapporten", "KPI tracking", "Trend analyse", "API data export"]
+    },
+    "integration": {
+      "title": "API Integratie",
+      "description": "Verbind naadloos met uw bestaande zorgmanagementsystemen, EPD en lokale autoriteit platforms.",
+      "highlights": ["RESTful API", "Webhook ondersteuning", "FHIR compatibel", "Aangepaste integraties"]
+    },
+    "support": {
+      "title": "Toegewijde Ondersteuning",
+      "description": "Enterprise-niveau ondersteuning met toegewijd accountbeheer, prioriteitsrespons en trainingsprogramma's.",
+      "highlights": ["Accountmanager", "Prioriteit ondersteuning", "Training inbegrepen", "Driemaandelijkse reviews"]
+    },
+    "sla": {
+      "title": "SLA Garanties",
+      "description": "99.9% uptime garantie met uitgebreide service level agreements en incident response protocollen.",
+      "highlights": ["99.9% uptime", "Response SLA's", "Incident rapportage", "Performance metrics"]
+    },
+    "onboarding": {
+      "title": "Aangepaste Onboarding",
+      "description": "Op maat gemaakt implementatieproces met data migratie, personeelstraining en gefaseerde uitrol opties.",
+      "highlights": ["Data migratie", "Personeelstraining", "Gefaseerde uitrol", "Change management"]
+    }
   },
-  "pricing": {
-    "title": "Volumeprijzen",
-    "subtitle": "Flexibele contracten voor uw behoeften"
+  "contractFlexibility": {
+    "title": "Flexibele Overeenkomst Opties",
+    "subtitle": "Kies de contracttermijn die past bij de behoeften, budgetcyclus en strategische planningshorizon van uw organisatie.",
+    "pilot": {
+      "title": "Pilot Programma's",
+      "duration": "3-6 Maanden",
+      "badge": "Proefperiode",
+      "description": "Test Care Conneqt met een kleine groep voor volledige implementatie. Perfect voor proof of concept en stakeholder buy-in.",
+      "features": [
+        "Beperkte implementatie (5-15 bewoners)",
+        "Volledige functie toegang",
+        "Toegewijde implementatie ondersteuning",
+        "Performance rapportage",
+        "Optie om uit te breiden"
+      ],
+      "ideal": "Organisaties die nieuwe technologie evalueren of bestuurlijke goedkeuring zoeken"
+    },
+    "standard": {
+      "title": "Standaard Overeenkomst",
+      "duration": "12 Maanden",
+      "badge": "Flexibel",
+      "description": "Jaarlijkse overeenkomsten bieden flexibiliteit terwijl ze kwaliteitszorg waarborgen. Verlengbaar met verbeterde voorwaarden op basis van gebruik.",
+      "features": [
+        "Jaarlijkse commitment",
+        "Competitieve prijzen",
+        "Driemaandelijkse business reviews",
+        "Standaard ondersteuning",
+        "Verlengingskortingen beschikbaar"
+      ],
+      "ideal": "Organisaties die kortere commitments willen met verlengingsflexibiliteit"
+    },
+    "preferred": {
+      "title": "Preferred Partnership",
+      "duration": "24 Maanden",
+      "badge": "Meest Populair",
+      "description": "Tweejarige partnerships bieden optimale prijzen en prioriteitsondersteuning. Beste waarde voor groeiende organisaties.",
+      "features": [
+        "24-maanden commitment",
+        "Preferred prijstier",
+        "Prioriteit ondersteuning toegang",
+        "Gratis driemaandelijkse training",
+        "Feature preview toegang"
+      ],
+      "ideal": "Gevestigde voorzieningen die op zoek zijn naar langetermijnstabiliteit en beste waarde"
+    },
+    "enterprise": {
+      "title": "Enterprise Partnership",
+      "duration": "36 Maanden",
+      "badge": "Maximale Waarde",
+      "description": "Langetermijn partnerships ontsluiten maximale voordelen inclusief aangepaste ontwikkeling en strategisch accountbeheer.",
+      "features": [
+        "36-maanden commitment",
+        "Maximale prijskorting",
+        "Toegewijde accountmanager",
+        "Aangepaste feature ontwikkeling",
+        "Strategische partnership voordelen",
+        "Executive driemaandelijkse reviews"
+      ],
+      "ideal": "Grote organisaties en multi-locatie operators die maximale waarde zoeken"
+    },
+    "footer": "Alle overeenkomsten bevatten volledige toegang tot ons platform, 24/7 monitoring services, regelmatige systeemupdates en het vermogen om op of neer te schalen op basis van uw behoeften. Neem contact op om aangepaste voorwaarden te bespreken."
   },
-  "compliance": {
+  "volumePricing": {
+    "title": "Volume-gebaseerde Prijzen",
+    "subtitle": "Prijzen die meeschalen met uw organisatie. Hoe meer bewoners of werknemers u dekt, hoe beter uw per-eenheid economie.",
+    "small": {
+      "name": "Kleine Voorzieningen",
+      "range": "5-25 Bewoners",
+      "description": "Perfect voor boutique zorginstellingen en kleine residentiële voorzieningen",
+      "features": [
+        "Volledige platform toegang",
+        "Standaard apparaat allocatie",
+        "E-mail & telefoon ondersteuning",
+        "Maandelijkse rapportage",
+        "Pilot programma eligible"
+      ],
+      "savings": "Volume kortingen beschikbaar"
+    },
+    "medium": {
+      "name": "Medium Voorzieningen",
+      "range": "26-100 Bewoners",
+      "badge": "Populair",
+      "description": "Ideaal voor gevestigde zorginstellingen en multi-unit voorzieningen",
+      "features": [
+        "Alles in Klein +",
+        "Prioriteit ondersteuning toegang",
+        "Tweewekelijkse business reviews",
+        "Aangepaste rapportage",
+        "Personeelstraining inbegrepen",
+        "API toegang beschikbaar"
+      ],
+      "savings": "Significante per-bewoner besparingen"
+    },
+    "large": {
+      "name": "Grote Voorzieningen",
+      "range": "100-500 Bewoners",
+      "description": "Voor grote zorgorganisaties en gemeentelijke programma's",
+      "features": [
+        "Alles in Medium +",
+        "Toegewijde accountmanager",
+        "Wekelijkse performance reviews",
+        "Geavanceerde analytics",
+        "White-label opties",
+        "Aangepaste integraties",
+        "SLA garanties"
+      ],
+      "savings": "Maximale volume kortingen"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "range": "500+ of Multi-Locatie",
+      "badge": "Beste Waarde",
+      "description": "Multi-locatie operators en enterprise organisaties",
+      "features": [
+        "Alles in Groot +",
+        "Strategisch partnership",
+        "Aangepaste feature ontwikkeling",
+        "Executive account team",
+        "Multi-locatie management tools",
+        "Flexibele deployment modellen",
+        "Enterprise SLA's",
+        "Preferred pricing structuur"
+      ],
+      "savings": "Aangepaste enterprise prijzen"
+    },
+    "cta": {
+      "title": "Klaar om Uw Behoeften te Bespreken?",
+      "description": "Elke organisatie is uniek. We werken met u samen om een aangepaste offerte te creëren op basis van uw specifieke vereisten, aantal bewoners, contracttermijn en integratie behoeften.",
+      "button": "Aangepaste Offerte Aanvragen"
+    },
+    "benefits": {
+      "noSetup": "Geen Installatiekosten",
+      "noSetupDesc": "Implementatie en training inbegrepen",
+      "transparent": "Transparant",
+      "transparentDesc": "Geen verborgen kosten of verrassingskosten",
+      "flexible": "Flexibel",
+      "flexibleDesc": "Schaal op of neer naarmate behoeften veranderen"
+    }
+  },
+  "integrationOptions": {
+    "title": "Naadloze Integraties",
+    "subtitle": "Verbind Care Conneqt met uw bestaande systemen voor unified zorgmanagement en dataflow.",
+    "careManagement": {
+      "title": "Zorgmanagementsystemen",
+      "description": "Naadloze integratie met toonaangevende zorgmanagement platforms inclusief Person Centred Software, Care Vision en anderen.",
+      "examples": ["Person Centred Software", "Care Vision", "Log my Care", "eMAR systemen"]
+    },
+    "ehr": {
+      "title": "EPD/EMR Integratie",
+      "description": "Verbind met elektronische patiëntendossier systemen voor uitgebreide zorgdocumentatie en klinische workflows.",
+      "examples": ["FHIR-compatibele API's", "HL7 ondersteuning", "NHS integratie", "Aangepaste connectors"]
+    },
+    "localAuthority": {
+      "title": "Lokale Autoriteit Platforms",
+      "description": "Directe integratie met gemeente en sociale zorg systemen voor rapportage, verwijzingen en financieringsmanagement.",
+      "examples": ["ContrOCC", "Adult Social Care systemen", "Rapportage portalen", "Financiering platforms"]
+    },
+    "api": {
+      "title": "RESTful API Toegang",
+      "description": "Volledige API toegang voor aangepaste integraties, data exports en het bouwen van uw eigen applicaties op ons platform.",
+      "examples": ["REST API", "Webhook ondersteuning", "Real-time data", "Aangepaste endpoints"]
+    },
+    "whiteLabel": {
+      "title": "White-Label Oplossingen",
+      "subtitle": "Voor verzekeringsmaatschappijen, grote zorggroepen en organisaties die Care Conneqt willen aanbieden als hun eigen branded oplossing.",
+      "branding": {
+        "title": "Volledige Branding",
+        "description": "Vervang alle Care Conneqt branding met het logo, kleuren en visuele identiteit van uw organisatie over het hele platform.",
+        "features": [
+          "Aangepast logo & kleuren",
+          "Branded mobiele apps",
+          "Aangepaste domeinnaam",
+          "Gepersonaliseerde communicatie"
+        ]
+      },
+      "deployment": {
+        "title": "Private Deployment",
+        "description": "Toegewijde infrastructuur met uw branding, waardoor het de uitstraling heeft van een volledig propriëtaire oplossing.",
+        "features": [
+          "Geïsoleerde omgeving",
+          "Aangepaste URL structuur",
+          "Branded login pagina's",
+          "Uw voorwaarden & beleid"
+        ]
+      },
+      "why": {
+        "title": "Waarom White-Label?",
+        "insurers": "Voor Verzekeringsmaatschappijen: Bied Care Conneqt aan als uw eigen preventieve zorg voordeel, claims verminderend terwijl u lidrelaties en merkloyaliteit versterkt.",
+        "careGroups": "Voor Zorggroepen: Creëer een uniforme technologie-ervaring over al uw voorzieningen met uw branding, wat personeelsadoptie en familievertrouwen verbetert.",
+        "resellers": "Voor Resellers: Bouw uw zorgtechnologie business zonder ontwikkelingskosten, gebruik makend van ons bewezen platform onder uw merk.",
+        "availableFor": "Beschikbaar voor:",
+        "enterprise": "Enterprise (500+ bewoners)",
+        "insurance": "Verzekeringsmaatschappijen",
+        "multiSite": "Multi-Locatie Operators"
+      }
+    }
+  },
+  "complianceSection": {
     "title": "Compliance & Beveiliging",
-    "gdpr": "AVG-Conform",
-    "iso": "ISO 27001 Gecertificeerd",
-    "hipaa": "HIPAA Klaar"
+    "subtitle": "Gebouwd met regelgevende compliance en databeveiliging in de kern. Voldoen aan en overtreffen van industriestandaarden om uw organisatie en bewoners te beschermen.",
+    "gdpr": {
+      "title": "AVG-Conform",
+      "description": "Volledige naleving van EU Algemene Verordening Gegevensbescherming, inclusief rechten van betrokkenen en privacy by design.",
+      "certifications": ["ISO 27001", "Functionaris Gegevensbescherming", "Privacy Impact Assessments", "Recht op verwijdering"]
+    },
+    "cqc": {
+      "title": "CQC Afstemming",
+      "description": "Tools en rapportage ontworpen om Care Quality Commission vereisten en inspectie paraatheid te ondersteunen.",
+      "certifications": ["Veilig", "Effectief", "Zorgzaam", "Responsief", "Goed geleid domeinen"]
+    },
+    "security": {
+      "title": "Databeveiliging",
+      "description": "Enterprise-niveau beveiliging met encryptie at rest en in transit, regelmatige penetratietesten en SOC 2 compliance.",
+      "certifications": ["AES-256 encryptie", "TLS 1.3", "Regelmatige pen testing", "Vulnerability scanning"]
+    },
+    "audit": {
+      "title": "Audit Trail",
+      "description": "Volledige audit logging van alle datatoegang, wijzigingen en systeemgebeurtenissen voor compliance en onderzoeksdoeleinden.",
+      "certifications": ["Toegang logs", "Wijzigingen tracking", "Gebeurtenis monitoring", "Exporteerbare rapporten"]
+    },
+    "risk": {
+      "title": "Risicomanagement",
+      "description": "Ingebouwde risicobeoordeling tools en escalatie protocollen afgestemd op sociale zorg safeguarding vereisten.",
+      "certifications": ["Risico stratificatie", "Safeguarding alerts", "Incident rapportage", "Duty of care tracking"]
+    },
+    "standards": {
+      "title": "Industriestandaarden",
+      "description": "Compliance met NHS Digital standaarden, lokale autoriteit vereisten en zorgsector best practices.",
+      "certifications": ["NHS compatibel", "Gemeente integratie", "Zorg standaarden", "Best practice richtlijnen"]
+    },
+    "certifications": {
+      "title": "Beveiligingscertificaties",
+      "items": [
+        "ISO 27001 Informatiebeveiliging",
+        "SOC 2 Type II Compliance",
+        "Cyber Essentials Plus",
+        "Jaarlijkse Penetratietesten"
+      ]
+    },
+    "dataProtection": {
+      "title": "Gegevensbescherming",
+      "items": [
+        "UK-gebaseerde datacenters",
+        "Versleutelde back-ups (dagelijks)",
+        "Disaster recovery plan",
+        "99.9% uptime SLA"
+      ]
+    }
+  },
+  "faq": {
+    "title": "Veelgestelde Vragen",
+    "subtitle": "Veelvoorkomende vragen van organisaties die Care Conneqt evalueren voor enterprise deployment.",
+    "contactCta": "Heeft u meer vragen? Ons enterprise team staat klaar om te helpen.",
+    "contactButton": "Contact Enterprise Team",
+    "questions": [
+      {
+        "question": "Welke contractflexibiliteit bieden jullie?",
+        "answer": "We bieden pilotprogramma's (3-6 maanden), jaarlijkse overeenkomsten (12 maanden), preferred partnerships (24 maanden) en enterprise partnerships (36 maanden). Elke optie biedt verschillende prijsniveaus en voordelen. Pilotprogramma's zijn perfect voor het testen van het systeem voor volledige implementatie, terwijl langere commitments betere prijzen en aanvullende services zoals toegewijd accountbeheer ontsluiten."
+      },
+      {
+        "question": "Hoe lang duurt de implementatie?",
+        "answer": "De implementatietijd varieert per organisatiegrootte. Kleine voorzieningen (5-25 bewoners) kunnen volledig worden geïmplementeerd in 2-3 weken. Middelgrote tot grote voorzieningen nemen typisch 4-6 weken inclusief personeelstraining en systeemintegratie. Enterprise implementaties met aangepaste integraties kunnen 2-3 maanden duren. We bieden gefaseerde uitrols om verstoring te minimaliseren en soepele adoptie te waarborgen."
+      },
+      {
+        "question": "Welke training en ondersteuning zijn inbegrepen?",
+        "answer": "Alle pakketten bevatten uitgebreide onboarding met video tutorials, gebruikershandleidingen en live trainingsessies voor personeel. Doorlopende ondersteuning omvat e-mail en telefoon assistentie, met prioriteitsrespons tijden voor grotere contracten. Enterprise klanten ontvangen toegewijde accountmanagers en driemaandelijkse business reviews. Aangepaste trainingsprogramma's kunnen worden georganiseerd voor specifieke workflows of compliance vereisten."
+      },
+      {
+        "question": "Hoe werken de prijzen?",
+        "answer": "Prijzen zijn volume-gebaseerd en schalen met het aantal bewoners of werknemers gedekt. Tarieven dalen naarmate het volume toeneemt, waardoor grotere implementaties kosteneffectiever zijn per eenheid. Prijzen variëren ook per contractlengte, waarbij langere commitments betere tarieven krijgen. We bieden aangepaste offertes op basis van uw specifieke behoeften, inclusief eventuele integraties, white-labeling of aangepaste functies. Neem contact op voor een gedetailleerde offerte."
+      },
+      {
+        "question": "Kunnen we beginnen met een pilotprogramma?",
+        "answer": "Ja! Pilotprogramma's zijn een uitstekende manier om Care Conneqt te valideren met een kleine groep (typisch 5-15 bewoners) voor volledige implementatie. Pilots lopen 3-6 maanden en bevatten volledige platform toegang, toegewijde implementatie ondersteuning en performance rapportage. Dit stelt u in staat om resultaten te meten, personeelsfeedback te verzamelen en stakeholder buy-in veilig te stellen. Pilotprogramma's kunnen worden uitgebreid naar volledige overeenkomsten met krediet richting uw initiële investering."
+      },
+      {
+        "question": "Welke data verzamelen jullie en wie bezit het?",
+        "answer": "We verzamelen gezondheidsmonitoring data, alertinformatie en gebruiksanalyses om onze service te leveren. Alle data is versleuteld, AVG-conform en opgeslagen in UK datacenters. Uw organisatie behoudt volledige eigendom van alle bewonerdata. U kunt uw data op elk moment exporteren en volledige verwijdering aanvragen als u de service stopzet. We delen of verkopen nooit data aan derden. Gedetailleerde data verwerkingsovereenkomsten worden verstrekt tijdens contractering."
+      },
+      {
+        "question": "Hoe integreert het met onze bestaande systemen?",
+        "answer": "Care Conneqt biedt RESTful API's en voorgebouwde integraties met grote zorgmanagement platforms (Person Centred Software, Care Vision, etc.), EPD/EMR systemen en lokale autoriteit platforms. We ondersteunen FHIR en HL7 standaarden voor gezondheidszorg data-uitwisseling. Aangepaste integraties kunnen worden ontwikkeld voor Enterprise klanten. Ons technisch team werkt samen met uw IT-afdeling om soepele integratie met uw bestaande workflows te waarborgen."
+      },
+      {
+        "question": "Is white-labeling beschikbaar?",
+        "answer": "Ja, white-labeling is beschikbaar voor Enterprise-tier klanten (typisch 500+ bewoners), verzekeringsmaatschappijen en multi-locatie operators. White-label opties omvatten volledige rebranding met uw logo, kleuren en domeinnaam over alle gebruikersgerichte interfaces inclusief mobiele apps, webportals en communicatie. Dit stelt u in staat om Care Conneqt aan te bieden als uw eigen propriëtaire oplossing. White-label implementaties bevatten toegewijde infrastructuur en aangepaste voorwaarden."
+      },
+      {
+        "question": "Wat gebeurt er als we omhoog of omlaag moeten schalen?",
+        "answer": "Ons platform is ontworpen voor flexibele schaling. U kunt maandelijks bewoners/apparaten toevoegen of verwijderen naarmate uw census verandert, met dienovereenkomstig aangepaste prijzen. Voor significante wijzigingen (bijv. acquisitie van een nieuwe voorziening), kunnen we overeenkomsten mid-term wijzigen. Contract minima zijn van toepassing, maar we werken met u samen om organisatorische veranderingen te accommoderen. Schaling discussies maken deel uit van regelmatige business reviews met uw account team."
+      },
+      {
+        "question": "Welke compliance en beveiligingsmaatregelen zijn er?",
+        "answer": "Care Conneqt is volledig AVG-conform met ISO 27001, SOC 2 Type II certificeringen en Cyber Essentials Plus. We handhaven uitgebreide audit trails, gebruiken AES-256 encryptie voor data at rest en TLS 1.3 voor data in transit, en voeren jaarlijkse penetratietesten uit. Ons platform ondersteunt CQC vereisten met ingebouwde rapportage tools. We handhaven een 99.9% uptime SLA met UK-gebaseerde datacenters, dagelijkse versleutelde back-ups en disaster recovery protocollen."
+      }
+    ]
   },
   "contact": {
     "title": "Neem Contact Op",

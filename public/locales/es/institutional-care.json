@@ -1,29 +1,398 @@
 {
   "hero": {
-    "title": "Soluciones Empresariales de Atención",
-    "subtitle": "Soluciones escalables para instituciones",
-    "getStarted": "Contactar Ventas"
+    "title": "Tecnología de Atención Escalable para Su Organización",
+    "subtitle": "Potencie residencias, municipios, aseguradoras y empleadores con monitoreo impulsado por IA, herramientas de cumplimiento y acuerdos flexibles adaptados a sus necesidades.",
+    "badge": "Soluciones de Atención de Nivel Empresarial",
+    "getStarted": "Solicitar Demo",
+    "exploreSolutions": "Explorar Soluciones",
+    "stats": {
+      "emergencyReduction": "Reducción de Llamadas de Emergencia",
+      "gdprCompliant": "Cumple con GDPR",
+      "support": "Soporte Profesional"
+    }
   },
-  "solutions": {
-    "title": "Tipos de Soluciones",
-    "careHomes": "Residencias de Ancianos",
-    "municipalities": "Municipios",
-    "insurers": "Aseguradoras",
-    "employers": "Empleadores"
+  "solutionTypes": {
+    "title": "Soluciones para Cada Organización",
+    "subtitle": "Soluciones tecnológicas de atención personalizadas diseñadas para sus necesidades y objetivos organizacionales específicos.",
+    "careHomes": {
+      "title": "Residencias y Centros de Atención",
+      "description": "Monitoreo multi-residente con paneles centralizados, alertas para el personal e informes completos para mejorar la calidad de la atención.",
+      "features": [
+        "Panel de administración centralizado",
+        "Alertas móviles para el personal",
+        "Detección y prevención de caídas",
+        "Recordatorios de medicación",
+        "Acceso al portal familiar",
+        "Informes de cumplimiento CQC"
+      ]
+    },
+    "municipalities": {
+      "title": "Municipios y Atención Social",
+      "description": "Programas comunitarios que permiten vida independiente con monitoreo en tiempo real y optimización de recursos.",
+      "features": [
+        "Análisis de salud poblacional",
+        "Herramientas de asignación de recursos",
+        "Gestión multi-sitio",
+        "Integración con autoridades locales",
+        "Estratificación de riesgos",
+        "Optimización de presupuesto"
+      ]
+    },
+    "insurers": {
+      "title": "Proveedores de Seguros",
+      "description": "Soluciones de mitigación de riesgos y atención preventiva que reducen reclamaciones mientras mejoran los resultados de los miembros.",
+      "features": [
+        "Análisis de reducción de reclamaciones",
+        "Herramientas de evaluación de riesgos",
+        "Portal de participación de miembros",
+        "Seguimiento de atención preventiva",
+        "Informes de ROI",
+        "Opciones de marca blanca"
+      ]
+    },
+    "employers": {
+      "title": "Bienestar Corporativo",
+      "description": "Programas de atención para empleados de fuerza laboral envejecida o paquetes de atención ejecutiva con monitoreo profesional.",
+      "features": [
+        "Beneficios de atención para empleados",
+        "Protección ejecutiva",
+        "Apoyo a fuerza laboral envejecida",
+        "Integración con panel de RRHH",
+        "Seguimiento de ROI de bienestar",
+        "Opciones de cobertura flexibles"
+      ]
+    }
   },
-  "features": {
-    "title": "Características Empresariales",
-    "subtitle": "Construido para escala y cumplimiento"
+  "enterpriseFeatures": {
+    "title": "Características de Nivel Empresarial",
+    "subtitle": "Herramientas profesionales y soporte diseñados para organizaciones que gestionan atención a escala.",
+    "dashboard": {
+      "title": "Panel de Administración Avanzado",
+      "description": "Centro de control integral con monitoreo en tiempo real, gestión de alertas y supervisión multi-ubicación.",
+      "highlights": ["Gestión multi-sitio", "Acceso basado en roles", "Vistas personalizadas", "Aplicación móvil"]
+    },
+    "analytics": {
+      "title": "Análisis e Informes",
+      "description": "Información profunda sobre calidad de atención, utilización de recursos y métricas de resultados con informes exportables.",
+      "highlights": ["Informes personalizados", "Seguimiento de KPI", "Análisis de tendencias", "Exportación de datos API"]
+    },
+    "integration": {
+      "title": "Integración API",
+      "description": "Conéctese sin problemas con sus sistemas de gestión de atención existentes, EHR y plataformas de autoridades locales.",
+      "highlights": ["API RESTful", "Soporte webhook", "Compatible con FHIR", "Integraciones personalizadas"]
+    },
+    "support": {
+      "title": "Soporte Dedicado",
+      "description": "Soporte de nivel empresarial con gestión de cuentas dedicada, respuesta prioritaria y programas de capacitación.",
+      "highlights": ["Gestor de cuentas", "Soporte prioritario", "Capacitación incluida", "Revisiones trimestrales"]
+    },
+    "sla": {
+      "title": "Garantías SLA",
+      "description": "Garantía de tiempo de actividad del 99.9% con acuerdos de nivel de servicio integrales y protocolos de respuesta a incidentes.",
+      "highlights": ["99.9% tiempo activo", "SLA de respuesta", "Informes de incidentes", "Métricas de rendimiento"]
+    },
+    "onboarding": {
+      "title": "Incorporación Personalizada",
+      "description": "Proceso de implementación adaptado con migración de datos, capacitación del personal y opciones de despliegue gradual.",
+      "highlights": ["Migración de datos", "Capacitación del personal", "Despliegue por fases", "Gestión del cambio"]
+    }
   },
-  "pricing": {
-    "title": "Precios por Volumen",
-    "subtitle": "Contratos flexibles para sus necesidades"
+  "contractFlexibility": {
+    "title": "Opciones de Acuerdo Flexibles",
+    "subtitle": "Elija el plazo contractual que coincida con las necesidades de su organización, ciclo presupuestario y horizonte de planificación estratégica.",
+    "pilot": {
+      "title": "Programas Piloto",
+      "duration": "3-6 Meses",
+      "badge": "Período de Prueba",
+      "description": "Pruebe Care Conneqt con un grupo pequeño antes del despliegue completo. Perfecto para prueba de concepto y aprobación de stakeholders.",
+      "features": [
+        "Despliegue limitado (5-15 residentes)",
+        "Acceso completo a funciones",
+        "Soporte de implementación dedicado",
+        "Informes de rendimiento",
+        "Opción de expansión"
+      ],
+      "ideal": "Organizaciones evaluando nueva tecnología o buscando aprobación de la junta"
+    },
+    "standard": {
+      "title": "Acuerdo Estándar",
+      "duration": "12 Meses",
+      "badge": "Flexible",
+      "description": "Los acuerdos anuales brindan flexibilidad mientras aseguran atención de calidad. Renovables con términos mejorados basados en uso.",
+      "features": [
+        "Compromiso anual",
+        "Precios competitivos",
+        "Revisiones trimestrales de negocio",
+        "Soporte estándar",
+        "Descuentos de renovación disponibles"
+      ],
+      "ideal": "Organizaciones que desean compromisos más cortos con flexibilidad de renovación"
+    },
+    "preferred": {
+      "title": "Asociación Preferida",
+      "duration": "24 Meses",
+      "badge": "Más Popular",
+      "description": "Las asociaciones de dos años ofrecen precios óptimos y soporte prioritario. Mejor valor para organizaciones en crecimiento.",
+      "features": [
+        "Compromiso de 24 meses",
+        "Nivel de precios preferente",
+        "Acceso a soporte prioritario",
+        "Capacitación trimestral gratuita",
+        "Acceso previo a funciones"
+      ],
+      "ideal": "Centros establecidos que buscan estabilidad a largo plazo y mejor valor"
+    },
+    "enterprise": {
+      "title": "Asociación Empresarial",
+      "duration": "36 Meses",
+      "badge": "Máximo Valor",
+      "description": "Las asociaciones a largo plazo desbloquean beneficios máximos incluyendo desarrollo personalizado y gestión estratégica de cuentas.",
+      "features": [
+        "Compromiso de 36 meses",
+        "Descuento máximo en precios",
+        "Gestor de cuentas dedicado",
+        "Desarrollo de funciones personalizadas",
+        "Beneficios de asociación estratégica",
+        "Revisiones ejecutivas trimestrales"
+      ],
+      "ideal": "Grandes organizaciones y operadores multi-sitio que buscan máximo valor"
+    },
+    "footer": "Todos los acuerdos incluyen acceso completo a nuestra plataforma, servicios de monitoreo 24/7, actualizaciones regulares del sistema y la capacidad de escalar hacia arriba o abajo según sus necesidades. Contáctenos para discutir términos personalizados."
   },
-  "compliance": {
+  "volumePricing": {
+    "title": "Precios Basados en Volumen",
+    "subtitle": "Precios que escalan con su organización. Cuantos más residentes o empleados cubra, mejor será su economía por unidad.",
+    "small": {
+      "name": "Instalaciones Pequeñas",
+      "range": "5-25 Residentes",
+      "description": "Perfecto para residencias boutique y pequeñas instalaciones residenciales",
+      "features": [
+        "Acceso completo a la plataforma",
+        "Asignación estándar de dispositivos",
+        "Soporte por correo y teléfono",
+        "Informes mensuales",
+        "Elegible para programa piloto"
+      ],
+      "savings": "Descuentos por volumen disponibles"
+    },
+    "medium": {
+      "name": "Instalaciones Medianas",
+      "range": "26-100 Residentes",
+      "badge": "Popular",
+      "description": "Ideal para residencias establecidas e instalaciones multi-unidad",
+      "features": [
+        "Todo en Pequeñas +",
+        "Acceso a soporte prioritario",
+        "Revisiones de negocio quincenales",
+        "Informes personalizados",
+        "Capacitación del personal incluida",
+        "Acceso API disponible"
+      ],
+      "savings": "Ahorros significativos por residente"
+    },
+    "large": {
+      "name": "Instalaciones Grandes",
+      "range": "100-500 Residentes",
+      "description": "Para grandes organizaciones de atención y programas municipales",
+      "features": [
+        "Todo en Medianas +",
+        "Gestor de cuentas dedicado",
+        "Revisiones de rendimiento semanales",
+        "Análisis avanzados",
+        "Opciones de marca blanca",
+        "Integraciones personalizadas",
+        "Garantías SLA"
+      ],
+      "savings": "Máximos descuentos por volumen"
+    },
+    "enterprise": {
+      "name": "Empresarial",
+      "range": "500+ o Multi-Sitio",
+      "badge": "Mejor Valor",
+      "description": "Operadores multi-ubicación y organizaciones empresariales",
+      "features": [
+        "Todo en Grandes +",
+        "Asociación estratégica",
+        "Desarrollo de funciones personalizadas",
+        "Equipo de cuentas ejecutivas",
+        "Herramientas de gestión multi-sitio",
+        "Modelos de despliegue flexibles",
+        "SLA empresariales",
+        "Estructura de precios preferentes"
+      ],
+      "savings": "Precios empresariales personalizados"
+    },
+    "cta": {
+      "title": "¿Listo para Discutir Sus Necesidades?",
+      "description": "Cada organización es única. Trabajaremos con usted para crear una cotización personalizada basada en sus requisitos específicos, número de residentes, plazo contractual y necesidades de integración.",
+      "button": "Solicitar Cotización Personalizada"
+    },
+    "benefits": {
+      "noSetup": "Sin Tarifas de Configuración",
+      "noSetupDesc": "Implementación y capacitación incluidas",
+      "transparent": "Transparente",
+      "transparentDesc": "Sin costos ocultos o cargos sorpresa",
+      "flexible": "Flexible",
+      "flexibleDesc": "Escale hacia arriba o abajo según cambien las necesidades"
+    }
+  },
+  "integrationOptions": {
+    "title": "Integraciones Sin Problemas",
+    "subtitle": "Conecte Care Conneqt con sus sistemas existentes para gestión de atención unificada y flujo de datos.",
+    "careManagement": {
+      "title": "Sistemas de Gestión de Atención",
+      "description": "Integración sin problemas con plataformas líderes de gestión de atención incluyendo Person Centred Software, Care Vision y otros.",
+      "examples": ["Person Centred Software", "Care Vision", "Log my Care", "Sistemas eMAR"]
+    },
+    "ehr": {
+      "title": "Integración EHR/EMR",
+      "description": "Conéctese con sistemas de registros médicos electrónicos para documentación de atención integral y flujos de trabajo clínicos.",
+      "examples": ["APIs compatibles con FHIR", "Soporte HL7", "Integración NHS", "Conectores personalizados"]
+    },
+    "localAuthority": {
+      "title": "Plataformas de Autoridades Locales",
+      "description": "Integración directa con sistemas de consejo y atención social para informes, referencias y gestión de financiación.",
+      "examples": ["ContrOCC", "Sistemas de Atención Social para Adultos", "Portales de informes", "Plataformas de financiación"]
+    },
+    "api": {
+      "title": "Acceso API RESTful",
+      "description": "Acceso API completo para integraciones personalizadas, exportaciones de datos y construcción de sus propias aplicaciones en nuestra plataforma.",
+      "examples": ["API REST", "Soporte webhook", "Datos en tiempo real", "Puntos finales personalizados"]
+    },
+    "whiteLabel": {
+      "title": "Soluciones de Marca Blanca",
+      "subtitle": "Para proveedores de seguros, grandes grupos de atención y organizaciones que desean ofrecer Care Conneqt como su propia solución de marca.",
+      "branding": {
+        "title": "Marca Completa",
+        "description": "Reemplace toda la marca Care Conneqt con el logo, colores e identidad visual de su organización en toda la plataforma.",
+        "features": [
+          "Logo y colores personalizados",
+          "Aplicaciones móviles de marca",
+          "Nombre de dominio personalizado",
+          "Comunicaciones personalizadas"
+        ]
+      },
+      "deployment": {
+        "title": "Despliegue Privado",
+        "description": "Infraestructura dedicada con su marca, dando la apariencia de una solución completamente propietaria.",
+        "features": [
+          "Entorno aislado",
+          "Estructura de URL personalizada",
+          "Páginas de inicio de sesión de marca",
+          "Sus términos y políticas"
+        ]
+      },
+      "why": {
+        "title": "¿Por Qué Marca Blanca?",
+        "insurers": "Para Proveedores de Seguros: Ofrezca Care Conneqt como su propio beneficio de atención preventiva, reduciendo reclamaciones mientras fortalece las relaciones con miembros y la lealtad de marca.",
+        "careGroups": "Para Grupos de Atención: Cree una experiencia tecnológica unificada en todas sus instalaciones con su marca, mejorando la adopción del personal y la confianza familiar.",
+        "resellers": "Para Revendedores: Construya su negocio de tecnología de atención sin costos de desarrollo, aprovechando nuestra plataforma probada bajo su marca.",
+        "availableFor": "Disponible para:",
+        "enterprise": "Empresarial (500+ residentes)",
+        "insurance": "Proveedores de Seguros",
+        "multiSite": "Operadores Multi-Sitio"
+      }
+    }
+  },
+  "complianceSection": {
     "title": "Cumplimiento y Seguridad",
-    "gdpr": "Cumple con GDPR",
-    "iso": "Certificado ISO 27001",
-    "hipaa": "Listo para HIPAA"
+    "subtitle": "Construido con cumplimiento regulatorio y seguridad de datos en el núcleo. Cumpliendo y superando estándares de la industria para proteger su organización y residentes.",
+    "gdpr": {
+      "title": "Cumple con GDPR",
+      "description": "Cumplimiento total con el Reglamento General de Protección de Datos de la UE, incluyendo derechos de los sujetos de datos y privacidad por diseño.",
+      "certifications": ["ISO 27001", "Oficial de Protección de Datos", "Evaluaciones de Impacto de Privacidad", "Derecho al borrado"]
+    },
+    "cqc": {
+      "title": "Alineación CQC",
+      "description": "Herramientas e informes diseñados para apoyar los requisitos de la Care Quality Commission y preparación para inspección.",
+      "certifications": ["Seguro", "Efectivo", "Cuidadoso", "Responsivo", "Dominios bien dirigidos"]
+    },
+    "security": {
+      "title": "Seguridad de Datos",
+      "description": "Seguridad de nivel empresarial con encriptación en reposo y en tránsito, pruebas de penetración regulares y cumplimiento SOC 2.",
+      "certifications": ["Encriptación AES-256", "TLS 1.3", "Pruebas de penetración regulares", "Escaneo de vulnerabilidades"]
+    },
+    "audit": {
+      "title": "Rastro de Auditoría",
+      "description": "Registro de auditoría completo de todos los accesos a datos, cambios y eventos del sistema para fines de cumplimiento e investigación.",
+      "certifications": ["Registros de acceso", "Seguimiento de cambios", "Monitoreo de eventos", "Informes exportables"]
+    },
+    "risk": {
+      "title": "Gestión de Riesgos",
+      "description": "Herramientas de evaluación de riesgos integradas y protocolos de escalamiento alineados con requisitos de salvaguarda de atención social.",
+      "certifications": ["Estratificación de riesgos", "Alertas de salvaguarda", "Informes de incidentes", "Seguimiento del deber de atención"]
+    },
+    "standards": {
+      "title": "Estándares de la Industria",
+      "description": "Cumplimiento con estándares NHS Digital, requisitos de autoridades locales y mejores prácticas del sector de atención.",
+      "certifications": ["Compatible con NHS", "Integración del consejo", "Estándares de atención", "Directrices de mejores prácticas"]
+    },
+    "certifications": {
+      "title": "Certificaciones de Seguridad",
+      "items": [
+        "ISO 27001 Seguridad de la Información",
+        "Cumplimiento SOC 2 Tipo II",
+        "Cyber Essentials Plus",
+        "Pruebas de Penetración Anuales"
+      ]
+    },
+    "dataProtection": {
+      "title": "Protección de Datos",
+      "items": [
+        "Centros de datos en Reino Unido",
+        "Copias de seguridad encriptadas (diarias)",
+        "Plan de recuperación ante desastres",
+        "SLA de 99.9% tiempo activo"
+      ]
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Preguntas comunes de organizaciones evaluando Care Conneqt para despliegue empresarial.",
+    "contactCta": "¿Tiene más preguntas? Nuestro equipo empresarial está aquí para ayudar.",
+    "contactButton": "Contactar Equipo Empresarial",
+    "questions": [
+      {
+        "question": "¿Qué flexibilidad contractual ofrecen?",
+        "answer": "Ofrecemos programas piloto (3-6 meses), acuerdos anuales (12 meses), asociaciones preferidas (24 meses) y asociaciones empresariales (36 meses). Cada opción proporciona diferentes niveles de precios y beneficios. Los programas piloto son perfectos para probar el sistema antes del despliegue completo, mientras que los compromisos más largos desbloquean mejores precios y servicios adicionales como gestión de cuentas dedicada."
+      },
+      {
+        "question": "¿Cuánto tiempo toma la implementación?",
+        "answer": "El cronograma de implementación varía según el tamaño de la organización. Las instalaciones pequeñas (5-25 residentes) pueden desplegarse completamente en 2-3 semanas. Las instalaciones medianas a grandes generalmente toman 4-6 semanas incluyendo capacitación del personal e integración del sistema. Los despliegues empresariales con integraciones personalizadas pueden tomar 2-3 meses. Ofrecemos despliegues por fases para minimizar la interrupción y asegurar una adopción fluida."
+      },
+      {
+        "question": "¿Qué capacitación y soporte están incluidos?",
+        "answer": "Todos los paquetes incluyen incorporación integral con tutoriales en video, guías de usuario y sesiones de capacitación en vivo para el personal. El soporte continuo incluye asistencia por correo electrónico y teléfono, con tiempos de respuesta prioritarios para contratos más grandes. Los clientes empresariales reciben gestores de cuentas dedicados y revisiones de negocio trimestrales. Los programas de capacitación personalizados se pueden organizar para flujos de trabajo específicos o requisitos de cumplimiento."
+      },
+      {
+        "question": "¿Cómo funciona el precio?",
+        "answer": "El precio está basado en volumen y escala con el número de residentes o empleados cubiertos. Las tarifas disminuyen a medida que aumenta el volumen, haciendo que los despliegues más grandes sean más rentables por unidad. El precio también varía según la duración del contrato, con compromisos más largos recibiendo mejores tarifas. Proporcionamos cotizaciones personalizadas basadas en sus necesidades específicas, incluyendo cualquier integración, marca blanca o funciones personalizadas. Contáctenos para una cotización detallada."
+      },
+      {
+        "question": "¿Podemos comenzar con un programa piloto?",
+        "answer": "¡Sí! Los programas piloto son una excelente manera de validar Care Conneqt con un grupo pequeño (generalmente 5-15 residentes) antes del despliegue completo. Los pilotos duran 3-6 meses e incluyen acceso completo a la plataforma, soporte de implementación dedicado e informes de rendimiento. Esto le permite medir resultados, recopilar comentarios del personal y asegurar la aceptación de los stakeholders. Los programas piloto se pueden ampliar a acuerdos completos con crédito hacia su inversión inicial."
+      },
+      {
+        "question": "¿Qué datos recopilan y quién los posee?",
+        "answer": "Recopilamos datos de monitoreo de salud, información de alertas y análisis de uso para proporcionar nuestro servicio. Todos los datos están encriptados, cumplen con GDPR y se almacenan en centros de datos del Reino Unido. Su organización retiene la propiedad completa de todos los datos de residentes. Puede exportar sus datos en cualquier momento y solicitar la eliminación completa si discontinúa el servicio. Nunca compartimos o vendemos datos a terceros. Se proporcionan acuerdos detallados de procesamiento de datos durante la contratación."
+      },
+      {
+        "question": "¿Cómo se integra con nuestros sistemas existentes?",
+        "answer": "Care Conneqt ofrece APIs RESTful e integraciones pre-construidas con las principales plataformas de gestión de atención (Person Centred Software, Care Vision, etc.), sistemas EHR/EMR y plataformas de autoridades locales. Soportamos estándares FHIR y HL7 para intercambio de datos de atención médica. Se pueden desarrollar integraciones personalizadas para clientes empresariales. Nuestro equipo técnico trabajará con su departamento de TI para asegurar una integración fluida con sus flujos de trabajo existentes."
+      },
+      {
+        "question": "¿Está disponible la marca blanca?",
+        "answer": "Sí, la marca blanca está disponible para clientes de nivel empresarial (generalmente 500+ residentes), proveedores de seguros y operadores multi-sitio. Las opciones de marca blanca incluyen cambio de marca completo con su logo, colores y nombre de dominio en todas las interfaces orientadas al usuario, incluyendo aplicaciones móviles, portales web y comunicaciones. Esto le permite ofrecer Care Conneqt como su propia solución propietaria. Los despliegues de marca blanca incluyen infraestructura dedicada y términos personalizados."
+      },
+      {
+        "question": "¿Qué sucede si necesitamos escalar hacia arriba o abajo?",
+        "answer": "Nuestra plataforma está diseñada para escalado flexible. Puede agregar o eliminar residentes/dispositivos mensualmente a medida que cambia su censo, con precios ajustados en consecuencia. Para cambios significativos (por ejemplo, adquisición de una nueva instalación), podemos modificar acuerdos a medio plazo. Se aplican mínimos contractuales, pero trabajamos con usted para acomodar cambios organizacionales. Las discusiones de escalado son parte de las revisiones de negocio regulares con su equipo de cuentas."
+      },
+      {
+        "question": "¿Qué medidas de cumplimiento y seguridad existen?",
+        "answer": "Care Conneqt cumple completamente con GDPR con certificaciones ISO 27001, SOC 2 Tipo II y Cyber Essentials Plus. Mantenemos rastros de auditoría completos, usamos encriptación AES-256 para datos en reposo y TLS 1.3 para datos en tránsito, y realizamos pruebas de penetración anuales. Nuestra plataforma apoya los requisitos de CQC con herramientas de informes integradas. Mantenemos un SLA de 99.9% de tiempo activo con centros de datos en el Reino Unido, copias de seguridad encriptadas diarias y protocolos de recuperación ante desastres."
+      }
+    ]
   },
   "contact": {
     "title": "Póngase en Contacto",
