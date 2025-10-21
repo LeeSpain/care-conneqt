@@ -36,6 +36,21 @@ export default function NurseDashboard() {
   return (
     <DashboardLayout title="Nurse Dashboard">
       <div className="space-y-6">
+        {/* DEV: Test Credentials Panel */}
+        <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
+          <CardHeader>
+            <CardTitle className="text-blue-900 dark:text-blue-100 flex items-center gap-2">
+              <Users className="h-5 w-5" />
+              TEST CREDENTIALS - Nurse Dashboard
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-blue-900 dark:text-blue-100">
+            <p className="font-mono text-sm">Email: nurse@test.com</p>
+            <p className="font-mono text-sm">Password: Nurse123!</p>
+            <p className="text-xs mt-2 text-blue-700 dark:text-blue-300">Use these credentials to login as a nurse. Create this account via signup if it doesn't exist.</p>
+          </CardContent>
+        </Card>
+
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
