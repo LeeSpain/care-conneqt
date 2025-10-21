@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Info } from 'lucide-react';
 
 export default function Login() {
   const { t } = useTranslation('auth');
@@ -98,6 +98,33 @@ export default function Login() {
               {loading ? t('login.signingIn') : t('login.signIn')}
             </Button>
           </form>
+
+          {/* Test Credentials Panel */}
+          <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div className="flex items-start gap-2 mb-3">
+              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-2">
+                  Test Credentials
+                </h4>
+                <div className="space-y-3 text-sm">
+                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Member Account:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">member@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Member123!</p>
+                  </div>
+                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Nurse Account:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">nurse@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Nurse123!</p>
+                  </div>
+                </div>
+                <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+                  Create these accounts via signup if they don't exist yet
+                </p>
+              </div>
+            </div>
+          </div>
 
           <p className="text-center text-sm text-muted-foreground">
             {t('login.noAccount')}{' '}
