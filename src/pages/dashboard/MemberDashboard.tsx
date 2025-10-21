@@ -6,13 +6,15 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Activity, Heart, MessageSquare, Shield, Calendar, Package } from 'lucide-react';
+import { formatDate } from '@/lib/intl';
 
 export default function MemberDashboard() {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const navigate = useNavigate();
   const [member, setMember] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [deviceCount, setDeviceCount] = useState(0);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -41,6 +43,14 @@ export default function MemberDashboard() {
     fetchMemberData();
   }, [user]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(timer);
+  }, []);
+
   if (loading) {
     return (
       <DashboardLayout title="My Dashboard">
@@ -51,29 +61,21 @@ export default function MemberDashboard() {
     );
   }
 
+  const firstName = profile?.first_name || 'there';
+  const formattedDate = formatDate(currentDateTime, 'EEEE, MMMM d, yyyy', profile?.language || 'en');
+  const formattedTime = formatDate(currentDateTime, 'h:mm a', profile?.language || 'en');
+
   return (
     <DashboardLayout title="My Dashboard">
       <div className="space-y-6">
-        {/* DEV: Test Credentials Panel */}
-        <Card className="bg-amber-50 border-amber-200 dark:bg-amber-950 dark:border-amber-800">
-          <CardHeader>
-            <CardTitle className="text-amber-900 dark:text-amber-100 flex items-center gap-2">
-              <Shield className="h-5 w-5" />
-              TEST CREDENTIALS - Member Dashboard
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-amber-900 dark:text-amber-100">
-            <p className="font-mono text-sm">Email: member@test.com</p>
-            <p className="font-mono text-sm">Password: Member123!</p>
-            <p className="text-xs mt-2 text-amber-700 dark:text-amber-300">Use these credentials to login as a member. Create this account via signup if it doesn't exist.</p>
-          </CardContent>
-        </Card>
-
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
-            <h2 className="text-2xl font-bold mb-2">Welcome back!</h2>
+            <h2 className="text-2xl font-bold mb-2">Good day, {firstName}</h2>
             <p className="text-muted-foreground">
+              {formattedDate} at {formattedTime}
+            </p>
+            <p className="text-muted-foreground mt-1">
               Your Care Conneqt team is here to support you 24/7
             </p>
           </CardContent>
