@@ -1,9 +1,136 @@
 {
-  "title": "Nuestras Enfermeras",
-  "subtitle": "Equipo de atención profesional disponible 24/7",
+  "hero": {
+    "badge": "Equipo de Atención Profesional",
+    "title": "Conozca a Nuestras",
+    "titleHighlight": "Enfermeras Experimentadas",
+    "subtitle": "Nuestro equipo de enfermeras calificadas y registradas aporta décadas de experiencia clínica para brindarle atención experta, orientación y respuesta rápida las 24 horas del día, los 365 días del año."
+  },
   "stats": {
-    "nurses": "Enfermeras Profesionales",
-    "response": "Tiempo de Respuesta Promedio",
-    "satisfaction": "Satisfacción del Paciente"
+    "coverage": {
+      "value": "24/7",
+      "label": "Cobertura de Enfermería"
+    },
+    "staff": {
+      "value": "50+",
+      "label": "Personal Clínico"
+    },
+    "experience": {
+      "value": "200+",
+      "label": "Años de Experiencia Combinada"
+    },
+    "response": {
+      "value": "<60s",
+      "label": "Tiempo de Respuesta Promedio"
+    }
+  },
+  "whyDifferent": {
+    "title": "Por Qué Nuestro Equipo de Enfermería es Diferente",
+    "qualified": {
+      "title": "Registradas y Calificadas",
+      "description": "Cada miembro de nuestro equipo de enfermería es una Enfermera General Registrada (RGN) totalmente calificada con registro NMC actual y desarrollo profesional continuo."
+    },
+    "specialist": {
+      "title": "Capacitación Especializada",
+      "description": "Nuestras enfermeras están capacitadas en atención geriátrica, monitoreo remoto, respuesta de emergencia y uso de información de salud de IA para proporcionar atención proactiva y preventiva."
+    },
+    "available": {
+      "title": "Siempre Disponibles",
+      "description": "Nuestro equipo de enfermería opera 24/7/365 con turnos dedicados de día y noche. Nunca está solo: la ayuda experta siempre está a solo un botón de distancia."
+    },
+    "personCentered": {
+      "title": "Atención Centrada en la Persona",
+      "description": "Llegamos a conocerlo, sus preferencias y su historial de salud. Nuestras enfermeras brindan orientación personalizada adaptada a sus necesidades únicas."
+    }
+  },
+  "team": {
+    "title": "Conozca a Algunas de Nuestras Enfermeras Senior",
+    "subtitle": "Nuestro equipo de liderazgo clínico reúne décadas de experiencia en enfermería en atención de emergencia, geriatría, gestión de enfermedades crónicas y salud digital.",
+    "footer": "Más 40+ enfermeras registradas adicionales proporcionando cobertura 24/7 en toda nuestra red de atención",
+    "nurses": [
+      {
+        "name": "Sarah Thompson",
+        "title": "Enfermera Clínica Principal",
+        "credentials": "RGN, BSc (Hons)",
+        "experience": "15+ años",
+        "specialties": ["Atención de Emergencia", "Enfermería Geriátrica", "Atención Cardíaca"],
+        "bio": "Sarah lidera nuestro equipo clínico con amplia experiencia en medicina de emergencia y atención geriátrica. Ella asegura que nuestros protocolos de respuesta cumplan con los más altos estándares clínicos."
+      },
+      {
+        "name": "James Mitchell",
+        "title": "Especialista en Enfermería Senior",
+        "credentials": "RGN, MSc",
+        "experience": "12+ años",
+        "specialties": ["Manejo de Diabetes", "Enfermedad Crónica", "Educación en Salud"],
+        "bio": "James se especializa en el manejo de enfermedades crónicas y aporta profunda experiencia en apoyar a pacientes con necesidades de salud complejas en casa."
+      },
+      {
+        "name": "Maria Garcia",
+        "title": "Gerente de Enfermería Clínica",
+        "credentials": "RGN, Diploma Avanzado",
+        "experience": "18+ años",
+        "specialties": ["Cuidados Paliativos", "Salud Mental", "Apoyo Familiar"],
+        "bio": "Maria supervisa el aseguramiento de calidad y capacitación del personal, asegurando atención compasiva y centrada en la persona para todos nuestros miembros y sus familias."
+      },
+      {
+        "name": "David Chen",
+        "title": "Enfermero de Integración Tecnológica",
+        "credentials": "RGN, Informática de Salud",
+        "experience": "10+ años",
+        "specialties": ["Monitoreo Remoto", "Salud Digital", "Innovación en Atención"],
+        "bio": "David conecta la atención médica y la tecnología, asegurando que nuestros sistemas de IA y dispositivos entreguen información precisa y clínicamente relevante."
+      },
+      {
+        "name": "Emma Williams",
+        "title": "Coordinadora de Turno Nocturno",
+        "credentials": "RGN, Cuidados Críticos",
+        "experience": "14+ años",
+        "specialties": ["Atención Nocturna", "Respuesta a Crisis", "Trastornos del Sueño"],
+        "bio": "Emma lidera nuestro equipo nocturno 24/7, proporcionando atención experta y respuesta rápida cuando más importa."
+      },
+      {
+        "name": "Aisha Patel",
+        "title": "Enfermera de Enlace Comunitario",
+        "credentials": "RGN, Salud Comunitaria",
+        "experience": "11+ años",
+        "specialties": ["Atención Domiciliaria", "Prevención de Caídas", "Gestión de Medicación"],
+        "bio": "Aisha coordina con médicos de cabecera, familias y servicios sociales para asegurar atención integrada y sin problemas para nuestros miembros."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Calificaciones y Certificaciones",
+    "items": [
+      "Enfermeras Generales Registradas (RGN)",
+      "Soporte Vital Avanzado (ALS)",
+      "Capacitación en Salvaguarda",
+      "Primeros Auxilios en Salud Mental",
+      "Especialistas en Atención de Demencia",
+      "Desarrollo Profesional Continuo"
+    ]
+  },
+  "howItWorks": {
+    "title": "Cómo Nuestras Enfermeras lo Apoyan",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Monitoreo Asistido por IA",
+        "description": "Nuestras enfermeras son alertadas por IA cuando los datos de su dispositivo muestran patrones preocupantes: revisan, evalúan y se comunican proactivamente antes de que los pequeños problemas se conviertan en emergencias."
+      },
+      {
+        "number": "2",
+        "title": "Respuesta de Emergencia",
+        "description": "Cuando presiona su botón SOS, una enfermera responde en segundos, evalúa su situación, proporciona orientación y despacha ayuda si es necesario, todo mientras permanece en línea con usted."
+      },
+      {
+        "number": "3",
+        "title": "Orientación de Salud",
+        "description": "Llame en cualquier momento para preguntas de salud, consultas sobre medicamentos o consejos. Nuestras enfermeras proporcionan orientación basada en evidencia y coordinan con su médico de cabecera cuando es necesario."
+      },
+      {
+        "number": "4",
+        "title": "Comunicación Familiar",
+        "description": "Con su permiso, nuestras enfermeras mantienen informados a los miembros de la familia, proporcionan actualizaciones después de incidentes y coordinan planes de atención con sus seres queridos."
+      }
+    ]
   }
 }

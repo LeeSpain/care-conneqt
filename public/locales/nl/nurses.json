@@ -1,9 +1,136 @@
 {
-  "title": "Onze Verpleegkundigen",
-  "subtitle": "Professioneel zorgteam 24/7 beschikbaar",
+  "hero": {
+    "badge": "Professioneel Zorgteam",
+    "title": "Ontmoet Onze",
+    "titleHighlight": "Ervaren Verpleegkundigen",
+    "subtitle": "Ons team van gekwalificeerde, geregistreerde verpleegkundigen brengt decennia van klinische ervaring om u te voorzien van deskundige zorg, begeleiding en snelle respons 24 uur per dag, 365 dagen per jaar."
+  },
   "stats": {
-    "nurses": "Professionele Verpleegkundigen",
-    "response": "Gem. Reactietijd",
-    "satisfaction": "Patiënttevredenheid"
+    "coverage": {
+      "value": "24/7",
+      "label": "Verpleegkundige Dekking"
+    },
+    "staff": {
+      "value": "50+",
+      "label": "Klinisch Personeel"
+    },
+    "experience": {
+      "value": "200+",
+      "label": "Jaar Gecombineerde Ervaring"
+    },
+    "response": {
+      "value": "<60s",
+      "label": "Gemiddelde Responstijd"
+    }
+  },
+  "whyDifferent": {
+    "title": "Waarom Ons Verpleegkundig Team Anders Is",
+    "qualified": {
+      "title": "Geregistreerd & Gekwalificeerd",
+      "description": "Elk lid van ons verpleegkundig team is een volledig gekwalificeerde Geregistreerde Algemene Verpleegkundige (RGN) met huidige NMC registratie en doorlopende professionele ontwikkeling."
+    },
+    "specialist": {
+      "title": "Specialistische Training",
+      "description": "Onze verpleegkundigen zijn getraind in ouderenzorg, remote monitoring, noodrespons en het gebruik van AI gezondheid inzichten om proactieve, preventieve zorg te bieden."
+    },
+    "available": {
+      "title": "Altijd Beschikbaar",
+      "description": "Ons verpleegkundig team opereert 24/7/365 met toegewijde dag- en nachtdiensten. U bent nooit alleen - deskundige hulp is altijd slechts een knop druk weg."
+    },
+    "personCentered": {
+      "title": "Persoonsgerichte Zorg",
+      "description": "We leren u, uw voorkeuren en uw gezondheidsgeschiedenis kennen. Onze verpleegkundigen bieden gepersonaliseerde begeleiding afgestemd op uw unieke behoeften."
+    }
+  },
+  "team": {
+    "title": "Ontmoet Enkele van Onze Senior Verpleegkundigen",
+    "subtitle": "Ons klinisch leiderschapsteam brengt decennia van verpleegkundige ervaring samen over spoedeisende zorg, geriatrie, chronische ziekte management en digitale gezondheid.",
+    "footer": "Plus 40+ extra geregistreerde verpleegkundigen die 24/7 dekking bieden over ons zorgnetwerk",
+    "nurses": [
+      {
+        "name": "Sarah Thompson",
+        "title": "Hoofd Klinische Verpleegkundige",
+        "credentials": "RGN, BSc (Hons)",
+        "experience": "15+ jaar",
+        "specialties": ["Spoedeisende Zorg", "Geriatrische Verpleging", "Hartzorg"],
+        "bio": "Sarah leidt ons klinisch team met uitgebreide ervaring in spoedeisende geneeskunde en ouderenzorg. Ze zorgt ervoor dat onze responsprotocollen voldoen aan de hoogste klinische normen."
+      },
+      {
+        "name": "James Mitchell",
+        "title": "Senior Verpleegkundig Specialist",
+        "credentials": "RGN, MSc",
+        "experience": "12+ jaar",
+        "specialties": ["Diabetes Management", "Chronische Ziekte", "Gezondheidseducatie"],
+        "bio": "James is gespecialiseerd in chronische ziekte management en brengt diepe expertise in het ondersteunen van patiënten met complexe gezondheidsbehoeften thuis."
+      },
+      {
+        "name": "Maria Garcia",
+        "title": "Klinisch Verpleegkundig Manager",
+        "credentials": "RGN, Gevorderd Diploma",
+        "experience": "18+ jaar",
+        "specialties": ["Palliatieve Zorg", "Geestelijke Gezondheid", "Familie Ondersteuning"],
+        "bio": "Maria houdt toezicht op kwaliteitsborging en personeelstraining, en zorgt voor medelevende, persoonsgerichte zorg voor al onze leden en hun families."
+      },
+      {
+        "name": "David Chen",
+        "title": "Technologie Integratie Verpleegkundige",
+        "credentials": "RGN, Gezondheidsinformatica",
+        "experience": "10+ jaar",
+        "specialties": ["Remote Monitoring", "Digitale Gezondheid", "Zorg Innovatie"],
+        "bio": "David overbrugt gezondheidszorg en technologie, en zorgt ervoor dat onze AI-systemen en apparaten nauwkeurige, klinisch relevante inzichten leveren."
+      },
+      {
+        "name": "Emma Williams",
+        "title": "Nachtdienst Coördinator",
+        "credentials": "RGN, Kritieke Zorg",
+        "experience": "14+ jaar",
+        "specialties": ["Nachtelijke Zorg", "Crisis Respons", "Slaapstoornissen"],
+        "bio": "Emma leidt ons 24/7 nachtteam en biedt deskundige zorg en snelle respons wanneer het er het meest toe doet."
+      },
+      {
+        "name": "Aisha Patel",
+        "title": "Gemeenschaps Verpleegkundige Liaison",
+        "credentials": "RGN, Gemeenschapsgezondheid",
+        "experience": "11+ jaar",
+        "specialties": ["Thuiszorg", "Val Preventie", "Medicatie Management"],
+        "bio": "Aisha coördineert met huisartsen, families en sociale diensten om naadloze, geïntegreerde zorg voor onze leden te waarborgen."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Kwalificaties & Certificeringen",
+    "items": [
+      "Geregistreerde Algemene Verpleegkundigen (RGN)",
+      "Geavanceerde Levensondersteuning (ALS)",
+      "Safeguarding Getraind",
+      "Geestelijke Gezondheid Eerste Hulp",
+      "Dementie Zorg Specialisten",
+      "Doorlopende Professionele Ontwikkeling"
+    ]
+  },
+  "howItWorks": {
+    "title": "Hoe Onze Verpleegkundigen U Ondersteunen",
+    "steps": [
+      {
+        "number": "1",
+        "title": "AI-Ondersteunde Monitoring",
+        "description": "Onze verpleegkundigen worden gewaarschuwd door AI wanneer uw apparaatgegevens zorgwekkende patronen vertonen - ze beoordelen, evalueren en nemen proactief contact op voordat kleine problemen noodsituaties worden."
+      },
+      {
+        "number": "2",
+        "title": "Noodrespons",
+        "description": "Wanneer u uw SOS-knop indrukt, antwoordt een verpleegkundige binnen seconden, beoordeelt uw situatie, biedt begeleiding en stuurt hulp indien nodig - allemaal terwijl ze aan de lijn blijven met u."
+      },
+      {
+        "number": "3",
+        "title": "Gezondheidsbegeleiding",
+        "description": "Bel op elk moment voor gezondheidsvragen, medicatie vragen of advies. Onze verpleegkundigen bieden evidence-based begeleiding en coördineren met uw huisarts wanneer nodig."
+      },
+      {
+        "number": "4",
+        "title": "Familie Communicatie",
+        "description": "Met uw toestemming houden onze verpleegkundigen familieleden op de hoogte, bieden updates na incidenten en coördineren zorgplannen met uw geliefden."
+      }
+    ]
   }
 }

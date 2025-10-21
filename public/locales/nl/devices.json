@@ -1,8 +1,268 @@
 {
-  "title": "Verbonden Apparaatecosysteem",
-  "subtitle": "Medische apparaten die naadloos integreren",
-  "included": "Inbegrepen in Basis",
-  "perMonth": "/maand",
-  "allInclude": "Alle apparaten bevatten",
-  "features": "12 maanden lease, gratis verzending, installatieondersteuning, 24/7 technische assistentie, automatische vervanging en naadloze integratie"
+  "hero": {
+    "badge": "Technologie van Medische Kwaliteit",
+    "title": "Verbonden Apparaten voor",
+    "titleHighlight": "Volledige Gemoedsrust",
+    "subtitle": "Professionele gezondheidsmonitoringapparaten die naadloos verbinden met ons AI-aangedreven zorgplatform en 24/7 verpleegkundige respons centrum. Alle apparaten bevatten gratis verzending, installatie en vervanging.",
+    "features": {
+      "medicalGrade": "Medische Kwaliteit",
+      "plugPlay": "Plug & Play Installatie",
+      "support": "24/7 Technische Ondersteuning"
+    }
+  },
+  "devices": {
+    "vivagoWatch": {
+      "name": "Vivago Smart Watch",
+      "tagline": "Uw 24/7 Welzijn Guardian",
+      "description": "Geavanceerd polsapparaat met continue activiteitsmonitoring, valdetectie en noodalarmen. FDA-goedgekeurde technologie vertrouwd door zorgprofessionals wereldwijd.",
+      "price": "Inbegrepen in Basis Pakket of +€19.99/maand",
+      "features": [
+        "Automatische valdetectie",
+        "Hartslag monitoring",
+        "Slaapkwaliteit tracking",
+        "Activiteitsniveau analyse",
+        "Nood SOS knop",
+        "Waterbestendig (IPX7)",
+        "7-dagen batterijduur",
+        "Cellulaire connectiviteit (geen telefoon nodig)"
+      ],
+      "specs": {
+        "batteryLife": "5-7 dagen",
+        "waterResistance": "IPX7 (douche veilig)",
+        "connectivity": "4G LTE cellulair",
+        "weight": "45g",
+        "certification": "FDA goedgekeurd, CE gecertificeerd"
+      }
+    },
+    "sosPendant": {
+      "name": "SOS Hanger",
+      "tagline": "Noodhulp Binnen Handbereik",
+      "description": "Lichtgewicht, discrete noodalarmeringshanger met GPS locatie tracking. Eén-druk activatie verbindt u direct met ons 24/7 verpleegkundige respons centrum.",
+      "price": "Alternatief Basis Apparaat of +€19.99/maand",
+      "features": [
+        "Één-druk noodalarm",
+        "GPS locatie tracking",
+        "Tweerichtings spraakcommunicatie",
+        "Waterdicht ontwerp",
+        "Lange batterijduur (30+ dagen)",
+        "Bereik: werkt overal met cellulair",
+        "Meerdere draagopties (nek/pols)",
+        "Automatische batterij laag waarschuwingen"
+      ],
+      "specs": {
+        "batteryLife": "30+ dagen",
+        "waterResistance": "IPX7 (volledig waterdicht)",
+        "connectivity": "4G LTE cellulair",
+        "weight": "35g",
+        "range": "Landelijke dekking"
+      }
+    },
+    "vivagoDomi": {
+      "name": "Vivago Domi",
+      "tagline": "Slimme Thuis Veiligheidssensoren",
+      "description": "Geavanceerd thuis monitoring systeem met bewegingssensoren, deursensoren en omgevingsmonitoring. Detecteert ongebruikelijke patronen en potentiële veiligheidsproblemen.",
+      "price": "+€29.99/maand",
+      "features": [
+        "Bewegingsdetectie sensoren",
+        "Deur/raam sensoren",
+        "Temperatuur monitoring",
+        "Vochtigheid tracking",
+        "Activiteitspatroon analyse",
+        "Badkamer veiligheidsmonitoring",
+        "Nachtelijke beweging waarschuwingen",
+        "Eenvoudige plug-and-play installatie"
+      ],
+      "specs": {
+        "sensorsIncluded": "4-6 sensoren",
+        "batteryLife": "1-2 jaar (per sensor)",
+        "connectivity": "WiFi + cellulaire backup",
+        "range": "100m binnen",
+        "installation": "Plug & play, geen bedrading"
+      }
+    },
+    "dosellDispenser": {
+      "name": "Dosell Slimme Dispenser",
+      "tagline": "Mis Nooit Uw Medicatie",
+      "description": "Geautomatiseerd medicatiebeheer systeem met getimede herinneringen, dosis tracking en familie notificaties. Perfect voor complexe medicatie schema's.",
+      "price": "+€34.99/maand",
+      "features": [
+        "Geautomatiseerde dosis dispensing",
+        "Audio & visuele herinneringen",
+        "Gemiste dosis waarschuwingen naar familie",
+        "Sabotagebestendige vergrendeling",
+        "28-dagen medicatie opslag",
+        "Medicatie geschiedenis tracking",
+        "Apotheek-vriendelijk ontwerp",
+        "Backup stroomvoorziening"
+      ],
+      "specs": {
+        "capacity": "28 dagen medicatie",
+        "doseTimes": "Tot 6 per dag",
+        "connectivity": "WiFi + 4G backup",
+        "power": "Netvoeding + batterij backup",
+        "dimensions": "25cm x 20cm x 12cm"
+      }
+    },
+    "bbrainClock": {
+      "name": "BBrain Kalender Klok",
+      "tagline": "Geheugen Ondersteuning Gemakkelijk Gemaakt",
+      "description": "Groot-display digitale kalender klok met duidelijke datum, tijd en afspraak herinneringen. Vermindert verwarring en ondersteunt dagelijkse routines voor geheugen uitdagingen.",
+      "price": "+€19.99/maand",
+      "features": [
+        "Extra groot display (10 inch)",
+        "Datum, tijd en dag duidelijk getoond",
+        "Medicatie herinneringen",
+        "Afspraak waarschuwingen",
+        "Aangepaste spraakberichten van familie",
+        "Foto weergave mogelijkheid",
+        "Eenvoudige, verwarring-vrije interface",
+        "Wandmontage of tafelblad"
+      ],
+      "specs": {
+        "display": "10-inch LCD",
+        "connectivity": "WiFi",
+        "power": "Netvoeding",
+        "dimensions": "26cm x 18cm",
+        "visibility": "Hoog contrast, anti-schittering"
+      }
+    },
+    "healthMonitors": {
+      "name": "Gezondheidsmonitors",
+      "tagline": "Klinische Kwaliteit Vitale Functies",
+      "description": "Professionele gezondheidsmonitoringapparaten inclusief bloeddrukmeters, pulsoximeters en glucosemeters. Automatische sync naar uw gezondheid dashboard.",
+      "price": "+€14.99/maand elk",
+      "features": [
+        "Automatische data sync",
+        "Klinische nauwkeurigheid",
+        "Onregelmatige hartslag detectie",
+        "Trend analyse & waarschuwingen",
+        "Data delen met huisarts",
+        "Meerdere gebruikersprofielen",
+        "Grote, gemakkelijk leesbare displays",
+        "Spraakgeleide metingen"
+      ],
+      "specs": {
+        "accuracy": "Klinische kwaliteit",
+        "connectivity": "Bluetooth + cellulair",
+        "memory": "60-100 metingen",
+        "certifications": "CE medisch, FDA vermeld",
+        "battery": "3-6 maanden"
+      }
+    },
+    "smartScale": {
+      "name": "Slimme Weegschaal",
+      "tagline": "Volledige Lichaamssamenstelling",
+      "description": "Geavanceerde lichaamssamenstelling weegschaal die gewicht, BMI, lichaamsvet, spiermassa en meer meet. Volg trends en ontvang gezondheid inzichten.",
+      "price": "+€14.99/maand",
+      "features": [
+        "Gewicht tracking",
+        "Lichaamsvet percentage",
+        "Spiermassa meting",
+        "BMI berekening",
+        "Botdichtheid schatting",
+        "Water percentage",
+        "Automatische gebruiker herkenning",
+        "Trend grafieken & inzichten"
+      ],
+      "specs": {
+        "maxWeight": "180kg / 400lbs",
+        "accuracy": "±0.1kg",
+        "connectivity": "WiFi + Bluetooth",
+        "users": "Tot 8 profielen",
+        "battery": "12 maanden (AAA x4)"
+      }
+    },
+    "smartThermometer": {
+      "name": "Slimme Thermometer",
+      "tagline": "Instant, Contactloze Temperatuur",
+      "description": "Medische kwaliteit infrarood thermometer met contactloze meting. Instant metingen met koorts waarschuwingen en automatische gezondheid record updates.",
+      "price": "+€14.99/maand",
+      "features": [
+        "Contactloze meting",
+        "Instant 1-seconde meting",
+        "Koorts waarschuwing systeem",
+        "Geheugen voor 30 metingen",
+        "Volwassen & kind modi",
+        "Groot LCD display",
+        "Stille modus optie",
+        "Automatische sync naar gezondheid log"
+      ],
+      "specs": {
+        "accuracy": "±0.2°C",
+        "distance": "1-3cm",
+        "speed": "1 seconde",
+        "display": "Verlicht LCD",
+        "battery": "6-12 maanden (AAA x2)"
+      }
+    }
+  },
+  "included": {
+    "title": "Wat is Inbegrepen Bij Elk Apparaat",
+    "deviceProtection": {
+      "title": "Apparaat Bescherming",
+      "items": [
+        "Gratis vervanging indien beschadigd of defect",
+        "24/7 technische ondersteuning",
+        "Automatische firmware updates",
+        "Retourverzending inbegrepen"
+      ]
+    },
+    "easySetup": {
+      "title": "Eenvoudige Installatie",
+      "items": [
+        "Vooraf geconfigureerd en klaar voor gebruik",
+        "Gratis UK levering (3-5 dagen)",
+        "Installatiehandleiding & video tutorials",
+        "Live installatie assistentie beschikbaar"
+      ]
+    },
+    "integration": {
+      "title": "Integratie & Monitoring",
+      "items": [
+        "Automatische sync naar gezondheid dashboard",
+        "AI analyse en waarschuwingen",
+        "Verpleegkundige monitoring 24/7",
+        "Familie portaal toegang"
+      ]
+    },
+    "qualityGuarantee": {
+      "title": "Kwaliteitsgarantie",
+      "items": [
+        "Medische kwaliteit",
+        "CE gecertificeerd & FDA goedgekeurd",
+        "AVG-conforme data behandeling",
+        "Klinisch gevalideerde nauwkeurigheid"
+      ]
+    }
+  },
+  "specLabels": {
+    "batteryLife": "Batterijduur",
+    "waterResistance": "Waterbestendigheid",
+    "connectivity": "Connectiviteit",
+    "weight": "Gewicht",
+    "certification": "Certificering",
+    "range": "Bereik",
+    "sensorsIncluded": "Sensoren Inbegrepen",
+    "installation": "Installatie",
+    "capacity": "Capaciteit",
+    "doseTimes": "Dosis Tijden",
+    "power": "Voeding",
+    "dimensions": "Afmetingen",
+    "display": "Display",
+    "visibility": "Zichtbaarheid",
+    "accuracy": "Nauwkeurigheid",
+    "memory": "Geheugen",
+    "certifications": "Certificeringen",
+    "battery": "Batterij",
+    "maxWeight": "Max Gewicht",
+    "users": "Gebruikers",
+    "distance": "Afstand",
+    "speed": "Snelheid"
+  },
+  "cta": {
+    "addToPackage": "Toevoegen aan Pakket",
+    "viewPlans": "Volledige Plannen Bekijken",
+    "keyFeatures": "Belangrijkste Kenmerken:",
+    "technicalSpecs": "Technische Specificaties"
+  }
 }

@@ -1,8 +1,268 @@
 {
-  "title": "Ecosistema de Dispositivos Conectados",
-  "subtitle": "Dispositivos de grado médico que se integran perfectamente",
-  "included": "Incluido en Base",
-  "perMonth": "/mes",
-  "allInclude": "Todos los dispositivos incluyen",
-  "features": "Arrendamiento de 12 meses, envío gratis, soporte de instalación, asistencia técnica 24/7, reemplazo automático e integración perfecta"
+  "hero": {
+    "badge": "Tecnología de Grado Médico",
+    "title": "Dispositivos Conectados para",
+    "titleHighlight": "Completa Tranquilidad",
+    "subtitle": "Dispositivos de monitoreo de salud de nivel profesional que se conectan sin problemas a nuestra plataforma de atención impulsada por IA y centro de respuesta de enfermería 24/7. Todos los dispositivos incluyen envío gratuito, instalación y reemplazo.",
+    "features": {
+      "medicalGrade": "Grado Médico",
+      "plugPlay": "Instalación Plug & Play",
+      "support": "Soporte Técnico 24/7"
+    }
+  },
+  "devices": {
+    "vivagoWatch": {
+      "name": "Vivago Smart Watch",
+      "tagline": "Su Guardián de Bienestar 24/7",
+      "description": "Dispositivo avanzado de muñeca con monitoreo continuo de actividad, detección de caídas y alertas de emergencia. Tecnología aprobada por FDA confiada por profesionales de la salud en todo el mundo.",
+      "price": "Incluido en Paquete Base o +€19.99/mes",
+      "features": [
+        "Detección automática de caídas",
+        "Monitoreo de frecuencia cardíaca",
+        "Seguimiento de calidad del sueño",
+        "Análisis de nivel de actividad",
+        "Botón de emergencia SOS",
+        "Resistente al agua (IPX7)",
+        "Batería de 7 días",
+        "Conectividad celular (no necesita teléfono)"
+      ],
+      "specs": {
+        "batteryLife": "5-7 días",
+        "waterResistance": "IPX7 (seguro para ducha)",
+        "connectivity": "4G LTE celular",
+        "weight": "45g",
+        "certification": "Aprobado FDA, certificado CE"
+      }
+    },
+    "sosPendant": {
+      "name": "Colgante SOS",
+      "tagline": "Ayuda de Emergencia a Tu Alcance",
+      "description": "Colgante de alerta de emergencia ligero y discreto con seguimiento de ubicación GPS. Activación de una sola pulsación te conecta directamente a nuestro centro de respuesta de enfermería 24/7.",
+      "price": "Dispositivo Base Alternativo o +€19.99/mes",
+      "features": [
+        "Alerta de emergencia de un toque",
+        "Seguimiento de ubicación GPS",
+        "Comunicación de voz bidireccional",
+        "Diseño impermeable",
+        "Batería de larga duración (30+ días)",
+        "Alcance: funciona en cualquier lugar con celular",
+        "Múltiples opciones de uso (cuello/muñeca)",
+        "Alertas automáticas de batería baja"
+      ],
+      "specs": {
+        "batteryLife": "30+ días",
+        "waterResistance": "IPX7 (totalmente impermeable)",
+        "connectivity": "4G LTE celular",
+        "weight": "35g",
+        "range": "Cobertura nacional"
+      }
+    },
+    "vivagoDomi": {
+      "name": "Vivago Domi",
+      "tagline": "Sensores de Seguridad Inteligentes para el Hogar",
+      "description": "Sistema avanzado de monitoreo del hogar con sensores de movimiento, sensores de puertas y monitoreo ambiental. Detecta patrones inusuales y posibles problemas de seguridad.",
+      "price": "+€29.99/mes",
+      "features": [
+        "Sensores de detección de movimiento",
+        "Sensores de puertas/ventanas",
+        "Monitoreo de temperatura",
+        "Seguimiento de humedad",
+        "Análisis de patrones de actividad",
+        "Monitoreo de seguridad en baño",
+        "Alertas de movimiento nocturno",
+        "Instalación fácil plug-and-play"
+      ],
+      "specs": {
+        "sensorsIncluded": "4-6 sensores",
+        "batteryLife": "1-2 años (por sensor)",
+        "connectivity": "WiFi + respaldo celular",
+        "range": "100m interior",
+        "installation": "Plug & play, sin cableado"
+      }
+    },
+    "dosellDispenser": {
+      "name": "Dosell Dispensador Inteligente",
+      "tagline": "Nunca Olvide Su Medicación",
+      "description": "Sistema automatizado de gestión de medicamentos con recordatorios programados, seguimiento de dosis y notificaciones familiares. Perfecto para horarios complejos de medicación.",
+      "price": "+€34.99/mes",
+      "features": [
+        "Dispensación automática de dosis",
+        "Recordatorios de audio y visuales",
+        "Alertas de dosis perdida a familia",
+        "Bloqueo a prueba de manipulación",
+        "Almacenamiento de medicamentos de 28 días",
+        "Seguimiento de historial de medicación",
+        "Diseño amigable para farmacéuticos",
+        "Fuente de alimentación de respaldo"
+      ],
+      "specs": {
+        "capacity": "28 días de medicación",
+        "doseTimes": "Hasta 6 por día",
+        "connectivity": "WiFi + respaldo 4G",
+        "power": "Alimentado por red + batería de respaldo",
+        "dimensions": "25cm x 20cm x 12cm"
+      }
+    },
+    "bbrainClock": {
+      "name": "BBrain Reloj Calendario",
+      "tagline": "Apoyo de Memoria Hecho Simple",
+      "description": "Reloj calendario digital de pantalla grande con fecha, hora y recordatorios de citas claros. Reduce confusión y apoya rutinas diarias para desafíos de memoria.",
+      "price": "+€19.99/mes",
+      "features": [
+        "Pantalla extra grande (10 pulgadas)",
+        "Fecha, hora y día claramente mostrados",
+        "Recordatorios de medicación",
+        "Alertas de citas",
+        "Mensajes de voz personalizados de familia",
+        "Capacidad de visualización de fotos",
+        "Interfaz simple, sin confusión",
+        "Montaje en pared o mesa"
+      ],
+      "specs": {
+        "display": "LCD de 10 pulgadas",
+        "connectivity": "WiFi",
+        "power": "Alimentado por red",
+        "dimensions": "26cm x 18cm",
+        "visibility": "Alto contraste, antirreflejo"
+      }
+    },
+    "healthMonitors": {
+      "name": "Monitores de Salud",
+      "tagline": "Signos Vitales de Grado Clínico",
+      "description": "Dispositivos profesionales de monitoreo de salud incluyendo monitores de presión arterial, oxímetros de pulso y medidores de glucosa. Sincronización automática a su panel de salud.",
+      "price": "+€14.99/mes cada uno",
+      "features": [
+        "Sincronización automática de datos",
+        "Precisión clínica",
+        "Detección de latido cardíaco irregular",
+        "Análisis de tendencias y alertas",
+        "Compartir datos con médico de cabecera",
+        "Múltiples perfiles de usuario",
+        "Pantallas grandes de fácil lectura",
+        "Mediciones guiadas por voz"
+      ],
+      "specs": {
+        "accuracy": "Grado clínico",
+        "connectivity": "Bluetooth + celular",
+        "memory": "60-100 lecturas",
+        "certifications": "Médico CE, listado FDA",
+        "battery": "3-6 meses"
+      }
+    },
+    "smartScale": {
+      "name": "Báscula Inteligente",
+      "tagline": "Composición Corporal Completa",
+      "description": "Báscula avanzada de composición corporal que mide peso, IMC, grasa corporal, masa muscular y más. Rastree tendencias y reciba información de salud.",
+      "price": "+€14.99/mes",
+      "features": [
+        "Seguimiento de peso",
+        "Porcentaje de grasa corporal",
+        "Medición de masa muscular",
+        "Cálculo de IMC",
+        "Estimación de densidad ósea",
+        "Porcentaje de agua",
+        "Reconocimiento automático de usuario",
+        "Gráficos de tendencias e información"
+      ],
+      "specs": {
+        "maxWeight": "180kg / 400lbs",
+        "accuracy": "±0.1kg",
+        "connectivity": "WiFi + Bluetooth",
+        "users": "Hasta 8 perfiles",
+        "battery": "12 meses (AAA x4)"
+      }
+    },
+    "smartThermometer": {
+      "name": "Termómetro Inteligente",
+      "tagline": "Temperatura Instantánea, Sin Contacto",
+      "description": "Termómetro infrarrojo de grado médico con medición sin contacto. Lecturas instantáneas con alertas de fiebre y actualizaciones automáticas del registro de salud.",
+      "price": "+€14.99/mes",
+      "features": [
+        "Medición sin contacto",
+        "Lectura instantánea de 1 segundo",
+        "Sistema de alerta de fiebre",
+        "Memoria para 30 lecturas",
+        "Modos adulto e infantil",
+        "Pantalla LCD grande",
+        "Opción de modo silencioso",
+        "Sincronización automática al registro de salud"
+      ],
+      "specs": {
+        "accuracy": "±0.2°C",
+        "distance": "1-3cm",
+        "speed": "1 segundo",
+        "display": "LCD retroiluminado",
+        "battery": "6-12 meses (AAA x2)"
+      }
+    }
+  },
+  "included": {
+    "title": "Qué Está Incluido Con Cada Dispositivo",
+    "deviceProtection": {
+      "title": "Protección del Dispositivo",
+      "items": [
+        "Reemplazo gratuito si está dañado o defectuoso",
+        "Soporte técnico 24/7",
+        "Actualizaciones automáticas de firmware",
+        "Envío de devolución incluido"
+      ]
+    },
+    "easySetup": {
+      "title": "Configuración Fácil",
+      "items": [
+        "Preconfigurado y listo para usar",
+        "Entrega gratuita en Reino Unido (3-5 días)",
+        "Guía de configuración y tutoriales en video",
+        "Asistencia de configuración en vivo disponible"
+      ]
+    },
+    "integration": {
+      "title": "Integración y Monitoreo",
+      "items": [
+        "Sincronización automática al panel de salud",
+        "Análisis de IA y alertas",
+        "Monitoreo de enfermería 24/7",
+        "Acceso al portal familiar"
+      ]
+    },
+    "qualityGuarantee": {
+      "title": "Garantía de Calidad",
+      "items": [
+        "Calidad de grado médico",
+        "Certificado CE y aprobado FDA",
+        "Manejo de datos conforme a GDPR",
+        "Precisión validada clínicamente"
+      ]
+    }
+  },
+  "specLabels": {
+    "batteryLife": "Duración de Batería",
+    "waterResistance": "Resistencia al Agua",
+    "connectivity": "Conectividad",
+    "weight": "Peso",
+    "certification": "Certificación",
+    "range": "Alcance",
+    "sensorsIncluded": "Sensores Incluidos",
+    "installation": "Instalación",
+    "capacity": "Capacidad",
+    "doseTimes": "Tiempos de Dosis",
+    "power": "Alimentación",
+    "dimensions": "Dimensiones",
+    "display": "Pantalla",
+    "visibility": "Visibilidad",
+    "accuracy": "Precisión",
+    "memory": "Memoria",
+    "certifications": "Certificaciones",
+    "battery": "Batería",
+    "maxWeight": "Peso Máximo",
+    "users": "Usuarios",
+    "distance": "Distancia",
+    "speed": "Velocidad"
+  },
+  "cta": {
+    "addToPackage": "Agregar al Paquete",
+    "viewPlans": "Ver Planes Completos",
+    "keyFeatures": "Características Clave:",
+    "technicalSpecs": "Especificaciones Técnicas"
+  }
 }

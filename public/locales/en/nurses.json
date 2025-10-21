@@ -1,9 +1,136 @@
 {
-  "title": "Our Nurses",
-  "subtitle": "Professional care team available 24/7",
+  "hero": {
+    "badge": "Professional Care Team",
+    "title": "Meet Our",
+    "titleHighlight": "Experienced Nurses",
+    "subtitle": "Our team of qualified, registered nurses brings decades of clinical experience to provide you with expert care, guidance, and rapid response 24 hours a day, 365 days a year."
+  },
   "stats": {
-    "nurses": "Professional Nurses",
-    "response": "Avg Response Time",
-    "satisfaction": "Patient Satisfaction"
+    "coverage": {
+      "value": "24/7",
+      "label": "Nurse Coverage"
+    },
+    "staff": {
+      "value": "50+",
+      "label": "Clinical Staff"
+    },
+    "experience": {
+      "value": "200+",
+      "label": "Years Combined Experience"
+    },
+    "response": {
+      "value": "<60s",
+      "label": "Average Response Time"
+    }
+  },
+  "whyDifferent": {
+    "title": "Why Our Nursing Team is Different",
+    "qualified": {
+      "title": "Registered & Qualified",
+      "description": "Every member of our nursing team is a fully qualified Registered General Nurse (RGN) with current NMC registration and ongoing professional development."
+    },
+    "specialist": {
+      "title": "Specialist Training",
+      "description": "Our nurses are trained in elderly care, remote monitoring, emergency response, and using AI health insights to provide proactive, preventive care."
+    },
+    "available": {
+      "title": "Always Available",
+      "description": "Our nursing team operates 24/7/365 with dedicated day and night shifts. You're never alone - expert help is always just a button press away."
+    },
+    "personCentered": {
+      "title": "Person-Centered Care",
+      "description": "We get to know you, your preferences, and your health history. Our nurses provide personalized guidance tailored to your unique needs."
+    }
+  },
+  "team": {
+    "title": "Meet Some of Our Senior Nurses",
+    "subtitle": "Our clinical leadership team brings together decades of nursing experience across emergency care, geriatrics, chronic disease management, and digital health.",
+    "footer": "Plus 40+ additional registered nurses providing 24/7 coverage across our care network",
+    "nurses": [
+      {
+        "name": "Sarah Thompson",
+        "title": "Lead Clinical Nurse",
+        "credentials": "RGN, BSc (Hons)",
+        "experience": "15+ years",
+        "specialties": ["Emergency Care", "Geriatric Nursing", "Cardiac Care"],
+        "bio": "Sarah leads our clinical team with extensive experience in emergency medicine and elderly care. She ensures our response protocols meet the highest clinical standards."
+      },
+      {
+        "name": "James Mitchell",
+        "title": "Senior Nurse Specialist",
+        "credentials": "RGN, MSc",
+        "experience": "12+ years",
+        "specialties": ["Diabetes Management", "Chronic Disease", "Health Education"],
+        "bio": "James specializes in chronic disease management and brings deep expertise in supporting patients with complex health needs at home."
+      },
+      {
+        "name": "Maria Garcia",
+        "title": "Clinical Nurse Manager",
+        "credentials": "RGN, Advanced Diploma",
+        "experience": "18+ years",
+        "specialties": ["Palliative Care", "Mental Health", "Family Support"],
+        "bio": "Maria oversees quality assurance and staff training, ensuring compassionate, person-centered care for all our members and their families."
+      },
+      {
+        "name": "David Chen",
+        "title": "Technology Integration Nurse",
+        "credentials": "RGN, Health Informatics",
+        "experience": "10+ years",
+        "specialties": ["Remote Monitoring", "Digital Health", "Care Innovation"],
+        "bio": "David bridges healthcare and technology, ensuring our AI systems and devices deliver accurate, clinically relevant insights."
+      },
+      {
+        "name": "Emma Williams",
+        "title": "Night Shift Coordinator",
+        "credentials": "RGN, Critical Care",
+        "experience": "14+ years",
+        "specialties": ["Overnight Care", "Crisis Response", "Sleep Disorders"],
+        "bio": "Emma leads our 24/7 night team, providing expert care and rapid response when it matters most."
+      },
+      {
+        "name": "Aisha Patel",
+        "title": "Community Nurse Liaison",
+        "credentials": "RGN, Community Health",
+        "experience": "11+ years",
+        "specialties": ["Home Care", "Fall Prevention", "Medication Management"],
+        "bio": "Aisha coordinates with GPs, families, and social services to ensure seamless, integrated care for our members."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Qualifications & Certifications",
+    "items": [
+      "Registered General Nurses (RGN)",
+      "Advanced Life Support (ALS)",
+      "Safeguarding Trained",
+      "Mental Health First Aid",
+      "Dementia Care Specialists",
+      "Ongoing Professional Development"
+    ]
+  },
+  "howItWorks": {
+    "title": "How Our Nurses Support You",
+    "steps": [
+      {
+        "number": "1",
+        "title": "AI-Assisted Monitoring",
+        "description": "Our nurses are alerted by AI when your device data shows concerning patterns - they review, assess, and reach out proactively before small issues become emergencies."
+      },
+      {
+        "number": "2",
+        "title": "Emergency Response",
+        "description": "When you press your SOS button, a nurse answers within seconds, assesses your situation, provides guidance, and dispatches help if needed - all while staying on the line with you."
+      },
+      {
+        "number": "3",
+        "title": "Health Guidance",
+        "description": "Call anytime for health questions, medication queries, or advice. Our nurses provide evidence-based guidance and coordinate with your GP when needed."
+      },
+      {
+        "number": "4",
+        "title": "Family Communication",
+        "description": "With your permission, our nurses keep family members informed, provide updates after incidents, and coordinate care plans with your loved ones."
+      }
+    ]
   }
 }

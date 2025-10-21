@@ -14,8 +14,24 @@ import nurseEmma from '@/assets/nurse-emma.jpg';
 import nurseAisha from '@/assets/nurse-aisha.jpg';
 
 export default function OurNurses() {
-  const { t } = useTranslation();
-  const nurses = [
+  const { t } = useTranslation(['nurses', 'home', 'common']);
+  
+  const nurseImages = [nurseSarah, nurseJames, nurseMaria, nurseDavid, nurseEmma, nurseAisha];
+  const nursesData = t('nurses:team.nurses', { returnObjects: true }) as Array<{
+    name: string;
+    title: string;
+    credentials: string;
+    experience: string;
+    specialties: string[];
+    bio: string;
+  }>;
+  
+  const nurses = nursesData.map((nurse, index) => ({
+    ...nurse,
+    image: nurseImages[index]
+  }));
+  
+  const oldNurses = [
     {
       name: 'Sarah Thompson',
       title: 'Lead Clinical Nurse',
@@ -72,21 +88,24 @@ export default function OurNurses() {
     }
   ];
 
-  const certifications = [
-    { name: 'Registered General Nurses (RGN)', icon: Shield },
-    { name: 'Advanced Life Support (ALS)', icon: Heart },
-    { name: 'Safeguarding Trained', icon: Shield },
-    { name: 'Mental Health First Aid', icon: Heart },
-    { name: 'Dementia Care Specialists', icon: Users },
-    { name: 'Ongoing Professional Development', icon: Award }
-  ];
+  const certificationIcons = [Shield, Heart, Shield, Heart, Users, Award];
+  const certifications = (t('nurses:certifications.items', { returnObjects: true }) as string[]).map((name, index) => ({
+    name,
+    icon: certificationIcons[index]
+  }));
 
-  const stats = [
-    { value: '24/7', label: 'Nurse Coverage', icon: Clock },
-    { value: '50+', label: 'Clinical Staff', icon: Users },
-    { value: '200+', label: 'Years Combined Experience', icon: Award },
-    { value: '<60s', label: 'Average Response Time', icon: Phone }
-  ];
+  const statsIcons = [Clock, Users, Award, Phone];
+  const statsData = [
+    t('nurses:stats.coverage', { returnObjects: true }),
+    t('nurses:stats.staff', { returnObjects: true }),
+    t('nurses:stats.experience', { returnObjects: true }),
+    t('nurses:stats.response', { returnObjects: true })
+  ] as Array<{ value: string; label: string }>;
+  
+  const stats = statsData.map((stat, index) => ({
+    ...stat,
+    icon: statsIcons[index]
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -100,15 +119,14 @@ export default function OurNurses() {
               <div className="text-center lg:text-left">
                 <Badge className="mb-4" variant="secondary">
                   <Heart className="h-3 w-3 mr-1" />
-                  Professional Care Team
+                  {t('nurses:hero.badge')}
                 </Badge>
                 <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                  Meet Our
-                  <span className="block text-secondary mt-2">Experienced Nurses</span>
+                  {t('nurses:hero.title')}
+                  <span className="block text-secondary mt-2">{t('nurses:hero.titleHighlight')}</span>
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                  Our team of qualified, registered nurses brings decades of clinical experience to provide 
-                  you with expert care, guidance, and rapid response 24 hours a day, 365 days a year.
+                  {t('nurses:hero.subtitle')}
                 </p>
               </div>
               <div className="relative">
@@ -145,7 +163,7 @@ export default function OurNurses() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              Why Our Nursing Team is Different
+              {t('nurses:whyDifferent.title')}
             </h2>
             
             <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -154,10 +172,9 @@ export default function OurNurses() {
                   <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
                     <Shield className="h-6 w-6 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-bold">Registered & Qualified</h3>
+                  <h3 className="text-xl font-bold">{t('nurses:whyDifferent.qualified.title')}</h3>
                   <CardDescription>
-                    Every member of our nursing team is a fully qualified Registered General Nurse (RGN) 
-                    with current NMC registration and ongoing professional development.
+                    {t('nurses:whyDifferent.qualified.description')}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -167,10 +184,9 @@ export default function OurNurses() {
                   <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
                     <Heart className="h-6 w-6 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-bold">Specialist Training</h3>
+                  <h3 className="text-xl font-bold">{t('nurses:whyDifferent.specialist.title')}</h3>
                   <CardDescription>
-                    Our nurses are trained in elderly care, remote monitoring, emergency response, 
-                    and using AI health insights to provide proactive, preventive care.
+                    {t('nurses:whyDifferent.specialist.description')}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -180,10 +196,9 @@ export default function OurNurses() {
                   <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
                     <Clock className="h-6 w-6 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-bold">Always Available</h3>
+                  <h3 className="text-xl font-bold">{t('nurses:whyDifferent.available.title')}</h3>
                   <CardDescription>
-                    Our nursing team operates 24/7/365 with dedicated day and night shifts. You're never 
-                    alone - expert help is always just a button press away.
+                    {t('nurses:whyDifferent.available.description')}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -193,10 +208,9 @@ export default function OurNurses() {
                   <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
                     <Users className="h-6 w-6 text-secondary" />
                   </div>
-                  <h3 className="text-xl font-bold">Person-Centered Care</h3>
+                  <h3 className="text-xl font-bold">{t('nurses:whyDifferent.personCentered.title')}</h3>
                   <CardDescription>
-                    We get to know you, your preferences, and your health history. Our nurses provide 
-                    personalized guidance tailored to your unique needs.
+                    {t('nurses:whyDifferent.personCentered.description')}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -210,11 +224,10 @@ export default function OurNurses() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              Meet Some of Our Senior Nurses
+              {t('nurses:team.title')}
             </h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Our clinical leadership team brings together decades of nursing experience across 
-              emergency care, geriatrics, chronic disease management, and digital health.
+              {t('nurses:team.subtitle')}
             </p>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -249,7 +262,7 @@ export default function OurNurses() {
             </div>
 
             <p className="text-center text-sm text-muted-foreground mt-8">
-              Plus 40+ additional registered nurses providing 24/7 coverage across our care network
+              {t('nurses:team.footer')}
             </p>
           </div>
         </div>
@@ -260,7 +273,7 @@ export default function OurNurses() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">
-              Qualifications & Certifications
+              {t('nurses:certifications.title')}
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -284,77 +297,27 @@ export default function OurNurses() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">
-              How Our Nurses Support You
+              {t('nurses:howItWorks.title')}
             </h2>
 
             <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
-                      1
+              {(t('nurses:howItWorks.steps', { returnObjects: true }) as Array<{ number: string; title: string; description: string }>).map((step, index) => (
+                <Card key={index}>
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
+                        {step.number}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {step.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-2">AI-Assisted Monitoring</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Our nurses are alerted by AI when your device data shows concerning patterns - 
-                        they review, assess, and reach out proactively before small issues become emergencies.
-                      </p>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
-                      2
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-2">Emergency Response</h3>
-                      <p className="text-sm text-muted-foreground">
-                        When you press your SOS button, a nurse answers within seconds, assesses your situation, 
-                        provides guidance, and dispatches help if needed - all while staying on the line with you.
-                      </p>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
-                      3
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-2">Health Guidance</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Call anytime for health questions, medication queries, or advice. Our nurses provide 
-                        evidence-based guidance and coordinate with your GP when needed.
-                      </p>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
-                      4
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold mb-2">Family Communication</h3>
-                      <p className="text-sm text-muted-foreground">
-                        With your permission, our nurses keep family members informed, provide updates after 
-                        incidents, and coordinate care plans with your loved ones.
-                      </p>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </div>
         </div>

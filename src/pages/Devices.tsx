@@ -8,10 +8,26 @@ import { useTranslation } from 'react-i18next';
 
 export default function Devices() {
   const { t } = useTranslation();
-  const devices = [
-    {
-      icon: Watch,
-      name: 'Vivago Smart Watch',
+  const deviceKeys = [
+    'vivagoWatch', 'sosPendant', 'vivagoDomi', 'dosellDispenser', 
+    'bbrainClock', 'healthMonitors', 'smartScale', 'smartThermometer'
+  ];
+  
+  const deviceIcons = [Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer];
+  const deviceColors = [
+    'text-secondary', 'text-coral', 'text-primary', 'text-lilac',
+    'text-secondary', 'text-coral', 'text-primary', 'text-lilac'
+  ];
+  const deviceGradients = [
+    'from-secondary/10 to-secondary/5', 'from-coral/10 to-coral/5',
+    'from-primary/10 to-primary/5', 'from-lilac/10 to-lilac/5',
+    'from-secondary/10 to-secondary/5', 'from-coral/10 to-coral/5',
+    'from-primary/10 to-primary/5', 'from-lilac/10 to-lilac/5'
+  ];
+  
+  const devices = deviceKeys.map((key, index) => ({
+    icon: deviceIcons[index],
+    name: t(`devices:devices.${key}.name`),
       tagline: 'Your 24/7 Wellness Guardian',
       description: 'Advanced wrist-worn device with continuous activity monitoring, fall detection, and emergency alerts. FDA-cleared technology trusted by healthcare professionals worldwide.',
       price: 'Included in Base Package or +€19.99/month',
@@ -227,27 +243,26 @@ export default function Devices() {
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-4" variant="secondary">Medical-Grade Technology</Badge>
+            <Badge className="mb-4" variant="secondary">{t('devices:hero.badge')}</Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Connected Devices for
-              <span className="block text-primary mt-2">Complete Peace of Mind</span>
+              {t('devices:hero.title')}
+              <span className="block text-primary mt-2">{t('devices:hero.titleHighlight')}</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Professional-grade health monitoring devices that seamlessly connect to our AI-powered care platform 
-              and 24/7 nurse response center. All devices include free shipping, setup, and replacement.
+              {t('devices:hero.subtitle')}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-secondary" />
-                <span>Medical Grade</span>
+                <span>{t('devices:hero.features.medicalGrade')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Zap className="h-4 w-4 text-secondary" />
-                <span>Plug & Play Setup</span>
+                <span>{t('devices:hero.features.plugPlay')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Check className="h-4 w-4 text-secondary" />
-                <span>24/7 Tech Support</span>
+                <span>{t('devices:hero.features.support')}</span>
               </div>
             </div>
           </div>
@@ -283,7 +298,7 @@ export default function Devices() {
                       </div>
 
                       <div className="pt-4">
-                        <h3 className="font-semibold mb-3">Key Features:</h3>
+                        <h3 className="font-semibold mb-3">{t('devices:cta.keyFeatures')}</h3>
                         <div className="grid sm:grid-cols-2 gap-2">
                           {device.features.map((feature, idx) => (
                             <div key={idx} className="flex items-start gap-2">
@@ -299,7 +314,7 @@ export default function Devices() {
                     <div className="lg:pl-8">
                       <Card>
                         <CardHeader>
-                          <CardTitle className="text-lg">Technical Specifications</CardTitle>
+                          <CardTitle className="text-lg">{t('devices:cta.technicalSpecs')}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">
                           {Object.entries(device.specs).map(([key, value]) => (
@@ -313,10 +328,10 @@ export default function Devices() {
 
                       <div className="mt-6 space-y-3">
                         <Button className="w-full bg-secondary hover:bg-secondary/90" asChild>
-                          <a href="/auth/signup">Add to Package</a>
+                          <a href="/auth/signup">{t('devices:cta.addToPackage')}</a>
                         </Button>
                         <Button variant="outline" className="w-full" asChild>
-                          <a href="/personal-care">View Full Plans</a>
+                          <a href="/personal-care">{t('devices:cta.viewPlans')}</a>
                         </Button>
                       </div>
                     </div>
@@ -332,21 +347,20 @@ export default function Devices() {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">What's Included With Every Device</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">{t('devices:included.title')}</h2>
             
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Shield className="h-5 w-5 text-secondary" />
-                    Device Protection
+                    {t('devices:included.deviceProtection.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  <p>• Free replacement if damaged or faulty</p>
-                  <p>• 24/7 technical support</p>
-                  <p>• Automatic firmware updates</p>
-                  <p>• Return shipping included</p>
+                  {(t('devices:included.deviceProtection.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <p key={idx}>• {item}</p>
+                  ))}
                 </CardContent>
               </Card>
 
@@ -354,14 +368,13 @@ export default function Devices() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5 text-secondary" />
-                    Easy Setup
+                    {t('devices:included.easySetup.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  <p>• Pre-configured and ready to use</p>
-                  <p>• Free UK delivery (3-5 days)</p>
-                  <p>• Setup guide & video tutorials</p>
-                  <p>• Live setup assistance available</p>
+                  {(t('devices:included.easySetup.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <p key={idx}>• {item}</p>
+                  ))}
                 </CardContent>
               </Card>
 
@@ -369,14 +382,13 @@ export default function Devices() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Activity className="h-5 w-5 text-secondary" />
-                    Integration & Monitoring
+                    {t('devices:included.integration.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  <p>• Automatic sync to health dashboard</p>
-                  <p>• AI analysis and alerts</p>
-                  <p>• Nurse monitoring 24/7</p>
-                  <p>• Family portal access</p>
+                  {(t('devices:included.integration.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <p key={idx}>• {item}</p>
+                  ))}
                 </CardContent>
               </Card>
 
@@ -384,14 +396,13 @@ export default function Devices() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Check className="h-5 w-5 text-secondary" />
-                    Quality Guarantee
+                    {t('devices:included.qualityGuarantee.title')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  <p>• Medical-grade quality</p>
-                  <p>• CE certified & FDA cleared</p>
-                  <p>• GDPR compliant data handling</p>
-                  <p>• Clinically validated accuracy</p>
+                  {(t('devices:included.qualityGuarantee.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <p key={idx}>• {item}</p>
+                  ))}
                 </CardContent>
               </Card>
             </div>
