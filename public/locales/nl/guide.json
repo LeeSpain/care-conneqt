@@ -1,0 +1,220 @@
+{
+  "hero": {
+    "badge": "Uw Reis Begint Hier",
+    "title": "Welkom bij Care Conneqt",
+    "subtitle": "Uw Volledige Gids om te Beginnen",
+    "description": "Alles wat u moet weten over aansluiten, wat u kunt verwachten en hoe Care Conneqt u en uw dierbaren ondersteunt met professionele, meelevende zorg.",
+    "learnHow": "Leer Hoe Het Werkt"
+  },
+  "whatIs": {
+    "title": "Wat is Care Conneqt?",
+    "subtitle": "Care Conneqt is een uitgebreide thuiszorgoplossing die professionele verpleegkundige zorg combineert met geavanceerde technologie om uw dierbaren te helpen onafhankelijk en veilig thuis te leven.",
+    "nurseLed": {
+      "title": "Door Verpleegkundigen Geleide Zorg",
+      "description": "Al onze diensten worden geleid door gekwalificeerde, ervaren verpleegkundigen die professioneel medisch toezicht en ondersteuning bieden 24/7."
+    },
+    "aiPowered": {
+      "title": "AI-Aangedreven Monitoring",
+      "description": "Onze AI Bewaker werkt samen met verpleegkundigen om continue monitoring, dagelijkse check-ins en directe waarschuwingen te bieden wanneer dat nodig is."
+    },
+    "medicalDevices": {
+      "title": "Medische Apparaten",
+      "description": "CE-gecertificeerde medische monitoringapparaten inclusief smartwatches, gezondheidsmonitoren en noodresponsystemen."
+    },
+    "support": {
+      "title": "24/7 Ondersteuning",
+      "description": "24-uurs noodhulp, callcenter van verpleegkundigen en AI-metgezel beschikbaar in Engels, Spaans en Nederlands."
+    }
+  },
+  "howItWorks": {
+    "badge": "Eenvoudig 5-Stappen Proces",
+    "title": "Hoe Het Werkt",
+    "subtitle": "Beginnen met Care Conneqt is eenvoudig en overzichtelijk",
+    "steps": {
+      "choosePlan": {
+        "title": "Kies Uw Plan",
+        "description": "Selecteer uit onze flexibele zorgplannen op basis van uw behoeften: Basis Lidmaatschap (€49,99), Zelfstandig Leven (€69,99), Chronische Ziektebeheer (€119,99) of Geestelijke Gezondheid & Welzijn (€159,99). Alle plannen omvatten een 24-maanden serviceovereenkomst zonder installatiekosten."
+      },
+      "signUp": {
+        "title": "Aanmelden & Beoordeling",
+        "description": "Voltooi onze eenvoudige online registratie. Een gekwalificeerde verpleegkundige neemt binnen 24 uur contact met u op om een uitgebreide gezondheidsbeoordeling uit te voeren en uw specifieke zorgbehoeften te begrijpen."
+      },
+      "deviceDelivery": {
+        "title": "Apparaatlevering & Installatie",
+        "description": "Uw medische apparaten arriveren binnen 3-5 werkdagen met gratis verzending. Ons technische team biedt externe installatiehulp en zorgt ervoor dat alles perfect werkt. Alle apparaten zijn vooraf geconfigureerd en klaar voor gebruik."
+      },
+      "meetGuardian": {
+        "title": "Ontmoet Uw AI Bewaker",
+        "description": "Uw AI Bewaker begint met dagelijkse check-ins, leert routines en voorkeuren. Beschikbaar 24/7 voor gesprekken, gezondheidsvragen en noodhulp in uw voorkeurstaal."
+      },
+      "ongoingCare": {
+        "title": "Doorlopende Zorg & Monitoring",
+        "description": "Uw toegewijde verpleegkundigenteam biedt regelmatige check-ins (frequentie op basis van uw plan), gezondheidsmonitoring, medicatiebeheer en coördinatie met gezinsleden via het gezinsdashboard."
+      }
+    }
+  },
+  "whatYouGet": {
+    "title": "Wat U Krijgt",
+    "subtitle": "Elk Care Conneqt lidmaatschap omvat uitgebreide ondersteuning",
+    "items": {
+      "devices": {
+        "title": "Medische Monitoringapparaten",
+        "description": "CE-gecertificeerde apparaten inclusief smartwatches, SOS-hangers, huissensoren, medicijndispensers en gezondheidsmonitoren. Alle apparaten zijn op een 24-maanden lease met gratis verzending, installatieondersteuning, automatische vervanging en apparaatbescherming inbegrepen."
+      },
+      "aiGuardian": {
+        "title": "AI Bewaker Metgezel",
+        "description": "Uw persoonlijke AI gezondheidsmetgezel biedt dagelijkse welzijnscontroles, stemmingsregistratie, activiteitsbewaking, noodescalatie, medicatieherinneringen en gezelschap. Beschikbaar 24/7 in Engels, Spaans en Nederlands."
+      },
+      "nurseSupport": {
+        "title": "Professionele Verpleegkundige Ondersteuning",
+        "description": "Gekwalificeerde verpleegkundigen bieden regelmatige gezondheidsbeoordelingen, medicatiebeheer, zorgcoördinatie, klinische documentatie en gezondheidseducatie. Check-in frequentie varieert per plan: maandelijks (Basis), wekelijks (Zelfstandig Leven) of dagelijks (Chronische Ziektebeheer)."
+      },
+      "emergency": {
+        "title": "24/7 Nood Callcenter",
+        "description": "Onmiddellijke reactie op noodwaarschuwingen, directe verpleegkundige triage, ambulancecoördinatie indien nodig, gezinsmeldingen en uitgebreide incidentdocumentatie. Prioriteitsreactie voor Zelfstandig Leven en hoger."
+      },
+      "familyDashboard": {
+        "title": "Gezinsdashboard Toegang",
+        "description": "Real-time activiteitsbewaking, gezondheidsmetrieken volgen, medicatie naleving, verpleegkundige bezoeksamenvattingen, directe waarschuwingen voor zorgen en veilige berichten met zorgteam. Aantal gezinsgebruikers varieert per plan."
+      },
+      "careCoordination": {
+        "title": "Zorgcoördinatie",
+        "description": "Integratie met bestaande zorgaanbieders, afspraakcoördinatie, medisch dossier beheer, mantelzorger ondersteuningsprogramma's en uitgebreide zorgplannen. Toegewijde zorgcoördinator inbegrepen bij Chronische Ziektebeheer plan en hoger."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Transparante Prijzen",
+    "subtitle": "Geen verborgen kosten. Geen installatiekosten. Opzeggen mogelijk na 24 maanden.",
+    "plans": {
+      "base": {
+        "title": "Basis Lidmaatschap - €49,99/maand",
+        "description": "Perfect voor zelfstandige senioren die gemoedsrust willen. Omvat 1 apparaat, AI Bewaker, maandelijkse verpleegkundige check-ins en 24/7 noodhulp."
+      },
+      "independent": {
+        "badge": "MEEST POPULAIR",
+        "title": "Zelfstandig Leven - €69,99/maand",
+        "description": "Verbeterde monitoring voor actieve senioren. Omvat 2 apparaten, wekelijkse verpleegkundige check-ins, prioriteit noodhulp en gezinsdashboard voor 2 gebruikers."
+      },
+      "chronic": {
+        "title": "Chronische Ziektebeheer - €119,99/maand",
+        "description": "Uitgebreide zorg voor het beheren van chronische aandoeningen. Omvat 4 apparaten, dagelijkse verpleegkundige monitoring, medicatiebeheer, vitale functies tracking en toegewijde zorgcoördinator."
+      },
+      "mental": {
+        "title": "Geestelijke Gezondheid & Welzijn - €159,99/maand",
+        "description": "Volledige ondersteuning inclusief geestelijke gezondheidsdiensten. Alles in Chronisch plan plus wekelijkse therapiesessies, geestelijke gezondheid specialist, sociale welzijnsactiviteiten en mantelzorger ondersteuning."
+      }
+    },
+    "addons": {
+      "title": "Extra Apparaten Beschikbaar",
+      "subtitle": "Pas uw plan aan met extra apparaten:",
+      "items": {
+        "watch": "Extra Vivago Horloge of SOS Hanger: +€19,99/maand",
+        "domi": "Vivago Domi Huissensoren: +€29,99/maand",
+        "dispenser": "Dosell Medicijndispenser: +€34,99/maand",
+        "calendar": "BBrain Kalenderklok: +€19,99/maand",
+        "monitors": "Gezondheidsmonitoren (BP, glucose): +€14,99/maand elk",
+        "scale": "Slimme Weegschaal: +€14,99/maand"
+      }
+    }
+  },
+  "commercial": {
+    "badge": "B2B Oplossingen",
+    "title": "Werken met Commerciële Partners",
+    "subtitle": "Wij werken samen met zorgfaciliteiten, gemeenten en zorgorganisaties om enterprise-grade oplossingen te leveren",
+    "partners": {
+      "healthcare": {
+        "title": "Zorgfaciliteiten",
+        "description": "Integratie met assisted living faciliteiten, verpleeghuizen en zorggemeenschappen. Bulk apparaatimplementatie, gecentraliseerde monitoringdashboards en naadloze EPD-integratie voor gestroomlijnde operaties."
+      },
+      "municipalities": {
+        "title": "Gemeenten & Sociale Zorg",
+        "description": "Partner met lokale overheden en sociale diensten om gemeenschapsbrede zorgoplossingen te bieden. Volumeprijzen, AVG-naleving en rapportagetools voor sociale zorgprogramma's."
+      },
+      "insurance": {
+        "title": "Verzekeraars",
+        "description": "Samenwerken met ziektekostenverzekeraars om Care Conneqt aan te bieden als gedekt voordeel. API-integratie voor claimverwerking, preventieve zorganalyses en verlaagde ziekenhuisopnames."
+      },
+      "homecare": {
+        "title": "Thuiszorgbureaus",
+        "description": "Verbeter uw thuiszorgdiensten met ons technologieplatform. White-label opties beschikbaar, mantelzorger coördinatietools en real-time cliëntmonitoring om de servicekwaliteit te verbeteren."
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise Functies & Voordelen",
+      "volumePricing": {
+        "title": "Volumeprijzen",
+        "description": "Flexibele prijsniveaus op basis van aantal gebruikers met aanzienlijke kortingen voor grote implementaties"
+      },
+      "customIntegration": {
+        "title": "Aangepaste Integratie",
+        "description": "API-toegang, EPD-integratie, SSO-authenticatie en aangepaste workflow-ontwikkeling"
+      },
+      "dedicatedSupport": {
+        "title": "Toegewijde Ondersteuning",
+        "description": "Accountmanager, prioriteit technische ondersteuning, trainingsprogramma's en driemaandelijkse bedrijfsbeoordelingen"
+      },
+      "cta": "Verken Enterprise Oplossingen"
+    }
+  },
+  "whatToExpect": {
+    "title": "Wat te Verwachten",
+    "subtitle": "Uw reis met Care Conneqt",
+    "timeline": {
+      "firstWeek": {
+        "title": "Eerste Week",
+        "description": "Apparaten arriveren en worden ingesteld met externe technische ondersteuning. Uw AI Bewaker stelt zich voor en begint uw routine te leren. Initiële verpleegkundige beoordeling is voltooid en uw zorgplan is vastgesteld. Gezinsleden ontvangen dashboard toegang en training."
+      },
+      "firstMonth": {
+        "title": "Eerste Maand",
+        "description": "Uw zorgteam bewaakt initiële gegevens om basislijnen vast te stellen voor activiteit, slaap en vitale functies. Regelmatige check-ins beginnen volgens uw plan. AI Bewaker past zich aan uw voorkeuren en schema aan. Gezinsdashboard begint betekenisvolle trends en inzichten te tonen."
+      },
+      "ongoing": {
+        "title": "Doorlopende Zorg",
+        "description": "Continue 24/7 monitoring met AI-aangedreven anomaliedetectie. Regelmatige verpleegkundige bezoeken en gezondheidsbeoordelingen. Proactieve waarschuwingen voor zorgwekkende trends. Medicatiebeheer en nalevingsregistratie. Regelmatige gezinsupdates en zorgteamcommunicatie. Driemaandelijkse zorgplan beoordelingen en aanpassingen."
+      }
+    }
+  },
+  "faq": {
+    "title": "Veelgestelde Vragen",
+    "subtitle": "Alles wat u moet weten",
+    "items": {
+      "purchase": {
+        "question": "Moet ik de apparaten kopen?",
+        "answer": "Nee. Alle apparaten zijn inbegrepen in uw maandelijks abonnement op een 24-maanden lease. Dit omvat gratis verzending, installatieondersteuning, technische hulp, automatische vervanging indien nodig en apparaatbeschermingsverzekering."
+      },
+      "cancel": {
+        "question": "Wat als ik moet opzeggen?",
+        "answer": "Onze serviceovereenkomst is voor 24 maanden. Na die periode kunt u op elk moment opzeggen met 30 dagen kennisgeving. Als u vóór 24 maanden moet opzeggen vanwege medische of financiële problemen, neem dan contact op met ons ondersteuningsteam om opties te bespreken."
+      },
+      "qualified": {
+        "question": "Zijn de verpleegkundigen gekwalificeerde zorgprofessionals?",
+        "answer": "Ja. Al onze verpleegkundigen zijn volledig gekwalificeerde, geregistreerde zorgprofessionals met ervaring in geriatrische en thuiszorg. Ze onderhouden actieve licenties en nemen deel aan voortdurende professionele ontwikkeling."
+      },
+      "privacy": {
+        "question": "Zijn mijn gegevens veilig en privé?",
+        "answer": "Absoluut. We zijn volledig AVG-conform met EU-gebaseerde versleutelde servers. Alle gezondheidsgegevens zijn end-to-end versleuteld. Alleen uw aangewezen zorgteam en goedgekeurde gezinsleden hebben toegang tot uw informatie. We verkopen of delen uw gegevens nooit met derden."
+      },
+      "emergency": {
+        "question": "Wat gebeurt er in een noodgeval?",
+        "answer": "Ons 24/7 nood callcenter wordt onmiddellijk gewaarschuwd. Een gekwalificeerde verpleegkundige beoordeelt de situatie en kan indien nodig nooddiensten inschakelen. Uw aangewezen noodcontacten worden automatisch op de hoogte gesteld. Alle incidenten worden gedocumenteerd en beoordeeld door uw zorgteam."
+      },
+      "changePlan": {
+        "question": "Kan ik mijn plan upgraden of downgraden?",
+        "answer": "Ja. U kunt uw zorgplan op elk moment wijzigen. Upgrades gaan onmiddellijk in. Downgrades gaan in aan het begin van uw volgende factureringscyclus. Extra apparaten kunnen worden toegevoegd of verwijderd met 30 dagen kennisgeving."
+      },
+      "insurance": {
+        "question": "Werken jullie samen met verzekeraars?",
+        "answer": "We werken aan het opzetten van partnerships met grote ziektekostenverzekeraars. Momenteel zijn de meeste plannen eigen betaling, maar we kunnen gedetailleerde facturen verstrekken voor mogelijke vergoeding. Neem contact met ons op om uw specifieke verzekeringssituatie te bespreken."
+      }
+    }
+  },
+  "cta": {
+    "badge": "Sluit U Aan bij Onze Gemeenschap",
+    "title": "Klaar om te Beginnen?",
+    "description": "Sluit u aan bij duizenden gezinnen die Care Conneqt vertrouwen voor gemoedsrust. Begin vandaag uw reis.",
+    "viewPricing": "Bekijk Prijsplannen",
+    "contact": "Vragen? Neem contact met ons op via:",
+    "email": "hello@careconneqt.com"
+  }
+}

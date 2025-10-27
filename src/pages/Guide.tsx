@@ -7,7 +7,7 @@ import { Shield, Clock, Users, Heart, Phone, CheckCircle2, ArrowRight, Sparkles,
 import { Link } from "react-router-dom";
 
 const Guide = () => {
-  const { t } = useTranslation(['common', 'home']);
+  const { t } = useTranslation(['common', 'home', 'guide']);
 
   return (
     <div className="min-h-screen bg-background">
@@ -27,19 +27,19 @@ const Guide = () => {
             <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20">
                 <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Your Journey Starts Here</span>
+                <span className="text-sm font-medium text-primary">{t('guide:hero.badge')}</span>
               </div>
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-br from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent leading-tight">
-                Welcome to Care Conneqt
+                {t('guide:hero.title')}
               </h1>
               
               <p className="text-2xl md:text-3xl font-semibold text-primary">
-                Your Complete Guide to Getting Started
+                {t('guide:hero.subtitle')}
               </p>
               
               <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Everything you need to know about joining, what to expect, and how Care Conneqt will support you and your loved ones with professional, compassionate care.
+                {t('guide:hero.description')}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -50,7 +50,7 @@ const Guide = () => {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="text-lg px-8">
-                  <a href="#how-it-works">Learn How It Works</a>
+                  <a href="#how-it-works">{t('guide:hero.learnHow')}</a>
                 </Button>
               </div>
             </div>

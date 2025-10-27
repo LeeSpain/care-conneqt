@@ -1,0 +1,220 @@
+{
+  "hero": {
+    "badge": "Your Journey Starts Here",
+    "title": "Welcome to Care Conneqt",
+    "subtitle": "Your Complete Guide to Getting Started",
+    "description": "Everything you need to know about joining, what to expect, and how Care Conneqt will support you and your loved ones with professional, compassionate care.",
+    "learnHow": "Learn How It Works"
+  },
+  "whatIs": {
+    "title": "What is Care Conneqt?",
+    "subtitle": "Care Conneqt is a comprehensive home care solution that combines professional nursing care with cutting-edge technology to help your loved ones live independently and safely at home.",
+    "nurseLed": {
+      "title": "Nurse-Led Care",
+      "description": "All our services are led by qualified, experienced nurses who provide professional medical oversight and support 24/7."
+    },
+    "aiPowered": {
+      "title": "AI-Powered Monitoring",
+      "description": "Our AI Guardian works alongside nurses to provide continuous monitoring, daily check-ins, and instant alerts when needed."
+    },
+    "medicalDevices": {
+      "title": "Medical-Grade Devices",
+      "description": "CE certified, medical-grade monitoring devices including smartwatches, health monitors, and emergency response systems."
+    },
+    "support": {
+      "title": "24/7 Support",
+      "description": "Round-the-clock emergency response, nurse call center, and AI companion available in English, Spanish, and Dutch."
+    }
+  },
+  "howItWorks": {
+    "badge": "Simple 5-Step Process",
+    "title": "How It Works",
+    "subtitle": "Getting started with Care Conneqt is simple and straightforward",
+    "steps": {
+      "choosePlan": {
+        "title": "Choose Your Plan",
+        "description": "Select from our flexible care plans based on your needs: Base Membership (€49.99), Independent Living (€69.99), Chronic Disease Management (€119.99), or Mental Health & Wellness (€159.99). All plans include a 24-month service agreement with no setup fees."
+      },
+      "signUp": {
+        "title": "Sign Up & Assessment",
+        "description": "Complete our simple online registration. A qualified nurse will contact you within 24 hours to conduct a comprehensive health assessment and understand your specific care needs."
+      },
+      "deviceDelivery": {
+        "title": "Device Delivery & Setup",
+        "description": "Your medical devices arrive within 3-5 business days with free shipping. Our technical team provides remote setup assistance and ensures everything is working perfectly. All devices are pre-configured and ready to use."
+      },
+      "meetGuardian": {
+        "title": "Meet Your AI Guardian",
+        "description": "Your AI Guardian begins daily check-ins, learning routines and preferences. Available 24/7 for conversations, health questions, and emergency assistance in your preferred language."
+      },
+      "ongoingCare": {
+        "title": "Ongoing Care & Monitoring",
+        "description": "Your dedicated nurse team provides regular check-ins (frequency based on your plan), health monitoring, medication management, and coordination with family members through the family dashboard."
+      }
+    }
+  },
+  "whatYouGet": {
+    "title": "What You Get",
+    "subtitle": "Every Care Conneqt membership includes comprehensive support",
+    "items": {
+      "devices": {
+        "title": "Medical-Grade Monitoring Devices",
+        "description": "CE certified devices including smartwatches, SOS pendants, home sensors, medication dispensers, and health monitors. All devices are on a 24-month lease with free shipping, setup support, automatic replacement, and device protection included."
+      },
+      "aiGuardian": {
+        "title": "AI Guardian Companion",
+        "description": "Your personal AI health companion provides daily wellness check-ins, mood tracking, activity monitoring, emergency escalation, medication reminders, and companionship. Available 24/7 in English, Spanish, and Dutch."
+      },
+      "nurseSupport": {
+        "title": "Professional Nurse Support",
+        "description": "Qualified nurses provide regular health assessments, medication management, care coordination, clinical documentation, and health education. Check-in frequency varies by plan: monthly (Base), weekly (Independent Living), or daily (Chronic Disease Management)."
+      },
+      "emergency": {
+        "title": "24/7 Emergency Call Center",
+        "description": "Immediate response to emergency alerts, direct nurse triage, ambulance coordination if needed, family notifications, and comprehensive incident documentation. Priority response for Independent Living and above."
+      },
+      "familyDashboard": {
+        "title": "Family Dashboard Access",
+        "description": "Real-time activity monitoring, health metrics tracking, medication compliance, nurse visit summaries, instant alerts for concerns, and secure messaging with care team. Number of family users varies by plan."
+      },
+      "careCoordination": {
+        "title": "Care Coordination",
+        "description": "Integration with existing healthcare providers, appointment coordination, medical record management, caregiver support programs, and comprehensive care plans. Dedicated care coordinator included with Chronic Disease Management plan and above."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Transparent Pricing",
+    "subtitle": "No hidden fees. No setup charges. Cancel anytime after 24 months.",
+    "plans": {
+      "base": {
+        "title": "Base Membership - €49.99/month",
+        "description": "Perfect for independent seniors who want peace of mind. Includes 1 device, AI Guardian, monthly nurse check-ins, and 24/7 emergency support."
+      },
+      "independent": {
+        "badge": "MOST POPULAR",
+        "title": "Independent Living - €69.99/month",
+        "description": "Enhanced monitoring for active seniors. Includes 2 devices, weekly nurse check-ins, priority emergency response, and family dashboard for 2 users."
+      },
+      "chronic": {
+        "title": "Chronic Disease Mgmt - €119.99/month",
+        "description": "Comprehensive care for managing chronic conditions. Includes 4 devices, daily nurse monitoring, medication management, vital signs tracking, and dedicated care coordinator."
+      },
+      "mental": {
+        "title": "Mental Health & Wellness - €159.99/month",
+        "description": "Complete support including mental health services. Everything in Chronic plan plus weekly therapy sessions, mental health specialist, social wellness activities, and caregiver support."
+      }
+    },
+    "addons": {
+      "title": "Additional Devices Available",
+      "subtitle": "Customize your plan with additional devices:",
+      "items": {
+        "watch": "Extra Vivago Watch or SOS Pendant: +€19.99/month",
+        "domi": "Vivago Domi Home Sensors: +€29.99/month",
+        "dispenser": "Dosell Medication Dispenser: +€34.99/month",
+        "calendar": "BBrain Calendar Clock: +€19.99/month",
+        "monitors": "Health Monitors (BP, glucose): +€14.99/month each",
+        "scale": "Smart Weight Scale: +€14.99/month"
+      }
+    }
+  },
+  "commercial": {
+    "badge": "B2B Solutions",
+    "title": "Working with Commercial Partners",
+    "subtitle": "We partner with healthcare facilities, municipalities, and care organizations to deliver enterprise-grade solutions",
+    "partners": {
+      "healthcare": {
+        "title": "Healthcare Facilities",
+        "description": "Integration with assisted living facilities, nursing homes, and care communities. Bulk device deployment, centralized monitoring dashboards, and seamless EHR integration for streamlined operations."
+      },
+      "municipalities": {
+        "title": "Municipalities & Social Care",
+        "description": "Partner with local governments and social services to provide community-wide care solutions. Volume pricing, GDPR compliance, and reporting tools for social care programs."
+      },
+      "insurance": {
+        "title": "Insurance Providers",
+        "description": "Collaborate with health insurance companies to offer Care Conneqt as a covered benefit. API integration for claims processing, preventive care analytics, and reduced hospitalization rates."
+      },
+      "homecare": {
+        "title": "Home Care Agencies",
+        "description": "Enhance your home care services with our technology platform. White-label options available, caregiver coordination tools, and real-time client monitoring to improve service quality."
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise Features & Benefits",
+      "volumePricing": {
+        "title": "Volume Pricing",
+        "description": "Flexible pricing tiers based on number of users with significant discounts for large deployments"
+      },
+      "customIntegration": {
+        "title": "Custom Integration",
+        "description": "API access, EHR integration, SSO authentication, and custom workflow development"
+      },
+      "dedicatedSupport": {
+        "title": "Dedicated Support",
+        "description": "Account manager, priority technical support, training programs, and quarterly business reviews"
+      },
+      "cta": "Explore Enterprise Solutions"
+    }
+  },
+  "whatToExpect": {
+    "title": "What to Expect",
+    "subtitle": "Your journey with Care Conneqt",
+    "timeline": {
+      "firstWeek": {
+        "title": "First Week",
+        "description": "Devices arrive and are set up with remote technical support. Your AI Guardian introduces itself and begins learning your routine. Initial nurse assessment is completed, and your care plan is established. Family members receive dashboard access and training."
+      },
+      "firstMonth": {
+        "title": "First Month",
+        "description": "Your care team monitors initial data to establish baselines for activity, sleep, and vital signs. Regular check-ins begin according to your plan. AI Guardian adapts to your preferences and schedule. Family dashboard starts showing meaningful trends and insights."
+      },
+      "ongoing": {
+        "title": "Ongoing Care",
+        "description": "Continuous 24/7 monitoring with AI-powered anomaly detection. Regular nurse visits and health assessments. Proactive alerts for concerning trends. Medication management and compliance tracking. Regular family updates and care team communication. Quarterly care plan reviews and adjustments."
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know",
+    "items": {
+      "purchase": {
+        "question": "Do I have to purchase the devices?",
+        "answer": "No. All devices are included in your monthly subscription on a 24-month lease. This includes free shipping, setup support, technical assistance, automatic replacement if needed, and device protection insurance."
+      },
+      "cancel": {
+        "question": "What if I need to cancel?",
+        "answer": "Our service agreement is for 24 months. After that period, you can cancel at any time with 30 days notice. If you need to cancel before 24 months due to medical or financial hardship, please contact our support team to discuss options."
+      },
+      "qualified": {
+        "question": "Are the nurses qualified healthcare professionals?",
+        "answer": "Yes. All our nurses are fully qualified, registered healthcare professionals with experience in geriatric and home care. They maintain active licensure and participate in ongoing professional development."
+      },
+      "privacy": {
+        "question": "Is my data secure and private?",
+        "answer": "Absolutely. We are fully GDPR compliant with EU-based encrypted servers. All health data is end-to-end encrypted. Only your designated care team and approved family members can access your information. We never sell or share your data with third parties."
+      },
+      "emergency": {
+        "question": "What happens in an emergency?",
+        "answer": "Our 24/7 emergency call center is immediately notified. A qualified nurse triages the situation and can dispatch emergency services if needed. Your designated emergency contacts are automatically notified. All incidents are documented and reviewed by your care team."
+      },
+      "changePlan": {
+        "question": "Can I upgrade or downgrade my plan?",
+        "answer": "Yes. You can change your care plan at any time. Upgrades take effect immediately. Downgrades take effect at the start of your next billing cycle. Additional devices can be added or removed with 30 days notice."
+      },
+      "insurance": {
+        "question": "Do you work with insurance companies?",
+        "answer": "We are working to establish partnerships with major health insurance providers. Currently, most plans are self-pay, but we can provide detailed invoices for potential reimbursement. Contact us to discuss your specific insurance situation."
+      }
+    }
+  },
+  "cta": {
+    "badge": "Join Our Community",
+    "title": "Ready to Get Started?",
+    "description": "Join thousands of families who trust Care Conneqt for peace of mind. Start your journey today.",
+    "viewPricing": "View Pricing Plans",
+    "contact": "Questions? Contact us at:",
+    "email": "hello@careconneqt.com"
+  }
+}

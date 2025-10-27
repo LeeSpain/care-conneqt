@@ -21,7 +21,7 @@ i18n
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
 
-    ns: ['common', 'home', 'dashboard', 'personal-care', 'institutional-care', 'devices', 'nurses', 'auth'],
+    ns: ['common', 'home', 'dashboard', 'personal-care', 'institutional-care', 'devices', 'nurses', 'auth', 'guide'],
     defaultNS: 'common',
 
     detection: {

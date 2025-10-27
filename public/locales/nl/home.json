@@ -19,24 +19,38 @@
     "families": {
       "title": "Voor Gezinnen",
       "description": "Geef uw dierbaren onafhankelijkheid met 24/7 verpleegkundige ondersteuning en AI-monitoring",
+      "tagline": "Perfect voor senioren, gezinnen en expats die op zoek zijn naar gemoedsrust en onafhankelijkheid.",
       "features": {
         "devices": "Slimme apparaten en gezondheidsmonitoren",
         "ai": "AI-metgezel met dagelijkse check-ins",
+        "aiTitle": "Persoonlijke AI Bewaker",
         "nurses": "24/7 callcenter onder leiding van verpleegkundigen",
-        "dashboard": "Gezinsdashboard en waarschuwingen"
+        "nursesTitle": "24/7 Noodhulp",
+        "dashboard": "Gezinsdashboard en waarschuwingen",
+        "dashboardTitle": "Gezinsdashboards"
       },
-      "pricing": "Vanaf €49,99/maand"
+      "pricing": "Vanaf €49,99/maand",
+      "cta": "Verken Persoonlijke Zorg"
     },
     "institutions": {
       "title": "Voor Instellingen",
       "description": "Enterprise zorgoplossingen voor assisted living, gemeenten en zorgaanbieders",
+      "tagline": "Schaalbare oplossingen voor verpleeghuizen, verzekeraars, gemeenten en werkgevers.",
       "features": {
         "bulk": "Bulk apparaatimplementatie",
         "integration": "EPD-integratie",
+        "facilityTitle": "Faciliteit Dashboard",
+        "facilityDesc": "Multi-bewoner monitoring en beheer",
         "compliance": "AVG en ISO-compliance",
-        "analytics": "Geavanceerde analyses"
+        "complianceTitle": "Compliance & Rapportage",
+        "analytics": "Geavanceerde analyses",
+        "whiteLabel": "White-Label Opties",
+        "whiteLabelDesc": "Aangepaste branding en integratie"
       },
-      "pricing": "Volumeprijzen beschikbaar"
+      "pricing": "Volumeprijzen beschikbaar",
+      "pricingTitle": "Volume-Gebaseerde Prijzen",
+      "pricingDesc": "Flexibele overeenkomsten (12-36 maanden)",
+      "cta": "Verken Institutionele Oplossingen"
     }
   },
   "pricing": {

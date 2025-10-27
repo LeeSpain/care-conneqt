@@ -19,24 +19,38 @@
     "families": {
       "title": "For Families",
       "description": "Give your loved ones independence with 24/7 nurse support and AI monitoring",
+      "tagline": "Perfect for seniors, families, and expats seeking peace of mind and independence.",
       "features": {
         "devices": "Smart devices & health monitors",
         "ai": "AI companion with daily check-ins",
+        "aiTitle": "Personal AI Guardian",
         "nurses": "24/7 nurse-led call center",
-        "dashboard": "Family dashboard & alerts"
+        "nursesTitle": "24/7 Emergency Response",
+        "dashboard": "Family dashboard & alerts",
+        "dashboardTitle": "Family Dashboards"
       },
-      "pricing": "Starting at €49.99/month"
+      "pricing": "Starting at €49.99/month",
+      "cta": "Explore Personal Care"
     },
     "institutions": {
       "title": "For Institutions",
       "description": "Enterprise care solutions for assisted living, municipalities, and healthcare providers",
+      "tagline": "Scalable solutions for care homes, insurers, municipalities, and employers.",
       "features": {
         "bulk": "Bulk device deployment",
         "integration": "EHR integration",
+        "facilityTitle": "Facility Dashboard",
+        "facilityDesc": "Multi-resident monitoring and management",
         "compliance": "GDPR & ISO compliance",
-        "analytics": "Advanced analytics"
+        "complianceTitle": "Compliance & Reporting",
+        "analytics": "Advanced analytics",
+        "whiteLabel": "White-Label Options",
+        "whiteLabelDesc": "Custom branding and integration"
       },
-      "pricing": "Volume pricing available"
+      "pricing": "Volume pricing available",
+      "pricingTitle": "Volume-Based Pricing",
+      "pricingDesc": "Flexible agreements (12-36 months)",
+      "cta": "Explore Institutional Solutions"
     }
   },
   "pricing": {

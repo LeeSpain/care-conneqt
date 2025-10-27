@@ -1,0 +1,220 @@
+{
+  "hero": {
+    "badge": "Tu Viaje Comienza Aquí",
+    "title": "Bienvenido a Care Conneqt",
+    "subtitle": "Tu Guía Completa para Comenzar",
+    "description": "Todo lo que necesitas saber sobre unirte, qué esperar y cómo Care Conneqt te apoyará a ti y a tus seres queridos con atención profesional y compasiva.",
+    "learnHow": "Aprende Cómo Funciona"
+  },
+  "whatIs": {
+    "title": "¿Qué es Care Conneqt?",
+    "subtitle": "Care Conneqt es una solución integral de atención domiciliaria que combina atención de enfermería profesional con tecnología de vanguardia para ayudar a tus seres queridos a vivir de forma independiente y segura en casa.",
+    "nurseLed": {
+      "title": "Atención Dirigida por Enfermeras",
+      "description": "Todos nuestros servicios son dirigidos por enfermeras cualificadas y experimentadas que brindan supervisión médica profesional y apoyo 24/7."
+    },
+    "aiPowered": {
+      "title": "Monitoreo Potenciado por IA",
+      "description": "Nuestro Guardián IA trabaja junto a las enfermeras para proporcionar monitoreo continuo, controles diarios y alertas instantáneas cuando se necesite."
+    },
+    "medicalDevices": {
+      "title": "Dispositivos de Grado Médico",
+      "description": "Dispositivos de monitoreo de grado médico certificados CE que incluyen smartwatches, monitores de salud y sistemas de respuesta de emergencia."
+    },
+    "support": {
+      "title": "Soporte 24/7",
+      "description": "Respuesta de emergencia las 24 horas, centro de llamadas de enfermeras y compañero IA disponible en inglés, español y holandés."
+    }
+  },
+  "howItWorks": {
+    "badge": "Proceso Simple de 5 Pasos",
+    "title": "Cómo Funciona",
+    "subtitle": "Comenzar con Care Conneqt es simple y directo",
+    "steps": {
+      "choosePlan": {
+        "title": "Elige Tu Plan",
+        "description": "Selecciona de nuestros planes de atención flexibles según tus necesidades: Membresía Base (€49,99), Vida Independiente (€69,99), Gestión de Enfermedades Crónicas (€119,99) o Salud Mental y Bienestar (€159,99). Todos los planes incluyen un acuerdo de servicio de 24 meses sin tarifas de configuración."
+      },
+      "signUp": {
+        "title": "Registro y Evaluación",
+        "description": "Completa nuestro sencillo registro en línea. Una enfermera cualificada te contactará dentro de 24 horas para realizar una evaluación de salud integral y comprender tus necesidades específicas de atención."
+      },
+      "deviceDelivery": {
+        "title": "Entrega y Configuración de Dispositivos",
+        "description": "Tus dispositivos médicos llegan en 3-5 días hábiles con envío gratuito. Nuestro equipo técnico proporciona asistencia remota de configuración y asegura que todo funcione perfectamente. Todos los dispositivos están preconfigurados y listos para usar."
+      },
+      "meetGuardian": {
+        "title": "Conoce a Tu Guardián IA",
+        "description": "Tu Guardián IA comienza los controles diarios, aprendiendo rutinas y preferencias. Disponible 24/7 para conversaciones, preguntas de salud y asistencia de emergencia en tu idioma preferido."
+      },
+      "ongoingCare": {
+        "title": "Atención y Monitoreo Continuo",
+        "description": "Tu equipo de enfermeras dedicado proporciona controles regulares (frecuencia según tu plan), monitoreo de salud, gestión de medicamentos y coordinación con miembros de la familia a través del panel familiar."
+      }
+    }
+  },
+  "whatYouGet": {
+    "title": "Qué Obtienes",
+    "subtitle": "Cada membresía de Care Conneqt incluye soporte integral",
+    "items": {
+      "devices": {
+        "title": "Dispositivos de Monitoreo de Grado Médico",
+        "description": "Dispositivos certificados CE que incluyen smartwatches, colgantes SOS, sensores domésticos, dispensadores de medicamentos y monitores de salud. Todos los dispositivos están en arrendamiento de 24 meses con envío gratuito, soporte de configuración, reemplazo automático y protección de dispositivos incluida."
+      },
+      "aiGuardian": {
+        "title": "Compañero Guardián IA",
+        "description": "Tu compañero de salud IA personal proporciona controles de bienestar diarios, seguimiento del estado de ánimo, monitoreo de actividad, escalamiento de emergencias, recordatorios de medicamentos y compañía. Disponible 24/7 en inglés, español y holandés."
+      },
+      "nurseSupport": {
+        "title": "Soporte de Enfermera Profesional",
+        "description": "Las enfermeras cualificadas proporcionan evaluaciones de salud regulares, gestión de medicamentos, coordinación de atención, documentación clínica y educación sobre salud. La frecuencia de los controles varía según el plan: mensual (Base), semanal (Vida Independiente) o diaria (Gestión de Enfermedades Crónicas)."
+      },
+      "emergency": {
+        "title": "Centro de Llamadas de Emergencia 24/7",
+        "description": "Respuesta inmediata a alertas de emergencia, triaje directo de enfermeras, coordinación de ambulancias si es necesario, notificaciones familiares y documentación integral de incidentes. Respuesta prioritaria para Vida Independiente y superiores."
+      },
+      "familyDashboard": {
+        "title": "Acceso al Panel Familiar",
+        "description": "Monitoreo de actividad en tiempo real, seguimiento de métricas de salud, cumplimiento de medicamentos, resúmenes de visitas de enfermeras, alertas instantáneas para preocupaciones y mensajería segura con el equipo de atención. El número de usuarios familiares varía según el plan."
+      },
+      "careCoordination": {
+        "title": "Coordinación de Atención",
+        "description": "Integración con proveedores de atención médica existentes, coordinación de citas, gestión de registros médicos, programas de apoyo al cuidador y planes de atención integrales. Coordinador de atención dedicado incluido con el plan de Gestión de Enfermedades Crónicas y superiores."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Precios Transparentes",
+    "subtitle": "Sin tarifas ocultas. Sin cargos de configuración. Cancela en cualquier momento después de 24 meses.",
+    "plans": {
+      "base": {
+        "title": "Membresía Base - €49,99/mes",
+        "description": "Perfecto para personas mayores independientes que desean tranquilidad. Incluye 1 dispositivo, Guardián IA, controles mensuales de enfermeras y soporte de emergencia 24/7."
+      },
+      "independent": {
+        "badge": "MÁS POPULAR",
+        "title": "Vida Independiente - €69,99/mes",
+        "description": "Monitoreo mejorado para personas mayores activas. Incluye 2 dispositivos, controles semanales de enfermeras, respuesta de emergencia prioritaria y panel familiar para 2 usuarios."
+      },
+      "chronic": {
+        "title": "Gestión de Enfermedades Crónicas - €119,99/mes",
+        "description": "Atención integral para gestionar condiciones crónicas. Incluye 4 dispositivos, monitoreo diario de enfermeras, gestión de medicamentos, seguimiento de signos vitales y coordinador de atención dedicado."
+      },
+      "mental": {
+        "title": "Salud Mental y Bienestar - €159,99/mes",
+        "description": "Soporte completo que incluye servicios de salud mental. Todo en el plan Crónico más sesiones de terapia semanales, especialista en salud mental, actividades de bienestar social y apoyo al cuidador."
+      }
+    },
+    "addons": {
+      "title": "Dispositivos Adicionales Disponibles",
+      "subtitle": "Personaliza tu plan con dispositivos adicionales:",
+      "items": {
+        "watch": "Reloj Vivago o Colgante SOS Extra: +€19,99/mes",
+        "domi": "Sensores Domésticos Vivago Domi: +€29,99/mes",
+        "dispenser": "Dispensador de Medicamentos Dosell: +€34,99/mes",
+        "calendar": "Reloj Calendario BBrain: +€19,99/mes",
+        "monitors": "Monitores de Salud (PA, glucosa): +€14,99/mes cada uno",
+        "scale": "Báscula Inteligente: +€14,99/mes"
+      }
+    }
+  },
+  "commercial": {
+    "badge": "Soluciones B2B",
+    "title": "Trabajando con Socios Comerciales",
+    "subtitle": "Nos asociamos con instalaciones de atención médica, municipios y organizaciones de atención para ofrecer soluciones de nivel empresarial",
+    "partners": {
+      "healthcare": {
+        "title": "Instalaciones de Atención Médica",
+        "description": "Integración con instalaciones de vida asistida, residencias de ancianos y comunidades de atención. Despliegue masivo de dispositivos, paneles de monitoreo centralizados e integración perfecta con EHR para operaciones optimizadas."
+      },
+      "municipalities": {
+        "title": "Municipios y Atención Social",
+        "description": "Asociarse con gobiernos locales y servicios sociales para proporcionar soluciones de atención en toda la comunidad. Precios por volumen, cumplimiento de GDPR y herramientas de informes para programas de atención social."
+      },
+      "insurance": {
+        "title": "Proveedores de Seguros",
+        "description": "Colaborar con compañías de seguros de salud para ofrecer Care Conneqt como un beneficio cubierto. Integración API para procesamiento de reclamaciones, análisis de atención preventiva y tasas de hospitalización reducidas."
+      },
+      "homecare": {
+        "title": "Agencias de Atención Domiciliaria",
+        "description": "Mejora tus servicios de atención domiciliaria con nuestra plataforma tecnológica. Opciones de marca blanca disponibles, herramientas de coordinación de cuidadores y monitoreo de clientes en tiempo real para mejorar la calidad del servicio."
+      }
+    },
+    "enterprise": {
+      "title": "Características y Beneficios Empresariales",
+      "volumePricing": {
+        "title": "Precios por Volumen",
+        "description": "Niveles de precios flexibles basados en el número de usuarios con descuentos significativos para grandes implementaciones"
+      },
+      "customIntegration": {
+        "title": "Integración Personalizada",
+        "description": "Acceso API, integración EHR, autenticación SSO y desarrollo de flujos de trabajo personalizados"
+      },
+      "dedicatedSupport": {
+        "title": "Soporte Dedicado",
+        "description": "Gerente de cuenta, soporte técnico prioritario, programas de capacitación y revisiones comerciales trimestrales"
+      },
+      "cta": "Explorar Soluciones Empresariales"
+    }
+  },
+  "whatToExpect": {
+    "title": "Qué Esperar",
+    "subtitle": "Tu viaje con Care Conneqt",
+    "timeline": {
+      "firstWeek": {
+        "title": "Primera Semana",
+        "description": "Los dispositivos llegan y se configuran con soporte técnico remoto. Tu Guardián IA se presenta y comienza a aprender tu rutina. Se completa la evaluación inicial de enfermería y se establece tu plan de atención. Los miembros de la familia reciben acceso al panel y capacitación."
+      },
+      "firstMonth": {
+        "title": "Primer Mes",
+        "description": "Tu equipo de atención monitorea los datos iniciales para establecer líneas base de actividad, sueño y signos vitales. Comienzan los controles regulares según tu plan. El Guardián IA se adapta a tus preferencias y horario. El panel familiar comienza a mostrar tendencias e información significativas."
+      },
+      "ongoing": {
+        "title": "Atención Continua",
+        "description": "Monitoreo continuo 24/7 con detección de anomalías impulsada por IA. Visitas regulares de enfermeras y evaluaciones de salud. Alertas proactivas para tendencias preocupantes. Gestión de medicamentos y seguimiento del cumplimiento. Actualizaciones regulares de la familia y comunicación del equipo de atención. Revisiones y ajustes trimestrales del plan de atención."
+      }
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Todo lo que necesitas saber",
+    "items": {
+      "purchase": {
+        "question": "¿Tengo que comprar los dispositivos?",
+        "answer": "No. Todos los dispositivos están incluidos en tu suscripción mensual en un arrendamiento de 24 meses. Esto incluye envío gratuito, soporte de configuración, asistencia técnica, reemplazo automático si es necesario y seguro de protección de dispositivos."
+      },
+      "cancel": {
+        "question": "¿Qué pasa si necesito cancelar?",
+        "answer": "Nuestro acuerdo de servicio es por 24 meses. Después de ese período, puedes cancelar en cualquier momento con un aviso de 30 días. Si necesitas cancelar antes de 24 meses debido a dificultades médicas o financieras, comunícate con nuestro equipo de soporte para discutir opciones."
+      },
+      "qualified": {
+        "question": "¿Son las enfermeras profesionales de atención médica cualificados?",
+        "answer": "Sí. Todas nuestras enfermeras son profesionales de atención médica totalmente cualificados y registrados con experiencia en atención geriátrica y domiciliaria. Mantienen licencias activas y participan en desarrollo profesional continuo."
+      },
+      "privacy": {
+        "question": "¿Son seguros y privados mis datos?",
+        "answer": "Absolutamente. Cumplimos totalmente con GDPR con servidores encriptados basados en la UE. Todos los datos de salud están encriptados de extremo a extremo. Solo tu equipo de atención designado y los miembros de la familia aprobados pueden acceder a tu información. Nunca vendemos ni compartimos tus datos con terceros."
+      },
+      "emergency": {
+        "question": "¿Qué sucede en una emergencia?",
+        "answer": "Nuestro centro de llamadas de emergencia 24/7 es notificado inmediatamente. Una enfermera cualificada evalúa la situación y puede enviar servicios de emergencia si es necesario. Tus contactos de emergencia designados son notificados automáticamente. Todos los incidentes se documentan y revisan por tu equipo de atención."
+      },
+      "changePlan": {
+        "question": "¿Puedo actualizar o degradar mi plan?",
+        "answer": "Sí. Puedes cambiar tu plan de atención en cualquier momento. Las actualizaciones entran en vigencia de inmediato. Las degradaciones entran en vigencia al comienzo de tu próximo ciclo de facturación. Los dispositivos adicionales se pueden agregar o eliminar con un aviso de 30 días."
+      },
+      "insurance": {
+        "question": "¿Trabajan con compañías de seguros?",
+        "answer": "Estamos trabajando para establecer asociaciones con los principales proveedores de seguros de salud. Actualmente, la mayoría de los planes son de pago personal, pero podemos proporcionar facturas detalladas para un posible reembolso. Contáctanos para discutir tu situación de seguro específica."
+      }
+    }
+  },
+  "cta": {
+    "badge": "Únete a Nuestra Comunidad",
+    "title": "¿Listo para Comenzar?",
+    "description": "Únete a miles de familias que confían en Care Conneqt para su tranquilidad. Comienza tu viaje hoy.",
+    "viewPricing": "Ver Planes de Precios",
+    "contact": "¿Preguntas? Contáctanos en:",
+    "email": "hello@careconneqt.com"
+  }
+}

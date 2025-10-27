@@ -35,28 +35,28 @@ export const SolutionsSection = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                Perfect for seniors, families, and expats seeking peace of mind and independence.
+                {t('solutions.families.tagline')}
               </p>
               
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <Heart className="h-5 w-5 text-coral mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">Personal AI Guardian</div>
+                    <div className="font-semibold">{t('solutions.families.features.aiTitle')}</div>
                     <div className="text-sm text-muted-foreground">{t('solutions.families.features.ai')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Shield className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">24/7 Emergency Response</div>
+                    <div className="font-semibold">{t('solutions.families.features.nursesTitle')}</div>
                     <div className="text-sm text-muted-foreground">{t('solutions.families.features.nurses')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Users className="h-5 w-5 text-lilac mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">Family Dashboards</div>
+                    <div className="font-semibold">{t('solutions.families.features.dashboardTitle')}</div>
                     <div className="text-sm text-muted-foreground">{t('solutions.families.features.dashboard')}</div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@ export const SolutionsSection = () => {
 
               <Button className="w-full bg-secondary hover:bg-secondary/90 group" asChild>
                 <a href="/personal-care">
-                  Explore Personal Care
+                  {t('solutions.families.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
@@ -92,41 +92,41 @@ export const SolutionsSection = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                Scalable solutions for care homes, insurers, municipalities, and employers.
+                {t('solutions.institutions.tagline')}
               </p>
               
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <TrendingUp className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">Facility Dashboard</div>
-                    <div className="text-sm text-muted-foreground">Multi-resident monitoring and management</div>
+                    <div className="font-semibold">{t('solutions.institutions.features.facilityTitle')}</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.institutions.features.facilityDesc')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Shield className="h-5 w-5 text-secondary mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">Compliance & Reporting</div>
+                    <div className="font-semibold">{t('solutions.institutions.features.complianceTitle')}</div>
                     <div className="text-sm text-muted-foreground">{t('solutions.institutions.features.compliance')}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Building2 className="h-5 w-5 text-lilac mt-0.5 flex-shrink-0" />
                   <div>
-                    <div className="font-semibold">White-Label Options</div>
-                    <div className="text-sm text-muted-foreground">Custom branding and integration</div>
+                    <div className="font-semibold">{t('solutions.institutions.features.whiteLabel')}</div>
+                    <div className="text-sm text-muted-foreground">{t('solutions.institutions.features.whiteLabelDesc')}</div>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 flex flex-col gap-2">
-                <div className="text-lg font-semibold text-primary">Volume-Based Pricing</div>
-                <div className="text-sm text-muted-foreground">Flexible agreements (12-36 months)</div>
+                <div className="text-lg font-semibold text-primary">{t('solutions.institutions.pricingTitle')}</div>
+                <div className="text-sm text-muted-foreground">{t('solutions.institutions.pricingDesc')}</div>
               </div>
 
               <Button className="w-full bg-primary hover:bg-primary/90 group" asChild>
                 <a href="/institutional-care">
-                  Explore Institutional Solutions
+                  {t('solutions.institutions.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>

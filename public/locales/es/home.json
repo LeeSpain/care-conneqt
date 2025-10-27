@@ -19,24 +19,38 @@
     "families": {
       "title": "Para Familias",
       "description": "Dale a tus seres queridos independencia con soporte de enfermeras 24/7 y monitoreo de IA",
+      "tagline": "Perfecto para personas mayores, familias y expatriados que buscan tranquilidad e independencia.",
       "features": {
         "devices": "Dispositivos inteligentes y monitores de salud",
         "ai": "Compañero de IA con controles diarios",
+        "aiTitle": "Guardián de IA Personal",
         "nurses": "Centro de llamadas dirigido por enfermeras 24/7",
-        "dashboard": "Panel familiar y alertas"
+        "nursesTitle": "Respuesta de Emergencia 24/7",
+        "dashboard": "Panel familiar y alertas",
+        "dashboardTitle": "Paneles Familiares"
       },
-      "pricing": "Desde €49,99/mes"
+      "pricing": "Desde €49,99/mes",
+      "cta": "Explorar Cuidado Personal"
     },
     "institutions": {
       "title": "Para Instituciones",
       "description": "Soluciones de atención empresarial para residencias asistidas, municipios y proveedores de salud",
+      "tagline": "Soluciones escalables para residencias, aseguradoras, municipios y empleadores.",
       "features": {
         "bulk": "Despliegue masivo de dispositivos",
         "integration": "Integración con EHR",
+        "facilityTitle": "Panel de Instalaciones",
+        "facilityDesc": "Monitoreo y gestión multi-residente",
         "compliance": "Cumplimiento GDPR e ISO",
-        "analytics": "Análisis avanzados"
+        "complianceTitle": "Cumplimiento e Informes",
+        "analytics": "Análisis avanzados",
+        "whiteLabel": "Opciones de Marca Blanca",
+        "whiteLabelDesc": "Marca e integración personalizadas"
       },
-      "pricing": "Precios por volumen disponibles"
+      "pricing": "Precios por volumen disponibles",
+      "pricingTitle": "Precios Basados en Volumen",
+      "pricingDesc": "Acuerdos flexibles (12-36 meses)",
+      "cta": "Explorar Soluciones Institucionales"
     }
   },
   "pricing": {
