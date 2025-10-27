@@ -38,6 +38,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">{t('footer.resources')}</h3>
             <ul className="space-y-2 text-sm text-white/80">
+              <li><a href="/guide" className="hover:text-secondary transition-colors">{t('footer.guide')}</a></li>
               <li><a href="/devices" className="hover:text-secondary transition-colors">{t('footer.devices')}</a></li>
               <li><a href="/our-nurses" className="hover:text-secondary transition-colors">{t('footer.ourNurses')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.helpCenter')}</a></li>
