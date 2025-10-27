@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const CTASection = () => {
@@ -21,24 +21,16 @@ export const CTASection = () => {
                 {t('cta.description')}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <div className="flex justify-center pt-4">
                 <Button 
                   size="lg"
                   className="bg-white text-primary hover:bg-white/90 font-semibold group"
                   asChild
                 >
                   <a href="/auth/signup">
-                    {t('buttons.getStarted')}
+                    {t('cta.button')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
-                </Button>
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white/10"
-                >
-                  <Phone className="mr-2 h-4 w-4" />
-                  {t('buttons.bookDemo')}
                 </Button>
               </div>
 
