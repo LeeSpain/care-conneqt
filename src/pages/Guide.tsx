@@ -427,8 +427,107 @@ const Guide = () => {
           </div>
         </section>
 
-        {/* What to Expect */}
+        {/* Commercial Partners */}
         <section className="py-20 bg-gradient-to-b from-background to-muted/20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto space-y-12">
+              <div className="text-center space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 backdrop-blur-sm border border-accent/20">
+                  <Users className="h-4 w-4 text-accent" />
+                  <span className="text-sm font-medium text-accent">B2B Solutions</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground">Working with Commercial Partners</h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  We partner with healthcare facilities, municipalities, and care organizations to deliver enterprise-grade solutions
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card className="border-2 hover:border-accent/50 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-card to-accent/5">
+                  <CardHeader className="space-y-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent/70 flex items-center justify-center shadow-lg">
+                      <Shield className="h-8 w-8 text-accent-foreground" />
+                    </div>
+                    <CardTitle className="text-2xl">Healthcare Facilities</CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      Integration with assisted living facilities, nursing homes, and care communities. Bulk device deployment, centralized monitoring dashboards, and seamless EHR integration for streamlined operations.
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-card to-primary/5">
+                  <CardHeader className="space-y-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                      <Users className="h-8 w-8 text-primary-foreground" />
+                    </div>
+                    <CardTitle className="text-2xl">Municipalities & Social Care</CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      Partner with local governments and social services to provide community-wide care solutions. Volume pricing, GDPR compliance, and reporting tools for social care programs.
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="border-2 hover:border-accent/50 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-card to-accent/5">
+                  <CardHeader className="space-y-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent/70 flex items-center justify-center shadow-lg">
+                      <Heart className="h-8 w-8 text-accent-foreground" />
+                    </div>
+                    <CardTitle className="text-2xl">Insurance Providers</CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      Collaborate with health insurance companies to offer Care Conneqt as a covered benefit. API integration for claims processing, preventive care analytics, and reduced hospitalization rates.
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+
+                <Card className="border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-xl bg-gradient-to-br from-card to-primary/5">
+                  <CardHeader className="space-y-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg">
+                      <Clock className="h-8 w-8 text-primary-foreground" />
+                    </div>
+                    <CardTitle className="text-2xl">Home Care Agencies</CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      Enhance your home care services with our technology platform. White-label options available, caregiver coordination tools, and real-time client monitoring to improve service quality.
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </div>
+
+              <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary/30">
+                <CardHeader className="space-y-6">
+                  <CardTitle className="text-3xl text-center">Enterprise Features & Benefits</CardTitle>
+                  <div className="grid md:grid-cols-3 gap-6 pt-4">
+                    <div className="space-y-3 text-center">
+                      <CheckCircle2 className="h-8 w-8 text-primary mx-auto" />
+                      <h3 className="font-semibold text-lg">Volume Pricing</h3>
+                      <p className="text-sm text-muted-foreground">Flexible pricing tiers based on number of users with significant discounts for large deployments</p>
+                    </div>
+                    <div className="space-y-3 text-center">
+                      <CheckCircle2 className="h-8 w-8 text-primary mx-auto" />
+                      <h3 className="font-semibold text-lg">Custom Integration</h3>
+                      <p className="text-sm text-muted-foreground">API access, EHR integration, SSO authentication, and custom workflow development</p>
+                    </div>
+                    <div className="space-y-3 text-center">
+                      <CheckCircle2 className="h-8 w-8 text-primary mx-auto" />
+                      <h3 className="font-semibold text-lg">Dedicated Support</h3>
+                      <p className="text-sm text-muted-foreground">Account manager, priority technical support, training programs, and quarterly business reviews</p>
+                    </div>
+                  </div>
+                  <div className="text-center pt-6">
+                    <Button size="lg" asChild className="text-lg px-8">
+                      <Link to="/institutional-care">
+                        Explore Enterprise Solutions
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardHeader>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* What to Expect */}
+        <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto space-y-12">
               <div className="text-center space-y-6">
