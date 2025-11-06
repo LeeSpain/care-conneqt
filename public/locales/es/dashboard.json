@@ -1,4 +1,6 @@
 {
+  "title": "Panel de Control",
+  "welcome": "Bienvenido de nuevo",
   "quickStats": {
     "heartRate": "Ritmo Cardíaco",
     "activityToday": "Actividad Hoy",
@@ -7,7 +9,18 @@
     "bpm": "LPM",
     "steps": "pasos",
     "alerts": "alertas",
-    "dueToday": "pendientes hoy"
+    "dueToday": "pendientes hoy",
+    "assignedMembers": "Miembros Asignados",
+    "tasksToday": "Tareas Hoy",
+    "completed": "Completadas",
+    "totalUsers": "Usuarios Totales",
+    "facilities": "Instalaciones",
+    "activeSubscriptions": "Suscripciones Activas",
+    "systemHealth": "Salud del Sistema",
+    "good": "Bueno",
+    "totalResidents": "Residentes Totales",
+    "bedOccupancy": "Ocupación de Camas",
+    "staffMembers": "Miembros del Personal"
   },
   "healthMonitoring": {
     "title": "Monitoreo de Salud",
@@ -24,7 +37,9 @@
     "primaryNurse": "Enfermera Principal",
     "careCoordinator": "Coordinador de Atención",
     "contact": "Contacto",
-    "schedule": "Horario"
+    "schedule": "Horario",
+    "sendMessage": "Enviar Mensaje",
+    "viewProfile": "Ver Perfil"
   },
   "activity": {
     "title": "Línea de Tiempo de Actividad",
@@ -37,14 +52,16 @@
     "taken": "Tomado",
     "missed": "Omitido",
     "upcoming": "Próximo",
-    "scheduleTime": "Hora Programada"
+    "scheduleTime": "Hora Programada",
+    "adherenceRate": "Tasa de Adherencia"
   },
   "devices": {
     "title": "Estado de Dispositivos",
     "online": "En Línea",
     "offline": "Desconectado",
     "lastSync": "Última sincronización",
-    "batteryLevel": "Batería"
+    "batteryLevel": "Batería",
+    "manage": "Gestionar Dispositivos"
   },
   "alerts": {
     "title": "Centro de Alertas",
@@ -53,7 +70,10 @@
     "medium": "Media",
     "low": "Baja",
     "resolve": "Resolver",
-    "view": "Ver Detalles"
+    "view": "Ver Detalles",
+    "allClear": "¡Todo Despejado!",
+    "noAlerts": "No hay alertas activas en este momento.",
+    "viewAll": "Ver Todas las Alertas"
   },
   "profile": {
     "title": "Perfil del Miembro",
@@ -61,5 +81,63 @@
     "medicalInfo": "Información Médica",
     "emergencyContact": "Contacto de Emergencia",
     "edit": "Editar Perfil"
+  },
+  "nurse": {
+    "title": "Panel de Enfermería",
+    "myMembers": "Mis Miembros",
+    "myTasks": "Mis Tareas",
+    "noMembers": "Aún no hay miembros asignados",
+    "noTasks": "No se encontraron tareas",
+    "testCredentials": "Credenciales de prueba para enfermera",
+    "assignedOn": "Asignado el",
+    "filter": {
+      "all": "Todas las Tareas",
+      "pending": "Pendientes",
+      "completed": "Completadas"
+    }
+  },
+  "facility": {
+    "title": "Panel de Instalación",
+    "welcome": "Bienvenido al Panel de Instalación",
+    "description": "Gestione su instalación, residentes y personal en un solo lugar."
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "controlPanel": "Panel de Control de Administrador",
+    "description": "Capacidades completas de administración y monitoreo del sistema."
+  },
+  "settings": {
+    "title": "Configuración",
+    "profile": "Perfil",
+    "account": "Cuenta",
+    "notifications": "Notificaciones",
+    "privacy": "Privacidad",
+    "security": "Seguridad",
+    "saveChanges": "Guardar Cambios"
+  },
+  "subscriptions": {
+    "title": "Suscripciones",
+    "current": "Plan Actual",
+    "manage": "Gestionar Suscripción",
+    "upgrade": "Actualizar Plan"
+  },
+  "schedule": {
+    "title": "Horario",
+    "appointments": "Citas",
+    "addNew": "Agregar Nueva",
+    "viewCalendar": "Ver Calendario"
+  },
+  "invitations": {
+    "title": "Invitaciones Familiares",
+    "invite": "Invitar Familiar",
+    "pending": "Invitaciones Pendientes",
+    "accepted": "Invitaciones Aceptadas"
+  },
+  "tabs": {
+    "overview": "Resumen",
+    "health": "Salud",
+    "careTeam": "Equipo de Atención",
+    "activity": "Actividad",
+    "services": "Servicios"
   }
 }

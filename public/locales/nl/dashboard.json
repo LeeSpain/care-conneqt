@@ -1,4 +1,6 @@
 {
+  "title": "Dashboard",
+  "welcome": "Welkom terug",
   "quickStats": {
     "heartRate": "Hartslag",
     "activityToday": "Activiteit Vandaag",
@@ -7,7 +9,18 @@
     "bpm": "SLM",
     "steps": "stappen",
     "alerts": "waarschuwingen",
-    "dueToday": "vandaag te nemen"
+    "dueToday": "vandaag te nemen",
+    "assignedMembers": "Toegewezen Leden",
+    "tasksToday": "Taken Vandaag",
+    "completed": "Voltooid",
+    "totalUsers": "Totaal Gebruikers",
+    "facilities": "Faciliteiten",
+    "activeSubscriptions": "Actieve Abonnementen",
+    "systemHealth": "Systeemgezondheid",
+    "good": "Goed",
+    "totalResidents": "Totaal Bewoners",
+    "bedOccupancy": "Bedbezetting",
+    "staffMembers": "Personeelsleden"
   },
   "healthMonitoring": {
     "title": "Gezondheidsmonitoring",
@@ -24,7 +37,9 @@
     "primaryNurse": "Hoofdverpleegkundige",
     "careCoordinator": "Zorgcoördinator",
     "contact": "Contact",
-    "schedule": "Planning"
+    "schedule": "Planning",
+    "sendMessage": "Bericht Sturen",
+    "viewProfile": "Profiel Bekijken"
   },
   "activity": {
     "title": "Activiteitentijdlijn",
@@ -37,14 +52,16 @@
     "taken": "Ingenomen",
     "missed": "Gemist",
     "upcoming": "Komend",
-    "scheduleTime": "Geplande Tijd"
+    "scheduleTime": "Geplande Tijd",
+    "adherenceRate": "Therapietrouw"
   },
   "devices": {
     "title": "Apparaatstatus",
     "online": "Online",
     "offline": "Offline",
     "lastSync": "Laatste sync",
-    "batteryLevel": "Batterij"
+    "batteryLevel": "Batterij",
+    "manage": "Apparaten Beheren"
   },
   "alerts": {
     "title": "Waarschuwingencentrum",
@@ -53,7 +70,10 @@
     "medium": "Gemiddeld",
     "low": "Laag",
     "resolve": "Oplossen",
-    "view": "Bekijk Details"
+    "view": "Bekijk Details",
+    "allClear": "Alles Veilig!",
+    "noAlerts": "Geen actieve waarschuwingen op dit moment.",
+    "viewAll": "Alle Waarschuwingen Bekijken"
   },
   "profile": {
     "title": "Ledenprofiel",
@@ -61,5 +81,63 @@
     "medicalInfo": "Medische Informatie",
     "emergencyContact": "Noodcontact",
     "edit": "Profiel Bewerken"
+  },
+  "nurse": {
+    "title": "Verpleegkundige Dashboard",
+    "myMembers": "Mijn Leden",
+    "myTasks": "Mijn Taken",
+    "noMembers": "Nog geen leden toegewezen",
+    "noTasks": "Geen taken gevonden",
+    "testCredentials": "Test verpleegkundige inloggegevens",
+    "assignedOn": "Toegewezen op",
+    "filter": {
+      "all": "Alle Taken",
+      "pending": "In Behandeling",
+      "completed": "Voltooid"
+    }
+  },
+  "facility": {
+    "title": "Faciliteitsdashboard",
+    "welcome": "Welkom bij Faciliteitsdashboard",
+    "description": "Beheer uw faciliteit, bewoners en personeel op één plek."
+  },
+  "admin": {
+    "title": "Beheerdersdashboard",
+    "controlPanel": "Beheerders Configuratiescherm",
+    "description": "Volledige systeembeheer- en bewakingsmogelijkheden."
+  },
+  "settings": {
+    "title": "Instellingen",
+    "profile": "Profiel",
+    "account": "Account",
+    "notifications": "Meldingen",
+    "privacy": "Privacy",
+    "security": "Beveiliging",
+    "saveChanges": "Wijzigingen Opslaan"
+  },
+  "subscriptions": {
+    "title": "Abonnementen",
+    "current": "Huidig Plan",
+    "manage": "Abonnement Beheren",
+    "upgrade": "Plan Upgraden"
+  },
+  "schedule": {
+    "title": "Planning",
+    "appointments": "Afspraken",
+    "addNew": "Nieuwe Toevoegen",
+    "viewCalendar": "Kalender Bekijken"
+  },
+  "invitations": {
+    "title": "Familie Uitnodigingen",
+    "invite": "Familielid Uitnodigen",
+    "pending": "Uitstaande Uitnodigingen",
+    "accepted": "Geaccepteerde Uitnodigingen"
+  },
+  "tabs": {
+    "overview": "Overzicht",
+    "health": "Gezondheid",
+    "careTeam": "Zorgteam",
+    "activity": "Activiteit",
+    "services": "Diensten"
   }
 }

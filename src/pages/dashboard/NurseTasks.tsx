@@ -8,6 +8,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { CheckCircle, Circle, Clock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
 
 interface Task {
   id: string;
@@ -20,6 +22,7 @@ interface Task {
 
 export default function NurseTasks() {
   const { user } = useAuth();
+  const { t } = useTranslation('dashboard');
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
@@ -77,26 +80,26 @@ export default function NurseTasks() {
   };
 
   return (
-    <DashboardLayout title="My Tasks">
+    <DashboardLayout title={t('nurse.myTasks')}>
       <div className="space-y-6">
         <div className="flex gap-2">
           <Button
             variant={filter === 'all' ? 'default' : 'outline'}
             onClick={() => setFilter('all')}
           >
-            All Tasks
+            {t('nurse.filter.all')}
           </Button>
           <Button
             variant={filter === 'pending' ? 'default' : 'outline'}
             onClick={() => setFilter('pending')}
           >
-            Pending
+            {t('nurse.filter.pending')}
           </Button>
           <Button
             variant={filter === 'completed' ? 'default' : 'outline'}
             onClick={() => setFilter('completed')}
           >
-            Completed
+            {t('nurse.filter.completed')}
           </Button>
         </div>
 
@@ -107,7 +110,7 @@ export default function NurseTasks() {
         ) : filteredTasks.length === 0 ? (
           <Card>
             <CardContent className="pt-6">
-              <p className="text-center text-muted-foreground">No tasks found</p>
+              <p className="text-center text-muted-foreground">{t('nurse.noTasks')}</p>
             </CardContent>
           </Card>
         ) : (
@@ -147,7 +150,7 @@ export default function NurseTasks() {
                   {task.due_date && (
                     <div className="flex items-center gap-2 text-sm">
                       <Clock className="h-4 w-4" />
-                      <span>Due: {new Date(task.due_date).toLocaleDateString()}</span>
+                      <span>Due: {format(new Date(task.due_date), 'PPp')}</span>
                     </div>
                   )}
                 </CardContent>

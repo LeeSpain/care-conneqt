@@ -5,14 +5,23 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Users, ClipboardList, AlertTriangle, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
 
 export default function NurseDashboard() {
   const { user } = useAuth();
+  const { t } = useTranslation('dashboard');
   const [assignments, setAssignments] = useState<any[]>([]);
+  const [stats, setStats] = useState({
+    assignedMembers: 0,
+    activeAlerts: 0,
+    tasksToday: 0,
+    completed: 0
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAssignments = async () => {
+    const fetchData = async () => {
       if (!user) return;
 
       const { data } = await supabase
@@ -27,27 +36,78 @@ export default function NurseDashboard() {
         .eq('nurse_id', user.id);
 
       setAssignments(data || []);
+
+      // Fetch stats
+      const { data: tasksData } = await supabase
+        .from('nurse_tasks')
+        .select('status, due_date')
+        .eq('nurse_id', user.id);
+
+      if (data && data.length > 0) {
+        const memberIds = data.map(a => a.member_id);
+        const { count: alertsCount } = await supabase
+          .from('alerts')
+          .select('*', { count: 'exact', head: true })
+          .in('member_id', memberIds)
+          .eq('status', 'new');
+
+        setStats({
+          assignedMembers: data.length,
+          activeAlerts: alertsCount || 0,
+          tasksToday: tasksData?.filter(t => 
+            t.due_date && new Date(t.due_date).toDateString() === new Date().toDateString()
+          ).length || 0,
+          completed: tasksData?.filter(t => t.status === 'completed').length || 0
+        });
+      }
+
       setLoading(false);
     };
 
-    fetchAssignments();
+    fetchData();
+
+    const channel = supabase
+      .channel('nurse-dashboard-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'nurse_tasks',
+          filter: `nurse_id=eq.${user?.id}`
+        },
+        () => fetchData()
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'alerts'
+        },
+        () => fetchData()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user]);
 
   return (
-    <DashboardLayout title="Nurse Dashboard">
+    <DashboardLayout title={t('nurse.title')}>
       <div className="space-y-6">
         {/* DEV: Test Credentials Panel */}
         <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
           <CardHeader>
             <CardTitle className="text-blue-900 dark:text-blue-100 flex items-center gap-2">
               <Users className="h-5 w-5" />
-              TEST CREDENTIALS - Nurse Dashboard
+              {t('nurse.testCredentials')}
             </CardTitle>
           </CardHeader>
           <CardContent className="text-blue-900 dark:text-blue-100">
             <p className="font-mono text-sm">Email: nurse@test.com</p>
             <p className="font-mono text-sm">Password: Nurse123!</p>
-            <p className="text-xs mt-2 text-blue-700 dark:text-blue-300">Use these credentials to login as a nurse. Create this account via signup if it doesn't exist.</p>
           </CardContent>
         </Card>
 
@@ -55,41 +115,41 @@ export default function NurseDashboard() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Assigned Members</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.assignedMembers')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{assignments.length}</div>
+              <div className="text-2xl font-bold">{stats.assignedMembers}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.activeAlerts')}</CardTitle>
               <AlertTriangle className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
+              <div className="text-2xl font-bold">{stats.activeAlerts}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Tasks Today</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.tasksToday')}</CardTitle>
               <ClipboardList className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
+              <div className="text-2xl font-bold">{stats.tasksToday}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Completed</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.completed')}</CardTitle>
               <CheckCircle className="h-4 w-4 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
+              <div className="text-2xl font-bold">{stats.completed}</div>
             </CardContent>
           </Card>
         </div>
@@ -97,7 +157,7 @@ export default function NurseDashboard() {
         {/* Assigned Members */}
         <Card>
           <CardHeader>
-            <CardTitle>My Members</CardTitle>
+            <CardTitle>{t('nurse.myMembers')}</CardTitle>
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -106,7 +166,7 @@ export default function NurseDashboard() {
               </div>
             ) : assignments.length === 0 ? (
               <p className="text-muted-foreground text-center py-8">
-                No members assigned yet
+                {t('nurse.noMembers')}
               </p>
             ) : (
               <div className="space-y-4">
@@ -122,7 +182,7 @@ export default function NurseDashboard() {
                       </p>
                       <p className="text-sm text-muted-foreground">
                         {assignment.is_primary && '(Primary) '}
-                        Assigned {new Date(assignment.assigned_at).toLocaleDateString()}
+                        {t('nurse.assignedOn')} {format(new Date(assignment.assigned_at), 'PP')}
                       </p>
                     </div>
                     <Button variant="outline">View Details</Button>

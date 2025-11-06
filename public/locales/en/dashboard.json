@@ -1,4 +1,6 @@
 {
+  "title": "Dashboard",
+  "welcome": "Welcome back",
   "quickStats": {
     "heartRate": "Heart Rate",
     "activityToday": "Activity Today",
@@ -7,7 +9,18 @@
     "bpm": "BPM",
     "steps": "steps",
     "alerts": "alerts",
-    "dueToday": "due today"
+    "dueToday": "due today",
+    "assignedMembers": "Assigned Members",
+    "tasksToday": "Tasks Today",
+    "completed": "Completed",
+    "totalUsers": "Total Users",
+    "facilities": "Facilities",
+    "activeSubscriptions": "Active Subscriptions",
+    "systemHealth": "System Health",
+    "good": "Good",
+    "totalResidents": "Total Residents",
+    "bedOccupancy": "Bed Occupancy",
+    "staffMembers": "Staff Members"
   },
   "healthMonitoring": {
     "title": "Health Monitoring",
@@ -24,7 +37,9 @@
     "primaryNurse": "Primary Nurse",
     "careCoordinator": "Care Coordinator",
     "contact": "Contact",
-    "schedule": "Schedule"
+    "schedule": "Schedule",
+    "sendMessage": "Send Message",
+    "viewProfile": "View Profile"
   },
   "activity": {
     "title": "Activity Timeline",
@@ -37,14 +52,16 @@
     "taken": "Taken",
     "missed": "Missed",
     "upcoming": "Upcoming",
-    "scheduleTime": "Schedule Time"
+    "scheduleTime": "Schedule Time",
+    "adherenceRate": "Adherence Rate"
   },
   "devices": {
     "title": "Device Status",
     "online": "Online",
     "offline": "Offline",
     "lastSync": "Last sync",
-    "batteryLevel": "Battery"
+    "batteryLevel": "Battery",
+    "manage": "Manage Devices"
   },
   "alerts": {
     "title": "Alerts Center",
@@ -53,7 +70,10 @@
     "medium": "Medium",
     "low": "Low",
     "resolve": "Resolve",
-    "view": "View Details"
+    "view": "View Details",
+    "allClear": "All Clear!",
+    "noAlerts": "No active alerts at the moment.",
+    "viewAll": "View All Alerts"
   },
   "profile": {
     "title": "Member Profile",
@@ -61,5 +81,63 @@
     "medicalInfo": "Medical Information",
     "emergencyContact": "Emergency Contact",
     "edit": "Edit Profile"
+  },
+  "nurse": {
+    "title": "Nurse Dashboard",
+    "myMembers": "My Members",
+    "myTasks": "My Tasks",
+    "noMembers": "No members assigned yet",
+    "noTasks": "No tasks found",
+    "testCredentials": "Test nurse login credentials",
+    "assignedOn": "Assigned on",
+    "filter": {
+      "all": "All Tasks",
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  },
+  "facility": {
+    "title": "Facility Dashboard",
+    "welcome": "Welcome to Facility Dashboard",
+    "description": "Manage your facility, residents, and staff all in one place."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "controlPanel": "Admin Control Panel",
+    "description": "Full system administration and monitoring capabilities."
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "account": "Account",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "security": "Security",
+    "saveChanges": "Save Changes"
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "current": "Current Plan",
+    "manage": "Manage Subscription",
+    "upgrade": "Upgrade Plan"
+  },
+  "schedule": {
+    "title": "Schedule",
+    "appointments": "Appointments",
+    "addNew": "Add New",
+    "viewCalendar": "View Calendar"
+  },
+  "invitations": {
+    "title": "Family Invitations",
+    "invite": "Invite Family Member",
+    "pending": "Pending Invitations",
+    "accepted": "Accepted Invitations"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "health": "Health",
+    "careTeam": "Care Team",
+    "activity": "Activity",
+    "services": "Services"
   }
 }
