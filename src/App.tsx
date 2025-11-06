@@ -19,6 +19,7 @@ import SchedulePage from "./pages/dashboard/SchedulePage";
 import CareTeamPage from "./pages/dashboard/CareTeamPage";
 import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
 import AIChatPage from "./pages/dashboard/AIChatPage";
+import Settings from "./pages/dashboard/Settings";
 import PersonalCare from "./pages/PersonalCare";
 import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
@@ -53,6 +54,8 @@ const App = () => (
             <Route path="/dashboard/care-team" element={<ProtectedRoute><CareTeamPage /></ProtectedRoute>} />
             <Route path="/dashboard/subscriptions" element={<ProtectedRoute><SubscriptionsPage /></ProtectedRoute>} />
             <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/settings/profile" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
