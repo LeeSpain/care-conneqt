@@ -88,6 +88,7 @@ export const DevicesSection = () => {
                     src={image} 
                     alt={t(`devices.items.${deviceKey}.name`)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
                   />
                   {/* Care Connect Badge */}
                   <div className="absolute bottom-2 right-2 bg-background/95 backdrop-blur-sm px-2.5 py-1 rounded-full border border-primary/20 shadow-lg">

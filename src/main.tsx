@@ -18,9 +18,21 @@ if (i18n.isInitialized) {
   });
 }
 
+// Optimized loading screen component
+const LoadingScreen = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="text-center space-y-4">
+      <div className="animate-pulse">
+        <div className="h-12 w-12 rounded-full border-4 border-primary border-t-transparent animate-spin mx-auto"></div>
+      </div>
+      <p className="text-sm text-muted-foreground">Loading Care Conneqt...</p>
+    </div>
+  </div>
+);
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<LoadingScreen />}>
       <App />
     </Suspense>
   </StrictMode>

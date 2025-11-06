@@ -25,14 +25,19 @@ i18n
     defaultNS: 'common',
 
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage', 'querystring', 'navigator'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
+      lookupQuerystring: 'lng',
     },
 
     react: {
       useSuspense: true,
     },
+
+    // Load namespaces on demand for better performance
+    load: 'languageOnly',
+    cleanCode: true,
   });
 
 export default i18n;

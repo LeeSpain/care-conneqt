@@ -49,6 +49,7 @@ export function DeviceCard({
             src={image} 
             alt={name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
           />
           {/* Care Connect Badge Overlay */}
           <div className="absolute bottom-3 right-3 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded-full border border-primary/20 shadow-lg">
