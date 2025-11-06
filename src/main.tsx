@@ -1,8 +1,7 @@
 import { createRoot } from "react-dom/client";
-import { Suspense } from "react";
+import { StrictMode, Suspense } from "react";
 import App from "./App.tsx";
 import "./index.css";
-import "./i18n/config";
 import i18n from "./i18n/config";
 
 // Set HTML lang attribute after i18n is ready
@@ -20,7 +19,9 @@ if (i18n.isInitialized) {
 }
 
 createRoot(document.getElementById("root")!).render(
-  <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-    <App />
-  </Suspense>
+  <StrictMode>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <App />
+    </Suspense>
+  </StrictMode>
 );
