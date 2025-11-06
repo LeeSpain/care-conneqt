@@ -121,7 +121,52 @@
   },
   "devices": {
     "title": "Medische Apparaten",
-    "subtitle": "Vooraf geconfigureerd en klaar voor gebruik"
+    "subtitle": "Verbonden gezondheidsmonitoring waar u op kunt vertrouwen",
+    "allInclude": "Alle apparaten bevatten:",
+    "includeDetails": "12 maanden lease, gratis verzending, installatieondersteuning, 24/7 technische assistentie, automatische vervanging en naadloze integratie met uw AI Bewaker en verpleegkundigen dashboard.",
+    "quality": "Medische kwaliteit • AVG-conform • Geen aankoop vereist",
+    "items": {
+      "watch": {
+        "name": "Vivago Smart Watch",
+        "description": "24/7 activiteits- en welzijnsmonitoring met valdetectie",
+        "price": "Inbegrepen in Basis / +€19,99"
+      },
+      "pendant": {
+        "name": "SOS Hanger",
+        "description": "Eén-druk noodalarmsysteem met GPS",
+        "price": "Alternatief Basis / +€19,99"
+      },
+      "domi": {
+        "name": "Vivago Domi",
+        "description": "Thuis bewegings- en veiligheidssensoren",
+        "price": "+€29,99/maand"
+      },
+      "dispenser": {
+        "name": "Dosell Slimme Dispenser",
+        "description": "Geautomatiseerde medicijnherinneringen en tracking",
+        "price": "+€34,99/maand"
+      },
+      "calendar": {
+        "name": "BBrain Kalender Klok",
+        "description": "Geheugenondersteuning met visuele herinneringen",
+        "price": "+€19,99/maand"
+      },
+      "monitors": {
+        "name": "Gezondheidsmonitoren",
+        "description": "Bloeddruk, glucose en vitale functies tracking",
+        "price": "+€14,99/maand per stuk"
+      },
+      "scale": {
+        "name": "Slimme Weegschaal",
+        "description": "Lichaamssamenstelling tracking met automatische sync",
+        "price": "+€14,99/maand"
+      },
+      "thermometer": {
+        "name": "Slimme Thermometer",
+        "description": "Contactloze temperatuurmonitoring",
+        "price": "+€14,99/maand"
+      }
+    }
   },
   "ai": {
     "title": "AI-Aangedreven Zorgteam",

@@ -121,7 +121,52 @@
   },
   "devices": {
     "title": "Dispositivos de Grado Médico",
-    "subtitle": "Preconfigurados y listos para usar"
+    "subtitle": "Monitoreo de salud conectado en el que puede confiar",
+    "allInclude": "Todos los dispositivos incluyen:",
+    "includeDetails": "Arrendamiento de 12 meses, envío gratuito, soporte de instalación, asistencia técnica 24/7, reemplazo automático e integración perfecta con su Guardián IA y panel de enfermeras.",
+    "quality": "Calidad de grado médico • Cumplimiento GDPR • No se requiere compra",
+    "items": {
+      "watch": {
+        "name": "Reloj Inteligente Vivago",
+        "description": "Monitoreo de actividad y bienestar 24/7 con detección de caídas",
+        "price": "Incluido en Base / +€19,99"
+      },
+      "pendant": {
+        "name": "Colgante SOS",
+        "description": "Sistema de alerta de emergencia con un toque y GPS",
+        "price": "Base Alternativa / +€19,99"
+      },
+      "domi": {
+        "name": "Vivago Domi",
+        "description": "Sensores de movimiento y seguridad en el hogar",
+        "price": "+€29,99/mes"
+      },
+      "dispenser": {
+        "name": "Dispensador Inteligente Dosell",
+        "description": "Recordatorios automáticos de medicamentos y seguimiento",
+        "price": "+€34,99/mes"
+      },
+      "calendar": {
+        "name": "Reloj Calendario BBrain",
+        "description": "Soporte de memoria con recordatorios visuales",
+        "price": "+€19,99/mes"
+      },
+      "monitors": {
+        "name": "Monitores de Salud",
+        "description": "Seguimiento de presión arterial, glucosa y signos vitales",
+        "price": "+€14,99/mes cada uno"
+      },
+      "scale": {
+        "name": "Báscula Inteligente",
+        "description": "Seguimiento de composición corporal con sincronización automática",
+        "price": "+€14,99/mes"
+      },
+      "thermometer": {
+        "name": "Termómetro Inteligente",
+        "description": "Monitoreo de temperatura sin contacto",
+        "price": "+€14,99/mes"
+      }
+    }
   },
   "ai": {
     "title": "Equipo de Atención Potenciado por IA",
