@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { formatCurrency } from "@/lib/intl";
+import { Link } from "react-router-dom";
+
+// Import device images
 
 // Import device images
 import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
@@ -120,7 +123,7 @@ export const DevicesSection = () => {
                       className="text-xs hover:text-secondary"
                       asChild
                     >
-                      <a href="/devices">Details →</a>
+                      <Link to="/devices">Details →</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -143,7 +146,7 @@ export const DevicesSection = () => {
                 className="bg-secondary hover:bg-secondary/90"
                 asChild
               >
-                <a href="/devices">Explore All Devices</a>
+                <Link to="/devices">Explore All Devices</Link>
               </Button>
             </CardContent>
           </Card>

@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer, Shield, Zap, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { DeviceCard } from '@/components/devices/DeviceCard';
+import { Link } from 'react-router-dom';
 
 // Import device images
 import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
@@ -191,10 +192,10 @@ export default function Devices() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-secondary hover:bg-secondary/90" asChild>
-                  <a href="/personal-care">{t('common:buttons.learnMore')}</a>
+                  <Link to="/personal-care">{t('common:buttons.learnMore')}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="/auth/signup">{t('common:buttons.getStarted')}</a>
+                  <Link to="/auth/signup">{t('common:buttons.getStarted')}</Link>
                 </Button>
               </div>
             </CardContent>

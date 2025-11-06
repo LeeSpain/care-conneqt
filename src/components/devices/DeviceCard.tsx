@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { DeviceDetailsModal } from "./DeviceDetailsModal";
+import { Link } from "react-router-dom";
 
 interface DeviceCardProps {
   name: string;
@@ -100,7 +101,7 @@ export function DeviceCard({
               className="w-full bg-secondary hover:bg-secondary/90" 
               asChild
             >
-              <a href="/auth/signup">Add to Package</a>
+              <Link to="/auth/signup">Add to Package</Link>
             </Button>
           </div>
         </CardContent>

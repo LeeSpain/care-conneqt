@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Check, LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 interface DeviceDetailsModalProps {
   open: boolean;
@@ -107,10 +108,10 @@ export function DeviceDetailsModal({
           {/* Actions */}
           <div className="flex gap-3 pt-4">
             <Button className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
-              <a href="/auth/signup">Add to Package</a>
+              <Link to="/auth/signup">Add to Package</Link>
             </Button>
             <Button variant="outline" className="flex-1" asChild>
-              <a href="/personal-care">View Plans</a>
+              <Link to="/personal-care">View Plans</Link>
             </Button>
           </div>
         </div>
