@@ -1,10 +1,21 @@
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer, Shield, Zap, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { DeviceCard } from '@/components/devices/DeviceCard';
+
+// Import device images
+import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
+import sosPendantImg from '@/assets/devices/sos-pendant.jpg';
+import vivagoDomiImg from '@/assets/devices/vivago-domi.jpg';
+import dosellDispenserImg from '@/assets/devices/dosell-dispenser.jpg';
+import calendarClockImg from '@/assets/devices/calendar-clock.jpg';
+import healthMonitorsImg from '@/assets/devices/health-monitors.jpg';
+import smartScaleImg from '@/assets/devices/smart-scale.jpg';
+import smartThermometerImg from '@/assets/devices/smart-thermometer.jpg';
 
 export default function Devices() {
   const { t } = useTranslation(['devices', 'home', 'common']);
@@ -15,6 +26,10 @@ export default function Devices() {
   ];
   
   const deviceIcons = [Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer];
+  const deviceImages = [
+    vivagoWatchImg, sosPendantImg, vivagoDomiImg, dosellDispenserImg,
+    calendarClockImg, healthMonitorsImg, smartScaleImg, smartThermometerImg
+  ];
   const deviceColors = [
     'text-secondary', 'text-coral', 'text-primary', 'text-lilac',
     'text-secondary', 'text-coral', 'text-primary', 'text-lilac'
@@ -28,6 +43,7 @@ export default function Devices() {
   
   const devices = deviceKeys.map((key, index) => ({
     icon: deviceIcons[index],
+    image: deviceImages[index],
     name: t(`devices.${key}.name`),
     tagline: t(`devices.${key}.tagline`),
     description: t(`devices.${key}.description`),
@@ -35,7 +51,8 @@ export default function Devices() {
     features: t(`devices.${key}.features`, { returnObjects: true }) as string[],
     specs: t(`devices.${key}.specs`, { returnObjects: true }) as Record<string, string>,
     color: deviceColors[index],
-    gradient: deviceGradients[index]
+    gradient: deviceGradients[index],
+    popular: index === 0 // Mark first device as popular
   }));
 
   return (
@@ -75,72 +92,22 @@ export default function Devices() {
       {/* Devices Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16 max-w-7xl mx-auto">
-            {devices.map((device, index) => (
-              <Card key={device.name} className="overflow-hidden hover:shadow-xl transition-shadow">
-                <div className={`bg-gradient-to-br ${device.gradient} p-8`}>
-                  <div className="grid lg:grid-cols-2 gap-8 items-start">
-                    {/* Left Column */}
-                    <div className="space-y-6">
-                      <div className="flex items-start gap-4">
-                        <div className="h-16 w-16 rounded-2xl bg-background flex items-center justify-center flex-shrink-0">
-                          <device.icon className={`h-8 w-8 ${device.color}`} />
-                        </div>
-                        <div>
-                          <h2 className="text-3xl font-bold mb-2">{device.name}</h2>
-                          <p className={`text-lg font-medium ${device.color}`}>{device.tagline}</p>
-                        </div>
-                      </div>
-
-                      <p className="text-base text-muted-foreground leading-relaxed">
-                        {device.description}
-                      </p>
-
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-primary">{device.price}</span>
-                      </div>
-
-                      <div className="pt-4">
-                        <h3 className="font-semibold mb-3">{t('cta.keyFeatures')}</h3>
-                        <div className="grid sm:grid-cols-2 gap-2">
-                          {device.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-start gap-2">
-                              <Check className="h-4 w-4 text-secondary mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right Column - Specs */}
-                    <div className="lg:pl-8">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="text-lg">{t('cta.technicalSpecs')}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
-                          {Object.entries(device.specs).map(([key, value]) => (
-                            <div key={key} className="flex justify-between items-start border-b border-border pb-2 last:border-0">
-                              <span className="text-sm font-medium text-muted-foreground">{key}:</span>
-                              <span className="text-sm font-semibold text-right">{value}</span>
-                            </div>
-                          ))}
-                        </CardContent>
-                      </Card>
-
-                      <div className="mt-6 space-y-3">
-                        <Button className="w-full bg-secondary hover:bg-secondary/90" asChild>
-                          <a href="/auth/signup">{t('cta.addToPackage')}</a>
-                        </Button>
-                        <Button variant="outline" className="w-full" asChild>
-                          <a href="/personal-care">{t('cta.viewPlans')}</a>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {devices.map((device) => (
+              <DeviceCard
+                key={device.name}
+                name={device.name}
+                tagline={device.tagline}
+                description={device.description}
+                price={device.price}
+                features={device.features}
+                specs={device.specs}
+                image={device.image}
+                icon={device.icon}
+                color={device.color}
+                gradient={device.gradient}
+                popular={device.popular}
+              />
             ))}
           </div>
         </div>
