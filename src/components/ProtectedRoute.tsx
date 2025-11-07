@@ -6,7 +6,7 @@ type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin';
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  requiredRole?: AppRole;
+  requiredRole?: AppRole | AppRole[];
   requireOnboarding?: boolean;
 }
 
@@ -21,9 +21,21 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
         return;
       }
 
-      if (requiredRole && !roles.includes(requiredRole) && !roles.includes('admin')) {
-        navigate('/unauthorized');
-        return;
+      if (requiredRole) {
+        const requiredRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
+        const hasRequiredRole = requiredRoles.some(role => roles.includes(role)) || roles.includes('admin');
+        
+        if (!hasRequiredRole) {
+          // Redirect to appropriate dashboard based on user's actual role
+          if (roles.includes('nurse')) {
+            navigate('/dashboard');
+          } else if (roles.includes('member')) {
+            navigate('/dashboard');
+          } else {
+            navigate('/auth/login');
+          }
+          return;
+        }
       }
 
       if (requireOnboarding && profile && !profile.onboarding_completed) {

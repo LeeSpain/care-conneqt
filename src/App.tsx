@@ -30,6 +30,7 @@ import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
 import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
 import NurseMessages from "./pages/dashboard/nurse/NurseMessages";
 import NurseHealthMonitoring from "./pages/dashboard/nurse/NurseHealthMonitoring";
+import NurseTasks from "./pages/dashboard/NurseTasks";
 
 const queryClient = new QueryClient();
 
@@ -53,17 +54,24 @@ const App = () => (
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
             <Route path="/onboarding" element={<ProtectedRoute><MemberOnboarding /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/dashboard/devices" element={<ProtectedRoute><DeviceManagement /></ProtectedRoute>} />
-            <Route path="/dashboard/family" element={<ProtectedRoute><FamilyInvitations /></ProtectedRoute>} />
-            <Route path="/dashboard/schedule" element={<ProtectedRoute><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/care-team" element={<ProtectedRoute><CareTeamPage /></ProtectedRoute>} />
-            <Route path="/dashboard/subscriptions" element={<ProtectedRoute><SubscriptionsPage /></ProtectedRoute>} />
+            
+            {/* Member-only routes */}
+            <Route path="/dashboard/devices" element={<ProtectedRoute requiredRole="member"><DeviceManagement /></ProtectedRoute>} />
+            <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="member"><FamilyInvitations /></ProtectedRoute>} />
+            <Route path="/dashboard/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/care-team" element={<ProtectedRoute requiredRole="member"><CareTeamPage /></ProtectedRoute>} />
+            <Route path="/dashboard/subscriptions" element={<ProtectedRoute requiredRole="member"><SubscriptionsPage /></ProtectedRoute>} />
+            
+            {/* Nurse-only routes */}
+            <Route path="/dashboard/nurse/members" element={<ProtectedRoute requiredRole="nurse"><NurseMembers /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute requiredRole="nurse"><NurseMemberDetail /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/tasks" element={<ProtectedRoute requiredRole="nurse"><NurseTasks /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute requiredRole="nurse"><NurseAlerts /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
+            
+            {/* Shared routes */}
             <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/members" element={<ProtectedRoute><NurseMembers /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute><NurseMemberDetail /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute><NurseAlerts /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/messages" element={<ProtectedRoute><NurseMessages /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/health" element={<ProtectedRoute><NurseHealthMonitoring /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
