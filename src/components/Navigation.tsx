@@ -25,9 +25,6 @@ export const Navigation = () => {
           </a>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="/#solutions" className="text-foreground/80 hover:text-foreground transition-colors">
-              {t('nav.solutions')}
-            </a>
             <a href="/personal-care" className="text-foreground/80 hover:text-foreground transition-colors">
               {t('nav.forFamilies')}
             </a>
@@ -59,9 +56,6 @@ export const Navigation = () => {
 
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <a href="/#solutions" className="block text-foreground/80 hover:text-foreground">
-              {t('nav.solutions')}
-            </a>
             <a href="/personal-care" className="block text-foreground/80 hover:text-foreground">
               {t('nav.forFamilies')}
             </a>
