@@ -4,10 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CreateTaskDialog } from '@/components/nurse/CreateTaskDialog';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { CheckCircle, Circle, Clock } from 'lucide-react';
+import { CheckCircle, Circle, Clock, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 
@@ -26,6 +27,7 @@ export default function NurseTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
+  const [createTaskOpen, setCreateTaskOpen] = useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -80,26 +82,32 @@ export default function NurseTasks() {
   };
 
   return (
-    <NurseDashboardLayout title={t('nurse.myTasks')}>
+    <NurseDashboardLayout title="My Tasks">
       <div className="space-y-6">
-        <div className="flex gap-2">
-          <Button
-            variant={filter === 'all' ? 'default' : 'outline'}
-            onClick={() => setFilter('all')}
-          >
-            {t('nurse.filter.all')}
-          </Button>
-          <Button
-            variant={filter === 'pending' ? 'default' : 'outline'}
-            onClick={() => setFilter('pending')}
-          >
-            {t('nurse.filter.pending')}
-          </Button>
-          <Button
-            variant={filter === 'completed' ? 'default' : 'outline'}
-            onClick={() => setFilter('completed')}
-          >
-            {t('nurse.filter.completed')}
+        <div className="flex items-center justify-between">
+          <div className="flex gap-2">
+            <Button
+              variant={filter === 'all' ? 'default' : 'outline'}
+              onClick={() => setFilter('all')}
+            >
+              All Tasks
+            </Button>
+            <Button
+              variant={filter === 'pending' ? 'default' : 'outline'}
+              onClick={() => setFilter('pending')}
+            >
+              Pending
+            </Button>
+            <Button
+              variant={filter === 'completed' ? 'default' : 'outline'}
+              onClick={() => setFilter('completed')}
+            >
+              Completed
+            </Button>
+          </div>
+          <Button onClick={() => setCreateTaskOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            New Task
           </Button>
         </div>
 
@@ -110,7 +118,7 @@ export default function NurseTasks() {
         ) : filteredTasks.length === 0 ? (
           <Card>
             <CardContent className="pt-6">
-              <p className="text-center text-muted-foreground">{t('nurse.noTasks')}</p>
+              <p className="text-center text-muted-foreground">No tasks found</p>
             </CardContent>
           </Card>
         ) : (
@@ -159,6 +167,12 @@ export default function NurseTasks() {
           </div>
         )}
       </div>
+      
+      <CreateTaskDialog 
+        open={createTaskOpen} 
+        onOpenChange={setCreateTaskOpen}
+        onTaskCreated={fetchTasks}
+      />
     </NurseDashboardLayout>
   );
 }

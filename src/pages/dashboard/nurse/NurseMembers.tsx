@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { CallMemberDialog } from '@/components/nurse/CallMemberDialog';
+import { MessageMemberDialog } from '@/components/nurse/MessageMemberDialog';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +15,7 @@ import { format } from 'date-fns';
 
 interface Member {
   id: string;
+  user_id: string;
   profiles: {
     first_name: string;
     last_name: string;
@@ -32,6 +35,9 @@ export default function NurseMembers() {
   const [members, setMembers] = useState<Member[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [callDialogOpen, setCallDialogOpen] = useState(false);
+  const [messageDialogOpen, setMessageDialogOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   useEffect(() => {
     fetchMembers();
@@ -79,6 +85,7 @@ export default function NurseMembers() {
 
           return {
             ...member,
+            user_id: assignment.members.user_id,
             alertCount: alertCount || 0,
             lastContact: lastActivity?.created_at || new Date().toISOString()
           };
@@ -105,6 +112,16 @@ export default function NurseMembers() {
     if (alertCount >= 3) return 'Critical';
     if (alertCount >= 1) return 'Attention';
     return 'Good';
+  };
+
+  const handleCall = (member: Member) => {
+    setSelectedMember(member);
+    setCallDialogOpen(true);
+  };
+
+  const handleMessage = (member: Member) => {
+    setSelectedMember(member);
+    setMessageDialogOpen(true);
   };
 
   return (
@@ -178,11 +195,19 @@ export default function NurseMembers() {
                       >
                         View Details
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleCall(member)}
+                      >
                         <Phone className="h-4 w-4 mr-1" />
                         Call
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleMessage(member)}
+                      >
                         <MessageSquare className="h-4 w-4 mr-1" />
                         Message
                       </Button>
@@ -194,6 +219,24 @@ export default function NurseMembers() {
           </div>
         )}
       </div>
+      
+      {selectedMember && (
+        <>
+          <CallMemberDialog 
+            open={callDialogOpen}
+            onOpenChange={setCallDialogOpen}
+            memberName={`${selectedMember.profiles.first_name} ${selectedMember.profiles.last_name}`}
+            memberPhone={selectedMember.profiles.phone}
+          />
+          <MessageMemberDialog 
+            open={messageDialogOpen}
+            onOpenChange={setMessageDialogOpen}
+            memberName={`${selectedMember.profiles.first_name} ${selectedMember.profiles.last_name}`}
+            memberId={selectedMember.id}
+            recipientUserId={selectedMember.user_id}
+          />
+        </>
+      )}
     </NurseDashboardLayout>
   );
 }

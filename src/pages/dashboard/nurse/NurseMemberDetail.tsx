@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { CallMemberDialog } from '@/components/nurse/CallMemberDialog';
+import { MessageMemberDialog } from '@/components/nurse/MessageMemberDialog';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Phone, MessageSquare, ArrowLeft, Heart, Activity, AlertTriangle, Pill, FileText } from 'lucide-react';
@@ -21,6 +23,8 @@ export default function NurseMemberDetail() {
   const [devices, setDevices] = useState<any[]>([]);
   const [vitals, setVitals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [callDialogOpen, setCallDialogOpen] = useState(false);
+  const [messageDialogOpen, setMessageDialogOpen] = useState(false);
 
   useEffect(() => {
     fetchMemberData();
@@ -108,11 +112,19 @@ export default function NurseMemberDetail() {
             Back to Members
           </Button>
           <div className="flex gap-2 ml-auto">
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setCallDialogOpen(true)}
+            >
               <Phone className="h-4 w-4 mr-2" />
               Call
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setMessageDialogOpen(true)}
+            >
               <MessageSquare className="h-4 w-4 mr-2" />
               Message
             </Button>
@@ -319,6 +331,24 @@ export default function NurseMemberDetail() {
           </TabsContent>
         </Tabs>
       </div>
+      
+      {member && (
+        <>
+          <CallMemberDialog 
+            open={callDialogOpen}
+            onOpenChange={setCallDialogOpen}
+            memberName={`${member.profiles.first_name} ${member.profiles.last_name}`}
+            memberPhone={member.profiles.phone}
+          />
+          <MessageMemberDialog 
+            open={messageDialogOpen}
+            onOpenChange={setMessageDialogOpen}
+            memberName={`${member.profiles.first_name} ${member.profiles.last_name}`}
+            memberId={member.id}
+            recipientUserId={member.user_id}
+          />
+        </>
+      )}
     </NurseDashboardLayout>
   );
 }

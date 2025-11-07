@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { NurseSidebar } from '@/components/NurseSidebar';
+import { CreateTaskDialog } from '@/components/nurse/CreateTaskDialog';
 import { Bell, LogOut, Settings, User, Plus } from 'lucide-react';
 
 interface NurseDashboardLayoutProps {
@@ -24,6 +25,7 @@ interface NurseDashboardLayoutProps {
 export const NurseDashboardLayout = ({ children, title }: NurseDashboardLayoutProps) => {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const [createTaskOpen, setCreateTaskOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -55,7 +57,7 @@ export const NurseDashboardLayout = ({ children, title }: NurseDashboardLayoutPr
                 variant="outline" 
                 size="sm" 
                 className="gap-2"
-                onClick={() => navigate('/dashboard/nurse/tasks')}
+                onClick={() => setCreateTaskOpen(true)}
               >
                 <Plus className="h-4 w-4" />
                 Quick Task
@@ -111,6 +113,14 @@ export const NurseDashboardLayout = ({ children, title }: NurseDashboardLayoutPr
           </main>
         </div>
       </div>
+      
+      <CreateTaskDialog 
+        open={createTaskOpen} 
+        onOpenChange={setCreateTaskOpen}
+        onTaskCreated={() => {
+          // Optionally refresh the page or show success
+        }}
+      />
     </SidebarProvider>
   );
 };

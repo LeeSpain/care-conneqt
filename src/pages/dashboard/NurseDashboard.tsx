@@ -124,20 +124,6 @@ export default function NurseDashboard() {
   return (
     <NurseDashboardLayout title={t('nurse.title')}>
       <div className="space-y-6">
-        {/* DEV: Test Credentials Panel */}
-        <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
-          <CardHeader>
-            <CardTitle className="text-blue-900 dark:text-blue-100 flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              {t('nurse.testCredentials')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-blue-900 dark:text-blue-100">
-            <p className="font-mono text-sm">Email: nurse@test.com</p>
-            <p className="font-mono text-sm">Password: Nurse123!</p>
-          </CardContent>
-        </Card>
-
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-5">
           <Card className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => navigate('/dashboard/nurse/members')}>
