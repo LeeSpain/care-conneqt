@@ -185,6 +185,30 @@
       "all": "All Tasks",
       "pending": "Pending",
       "completed": "Completed"
+    },
+    "createTask": {
+      "title": "Create New Task",
+      "taskTitle": "Task Title",
+      "description": "Description",
+      "priority": "Priority",
+      "dueDate": "Due Date",
+      "assignTo": "Assign To",
+      "cancel": "Cancel",
+      "create": "Create Task"
+    },
+    "callMember": {
+      "title": "Call",
+      "phone": "Phone",
+      "voiceCall": "Voice Call",
+      "videoCall": "Video Call",
+      "cancel": "Cancel"
+    },
+    "messageDialog": {
+      "title": "Send Message to",
+      "to": "To",
+      "message": "Message",
+      "send": "Send Message",
+      "cancel": "Cancel"
     }
   },
   "facility": {

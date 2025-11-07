@@ -185,6 +185,30 @@
       "all": "Alle Taken",
       "pending": "In Behandeling",
       "completed": "Voltooid"
+    },
+    "createTask": {
+      "title": "Nieuwe Taak Maken",
+      "taskTitle": "Taak Titel",
+      "description": "Beschrijving",
+      "priority": "Prioriteit",
+      "dueDate": "Einddatum",
+      "assignTo": "Toewijzen Aan",
+      "cancel": "Annuleren",
+      "create": "Taak Maken"
+    },
+    "callMember": {
+      "title": "Bellen",
+      "phone": "Telefoon",
+      "voiceCall": "Spraakoproep",
+      "videoCall": "Video-oproep",
+      "cancel": "Annuleren"
+    },
+    "messageDialog": {
+      "title": "Stuur Bericht naar",
+      "to": "Aan",
+      "message": "Bericht",
+      "send": "Bericht Verzenden",
+      "cancel": "Annuleren"
     }
   },
   "facility": {
