@@ -1,7 +1,7 @@
 interface LogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'nurse';
+  variant?: 'default' | 'nurse' | 'careconneqt' | 'medconneqt' | 'mobility' | 'safe' | 'parent';
 }
 
 export const Logo = ({ className = '', size = 'md', variant = 'default' }: LogoProps) => {
@@ -11,10 +11,18 @@ export const Logo = ({ className = '', size = 'md', variant = 'default' }: LogoP
     lg: 'w-8 h-8'
   };
 
-  // Default uses blue for left, teal for right
-  // Nurse variant uses teal for left, darker teal for right
-  const leftColor = variant === 'nurse' ? 'hsl(173 80% 40%)' : 'hsl(173 80% 40%)';
-  const rightColor = variant === 'nurse' ? 'hsl(142 76% 36%)' : 'hsl(215 85% 35%)';
+  // Color mapping for different brands
+  const colorMap = {
+    default: { left: 'hsl(173 80% 40%)', right: 'hsl(215 85% 35%)' },
+    nurse: { left: 'hsl(173 80% 40%)', right: 'hsl(142 76% 36%)' },
+    careconneqt: { left: 'hsl(262 83% 58%)', right: 'hsl(221 83% 53%)' }, // Purple + Navy
+    medconneqt: { left: 'hsl(173 80% 40%)', right: 'hsl(215 85% 35%)' }, // Teal + Navy
+    mobility: { left: 'hsl(25 95% 53%)', right: 'hsl(221 83% 53%)' }, // Coral + Navy
+    safe: { left: 'hsl(0 84% 60%)', right: 'hsl(221 83% 53%)' }, // Red + Navy
+    parent: { left: 'hsl(173 80% 40%)', right: 'hsl(215 85% 35%)' }, // Teal + Navy (Conneqtivity)
+  };
+
+  const { left: leftColor, right: rightColor } = colorMap[variant] || colorMap.default;
 
   return (
     <svg 

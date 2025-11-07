@@ -38,6 +38,7 @@
     "ourNurses": "Our Nurses",
     "helpCenter": "Help Center",
     "company": "Company",
+    "conneqtivity": "Conneqtivity",
     "about": "About",
     "careers": "Careers",
     "contact": "Contact",
@@ -45,6 +46,32 @@
     "terms": "Terms",
     "copyright": "© 2025 Care Conneqt. All rights reserved.",
     "languages": "Languages"
+  },
+  "conneqtivity": {
+    "heroTitle": "Conneqtivity",
+    "heroSubtitle": "Connecting People, Technology, and Care",
+    "heroDescription": "A family of innovative brands delivering connected solutions across healthcare, mobility, and safety.",
+    "brandsTitle": "Our Brands",
+    "careconneqt": {
+      "name": "Care Conneqt",
+      "tagline": "Connected Health. Human Care.",
+      "description": "Comprehensive elderly care solutions combining smart devices, professional nursing, and family connectivity."
+    },
+    "medconneqt": {
+      "name": "Med Conneqt",
+      "tagline": "Medical Connectivity Solutions",
+      "description": "Healthcare technology platform connecting patients, providers, and medical data seamlessly."
+    },
+    "mobility": {
+      "name": "Conneqt Mobility",
+      "tagline": "Freedom Through Connection",
+      "description": "Mobility solutions and assisted living technologies enabling independent living with confidence."
+    },
+    "safe": {
+      "name": "Safe Conneqt",
+      "tagline": "Safety First, Always Connected",
+      "description": "Advanced safety and security solutions providing peace of mind for individuals and families."
+    }
   },
   "buttons": {
     "getStarted": "Get Started",

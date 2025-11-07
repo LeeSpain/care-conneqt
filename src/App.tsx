@@ -25,6 +25,7 @@ import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
 import OurNurses from "./pages/OurNurses";
 import Guide from "./pages/Guide";
+import Conneqtivity from "./pages/Conneqtivity";
 import NurseMembers from "./pages/dashboard/nurse/NurseMembers";
 import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
 import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/devices" element={<Devices />} />
             <Route path="/our-nurses" element={<OurNurses />} />
             <Route path="/guide" element={<Guide />} />
+            <Route path="/conneqtivity" element={<Conneqtivity />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />

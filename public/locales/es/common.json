@@ -38,6 +38,7 @@
     "ourNurses": "Nuestras Enfermeras",
     "helpCenter": "Centro de Ayuda",
     "company": "Empresa",
+    "conneqtivity": "Conneqtivity",
     "about": "Acerca de",
     "careers": "Carreras",
     "contact": "Contacto",
@@ -45,6 +46,32 @@
     "terms": "Términos",
     "copyright": "© 2025 Care Conneqt. Todos los derechos reservados.",
     "languages": "Idiomas"
+  },
+  "conneqtivity": {
+    "heroTitle": "Conneqtivity",
+    "heroSubtitle": "Conectando Personas, Tecnología y Cuidado",
+    "heroDescription": "Una familia de marcas innovadoras que ofrecen soluciones conectadas en atención médica, movilidad y seguridad.",
+    "brandsTitle": "Nuestras Marcas",
+    "careconneqt": {
+      "name": "Care Conneqt",
+      "tagline": "Salud Conectada. Cuidado Humano.",
+      "description": "Soluciones integrales de cuidado de ancianos que combinan dispositivos inteligentes, enfermería profesional y conectividad familiar."
+    },
+    "medconneqt": {
+      "name": "Med Conneqt",
+      "tagline": "Soluciones de Conectividad Médica",
+      "description": "Plataforma de tecnología sanitaria que conecta pacientes, proveedores y datos médicos sin problemas."
+    },
+    "mobility": {
+      "name": "Conneqt Mobility",
+      "tagline": "Libertad a Través de la Conexión",
+      "description": "Soluciones de movilidad y tecnologías de vida asistida que permiten vivir de forma independiente con confianza."
+    },
+    "safe": {
+      "name": "Safe Conneqt",
+      "tagline": "Seguridad Primero, Siempre Conectado",
+      "description": "Soluciones avanzadas de seguridad y protección que brindan tranquilidad a individuos y familias."
+    }
   },
   "buttons": {
     "getStarted": "Comenzar",

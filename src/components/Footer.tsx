@@ -43,6 +43,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">{t('footer.company')}</h3>
             <ul className="space-y-2 text-sm text-white/80">
+              <li><a href="/conneqtivity" className="hover:text-secondary transition-colors">{t('footer.conneqtivity')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.about')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.careers')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.contact')}</a></li>

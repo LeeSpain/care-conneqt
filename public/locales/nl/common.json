@@ -38,6 +38,7 @@
     "ourNurses": "Onze Verpleegkundigen",
     "helpCenter": "Helpcentrum",
     "company": "Bedrijf",
+    "conneqtivity": "Conneqtivity",
     "about": "Over Ons",
     "careers": "Carrières",
     "contact": "Contact",
@@ -45,6 +46,32 @@
     "terms": "Voorwaarden",
     "copyright": "© 2025 Care Conneqt. Alle rechten voorbehouden.",
     "languages": "Talen"
+  },
+  "conneqtivity": {
+    "heroTitle": "Conneqtivity",
+    "heroSubtitle": "Mensen, Technologie en Zorg Verbinden",
+    "heroDescription": "Een familie van innovatieve merken die verbonden oplossingen leveren op het gebied van gezondheidszorg, mobiliteit en veiligheid.",
+    "brandsTitle": "Onze Merken",
+    "careconneqt": {
+      "name": "Care Conneqt",
+      "tagline": "Verbonden Gezondheid. Menselijke Zorg.",
+      "description": "Uitgebreide ouderenzorg oplossingen die slimme apparaten, professionele verpleging en gezinsconnectiviteit combineren."
+    },
+    "medconneqt": {
+      "name": "Med Conneqt",
+      "tagline": "Medische Connectiviteitsoplossingen",
+      "description": "Gezondheidszorgtechnologieplatform dat patiënten, zorgverleners en medische gegevens naadloos verbindt."
+    },
+    "mobility": {
+      "name": "Conneqt Mobility",
+      "tagline": "Vrijheid Door Verbinding",
+      "description": "Mobiliteitsoplossingen en ondersteunde woontechnologieën die zelfstandig leven met vertrouwen mogelijk maken."
+    },
+    "safe": {
+      "name": "Safe Conneqt",
+      "tagline": "Veiligheid Voorop, Altijd Verbonden",
+      "description": "Geavanceerde veiligheids- en beveiligingsoplossingen die gemoedsrust bieden aan individuen en gezinnen."
+    }
   },
   "buttons": {
     "getStarted": "Begin Nu",
