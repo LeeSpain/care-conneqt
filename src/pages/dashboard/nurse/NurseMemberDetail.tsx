@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -79,28 +79,28 @@ export default function NurseMemberDetail() {
 
   if (loading) {
     return (
-      <DashboardLayout title="Loading...">
+      <NurseDashboardLayout title="Loading...">
         <div className="flex justify-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </NurseDashboardLayout>
     );
   }
 
   if (!member) {
     return (
-      <DashboardLayout title="Not Found">
+      <NurseDashboardLayout title="Not Found">
         <Card>
           <CardContent className="pt-6">
             <p className="text-center text-muted-foreground">Member not found</p>
           </CardContent>
         </Card>
-      </DashboardLayout>
+      </NurseDashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout title={`${member.profiles?.first_name} ${member.profiles?.last_name}`}>
+    <NurseDashboardLayout title={`${member.profiles?.first_name} ${member.profiles?.last_name}`}>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/nurse/members')}>
@@ -319,6 +319,6 @@ export default function NurseMemberDetail() {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }

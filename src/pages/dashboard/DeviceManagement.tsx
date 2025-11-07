@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -109,7 +109,7 @@ export default function DeviceManagement() {
   };
 
   return (
-    <DashboardLayout title="Device Management">
+    <MemberDashboardLayout title="Device Management">
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">My Devices</h2>
@@ -234,6 +234,6 @@ export default function DeviceManagement() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

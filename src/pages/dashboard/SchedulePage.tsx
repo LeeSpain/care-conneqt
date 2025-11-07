@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Video, User } from 'lucide-react';
 
 export default function SchedulePage() {
   return (
-    <DashboardLayout title="Schedule & Appointments">
+    <MemberDashboardLayout title="Schedule & Appointments">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -111,6 +111,6 @@ export default function SchedulePage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

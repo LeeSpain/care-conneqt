@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -122,7 +122,7 @@ export default function NurseDashboard() {
   }, [user]);
 
   return (
-    <DashboardLayout title={t('nurse.title')}>
+    <NurseDashboardLayout title={t('nurse.title')}>
       <div className="space-y-6">
         {/* DEV: Test Credentials Panel */}
         <Card className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800">
@@ -306,6 +306,6 @@ export default function NurseDashboard() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }

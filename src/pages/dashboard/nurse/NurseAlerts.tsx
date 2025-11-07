@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -145,7 +145,7 @@ export default function NurseAlerts() {
   };
 
   return (
-    <DashboardLayout title={t('alerts.title')}>
+    <NurseDashboardLayout title={t('alerts.title')}>
       <div className="space-y-6">
         <div className="flex flex-wrap gap-2">
           <div className="flex gap-2">
@@ -287,6 +287,6 @@ export default function NurseAlerts() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }

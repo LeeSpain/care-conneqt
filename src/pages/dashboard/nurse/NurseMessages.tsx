@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -180,7 +180,7 @@ export default function NurseMessages() {
   };
 
   return (
-    <DashboardLayout title="Messages">
+    <NurseDashboardLayout title="Messages">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[calc(100vh-12rem)]">
         <Card className="md:col-span-1">
           <CardHeader>
@@ -286,6 +286,6 @@ export default function NurseMessages() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }

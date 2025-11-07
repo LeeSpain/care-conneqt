@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
@@ -53,11 +53,11 @@ export default function MemberDashboard() {
 
   if (loading) {
     return (
-      <DashboardLayout title="My Dashboard">
+      <MemberDashboardLayout title="My Dashboard">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </MemberDashboardLayout>
     );
   }
 
@@ -66,7 +66,7 @@ export default function MemberDashboard() {
   const formattedTime = formatDate(currentDateTime, 'h:mm a', profile?.language || 'en');
 
   return (
-    <DashboardLayout title="My Dashboard">
+    <MemberDashboardLayout title="My Dashboard">
       <div className="space-y-6">
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
@@ -210,6 +210,6 @@ export default function MemberDashboard() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

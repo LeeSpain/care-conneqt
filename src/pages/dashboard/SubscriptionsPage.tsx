@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -35,11 +35,11 @@ export default function SubscriptionsPage() {
 
   if (loading) {
     return (
-      <DashboardLayout title="Subscriptions">
+      <MemberDashboardLayout title="Subscriptions">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </MemberDashboardLayout>
     );
   }
 
@@ -48,7 +48,7 @@ export default function SubscriptionsPage() {
   ) || packages[0];
 
   return (
-    <DashboardLayout title="Subscriptions">
+    <MemberDashboardLayout title="Subscriptions">
       <div className="space-y-6">
         {/* Current Subscription */}
         <Card>
@@ -282,6 +282,6 @@ export default function SubscriptionsPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

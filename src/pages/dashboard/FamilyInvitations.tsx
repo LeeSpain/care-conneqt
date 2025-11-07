@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -105,7 +105,7 @@ export default function FamilyInvitations() {
   };
 
   return (
-    <DashboardLayout title="Family & Carers">
+    <MemberDashboardLayout title="Family & Carers">
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
@@ -207,6 +207,6 @@ export default function FamilyInvitations() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
@@ -122,7 +122,7 @@ export default function NurseHealthMonitoring() {
   };
 
   return (
-    <DashboardLayout title={t('healthMonitoring.title')}>
+    <NurseDashboardLayout title={t('healthMonitoring.title')}>
       <div className="space-y-6">
         {loading ? (
           <div className="flex justify-center py-12">
@@ -178,6 +178,6 @@ export default function NurseHealthMonitoring() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }

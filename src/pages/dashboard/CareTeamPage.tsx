@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -76,16 +76,16 @@ export default function CareTeamPage() {
 
   if (loading) {
     return (
-      <DashboardLayout title="Care Team">
+      <MemberDashboardLayout title="Care Team">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </MemberDashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout title="Care Team">
+    <MemberDashboardLayout title="Care Team">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -268,6 +268,6 @@ export default function CareTeamPage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </MemberDashboardLayout>
   );
 }

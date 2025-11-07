@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -108,7 +108,7 @@ export default function NurseMembers() {
   };
 
   return (
-    <DashboardLayout title={t('nurse.myMembers')}>
+    <NurseDashboardLayout title={t('nurse.myMembers')}>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <div className="relative flex-1">
@@ -194,6 +194,6 @@ export default function NurseMembers() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </NurseDashboardLayout>
   );
 }
