@@ -58,12 +58,7 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
       <SidebarHeader className="border-b border-sidebar-border p-4">
         <div className="flex items-center gap-3">
-          <div 
-            className="p-2 rounded-lg shrink-0"
-            style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
-          >
-            <Logo size="md" className="text-white" />
-          </div>
+          <Logo size="lg" />
           {!isCollapsed && (
             <span className="text-lg font-bold text-sidebar-foreground font-['Poppins']">
               Care Conneqt

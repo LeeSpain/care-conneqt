@@ -14,12 +14,7 @@ export const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <div 
-              className="p-1.5 rounded-lg"
-              style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
-            >
-              <Logo size="sm" className="text-white" />
-            </div>
+            <Logo size="md" />
             <span className="text-2xl font-bold font-['Poppins'] text-primary">
               Care Conneqt
             </span>

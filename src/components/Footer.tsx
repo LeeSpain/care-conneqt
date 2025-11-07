@@ -11,12 +11,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div 
-                className="p-1.5 rounded-lg"
-                style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
-              >
-                <Logo size="sm" className="text-white" />
-              </div>
+              <Logo size="md" />
               <span className="text-xl font-bold font-['Poppins']">Care Conneqt</span>
             </div>
             <p className="text-white/80 text-sm">
