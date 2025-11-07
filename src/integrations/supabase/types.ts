@@ -118,7 +118,7 @@ export type Database = {
           created_at: string | null
           details: Json | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           resource_id: string | null
           resource_type: string
           user_agent: string | null
@@ -129,7 +129,7 @@ export type Database = {
           created_at?: string | null
           details?: Json | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           resource_id?: string | null
           resource_type: string
           user_agent?: string | null
@@ -140,7 +140,7 @@ export type Database = {
           created_at?: string | null
           details?: Json | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           resource_id?: string | null
           resource_type?: string
           user_agent?: string | null
@@ -879,7 +879,7 @@ export type Database = {
           granted: boolean
           granted_at: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           revoked_at: string | null
           updated_at: string | null
           user_id: string
@@ -890,7 +890,7 @@ export type Database = {
           granted: boolean
           granted_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           revoked_at?: string | null
           updated_at?: string | null
           user_id: string
@@ -901,7 +901,7 @@ export type Database = {
           granted?: boolean
           granted_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           revoked_at?: string | null
           updated_at?: string | null
           user_id?: string
