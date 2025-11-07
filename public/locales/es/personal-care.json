@@ -3,7 +3,18 @@
     "title": "Vida Independiente con Tranquilidad 24/7",
     "description": "Atención dirigida por enfermeras y potenciada por IA que combina dispositivos inteligentes, monitoreo de salud y soporte virtual para personas mayores que envejecen en casa.",
     "getStarted": "Comenzar",
-    "bookDemo": "Reservar Demo"
+    "bookDemo": "Reservar Demo",
+    "benefits": {
+      "agreement": "Acuerdo de Servicio de 24 Meses",
+      "noSetup": "Sin Tarifas de Configuración",
+      "protection": "Protección de Dispositivos Incluida"
+    },
+    "stats": {
+      "members": "Miembros Activos",
+      "satisfaction": "Tasa de Satisfacción",
+      "countries": "Países Cubiertos"
+    },
+    "imageAlt": "Persona mayor viviendo de forma independiente con monitoreo de salud inteligente de Care Conneqt"
   },
   "problem": {
     "title": "El Desafío de Envejecer en Casa",
@@ -38,7 +49,33 @@
   },
   "features": {
     "title": "Solución de Cuidado Completa",
-    "subtitle": "Todo lo que necesitas para vivir de forma independiente"
+    "subtitle": "Todo lo que necesitas para vivir de forma independiente",
+    "items": {
+      "aiGuardian": {
+        "title": "Guardián IA",
+        "description": "Compañero multilingüe 24/7 (EN/ES/NL) para controles diarios, recordatorios de medicamentos y monitoreo de salud proactivo"
+      },
+      "devices": {
+        "title": "Dispositivos de Monitoreo de Salud",
+        "description": "Relojes Vivago, monitores de sueño BBrain, dispensadores de medicamentos y rastreadores de signos vitales que se sincronizan automáticamente"
+      },
+      "nurseSupport": {
+        "title": "Soporte de Enfermera 24/7",
+        "description": "Centro de llamadas de emergencia + controles programados (mensual, semanal o diario según tu plan)"
+      },
+      "familyDashboard": {
+        "title": "Panel Familiar",
+        "description": "Actualizaciones en tiempo real, informes de actividad y alertas instantáneas compartidas con familiares designados y cuidadores"
+      },
+      "emergency": {
+        "title": "Respuesta de Emergencia",
+        "description": "Protocolos de escalación prioritaria con seguimiento GPS, detección de caídas y comunicación directa con enfermeras"
+      },
+      "peaceOfMind": {
+        "title": "Tranquilidad",
+        "description": "Dispositivos de grado médico compatibles con GDPR, datos encriptados y atención dirigida por enfermeras en la que puedes confiar"
+      }
+    }
   },
   "whoItsFor": {
     "title": "Para Quién Es",

@@ -169,29 +169,73 @@
     }
   },
   "ai": {
-    "title": "Equipo de Atención Potenciado por IA",
-    "subtitle": "Soporte inteligente trabajando junto a nuestras enfermeras",
+    "badge": "Inteligencia Potenciada por IA",
+    "title": "Equipo de Cuidado Potenciado por IA",
+    "subtitle": "Agentes de IA multilingües trabajando junto a enfermeras",
     "agents": {
       "sales": {
-        "name": "Agente de Ventas y Soporte",
-        "description": "Respuestas instantáneas sobre servicios, precios y configuración"
+        "name": "IA de Ventas y Soporte",
+        "description": "Asistente multilingüe 24/7 para consultas, registros y soporte al cliente",
+        "features": ["Respuestas instantáneas", "Captura de leads", "Venta inteligente"]
       },
       "guardian": {
         "name": "Guardián IA",
-        "description": "Monitoreo de actividad 24/7, controles diarios y alertas inteligentes"
+        "description": "Tu compañero de salud personal con monitoreo proactivo y controles diarios",
+        "features": ["Bienestar diario", "Seguimiento del estado de ánimo", "Escalación de emergencias"]
       },
       "nurse": {
-        "name": "Asistente de Enfermera IA",
-        "description": "Soporte para decisiones clínicas e información del paciente"
+        "name": "Asistente IA de Enfermera",
+        "description": "Inteligencia backend que ayuda a las enfermeras a monitorear múltiples clientes eficientemente",
+        "features": ["Puntuación de riesgo", "Redacción de informes", "Detección de anomalías"]
       }
+    },
+    "privacy": {
+      "title": "IA con Privacidad Primero",
+      "description": "Todo el procesamiento de IA cumple con GDPR y utiliza alojamiento en la UE. Tus datos nunca salen de servidores seguros, y las recomendaciones de IA siempre son revisadas por enfermeras calificadas antes de tomar cualquier acción."
     }
   },
   "trust": {
-    "title": "Confiado por Familias en Toda Europa",
-    "compliant": "Cumplimiento GDPR",
-    "certified": "Certificado ISO 27001",
-    "medical": "Dispositivos de Grado Médico",
-    "encrypted": "Encriptado de Extremo a Extremo"
+    "title": "Construido sobre Confianza y Cumplimiento",
+    "subtitle": "Seguridad de nivel empresarial y cumplimiento sanitario en el que puede confiar",
+    "compliant": "Cumple con GDPR",
+    "encrypted": "Encriptado de Extremo a Extremo",
+    "medical": "Certificado de Grado Médico",
+    "factors": {
+      "compliant": {
+        "title": "Cumple con GDPR",
+        "description": "Cumplimiento total de protección de datos de la UE"
+      },
+      "multiCountry": {
+        "title": "Multi-País",
+        "description": "Operando en España, Reino Unido y Países Bajos"
+      },
+      "encrypted": {
+        "title": "Encriptado de Extremo a Extremo",
+        "description": "Infraestructura encriptada basada en la UE"
+      },
+      "medical": {
+        "title": "Certificado de Grado Médico",
+        "description": "Dispositivos y protocolos certificados CE"
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Respuesta de emergencia siempre activa"
+      },
+      "nurseLed": {
+        "title": "Cuidado Dirigido por Enfermeras",
+        "description": "Profesionales de salud calificados"
+      }
+    },
+    "enterprise": {
+      "title": "Listo para Empresas",
+      "description": "Nuestra plataforma es confiada por centros de atención, aseguradoras y municipios en toda Europa. Con opciones de marca blanca, gestión de cuentas dedicada e integraciones API completas, escalamos con su organización.",
+      "imageAlt": "Panel de control de instalaciones de Care Conneqt",
+      "stats": {
+        "facilities": "Instalaciones",
+        "residents": "Residentes",
+        "uptime": "Tiempo de Actividad"
+      }
+    }
   },
   "cta": {
     "title": "¿Listo para Comenzar?",

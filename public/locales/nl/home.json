@@ -169,29 +169,73 @@
     }
   },
   "ai": {
+    "badge": "AI-Aangedreven Intelligentie",
     "title": "AI-Aangedreven Zorgteam",
-    "subtitle": "Intelligente ondersteuning die samenwerkt met onze verpleegkundigen",
+    "subtitle": "Meertalige AI-agenten werken samen met verpleegkundigen",
     "agents": {
       "sales": {
-        "name": "Verkoop en Ondersteuningsagent",
-        "description": "Directe antwoorden over diensten, prijzen en installatie"
+        "name": "AI Verkoop & Ondersteuning",
+        "description": "24/7 meertalige assistent voor vragen, aanmeldingen en klantenondersteuning",
+        "features": ["Directe reacties", "Leadregistratie", "Slimme upselling"]
       },
       "guardian": {
         "name": "AI Bewaker",
-        "description": "24/7 activiteitsmonitoring, dagelijkse check-ins en slimme waarschuwingen"
+        "description": "Uw persoonlijke gezondheidsmetgezel met proactieve monitoring en dagelijkse check-ins",
+        "features": ["Dagelijks welzijn", "Stemmingsmonitoring", "Noodsituatie escalatie"]
       },
       "nurse": {
-        "name": "Verpleegkundige AI-Assistent",
-        "description": "Klinische beslissingsondersteuning en patiëntinzichten"
+        "name": "Verpleegkundige AI Assistent",
+        "description": "Backend intelligentie die verpleegkundigen helpt meerdere cliënten efficiënt te monitoren",
+        "features": ["Risicoscore", "Rapportage opstellen", "Anomalie detectie"]
       }
+    },
+    "privacy": {
+      "title": "Privacy-First AI",
+      "description": "Alle AI-verwerking is GDPR-conform met EU-gebaseerde hosting. Uw gegevens verlaten nooit beveiligde servers en AI-inzichten worden altijd door gekwalificeerde verpleegkundigen beoordeeld voordat actie wordt ondernomen."
     }
   },
   "trust": {
-    "title": "Vertrouwd door Gezinnen in Heel Europa",
-    "compliant": "AVG-Conform",
-    "certified": "ISO 27001 Gecertificeerd",
-    "medical": "Medische Apparaten",
-    "encrypted": "End-to-End Versleuteld"
+    "title": "Gebouwd op Vertrouwen & Naleving",
+    "subtitle": "Enterprise-grade beveiliging en gezondheidszorg compliance waarop u kunt vertrouwen",
+    "compliant": "GDPR Conform",
+    "encrypted": "End-to-End Versleuteld",
+    "medical": "Medisch Gecertificeerd",
+    "factors": {
+      "compliant": {
+        "title": "GDPR Conform",
+        "description": "Volledige EU databeschermingsconformiteit"
+      },
+      "multiCountry": {
+        "title": "Meerdere Landen",
+        "description": "Actief in Spanje, VK en Nederland"
+      },
+      "encrypted": {
+        "title": "End-to-End Versleuteld",
+        "description": "EU-gebaseerde versleutelde infrastructuur"
+      },
+      "medical": {
+        "title": "Medisch Gecertificeerd",
+        "description": "CE-gecertificeerde apparaten en protocollen"
+      },
+      "support": {
+        "title": "24/7 Ondersteuning",
+        "description": "Altijd bereikbare noodhulp"
+      },
+      "nurseLed": {
+        "title": "Verpleegkundige-Geleide Zorg",
+        "description": "Gekwalificeerde zorgprofessionals"
+      }
+    },
+    "enterprise": {
+      "title": "Enterprise Ready",
+      "description": "Ons platform wordt vertrouwd door zorginstellingen, verzekeraars en gemeenten in heel Europa. Met white-label opties, toegewijd accountbeheer en uitgebreide API-integraties, schalen we mee met uw organisatie.",
+      "imageAlt": "Care Conneqt faciliteit dashboard monitoring",
+      "stats": {
+        "facilities": "Faciliteiten",
+        "residents": "Bewoners",
+        "uptime": "Uptime"
+      }
+    }
   },
   "cta": {
     "title": "Klaar om te Beginnen?",

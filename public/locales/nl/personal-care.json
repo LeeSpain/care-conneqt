@@ -3,7 +3,18 @@
     "title": "Zelfstandig Leven met 24/7 Gemoedsrust",
     "description": "Door verpleegkundigen geleide, AI-aangedreven zorg die slimme apparaten, gezondheidsmonitoring en virtuele ondersteuning combineert voor senioren die thuis ouder worden.",
     "getStarted": "Begin Nu",
-    "bookDemo": "Demo Boeken"
+    "bookDemo": "Demo Boeken",
+    "benefits": {
+      "agreement": "24 Maanden Service Overeenkomst",
+      "noSetup": "Geen Installatiekosten",
+      "protection": "Apparaatbescherming Inbegrepen"
+    },
+    "stats": {
+      "members": "Actieve Leden",
+      "satisfaction": "Tevredenheidspercentage",
+      "countries": "Landen Gedekt"
+    },
+    "imageAlt": "Senior die zelfstandig leeft met Care Conneqt slimme gezondheidsmonitoring"
   },
   "problem": {
     "title": "De Uitdaging van Thuis Ouder Worden",
@@ -38,7 +49,33 @@
   },
   "features": {
     "title": "Complete Zorgoplossing",
-    "subtitle": "Alles wat u nodig heeft voor zelfstandig leven"
+    "subtitle": "Alles wat u nodig heeft voor zelfstandig leven",
+    "items": {
+      "aiGuardian": {
+        "title": "AI Bewaker",
+        "description": "24/7 meertalige metgezel (EN/ES/NL) voor dagelijkse check-ins, medicatieherinneringen en proactieve gezondheidsmonitoring"
+      },
+      "devices": {
+        "title": "Gezondheidsmonitoring Apparaten",
+        "description": "Vivago horloges, BBrain slaapmonitoren, medicijndispensers en vitale functiemonitoren die automatisch synchroniseren"
+      },
+      "nurseSupport": {
+        "title": "24/7 Verpleegkundige Ondersteuning",
+        "description": "Noodcallcenter + geplande check-ins (maandelijks, wekelijks of dagelijks afhankelijk van uw plan)"
+      },
+      "familyDashboard": {
+        "title": "Gezinsdashboard",
+        "description": "Realtime updates, activiteitenrapporten en directe waarschuwingen gedeeld met aangewezen familieleden en verzorgers"
+      },
+      "emergency": {
+        "title": "Noodhulp",
+        "description": "Prioriteit escalatieprotocollen met GPS-tracking, valdetectie en directe verpleegkundige communicatie"
+      },
+      "peaceOfMind": {
+        "title": "Gemoedsrust",
+        "description": "GDPR-conform, medisch goedgekeurde apparaten, versleutelde gegevens en verpleegkundige-geleide zorg waarop u kunt vertrouwen"
+      }
+    }
   },
   "whoItsFor": {
     "title": "Voor Wie Het Is",
