@@ -1,6 +1,6 @@
-import { Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Logo } from "./Logo";
 
 export const Footer = () => {
   const { t } = useTranslation('common');
@@ -15,7 +15,7 @@ export const Footer = () => {
                 className="p-1.5 rounded-lg"
                 style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
               >
-                <Shield className="h-5 w-5 text-white" />
+                <Logo size="sm" className="text-white" />
               </div>
               <span className="text-xl font-bold font-['Poppins']">Care Conneqt</span>
             </div>

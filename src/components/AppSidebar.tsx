@@ -1,7 +1,8 @@
-import { Shield, Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, ClipboardList, AlertTriangle, Mail, Activity, Stethoscope } from "lucide-react";
+import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, ClipboardList, AlertTriangle, Mail, Activity } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/useAuth";
+import { Logo } from "./Logo";
 import {
   Sidebar,
   SidebarContent,
@@ -61,7 +62,7 @@ export function AppSidebar() {
             className="p-2 rounded-lg shrink-0"
             style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
           >
-            <Shield className="h-6 w-6 text-white" />
+            <Logo size="md" className="text-white" />
           </div>
           {!isCollapsed && (
             <span className="text-lg font-bold text-sidebar-foreground font-['Poppins']">

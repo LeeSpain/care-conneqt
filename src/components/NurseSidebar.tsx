@@ -1,6 +1,7 @@
-import { Shield, Home, Users, ClipboardList, AlertTriangle, Mail, Activity, MessageSquare, Settings } from "lucide-react";
+import { Home, Users, ClipboardList, AlertTriangle, Mail, Activity, MessageSquare, Settings } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Logo } from "./Logo";
 import {
   Sidebar,
   SidebarContent,
@@ -47,7 +48,7 @@ export function NurseSidebar() {
             className="p-2 rounded-lg shrink-0"
             style={{ background: 'linear-gradient(135deg, hsl(142 76% 36%), hsl(173 80% 40%))' }}
           >
-            <Shield className="h-6 w-6 text-white" />
+            <Logo size="md" className="text-white" />
           </div>
           {!isCollapsed && (
             <span className="text-lg font-bold text-sidebar-foreground font-['Poppins']">

@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Shield, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Logo } from "./Logo";
 
 export const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ export const Navigation = () => {
               className="p-1.5 rounded-lg"
               style={{ background: 'linear-gradient(135deg, hsl(215 85% 35%), hsl(185 75% 45%))' }}
             >
-              <Shield className="h-5 w-5 text-white" />
+              <Logo size="sm" className="text-white" />
             </div>
             <span className="text-2xl font-bold font-['Poppins'] text-primary">
               Care Conneqt
