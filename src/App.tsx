@@ -25,6 +25,11 @@ import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
 import OurNurses from "./pages/OurNurses";
 import Guide from "./pages/Guide";
+import NurseMembers from "./pages/dashboard/nurse/NurseMembers";
+import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
+import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
+import NurseMessages from "./pages/dashboard/nurse/NurseMessages";
+import NurseHealthMonitoring from "./pages/dashboard/nurse/NurseHealthMonitoring";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +59,11 @@ const App = () => (
             <Route path="/dashboard/care-team" element={<ProtectedRoute><CareTeamPage /></ProtectedRoute>} />
             <Route path="/dashboard/subscriptions" element={<ProtectedRoute><SubscriptionsPage /></ProtectedRoute>} />
             <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/members" element={<ProtectedRoute><NurseMembers /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute><NurseMemberDetail /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute><NurseAlerts /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/messages" element={<ProtectedRoute><NurseMessages /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/health" element={<ProtectedRoute><NurseHealthMonitoring /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
