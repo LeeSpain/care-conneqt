@@ -18,6 +18,10 @@
     "aiGuardian": "AI Guardian",
     "settings": "Settings",
     "tasks": "Tasks",
+    "myMembers": "My Members",
+    "alerts": "Alerts",
+    "messages": "Messages",
+    "healthMonitoring": "Health Monitoring",
     "deviceManagement": "Device Management",
     "invitations": "Invitations",
     "aiChat": "AI Chat"

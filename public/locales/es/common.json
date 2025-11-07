@@ -18,6 +18,10 @@
     "aiGuardian": "Guardián IA",
     "settings": "Configuración",
     "tasks": "Tareas",
+    "myMembers": "Mis Miembros",
+    "alerts": "Alertas",
+    "messages": "Mensajes",
+    "healthMonitoring": "Monitoreo de Salud",
     "deviceManagement": "Gestión de Dispositivos",
     "invitations": "Invitaciones",
     "aiChat": "Chat IA"
