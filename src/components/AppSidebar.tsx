@@ -1,6 +1,7 @@
-import { Shield, Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, ChevronLeft } from "lucide-react";
+import { Shield, Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, ClipboardList, AlertTriangle, Mail, Activity, Stethoscope } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Sidebar,
   SidebarContent,
@@ -21,8 +22,20 @@ export function AppSidebar() {
   const location = useLocation();
   const isCollapsed = state === "collapsed";
   const { t } = useTranslation('common');
+  const { roles } = useAuth();
 
-  const navigationItems = [
+  const isNurse = roles.includes('nurse');
+
+  const navigationItems = isNurse ? [
+    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
+    { title: t('sidebar.myMembers'), url: "/dashboard/nurse/members", icon: Users },
+    { title: t('sidebar.tasks'), url: "/dashboard/nurse/tasks", icon: ClipboardList },
+    { title: t('sidebar.alerts'), url: "/dashboard/nurse/alerts", icon: AlertTriangle },
+    { title: t('sidebar.messages'), url: "/dashboard/nurse/messages", icon: Mail },
+    { title: t('sidebar.healthMonitoring'), url: "/dashboard/nurse/health", icon: Activity },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.settings'), url: "/settings", icon: Settings },
+  ] : [
     { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
     { title: t('sidebar.schedule'), url: "/dashboard/schedule", icon: Calendar },
     { title: t('sidebar.careTeam'), url: "/dashboard/care-team", icon: UserCog },
