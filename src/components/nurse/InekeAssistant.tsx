@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { HeartPulse, X, Send, Loader2, Minimize2, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -21,6 +22,9 @@ interface InekeAssistantProps {
 }
 
 export const InekeAssistant = ({ context }: InekeAssistantProps) => {
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -51,7 +55,8 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
       const { data, error } = await supabase.functions.invoke('ineke-chat', {
         body: {
           messages: [...messages, userMessage],
-          context
+          context,
+          language: currentLanguage
         }
       });
 

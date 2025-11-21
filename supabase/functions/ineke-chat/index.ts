@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, context } = await req.json();
+    const { messages, context, language = 'en' } = await req.json();
     
     if (!messages || !Array.isArray(messages)) {
       throw new Error('Messages array is required');
@@ -72,6 +72,14 @@ serve(async (req) => {
       .eq('agent_id', agent.id)
       .eq('is_active', true)
       .order('priority', { ascending: false });
+
+    // Map language codes to full language names
+    const languageMap: { [key: string]: string } = {
+      'en': 'English',
+      'es': 'Spanish',
+      'nl': 'Dutch'
+    };
+    const languageName = languageMap[language] || 'English';
 
     // Build enhanced system prompt with knowledge and context
     let systemPrompt = config.system_prompt;
@@ -198,6 +206,9 @@ serve(async (req) => {
 
       systemPrompt += '\n=== END MEMBER CONTEXT ===\n';
     }
+
+    // Add language instruction
+    systemPrompt += `\n\nCRITICAL INSTRUCTION: You MUST respond in ${languageName}. The user's interface is in ${languageName}, so ALL your responses, medical terminology, care instructions, and clinical notes must be in ${languageName}. Do not use any other language under any circumstances.`;
 
     console.log('Calling Lovable AI for Ineke...');
 

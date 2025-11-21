@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, sessionId, context } = await req.json();
+    const { messages, sessionId, context, language = 'en' } = await req.json();
     
     if (!messages || !Array.isArray(messages)) {
       throw new Error('Messages array is required');
@@ -50,6 +50,14 @@ serve(async (req) => {
       .eq('is_active', true)
       .order('priority', { ascending: false });
 
+    // Map language codes to full language names
+    const languageMap: { [key: string]: string } = {
+      'en': 'English',
+      'es': 'Spanish',
+      'nl': 'Dutch'
+    };
+    const languageName = languageMap[language] || 'English';
+
     // Build enhanced system prompt with knowledge
     let systemPrompt = config.system_prompt;
     
@@ -72,6 +80,9 @@ serve(async (req) => {
         systemPrompt += '\n\nCONTEXT: User is learning about our nursing team. Focus on nurse qualifications, 24/7 availability, response protocols, and the human care element of our service.';
       }
     }
+
+    // Add language instruction
+    systemPrompt += `\n\nCRITICAL INSTRUCTION: You MUST respond in ${languageName}. The user's interface is in ${languageName}, so ALL your responses must be in ${languageName}. Do not use any other language under any circumstances. When discussing pricing, use appropriate currency symbols (€ for Spanish/Dutch, £ for English).`;
 
     console.log('Calling Lovable AI for Clara...');
 

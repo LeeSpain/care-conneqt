@@ -11,10 +11,18 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, memberId } = await req.json();
+    const { messages, memberId, language = 'en' } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+
+    // Map language codes to full language names
+    const languageMap: { [key: string]: string } = {
+      'en': 'English',
+      'es': 'Spanish',
+      'nl': 'Dutch'
+    };
+    const languageName = languageMap[language] || 'English';
 
     const systemPrompt = `You are the AI Guardian, a compassionate and knowledgeable health companion for Care Conneqt users. Your role is to:
 
@@ -25,7 +33,9 @@ serve(async (req) => {
 - Offer wellness tips and encouragement
 - Escalate urgent concerns to nurses when necessary
 
-Keep responses warm, concise, and easy to understand. Focus on empowering users to manage their health confidently while maintaining safety.`;
+Keep responses warm, concise, and easy to understand. Focus on empowering users to manage their health confidently while maintaining safety.
+
+CRITICAL INSTRUCTION: You MUST respond in ${languageName}. The user's interface is in ${languageName}, so ALL your responses, health advice, medication reminders, and wellness tips must be in ${languageName}. Do not use any other language under any circumstances.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
