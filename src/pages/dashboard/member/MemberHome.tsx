@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,14 +15,16 @@ export default function MemberHome() {
   const [loading, setLoading] = useState(true);
   const [deviceCount, setDeviceCount] = useState(0);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-
   const [error, setError] = useState<string | null>(null);
+  const fetchInProgress = useRef(false);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
     const fetchMemberData = async () => {
-      if (!user) return;
+      if (!user || fetchInProgress.current) return;
+
+      fetchInProgress.current = true;
 
       try {
         const { data, error: memberError } = await supabase
@@ -50,6 +52,7 @@ export default function MemberHome() {
       } finally {
         clearTimeout(timeoutId);
         setLoading(false);
+        fetchInProgress.current = false;
       }
     };
 
@@ -61,7 +64,7 @@ export default function MemberHome() {
     fetchMemberData();
 
     return () => clearTimeout(timeoutId);
-  }, [user]);
+  }, [user?.id]);
 
   useEffect(() => {
     const timer = setInterval(() => {
