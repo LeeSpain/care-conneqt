@@ -12,7 +12,7 @@ import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, Alert
 import { formatDate } from '@/lib/intl';
 import { useToast } from '@/hooks/use-toast';
 import inekeAvatar from "@/assets/ineke-avatar.png";
-import { InekeChatDialog } from '@/components/InekeChatDialog';
+import { InekeAssistant } from '@/components/nurse/InekeAssistant';
 
 export default function NurseHome() {
   const { user, profile } = useAuth();
@@ -30,7 +30,6 @@ export default function NurseHome() {
   });
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const [inekeChatOpen, setInekeChatOpen] = useState(false);
   const fetchInProgress = useRef(false);
 
   const fetchNurseData = async () => {
@@ -279,13 +278,9 @@ export default function NurseHome() {
                 <p className="text-sm text-muted-foreground mb-4 flex-grow">
                   Get instant support with patient care, medication queries, and clinical guidance.
                 </p>
-                <Button 
-                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
-                  onClick={() => setInekeChatOpen(true)}
-                >
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Chat with Ineke
-                </Button>
+                <p className="text-xs text-muted-foreground">
+                  Click the chat button in the bottom right to talk with Ineke
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -465,8 +460,8 @@ export default function NurseHome() {
         </Card>
       </div>
 
-      {/* Ineke Chat Dialog */}
-      <InekeChatDialog open={inekeChatOpen} onOpenChange={setInekeChatOpen} />
+      {/* Ineke AI Assistant - always available */}
+      <InekeAssistant context={{}} />
     </NurseDashboardLayout>
   );
 }
