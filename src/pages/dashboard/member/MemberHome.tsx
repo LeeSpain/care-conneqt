@@ -16,31 +16,50 @@ export default function MemberHome() {
   const [deviceCount, setDeviceCount] = useState(0);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchMemberData = async () => {
       if (!user) return;
 
-      const { data } = await supabase
-        .from('members')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+      try {
+        const { data, error: memberError } = await supabase
+          .from('members')
+          .select('*')
+          .eq('user_id', user.id)
+          .maybeSingle();
 
-      setMember(data);
-      
-      if (data) {
-        const { count } = await supabase
-          .from('member_devices')
-          .select('*', { count: 'exact', head: true })
-          .eq('member_id', data.id);
+        if (memberError) throw memberError;
+
+        setMember(data);
         
-        setDeviceCount(count || 0);
+        if (data) {
+          const { count, error: deviceError } = await supabase
+            .from('member_devices')
+            .select('*', { count: 'exact', head: true })
+            .eq('member_id', data.id);
+          
+          if (deviceError) throw deviceError;
+          setDeviceCount(count || 0);
+        }
+      } catch (err) {
+        console.error('Error fetching member data:', err);
+        setError('Failed to load dashboard data. Please refresh the page.');
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
+    const timeout = setTimeout(() => {
+      if (loading) {
+        setError('Loading is taking longer than expected. Please refresh the page.');
+        setLoading(false);
+      }
+    }, 10000);
+
     fetchMemberData();
+
+    return () => clearTimeout(timeout);
   }, [user]);
 
   useEffect(() => {
@@ -57,6 +76,19 @@ export default function MemberHome() {
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
+      </MemberDashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <MemberDashboardLayout title="Member Dashboard">
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <p className="text-destructive mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+          </CardContent>
+        </Card>
       </MemberDashboardLayout>
     );
   }

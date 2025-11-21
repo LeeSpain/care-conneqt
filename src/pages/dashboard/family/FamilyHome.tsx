@@ -17,29 +17,39 @@ export default function FamilyHome() {
     unreadMessages: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
+      const timeout = setTimeout(() => {
+        if (loading) {
+          setError('Loading is taking longer than expected. Please refresh the page.');
+          setLoading(false);
+        }
+      }, 10000);
+
       fetchStats();
+
+      return () => clearTimeout(timeout);
     }
   }, [user]);
 
   const fetchStats = async () => {
     try {
-      const [carerId] = await Promise.all([
-        supabase
-          .from("family_carers")
-          .select("id")
-          .eq("user_id", user?.id)
-          .single()
-      ]);
+      const { data: carerData, error: carerError } = await supabase
+        .from("family_carers")
+        .select("id")
+        .eq("user_id", user?.id)
+        .maybeSingle();
 
-      if (carerId.data) {
+      if (carerError) throw carerError;
+
+      if (carerData) {
         const [membersResult, alertsResult, messagesResult] = await Promise.all([
           supabase
             .from("member_carers")
             .select("id", { count: "exact", head: true })
-            .eq("carer_id", carerId.data.id),
+            .eq("carer_id", carerData.id),
           supabase
             .from("alerts")
             .select("id", { count: "exact", head: true })
@@ -51,6 +61,10 @@ export default function FamilyHome() {
             .eq("is_read", false),
         ]);
 
+        if (membersResult.error) throw membersResult.error;
+        if (alertsResult.error) throw alertsResult.error;
+        if (messagesResult.error) throw messagesResult.error;
+
         setStats({
           connectedMembers: membersResult.count || 0,
           activeAlerts: alertsResult.count || 0,
@@ -58,12 +72,36 @@ export default function FamilyHome() {
           unreadMessages: messagesResult.count || 0,
         });
       }
-    } catch (error) {
-      console.error("Error fetching stats:", error);
+    } catch (err) {
+      console.error("Error fetching stats:", err);
+      setError("Failed to load dashboard data. Please refresh the page.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <FamilyDashboardLayout title="Family Dashboard">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </FamilyDashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <FamilyDashboardLayout title="Family Dashboard">
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <p className="text-destructive mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+          </CardContent>
+        </Card>
+      </FamilyDashboardLayout>
+    );
+  }
 
   return (
     <FamilyDashboardLayout title="Family Dashboard">

@@ -3,6 +3,7 @@ import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { Users, Building2, Activity, UserCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function AdminHome() {
   const [stats, setStats] = useState({
@@ -12,9 +13,19 @@ export default function AdminHome() {
     totalNurses: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        setError('Loading is taking longer than expected. Please refresh the page.');
+        setLoading(false);
+      }
+    }, 10000);
+
     fetchStats();
+
+    return () => clearTimeout(timeout);
   }, []);
 
   const fetchStats = async () => {
@@ -26,18 +37,47 @@ export default function AdminHome() {
         supabase.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "nurse"),
       ]);
 
+      if (usersResult.error) throw usersResult.error;
+      if (facilitiesResult.error) throw facilitiesResult.error;
+      if (membersResult.error) throw membersResult.error;
+      if (nursesResult.error) throw nursesResult.error;
+
       setStats({
         totalUsers: usersResult.count || 0,
         totalFacilities: facilitiesResult.count || 0,
         activeMembers: membersResult.count || 0,
         totalNurses: nursesResult.count || 0,
       });
-    } catch (error) {
-      console.error("Error fetching stats:", error);
+    } catch (err) {
+      console.error("Error fetching stats:", err);
+      setError("Failed to load dashboard data. Please refresh the page.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <AdminDashboardLayout title="Admin Dashboard">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </AdminDashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <AdminDashboardLayout title="Admin Dashboard">
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <p className="text-destructive mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+          </CardContent>
+        </Card>
+      </AdminDashboardLayout>
+    );
+  }
 
   return (
     <AdminDashboardLayout title="Admin Dashboard">

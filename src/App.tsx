@@ -115,17 +115,20 @@ const App = () => (
             <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute requiredRole="nurse"><NurseAlerts /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/schedule" element={<ProtectedRoute requiredRole="nurse"><SchedulePage /></ProtectedRoute>} />
             
             {/* Family Carer routes */}
             <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="family_carer"><FamilyHome /></ProtectedRoute>} />
             <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
             <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyMembers /></ProtectedRoute>} />
+            <Route path="/dashboard/family/schedule" element={<ProtectedRoute requiredRole="family_carer"><SchedulePage /></ProtectedRoute>} />
             
             {/* Facility Admin routes */}
             <Route path="/dashboard/facility" element={<ProtectedRoute requiredRole="facility_admin"><FacilityHome /></ProtectedRoute>} />
             <Route path="/dashboard/facility/settings" element={<ProtectedRoute requiredRole="facility_admin"><FacilitySettings /></ProtectedRoute>} />
             <Route path="/dashboard/facility/residents" element={<ProtectedRoute requiredRole="facility_admin"><FacilityResidents /></ProtectedRoute>} />
             <Route path="/dashboard/facility/staff" element={<ProtectedRoute requiredRole="facility_admin"><FacilityStaff /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/schedule" element={<ProtectedRoute requiredRole="facility_admin"><SchedulePage /></ProtectedRoute>} />
             
             {/* Admin routes */}
             <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />

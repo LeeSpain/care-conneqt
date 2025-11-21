@@ -13,6 +13,7 @@ export default function NurseHome() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState({
     assignedMembers: 0,
     pendingTasks: 0,
@@ -28,39 +29,49 @@ export default function NurseHome() {
 
       try {
         // Fetch assigned members count
-        const { count: membersCount } = await supabase
+        const { count: membersCount, error: membersError } = await supabase
           .from('nurse_assignments')
           .select('*', { count: 'exact', head: true })
           .eq('nurse_id', user.id);
 
+        if (membersError) throw membersError;
+
         // Fetch pending tasks count
-        const { count: tasksCount } = await supabase
+        const { count: tasksCount, error: tasksError } = await supabase
           .from('nurse_tasks')
           .select('*', { count: 'exact', head: true })
           .eq('nurse_id', user.id)
           .eq('status', 'pending');
 
+        if (tasksError) throw tasksError;
+
         // Fetch active alerts count
-        const { count: alertsCount } = await supabase
+        const { count: alertsCount, error: alertsError } = await supabase
           .from('alerts')
           .select('*, nurse_assignments!inner(nurse_id)', { count: 'exact', head: true })
           .neq('status', 'resolved')
           .eq('nurse_assignments.nurse_id', user.id);
 
+        if (alertsError) throw alertsError;
+
         // Fetch unread messages count
-        const { count: messagesCount } = await supabase
+        const { count: messagesCount, error: messagesError } = await supabase
           .from('care_messages')
           .select('*', { count: 'exact', head: true })
           .eq('recipient_id', user.id)
           .eq('is_read', false);
 
+        if (messagesError) throw messagesError;
+
         // Fetch recent tasks
-        const { data: tasksData } = await supabase
+        const { data: tasksData, error: recentTasksError } = await supabase
           .from('nurse_tasks')
           .select('*, members(id, user_id)')
           .eq('nurse_id', user.id)
           .order('created_at', { ascending: false })
           .limit(5);
+
+        if (recentTasksError) throw recentTasksError;
 
         setStats({
           assignedMembers: membersCount || 0,
@@ -70,14 +81,24 @@ export default function NurseHome() {
         });
 
         setRecentTasks(tasksData || []);
-      } catch (error) {
-        console.error('Error fetching nurse data:', error);
+      } catch (err) {
+        console.error('Error fetching nurse data:', err);
+        setError('Failed to load dashboard data. Please refresh the page.');
       } finally {
         setLoading(false);
       }
     };
 
+    const timeout = setTimeout(() => {
+      if (loading) {
+        setError('Loading is taking longer than expected. Please refresh the page.');
+        setLoading(false);
+      }
+    }, 10000);
+
     fetchNurseData();
+
+    return () => clearTimeout(timeout);
   }, [user]);
 
   useEffect(() => {
@@ -94,6 +115,19 @@ export default function NurseHome() {
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
+      </NurseDashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <NurseDashboardLayout title="Nurse Dashboard">
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <p className="text-destructive mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+          </CardContent>
+        </Card>
       </NurseDashboardLayout>
     );
   }
