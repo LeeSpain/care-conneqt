@@ -108,5 +108,13 @@
     "lastWeek": "Last Week",
     "thisMonth": "This Month",
     "lastSync": "Last sync"
+  },
+  "clara": {
+    "greeting": "Hi! I'm Clara, your Care Conneqt assistant. How can I help you today?",
+    "chatWith": "Chat with Clara",
+    "available": "AI Assistant • Available Now",
+    "typing": "Clara is typing...",
+    "placeholder": "Ask me anything about our care services...",
+    "powered": "Powered by AI • Instant responses"
   }
 }

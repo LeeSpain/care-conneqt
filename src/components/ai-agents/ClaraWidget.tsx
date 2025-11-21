@@ -14,20 +14,28 @@ interface Message {
 }
 
 export const ClaraWidget = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! I'm Clara, your Care Conneqt assistant. How can I help you today?"
+      content: t('clara.greeting')
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Update initial greeting when language changes
+  useEffect(() => {
+    setMessages([{
+      role: 'assistant',
+      content: t('clara.greeting')
+    }]);
+  }, [currentLanguage, t]);
 
   useEffect(() => {
     if (scrollRef.current) {
