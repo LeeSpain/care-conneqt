@@ -90,11 +90,11 @@ export const NurseDashboardLayout = ({ children, title }: NurseDashboardLayoutPr
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/settings/profile')}>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard/nurse/settings')}>
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard/nurse/settings')}>
                     <Settings className="mr-2 h-4 w-4" />
                     Settings
                   </DropdownMenuItem>
