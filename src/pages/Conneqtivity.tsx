@@ -5,6 +5,7 @@ import { Logo } from "@/components/Logo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { ClaraWidget } from "@/components/ai-agents/ClaraWidget";
 
 export default function Conneqtivity() {
   const { t } = useTranslation('common');
@@ -124,6 +125,7 @@ export default function Conneqtivity() {
       </main>
       
       <Footer />
+      <ClaraWidget />
     </div>
   );
 }
