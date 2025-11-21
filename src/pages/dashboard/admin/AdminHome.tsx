@@ -92,7 +92,7 @@ export default function AdminHome() {
     fetchStats();
   };
 
-  if (loading && !loadingStats) {
+  if (loading) {
     return (
       <AdminDashboardLayout title="Admin Dashboard">
         <div className="flex items-center justify-center h-64">

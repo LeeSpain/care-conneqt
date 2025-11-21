@@ -144,7 +144,7 @@ export default function FamilyHome() {
     fetchStats();
   };
 
-  if (loading && !loadingStats) {
+  if (loading) {
     return (
       <FamilyDashboardLayout title="Family Dashboard">
         <div className="flex items-center justify-center h-64">
