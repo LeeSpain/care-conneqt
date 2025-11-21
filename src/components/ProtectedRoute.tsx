@@ -49,7 +49,7 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
         return;
       }
     }
-  }, [user, profile, roles, loading, requiredRole, requireOnboarding, navigate]);
+  }, [user?.id, profile?.id, roles.join(','), loading, requiredRole, requireOnboarding, navigate]);
 
   if (loading) {
     return (
