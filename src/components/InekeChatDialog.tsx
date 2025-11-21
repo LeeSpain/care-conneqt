@@ -88,20 +88,20 @@ export const InekeChatDialog = ({ open, onOpenChange }: InekeChatDialogProps) =>
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl h-[600px] p-0 gap-0">
+      <DialogContent className="max-w-2xl h-[500px] p-0 gap-0 flex flex-col">
         {/* Compact Header */}
-        <DialogHeader className="px-4 py-3 border-b">
+        <DialogHeader className="px-4 py-2.5 border-b flex-shrink-0">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10 ring-2 ring-purple-500/20">
+            <Avatar className="h-9 w-9 ring-2 ring-purple-500/20">
               <AvatarImage src={inekeAvatar} alt="Ineke AI Nursing Assistant" />
               <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
                 <Bot className="h-5 w-5" />
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <DialogTitle className="text-lg font-semibold flex items-center gap-2">
+              <DialogTitle className="text-base font-semibold flex items-center gap-2">
                 Ineke
-                <Sparkles className="h-3.5 w-3.5 text-purple-500" />
+                <Sparkles className="h-3 w-3 text-purple-500" />
               </DialogTitle>
               <p className="text-xs text-muted-foreground">AI Nursing Assistant</p>
             </div>
@@ -109,91 +109,89 @@ export const InekeChatDialog = ({ open, onOpenChange }: InekeChatDialogProps) =>
         </DialogHeader>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <ScrollArea className="flex-1 px-4">
-            <div className="space-y-3 py-3">
-              {messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  {msg.role === 'assistant' && (
-                    <Avatar className="h-7 w-7 ring-1 ring-purple-500/20 flex-shrink-0">
-                      <AvatarImage src={inekeAvatar} alt="Ineke" />
-                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                        <Bot className="h-3.5 w-3.5" />
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
-                  <div
-                    className={`max-w-[80%] rounded-lg px-3 py-2 ${
-                      msg.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted'
-                    }`}
-                  >
-                    <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                    {msg.timestamp && (
-                      <p className={`text-xs mt-0.5 ${
-                        msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                      }`}>
-                        {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    )}
-                  </div>
-                  {msg.role === 'user' && (
-                    <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs flex-shrink-0">
-                      {user?.email?.charAt(0).toUpperCase() || 'U'}
-                    </div>
-                  )}
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex gap-2 justify-start">
-                  <Avatar className="h-7 w-7 ring-1 ring-purple-500/20 flex-shrink-0">
+        <ScrollArea className="flex-1 px-4 min-h-0">
+          <div className="space-y-2.5 py-3">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                {msg.role === 'assistant' && (
+                  <Avatar className="h-7 w-7 ring-1 ring-purple-500/20 flex-shrink-0 mt-0.5">
                     <AvatarImage src={inekeAvatar} alt="Ineke" />
                     <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
                       <Bot className="h-3.5 w-3.5" />
                     </AvatarFallback>
                   </Avatar>
-                  <div className="bg-muted rounded-lg px-3 py-2">
-                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                  </div>
+                )}
+                <div
+                  className={`max-w-[80%] rounded-lg px-3 py-2 ${
+                    msg.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted'
+                  }`}
+                >
+                  <p className="text-sm whitespace-pre-wrap leading-snug">{msg.content}</p>
+                  {msg.timestamp && (
+                    <p className={`text-xs mt-1 ${
+                      msg.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
+                    }`}>
+                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  )}
                 </div>
-              )}
-              <div ref={scrollRef} />
-            </div>
-          </ScrollArea>
-
-          {/* Input Area */}
-          <div className="px-4 py-3 border-t">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                sendMessage();
-              }}
-              className="flex gap-2"
-            >
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask Ineke anything..."
-                disabled={isLoading}
-                className="flex-1"
-              />
-              <Button 
-                type="submit" 
-                disabled={isLoading || !input.trim()}
-                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
-                size="icon"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </form>
-            <p className="text-xs text-muted-foreground mt-1.5 text-center">
-              Always verify critical medical information
-            </p>
+                {msg.role === 'user' && (
+                  <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs flex-shrink-0 mt-0.5">
+                    {user?.email?.charAt(0).toUpperCase() || 'U'}
+                  </div>
+                )}
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex gap-2 justify-start">
+                <Avatar className="h-7 w-7 ring-1 ring-purple-500/20 flex-shrink-0 mt-0.5">
+                  <AvatarImage src={inekeAvatar} alt="Ineke" />
+                  <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                    <Bot className="h-3.5 w-3.5" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="bg-muted rounded-lg px-3 py-2">
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                </div>
+              </div>
+            )}
+            <div ref={scrollRef} />
           </div>
+        </ScrollArea>
+
+        {/* Input Area */}
+        <div className="px-4 py-2.5 border-t flex-shrink-0">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage();
+            }}
+            className="flex gap-2"
+          >
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask Ineke anything..."
+              disabled={isLoading}
+              className="flex-1 h-9"
+            />
+            <Button 
+              type="submit" 
+              disabled={isLoading || !input.trim()}
+              className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 h-9 w-9 p-0"
+              size="icon"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </form>
+          <p className="text-xs text-muted-foreground mt-1 text-center">
+            Always verify critical medical information
+          </p>
         </div>
       </DialogContent>
     </Dialog>
