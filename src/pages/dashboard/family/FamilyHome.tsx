@@ -52,9 +52,8 @@ export default function FamilyHome() {
             .eq("carer_id", carerData.id),
           supabase
             .from("alerts")
-            .select("id, member_carers!inner(carer_id)", { count: "exact", head: true })
-            .eq("status", "new")
-            .eq("member_carers.carer_id", carerData.id),
+            .select("id", { count: "exact", head: true })
+            .eq("status", "new"),
           supabase
             .from("care_messages")
             .select("id", { count: "exact", head: true })
