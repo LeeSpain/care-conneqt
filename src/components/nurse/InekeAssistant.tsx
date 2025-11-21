@@ -185,93 +185,95 @@ export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }
     <>
       {/* Backdrop Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+        <>
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+            onClick={() => setIsOpen(false)}
+          />
 
-      {/* Centered Popup */}
-      <Card className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${isMinimized ? 'w-96 h-16' : 'w-[600px] h-[700px]'} shadow-2xl z-50 flex flex-col transition-all animate-scale-in`}>
-        {/* Header */}
-        <div className="p-4 border-b bg-gradient-to-r from-blue-500/10 to-cyan-500/10 flex items-center justify-between rounded-t-lg">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <Avatar className="h-10 w-10 ring-2 ring-blue-500/20">
-                {agent?.avatar_url ? (
-                  <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
-                ) : (
-                  <AvatarFallback className="bg-blue-500/20">
-                    <HeartPulse className="h-5 w-5 text-blue-500" />
-                  </AvatarFallback>
-                )}
-              </Avatar>
-              <span className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-400 rounded-full border-2 border-background" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Ineke</h3>
-              <p className="text-xs text-muted-foreground">{t('ineke.available')}</p>
-            </div>
-          </div>
-          <div className="flex gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsExpanded(true)}
-              className="hover:bg-blue-500/10"
-            >
-              <Maximize2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMinimized(!isMinimized)}
-              className="hover:bg-blue-500/10"
-            >
-              {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-              className="hover:bg-destructive/10"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        {!isMinimized && (
-          <>
-            {/* Messages */}
-            <ScrollArea className="flex-1 p-4" ref={scrollRef}>
-              {renderMessages(false)}
-            </ScrollArea>
-
-            {/* Input */}
-            <div className="p-4 border-t bg-background/50 backdrop-blur">
-              <div className="flex gap-2">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={t('ineke.placeholder')}
-                  disabled={isLoading}
-                  className="flex-1"
-                />
+          {/* Centered Popup */}
+          <Card className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${isMinimized ? 'w-96 h-16' : 'w-[600px] h-[700px]'} shadow-2xl z-50 flex flex-col transition-all animate-scale-in`}>
+            {/* Header */}
+            <div className="p-4 border-b bg-gradient-to-r from-blue-500/10 to-cyan-500/10 flex items-center justify-between rounded-t-lg">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <Avatar className="h-12 w-12 ring-2 ring-blue-500/20">
+                    {agent?.avatar_url ? (
+                      <AvatarImage src={agent.avatar_url} alt={agent.display_name || "Ineke"} />
+                    ) : (
+                      <AvatarFallback className="bg-blue-500/20">
+                        <HeartPulse className="h-6 w-6 text-blue-500" />
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                  <span className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-400 rounded-full border-2 border-background animate-pulse" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Ineke</h3>
+                  <p className="text-sm text-muted-foreground">{t('ineke.available')}</p>
+                </div>
+              </div>
+              <div className="flex gap-1">
                 <Button
-                  onClick={sendMessage}
-                  disabled={isLoading || !input.trim()}
+                  variant="ghost"
                   size="icon"
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                  onClick={() => setIsExpanded(true)}
+                  className="hover:bg-blue-500/10"
                 >
-                  <Send className="h-4 w-4" />
+                  <Maximize2 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsMinimized(!isMinimized)}
+                  className="hover:bg-blue-500/10"
+                >
+                  {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
+                  className="hover:bg-destructive/10"
+                >
+                  <X className="h-4 w-4" />
                 </Button>
               </div>
             </div>
-          </>
-        )}
-      </Card>
+
+            {!isMinimized && (
+              <>
+                {/* Messages */}
+                <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+                  {renderMessages(false)}
+                </ScrollArea>
+
+                {/* Input */}
+                <div className="p-4 border-t bg-background/50 backdrop-blur">
+                  <div className="flex gap-2">
+                    <Input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={t('ineke.placeholder')}
+                      disabled={isLoading}
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={sendMessage}
+                      disabled={isLoading || !input.trim()}
+                      size="icon"
+                      className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+          </Card>
+        </>
+      )}
 
       {/* Expanded Dialog */}
       <Dialog open={isExpanded} onOpenChange={setIsExpanded}>
