@@ -6,7 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Loader2, Sparkles, MinusCircle, PlusCircle, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTranslation } from 'react-i18next';
 import {
   Dialog,
@@ -20,6 +20,11 @@ interface Message {
   content: string;
 }
 
+interface AgentData {
+  avatar_url: string | null;
+  display_name: string;
+}
+
 export const ClaraFixedChat = () => {
   const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
@@ -27,6 +32,7 @@ export const ClaraFixedChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [agent, setAgent] = useState<AgentData | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -38,6 +44,21 @@ export const ClaraFixedChat = () => {
   const [sessionId] = useState(() => crypto.randomUUID());
   const scrollRef = useRef<HTMLDivElement>(null);
   const expandedScrollRef = useRef<HTMLDivElement>(null);
+
+  // Fetch agent data on mount
+  useEffect(() => {
+    const fetchAgent = async () => {
+      const { data } = await supabase
+        .from('ai_agents')
+        .select('avatar_url, display_name')
+        .eq('name', 'clara')
+        .single();
+      
+      if (data) setAgent(data);
+    };
+    
+    fetchAgent();
+  }, []);
 
   // Update initial greeting when language changes
   useEffect(() => {
@@ -130,9 +151,13 @@ export const ClaraFixedChat = () => {
         <div className="flex items-center gap-3">
           <div className="relative">
             <Avatar className="h-12 w-12 border-2 border-white/50 shadow-lg">
-              <AvatarFallback className="bg-gradient-to-br from-white/90 to-white/70 text-primary font-bold text-lg">
-                C
-              </AvatarFallback>
+              {agent?.avatar_url ? (
+                <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+              ) : (
+                <AvatarFallback className="bg-gradient-to-br from-white/90 to-white/70 text-primary font-bold text-lg">
+                  C
+                </AvatarFallback>
+              )}
             </Avatar>
             <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-400 rounded-full border-2 border-white animate-pulse" />
           </div>
@@ -159,9 +184,13 @@ export const ClaraFixedChat = () => {
           {/* Beautiful Avatar */}
           <div className="relative">
             <Avatar className="h-12 w-12 border-2 border-primary/30 shadow-lg">
-              <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold text-lg">
-                C
-              </AvatarFallback>
+              {agent?.avatar_url ? (
+                <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+              ) : (
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold text-lg">
+                  C
+                </AvatarFallback>
+              )}
             </Avatar>
             <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-500 rounded-full border-2 border-background animate-pulse" />
           </div>
@@ -228,9 +257,13 @@ export const ClaraFixedChat = () => {
                     {message.role === 'assistant' && (
                       <div className="flex items-center gap-2 mb-2">
                         <Avatar className="h-6 w-6">
-                          <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
-                            C
-                          </AvatarFallback>
+                          {agent?.avatar_url ? (
+                            <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+                          ) : (
+                            <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
+                              C
+                            </AvatarFallback>
+                          )}
                         </Avatar>
                         <span className="text-xs font-semibold text-primary">Clara</span>
                       </div>
@@ -285,9 +318,13 @@ export const ClaraFixedChat = () => {
           <DialogHeader className="p-6 pb-4 border-b bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10">
             <div className="flex items-center gap-3">
               <Avatar className="h-12 w-12 border-2 border-primary/30 shadow-lg">
-                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold text-lg">
-                  C
-                </AvatarFallback>
+                {agent?.avatar_url ? (
+                  <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+                ) : (
+                  <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold text-lg">
+                    C
+                  </AvatarFallback>
+                )}
               </Avatar>
               <div>
                 <div className="flex items-center gap-2">
@@ -317,9 +354,13 @@ export const ClaraFixedChat = () => {
                     {message.role === 'assistant' && (
                       <div className="flex items-center gap-2 mb-2">
                         <Avatar className="h-6 w-6">
-                          <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
-                            C
-                          </AvatarFallback>
+                          {agent?.avatar_url ? (
+                            <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+                          ) : (
+                            <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
+                              C
+                            </AvatarFallback>
+                          )}
                         </Avatar>
                         <span className="text-xs font-semibold text-primary">Clara</span>
                       </div>
