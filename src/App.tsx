@@ -33,6 +33,7 @@ import FacilityHome from "./pages/dashboard/facility/FacilityHome";
 import FacilitySettings from "./pages/dashboard/facility/FacilitySettings";
 import FacilityResidents from "./pages/dashboard/facility/FacilityResidents";
 import FacilityStaff from "./pages/dashboard/facility/FacilityStaff";
+import FacilityReports from "./pages/dashboard/facility/FacilityReports";
 
 // Nurse pages
 import NurseHome from "./pages/dashboard/nurse/NurseHome";
@@ -131,6 +132,7 @@ const App = () => (
             <Route path="/dashboard/facility/settings" element={<ProtectedRoute requiredRole="facility_admin"><FacilitySettings /></ProtectedRoute>} />
             <Route path="/dashboard/facility/residents" element={<ProtectedRoute requiredRole="facility_admin"><FacilityResidents /></ProtectedRoute>} />
             <Route path="/dashboard/facility/staff" element={<ProtectedRoute requiredRole="facility_admin"><FacilityStaff /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/reports" element={<ProtectedRoute requiredRole="facility_admin"><FacilityReports /></ProtectedRoute>} />
             <Route path="/dashboard/facility/schedule" element={<ProtectedRoute requiredRole="facility_admin"><SchedulePage /></ProtectedRoute>} />
             <Route path="/dashboard/facility/ai-chat" element={<ProtectedRoute requiredRole="facility_admin"><AIChatPage /></ProtectedRoute>} />
             
