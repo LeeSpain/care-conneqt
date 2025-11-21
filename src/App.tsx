@@ -23,6 +23,14 @@ import SchedulePage from "./pages/dashboard/SchedulePage";
 import CareTeamPage from "./pages/dashboard/CareTeamPage";
 import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
 
+// Family Carer pages
+import FamilyHome from "./pages/dashboard/family/FamilyHome";
+import FamilySettings from "./pages/dashboard/family/FamilySettings";
+
+// Facility Admin pages
+import FacilityHome from "./pages/dashboard/facility/FacilityHome";
+import FacilitySettings from "./pages/dashboard/facility/FacilitySettings";
+
 // Nurse pages
 import NurseHome from "./pages/dashboard/nurse/NurseHome";
 import NurseSettings from "./pages/dashboard/nurse/NurseSettings";
@@ -104,6 +112,15 @@ const App = () => (
             <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute requiredRole="nurse"><NurseAlerts /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
+            
+            {/* Family Carer routes */}
+            <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="family_carer"><FamilyHome /></ProtectedRoute>} />
+            <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
+            <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyInvitations /></ProtectedRoute>} />
+            
+            {/* Facility Admin routes */}
+            <Route path="/dashboard/facility" element={<ProtectedRoute requiredRole="facility_admin"><FacilityHome /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/settings" element={<ProtectedRoute requiredRole="facility_admin"><FacilitySettings /></ProtectedRoute>} />
             
             {/* Admin routes */}
             <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />

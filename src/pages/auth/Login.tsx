@@ -25,12 +25,16 @@ export default function Login() {
       // Direct role-based redirect
       if (roles.includes('admin')) {
         navigate('/dashboard/admin');
+      } else if (roles.includes('facility_admin')) {
+        navigate('/dashboard/facility');
       } else if (roles.includes('nurse')) {
         navigate('/dashboard/nurse');
+      } else if (roles.includes('family_carer')) {
+        navigate('/dashboard/family');
       } else if (roles.includes('member')) {
         navigate('/dashboard/member');
       } else {
-        navigate('/dashboard');
+        navigate('/dashboard/member'); // Default fallback
       }
     }
   }, [user, roles, authLoading, navigate]);
