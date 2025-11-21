@@ -157,8 +157,8 @@ const App = () => (
             <Route path="/dashboard/admin/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-chat" element={<ProtectedRoute requiredRole="admin"><AIChatPage /></ProtectedRoute>} />
             
-            {/* Shared routes - redirect old AI chat route */}
-            <Route path="/dashboard/ai-chat" element={<Navigate to="/dashboard/member/ai-chat" replace />} />
+            {/* Shared routes */}
+            <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<Navigate to="/settings" replace />} />
             <Route path="*" element={<NotFound />} />
