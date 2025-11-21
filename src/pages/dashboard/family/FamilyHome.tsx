@@ -20,7 +20,7 @@ export default function FamilyHome() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user) {
+    if (user && !loading) {
       const timeout = setTimeout(() => {
         if (loading) {
           setError('Loading is taking longer than expected. Please refresh the page.');
@@ -50,6 +50,7 @@ export default function FamilyHome() {
       if (!carerData) {
         console.log("No family carer record found for user");
         setError("No family carer profile found. Please contact support.");
+        setLoading(false);
         return;
       }
 

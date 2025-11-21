@@ -21,7 +21,7 @@ export default function FacilityHome() {
   const [facilityInfo, setFacilityInfo] = useState<any>(null);
 
   useEffect(() => {
-    if (user) {
+    if (user && !loading) {
       const timeout = setTimeout(() => {
         if (loading) {
           setError('Loading is taking longer than expected. Please refresh the page.');
@@ -44,45 +44,53 @@ export default function FacilityHome() {
         .eq("user_id", user?.id)
         .maybeSingle();
 
-      if (staffError) throw staffError;
-
-      if (staffData) {
-        setFacilityInfo(staffData.facilities);
-        
-        const facilityId = staffData.facility_id;
-        
-        const [residentsResult, staffResult, alertsResult] = await Promise.all([
-          supabase
-            .from("facility_residents")
-            .select("id", { count: "exact", head: true })
-            .eq("facility_id", facilityId)
-            .is("discharge_date", null),
-          supabase
-            .from("facility_staff")
-            .select("id", { count: "exact", head: true })
-            .eq("facility_id", facilityId),
-          supabase
-            .from("alerts")
-            .select("id, members!inner(id), facility_residents!inner(facility_id)", { count: "exact", head: true })
-            .eq("status", "new")
-            .eq("facility_residents.facility_id", facilityId),
-        ]);
-
-        if (residentsResult.error) throw residentsResult.error;
-        if (staffResult.error) throw staffResult.error;
-        if (alertsResult.error) throw alertsResult.error;
-
-        const totalBeds = staffData.facilities?.bed_capacity || 0;
-        const occupiedBeds = residentsResult.count || 0;
-        const occupancyRate = totalBeds > 0 ? Math.round((occupiedBeds / totalBeds) * 100) : 0;
-
-        setStats({
-          totalResidents: residentsResult.count || 0,
-          occupancyRate,
-          staffCount: staffResult.count || 0,
-          activeAlerts: alertsResult.count || 0,
-        });
+      if (staffError) {
+        console.error("Error fetching staff data:", staffError);
+        throw staffError;
       }
+
+      if (!staffData) {
+        console.log("No facility staff record found for user");
+        setError("No facility staff profile found. Please contact support.");
+        setLoading(false);
+        return;
+      }
+
+      setFacilityInfo(staffData.facilities);
+        
+      const facilityId = staffData.facility_id;
+      
+      const [residentsResult, staffResult, alertsResult] = await Promise.all([
+        supabase
+          .from("facility_residents")
+          .select("id", { count: "exact", head: true })
+          .eq("facility_id", facilityId)
+          .is("discharge_date", null),
+        supabase
+          .from("facility_staff")
+          .select("id", { count: "exact", head: true })
+          .eq("facility_id", facilityId),
+        supabase
+          .from("alerts")
+          .select("id, members!inner(id), facility_residents!inner(facility_id)", { count: "exact", head: true })
+          .eq("status", "new")
+          .eq("facility_residents.facility_id", facilityId),
+      ]);
+
+      if (residentsResult.error) throw residentsResult.error;
+      if (staffResult.error) throw staffResult.error;
+      if (alertsResult.error) throw alertsResult.error;
+
+      const totalBeds = staffData.facilities?.bed_capacity || 0;
+      const occupiedBeds = residentsResult.count || 0;
+      const occupancyRate = totalBeds > 0 ? Math.round((occupiedBeds / totalBeds) * 100) : 0;
+
+      setStats({
+        totalResidents: residentsResult.count || 0,
+        occupancyRate,
+        staffCount: staffResult.count || 0,
+        activeAlerts: alertsResult.count || 0,
+      });
     } catch (err) {
       console.error("Error fetching facility data:", err);
       setError("Failed to load facility dashboard. Please refresh the page.");
