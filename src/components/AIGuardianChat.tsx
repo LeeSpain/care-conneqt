@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import { MessageSquare, Send, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -15,6 +16,9 @@ interface Message {
 
 export const AIGuardianChat = () => {
   const { user } = useAuth();
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
+  
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -61,7 +65,11 @@ export const AIGuardianChat = () => {
 
       // Get AI response
       const { data, error } = await supabase.functions.invoke('ai-guardian-chat', {
-        body: { messages: [...messages, userMessage], memberId }
+        body: { 
+          messages: [...messages, userMessage], 
+          memberId,
+          language: currentLanguage 
+        }
       });
 
       if (error) throw error;
