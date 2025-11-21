@@ -86,18 +86,40 @@ export default function NurseHome() {
   return (
     <NurseDashboardLayout title="Nurse Dashboard">
       <div className="space-y-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">
-              Welcome back, {profile?.first_name || 'Nurse'}
-            </h2>
-            <p className="text-muted-foreground">
-              {formatDate(currentDateTime, 'EEEE, MMMM d, yyyy • HH:mm')}
-            </p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="flex justify-between items-start">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight">
+                Welcome back, {profile?.first_name || 'Nurse'}
+              </h2>
+              <p className="text-muted-foreground">
+                {formatDate(currentDateTime, 'EEEE, MMMM d, yyyy • HH:mm')}
+              </p>
+            </div>
+            <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading}>
+              <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+            </Button>
           </div>
-          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading}>
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-          </Button>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center gap-2 pb-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={inekeAvatar} alt="Ineke" />
+                <AvatarFallback>IN</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <CardTitle className="text-base">Ineke Assistant</CardTitle>
+                <CardDescription className="text-xs">Your AI nursing support</CardDescription>
+              </div>
+              <Badge variant="secondary" className="bg-green-500/10 text-green-700 dark:text-green-400">
+                <Bot className="h-3 w-3 mr-1" />
+                Online
+              </Badge>
+            </CardHeader>
+            <CardContent>
+              <InekeAssistant />
+            </CardContent>
+          </Card>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -170,78 +192,56 @@ export default function NurseHome() {
           </Card>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle>Recent Tasks</CardTitle>
-              <CardDescription>Your most recent care tasks</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {showSkeleton ? (
-                <div className="space-y-3">
-                  <Skeleton className="h-20 w-full" />
-                  <Skeleton className="h-20 w-full" />
-                  <Skeleton className="h-20 w-full" />
-                </div>
-              ) : recentTasks.length > 0 ? (
-                <div className="space-y-3">
-                  {recentTasks.map((task) => (
-                    <div
-                      key={task.id}
-                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
-                      onClick={() => navigate('/dashboard/nurse/tasks')}
-                    >
-                      <div className="flex items-center gap-3 flex-1">
-                        <div className={`h-2 w-2 rounded-full ${getPriorityColor(task.priority)}`} />
-                        <div className="flex-1">
-                          <div className="font-medium">{task.title}</div>
-                          <div className="text-sm text-muted-foreground">{task.task_type}</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className={getStatusColor(task.status)}>
-                          <span className="flex items-center gap-1">
-                            {getStatusIcon(task.status)}
-                            <span className="capitalize">{task.status.replace('_', ' ')}</span>
-                          </span>
-                        </Badge>
-                        {task.due_date && (
-                          <span className="text-xs text-muted-foreground">
-                            Due: {formatDate(new Date(task.due_date), 'MMM d')}
-                          </span>
-                        )}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Tasks</CardTitle>
+            <CardDescription>Your most recent care tasks</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {showSkeleton ? (
+              <div className="space-y-3">
+                <Skeleton className="h-20 w-full" />
+                <Skeleton className="h-20 w-full" />
+                <Skeleton className="h-20 w-full" />
+              </div>
+            ) : recentTasks.length > 0 ? (
+              <div className="space-y-3">
+                {recentTasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+                    onClick={() => navigate('/dashboard/nurse/tasks')}
+                  >
+                    <div className="flex items-center gap-3 flex-1">
+                      <div className={`h-2 w-2 rounded-full ${getPriorityColor(task.priority)}`} />
+                      <div className="flex-1">
+                        <div className="font-medium">{task.title}</div>
+                        <div className="text-sm text-muted-foreground">{task.task_type}</div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  No recent tasks to display
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center gap-2 pb-3">
-              <Avatar className="h-10 w-10">
-                <AvatarImage src={inekeAvatar} alt="Ineke" />
-                <AvatarFallback>IN</AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <CardTitle className="text-base">Ineke Assistant</CardTitle>
-                <CardDescription className="text-xs">Your AI nursing support</CardDescription>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className={getStatusColor(task.status)}>
+                        <span className="flex items-center gap-1">
+                          {getStatusIcon(task.status)}
+                          <span className="capitalize">{task.status.replace('_', ' ')}</span>
+                        </span>
+                      </Badge>
+                      {task.due_date && (
+                        <span className="text-xs text-muted-foreground">
+                          Due: {formatDate(new Date(task.due_date), 'MMM d')}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <Badge variant="secondary" className="bg-green-500/10 text-green-700 dark:text-green-400">
-                <Bot className="h-3 w-3 mr-1" />
-                Online
-              </Badge>
-            </CardHeader>
-            <CardContent>
-              <InekeAssistant />
-            </CardContent>
-          </Card>
-        </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                No recent tasks to display
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
