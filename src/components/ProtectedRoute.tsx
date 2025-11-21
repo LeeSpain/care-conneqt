@@ -27,10 +27,16 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
         
         if (!hasRequiredRole) {
           // Redirect to appropriate dashboard based on user's actual role
-          if (roles.includes('nurse')) {
-            navigate('/dashboard');
+          if (roles.includes('admin')) {
+            navigate('/dashboard/admin');
+          } else if (roles.includes('facility_admin')) {
+            navigate('/dashboard/facility');
+          } else if (roles.includes('nurse')) {
+            navigate('/dashboard/nurse');
+          } else if (roles.includes('family_carer')) {
+            navigate('/dashboard/family');
           } else if (roles.includes('member')) {
-            navigate('/dashboard');
+            navigate('/dashboard/member');
           } else {
             navigate('/auth/login');
           }
