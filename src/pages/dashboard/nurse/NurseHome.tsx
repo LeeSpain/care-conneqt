@@ -100,26 +100,6 @@ export default function NurseHome() {
               <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
             </Button>
           </div>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center gap-2 pb-3">
-              <Avatar className="h-10 w-10">
-                <AvatarImage src={inekeAvatar} alt="Ineke" />
-                <AvatarFallback>IN</AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <CardTitle className="text-base">Ineke Assistant</CardTitle>
-                <CardDescription className="text-xs">Your AI nursing support</CardDescription>
-              </div>
-              <Badge variant="secondary" className="bg-green-500/10 text-green-700 dark:text-green-400">
-                <Bot className="h-3 w-3 mr-1" />
-                Online
-              </Badge>
-            </CardHeader>
-            <CardContent>
-              <InekeAssistant />
-            </CardContent>
-          </Card>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -306,6 +286,13 @@ export default function NurseHome() {
           </Card>
         </div>
       </div>
+
+      {/* Ineke Assistant - Floating */}
+      <InekeAssistant 
+        context={{
+          tasks: recentTasks
+        }} 
+      />
     </NurseDashboardLayout>
   );
 }
