@@ -1,11 +1,28 @@
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { useAuth } from '@/hooks/useAuth';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
+import { FamilyDashboardLayout } from '@/components/FamilyDashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
+import { FacilityDashboardLayout } from '@/components/FacilityDashboardLayout';
+import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { AIGuardianChat } from '@/components/AIGuardianChat';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MessageSquare, Shield, Heart, Clock } from 'lucide-react';
 
 export default function AIChatPage() {
+  const { roles } = useAuth();
+
+  const Layout = roles.includes('admin')
+    ? AdminDashboardLayout
+    : roles.includes('facility_admin')
+    ? FacilityDashboardLayout
+    : roles.includes('nurse')
+    ? NurseDashboardLayout
+    : roles.includes('family_carer')
+    ? FamilyDashboardLayout
+    : MemberDashboardLayout;
+
   return (
-    <DashboardLayout title="AI Guardian">
+    <Layout title="AI Guardian">
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <AIGuardianChat />
@@ -56,6 +73,6 @@ export default function AIChatPage() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }

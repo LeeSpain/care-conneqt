@@ -1,11 +1,25 @@
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { useAuth } from '@/hooks/useAuth';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
+import { FamilyDashboardLayout } from '@/components/FamilyDashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
+import { FacilityDashboardLayout } from '@/components/FacilityDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Video, User } from 'lucide-react';
 
 export default function SchedulePage() {
+  const { roles } = useAuth();
+
+  const Layout = roles.includes('family_carer') 
+    ? FamilyDashboardLayout
+    : roles.includes('nurse')
+    ? NurseDashboardLayout
+    : roles.includes('facility_admin')
+    ? FacilityDashboardLayout
+    : MemberDashboardLayout;
+
   return (
-    <DashboardLayout title="Schedule & Appointments">
+    <Layout title="Schedule & Appointments">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -110,6 +124,6 @@ export default function SchedulePage() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 }
