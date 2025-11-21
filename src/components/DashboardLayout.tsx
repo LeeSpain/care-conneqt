@@ -21,7 +21,7 @@ interface DashboardLayoutProps {
 }
 
 export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
-  const { profile, signOut, roles } = useAuth();
+  const { profile, signOut, roles, loading } = useAuth();
   const navigate = useNavigate();
 
   const getSettingsPath = () => {
@@ -66,7 +66,7 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={profile?.avatar_url || ''} alt={profile?.email || ''} />
-                      <AvatarFallback>{initials}</AvatarFallback>
+                      <AvatarFallback>{loading ? '...' : initials}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>

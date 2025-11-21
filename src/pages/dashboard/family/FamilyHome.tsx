@@ -151,15 +151,8 @@ export default function FamilyHome() {
     fetchStats();
   };
 
-  if (loading) {
-    return (
-      <FamilyDashboardLayout title="Family Dashboard">
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      </FamilyDashboardLayout>
-    );
-  }
+  // Show skeleton immediately - no blocking
+  const showSkeleton = loading || loadingStats;
 
   if (error && stats.connectedMembers === 0) {
     return (
@@ -187,8 +180,8 @@ export default function FamilyHome() {
               Monitor and support your loved ones' care journey
             </p>
           </div>
-          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
-            <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={showSkeleton}>
+            <RefreshCw className={`h-4 w-4 ${showSkeleton ? 'animate-spin' : ''}`} />
           </Button>
         </div>
 
@@ -199,7 +192,7 @@ export default function FamilyHome() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -216,7 +209,7 @@ export default function FamilyHome() {
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -233,7 +226,7 @@ export default function FamilyHome() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -250,7 +243,7 @@ export default function FamilyHome() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
