@@ -71,11 +71,11 @@ export const MemberDashboardLayout = ({ children, title }: MemberDashboardLayout
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/settings/profile')}>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard/member/settings')}>
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard/member/settings')}>
                     <Settings className="mr-2 h-4 w-4" />
                     Settings
                   </DropdownMenuItem>

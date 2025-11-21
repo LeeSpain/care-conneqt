@@ -16,6 +16,7 @@ import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
 
 // Member pages
 import MemberHome from "./pages/dashboard/member/MemberHome";
+import MemberSettings from "./pages/dashboard/member/MemberSettings";
 import DeviceManagement from "./pages/dashboard/DeviceManagement";
 import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
 import SchedulePage from "./pages/dashboard/SchedulePage";
@@ -86,6 +87,7 @@ const App = () => (
             
             {/* Member routes */}
             <Route path="/dashboard/member" element={<ProtectedRoute requiredRole="member"><MemberHome /></ProtectedRoute>} />
+            <Route path="/dashboard/member/settings" element={<ProtectedRoute requiredRole="member"><MemberSettings /></ProtectedRoute>} />
             <Route path="/dashboard/member/devices" element={<ProtectedRoute requiredRole="member"><DeviceManagement /></ProtectedRoute>} />
             <Route path="/dashboard/member/family" element={<ProtectedRoute requiredRole="member"><FamilyInvitations /></ProtectedRoute>} />
             <Route path="/dashboard/member/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
