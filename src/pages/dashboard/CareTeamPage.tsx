@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
+import { FamilyDashboardLayout } from '@/components/FamilyDashboardLayout';
+import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
+import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -11,10 +14,20 @@ import { Phone, Mail, Video, Calendar, MessageSquare, Stethoscope, Heart } from 
 import { CareTeamMessaging } from '@/components/CareTeamMessaging';
 
 export default function CareTeamPage() {
-  const { user } = useAuth();
+  const { user, roles } = useAuth();
   const [loading, setLoading] = useState(true);
   const [primaryNurse, setPrimaryNurse] = useState<any>(null);
   const [memberId, setMemberId] = useState<string>('');
+
+  // Select appropriate layout based on user role
+  let Layout = MemberDashboardLayout;
+  if (roles.includes('admin')) {
+    Layout = AdminDashboardLayout;
+  } else if (roles.includes('nurse')) {
+    Layout = NurseDashboardLayout;
+  } else if (roles.includes('family_carer')) {
+    Layout = FamilyDashboardLayout;
+  }
 
   useEffect(() => {
     const fetchCareTeam = async () => {
@@ -76,16 +89,16 @@ export default function CareTeamPage() {
 
   if (loading) {
     return (
-      <MemberDashboardLayout title="Care Team">
+      <Layout title="Care Team">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </MemberDashboardLayout>
+      </Layout>
     );
   }
 
   return (
-    <MemberDashboardLayout title="Care Team">
+    <Layout title="Care Team">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -268,6 +281,6 @@ export default function CareTeamPage() {
           </CardContent>
         </Card>
       </div>
-    </MemberDashboardLayout>
+    </Layout>
   );
 }

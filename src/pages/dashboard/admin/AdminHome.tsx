@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminHome() {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -208,30 +210,34 @@ export default function AdminHome() {
               <CardDescription>Common administrative tasks</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-2 md:grid-cols-2">
-              <button 
-                onClick={() => window.location.href = '/dashboard/admin/nurses'} 
-                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/dashboard/admin/nurses')}
+                className="justify-start"
               >
                 Add Nurse
-              </button>
-              <button 
-                onClick={() => window.location.href = '/dashboard/admin/members'} 
-                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/dashboard/admin/members')}
+                className="justify-start"
               >
                 Add Member
-              </button>
-              <button 
-                onClick={() => window.location.href = '/dashboard/admin/facilities'} 
-                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/dashboard/admin/facilities')}
+                className="justify-start"
               >
                 Add Facility
-              </button>
-              <button 
-                onClick={() => window.location.href = '/dashboard/admin/announcements'} 
-                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/dashboard/admin/announcements')}
+                className="justify-start"
               >
                 New Announcement
-              </button>
+              </Button>
             </CardContent>
           </Card>
 
