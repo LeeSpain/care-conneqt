@@ -40,26 +40,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchProfile = async (userId: string) => {
     try {
-      console.log('Fetching profile for user:', userId);
-      
       // Parallelize profile and roles fetch for better performance
       const [profileResult, rolesResult] = await Promise.all([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('user_roles').select('role').eq('user_id', userId)
       ]);
 
-      // Add explicit error checking
-      if (profileResult.error) {
+      // Handle errors silently in production
+      if (profileResult.error && import.meta.env.DEV) {
         console.error('Profile fetch error:', profileResult.error);
       }
-      if (rolesResult.error) {
+      if (rolesResult.error && import.meta.env.DEV) {
         console.error('Roles fetch error:', rolesResult.error);
       }
 
       const profileData = profileResult.data;
       const userRoles = rolesResult.data?.map(r => r.role as AppRole) || [];
-      
-      console.log('Fetched roles:', userRoles);
 
       setProfile(profileData);
       setRoles(userRoles);
@@ -78,7 +74,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('i18nextLng', profileData.language);
       }
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      if (import.meta.env.DEV) {
+        console.error('Error fetching profile:', error);
+      }
       setRoles([]); // Explicitly set empty on error
     } finally {
       setLoading(false);
@@ -99,7 +97,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       async (event, session) => {
         if (!mounted) return;
         
-        console.log('Auth state changed:', event, session?.user?.id);
         setSession(session);
         setUser(session?.user ?? null);
         

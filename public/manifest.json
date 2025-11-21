@@ -1,0 +1,22 @@
+{
+  "name": "Care Conneqt",
+  "short_name": "Care Conneqt",
+  "description": "Nurse-led, AI-powered remote care through connected devices. 24/7 monitoring for seniors across Spain, UK, and Netherlands.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e5a9c",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["health", "medical", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}
