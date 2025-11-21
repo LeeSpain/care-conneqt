@@ -111,6 +111,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (session?.user && !profileFetchedRef.current) {
           console.log('[onAuthStateChange] Fetching profile for user:', session.user.id);
           profileFetchedRef.current = true;
+          setLoading(true);
           await fetchProfile(session.user.id);
         } else if (!session?.user) {
           console.log('[onAuthStateChange] No user - clearing state');
@@ -133,6 +134,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         profileFetchedRef.current = true;
         setSession(session);
         setUser(session.user);
+        setLoading(true);
         await fetchProfile(session.user.id);
       } else if (!session?.user) {
         console.log('[getSession] No user found - setting loading false');
