@@ -7,6 +7,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -16,10 +19,24 @@ const languages = [
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
+  const { user, profile } = useAuth();
 
-  const changeLanguage = (lng: string) => {
+  const changeLanguage = async (lng: string) => {
     i18n.changeLanguage(lng);
     localStorage.setItem('i18nextLng', lng);
+    
+    // Update user profile if logged in
+    if (user && profile) {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ language: lng })
+        .eq('id', user.id);
+      
+      if (error) {
+        console.error('Failed to update language preference:', error);
+        toast.error('Failed to save language preference');
+      }
+    }
   };
 
   const currentLang = i18n.language.split('-')[0];
