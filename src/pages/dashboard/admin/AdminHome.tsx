@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,8 +20,14 @@ export default function AdminHome() {
   const [loading, setLoading] = useState(true);
   const [loadingStats, setLoadingStats] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const fetchInProgress = useRef(false);
 
   const fetchStats = async () => {
+    if (fetchInProgress.current) return;
+
+    fetchInProgress.current = true;
+    setLoadingStats(true);
+
     const startTime = performance.now();
     console.log('[AdminHome] Starting data fetch');
 
@@ -67,6 +73,7 @@ export default function AdminHome() {
     } finally {
       setLoading(false);
       setLoadingStats(false);
+      fetchInProgress.current = false;
     }
   };
 
