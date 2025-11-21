@@ -190,7 +190,7 @@ export default function NurseHome() {
     fetchNurseData();
   };
 
-  if (loading && !loadingStats) {
+  if (loading) {
     return (
       <NurseDashboardLayout title="Nurse Dashboard">
         <div className="flex items-center justify-center h-64">

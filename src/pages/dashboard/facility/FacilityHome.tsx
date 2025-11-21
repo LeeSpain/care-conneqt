@@ -158,7 +158,7 @@ export default function FacilityHome() {
     fetchFacilityData();
   };
 
-  if (loading && !loadingStats) {
+  if (loading) {
     return (
       <FacilityDashboardLayout title="Facility Dashboard">
         <div className="flex items-center justify-center h-64">
