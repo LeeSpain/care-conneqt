@@ -29,7 +29,7 @@ export function MemberSidebar() {
     { title: t('sidebar.devices'), url: "/dashboard/member/devices", icon: Activity },
     { title: t('sidebar.family'), url: "/dashboard/member/family", icon: Heart },
     { title: t('sidebar.subscription'), url: "/dashboard/member/subscriptions", icon: CreditCard },
-    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/member/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/dashboard/member/settings", icon: Settings },
   ];
 

@@ -35,7 +35,7 @@ export function AppSidebar() {
     { title: t('sidebar.alerts'), url: "/dashboard/nurse/alerts", icon: AlertTriangle },
     { title: t('sidebar.messages'), url: "/dashboard/nurse/messages", icon: Mail },
     { title: t('sidebar.healthMonitoring'), url: "/dashboard/nurse/health", icon: Activity },
-    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/nurse/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/dashboard/nurse/settings", icon: Settings },
   ] : isMember ? [
     { title: t('sidebar.dashboard'), url: "/dashboard/member", icon: Home },
@@ -44,7 +44,7 @@ export function AppSidebar() {
     { title: t('sidebar.devices'), url: "/dashboard/member/devices", icon: Package },
     { title: t('sidebar.family'), url: "/dashboard/member/family", icon: Users },
     { title: t('sidebar.subscription'), url: "/dashboard/member/subscriptions", icon: CreditCard },
-    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/member/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/dashboard/member/settings", icon: Settings },
   ] : [
     { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
@@ -53,7 +53,7 @@ export function AppSidebar() {
     { title: t('sidebar.devices'), url: "/dashboard/devices", icon: Package },
     { title: t('sidebar.family'), url: "/dashboard/family", icon: Users },
     { title: t('sidebar.subscription'), url: "/dashboard/subscriptions", icon: CreditCard },
-    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/family/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/settings", icon: Settings },
   ];
 
