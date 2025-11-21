@@ -40,14 +40,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchProfile = async (userId: string) => {
     try {
+      console.log('Fetching profile for user:', userId);
+      
       // Parallelize profile and roles fetch for better performance
       const [profileResult, rolesResult] = await Promise.all([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('user_roles').select('role').eq('user_id', userId)
       ]);
 
+      // Add explicit error checking
+      if (profileResult.error) {
+        console.error('Profile fetch error:', profileResult.error);
+      }
+      if (rolesResult.error) {
+        console.error('Roles fetch error:', rolesResult.error);
+      }
+
       const profileData = profileResult.data;
       const userRoles = rolesResult.data?.map(r => r.role as AppRole) || [];
+      
+      console.log('Fetched roles:', userRoles);
 
       setProfile(profileData);
       setRoles(userRoles);
@@ -60,15 +72,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         timestamp: Date.now()
       }));
       
-      // Apply language preference in background (non-blocking)
-      if (profileData?.language) {
-        setTimeout(() => {
-          i18n.changeLanguage(profileData.language);
-          localStorage.setItem('i18nextLng', profileData.language);
-        }, 0);
+      // Apply language preference immediately (no setTimeout)
+      if (profileData?.language && profileData.language !== i18n.language) {
+        i18n.changeLanguage(profileData.language);
+        localStorage.setItem('i18nextLng', profileData.language);
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
+      setRoles([]); // Explicitly set empty on error
     } finally {
       setLoading(false);
     }
@@ -82,36 +93,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let mounted = true;
-
-    // Try to load cached auth state for instant loading
-    const cachedAuth = sessionStorage.getItem('auth_cached');
-    if (cachedAuth) {
-      try {
-        const { user: cachedUser, profile: cachedProfile, roles: cachedRoles, timestamp } = JSON.parse(cachedAuth);
-        // Use cache if less than 1 minute old
-        if (Date.now() - timestamp < 60000) {
-          setUser(cachedUser);
-          setProfile(cachedProfile);
-          setRoles(cachedRoles);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Error loading cached auth:', error);
-        sessionStorage.removeItem('auth_cached');
-      }
-    }
+    let profileFetched = false;
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (!mounted) return;
         
-        console.log('Auth state changed:', event);
+        console.log('Auth state changed:', event, session?.user?.id);
         setSession(session);
         setUser(session?.user ?? null);
         
-        if (session?.user) {
+        if (session?.user && !profileFetched) {
+          profileFetched = true;
           await fetchProfile(session.user.id);
-        } else {
+        } else if (!session?.user) {
           setProfile(null);
           setRoles([]);
           setLoading(false);
@@ -120,17 +115,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
+    // Get initial session - but DON'T call fetchProfile again
+    // The onAuthStateChange will handle it
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!mounted) return;
       
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchProfile(session.user.id);
-      } else {
+      // Only set loading to false if no session
+      if (!session?.user) {
         setLoading(false);
       }
+      // If there IS a session, onAuthStateChange will handle the fetchProfile
     });
 
     return () => {

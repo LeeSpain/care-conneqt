@@ -106,12 +106,13 @@ const queryClient = new QueryClient({
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
+      <Suspense fallback={<PageLoader />}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
             {/* Public routes - no lazy loading */}
             <Route path="/" element={<Index />} />
             <Route path="/personal-care" element={<PersonalCare />} />
@@ -513,6 +514,7 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
+      </Suspense>
     </AuthProvider>
   </QueryClientProvider>
 );
