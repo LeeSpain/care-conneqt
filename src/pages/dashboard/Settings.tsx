@@ -6,10 +6,14 @@ import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { Bell, Lock, Globe, User } from 'lucide-react';
+import { Bell, Lock, Globe, User, Bot } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Settings() {
   const { t } = useTranslation(['common', 'dashboard']);
+  const { roles } = useAuth();
+  const isAdmin = roles.includes('admin');
 
   return (
     <DashboardLayout title={t('common:sidebar.settings')}>
@@ -129,6 +133,28 @@ export default function Settings() {
             </div>
           </CardContent>
         </Card>
+
+        {/* AI Agents Settings - Admin Only */}
+        {isAdmin && (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Bot className="h-5 w-5" />
+                <CardTitle>AI Agents</CardTitle>
+              </div>
+              <CardDescription>
+                Configure and manage Clara (Customer Service) and Ineke (Nurse Support) AI assistants
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild>
+                <Link to="/dashboard/settings/ai-agents">
+                  Manage AI Agents
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </DashboardLayout>
   );

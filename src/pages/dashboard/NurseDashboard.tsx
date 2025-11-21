@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Users, ClipboardList, AlertTriangle, CheckCircle, MessageSquare, Activity, ArrowRight, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
+import { InekeAssistant } from '@/components/nurse/InekeAssistant';
 
 export default function NurseDashboard() {
   const { user } = useAuth();
@@ -292,6 +293,7 @@ export default function NurseDashboard() {
           </Card>
         </div>
       </div>
+      <InekeAssistant />
     </NurseDashboardLayout>
   );
 }
