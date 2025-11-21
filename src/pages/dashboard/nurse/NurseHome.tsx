@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, AlertTriangle, RefreshCw, Bot } from "lucide-react";
 import { formatDate } from '@/lib/intl';
 import { useToast } from '@/hooks/use-toast';
+import inekeAvatar from "@/assets/ineke-avatar.png";
 
 export default function NurseHome() {
   const { user, profile } = useAuth();
@@ -255,9 +257,12 @@ export default function NurseHome() {
             <CardContent className="pt-6">
               <div className="flex flex-col h-full">
                 <div className="flex items-start gap-3 mb-4">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
-                    <Bot className="h-6 w-6 text-white" />
-                  </div>
+                  <Avatar className="h-12 w-12 flex-shrink-0 ring-2 ring-purple-500/20">
+                    <AvatarImage src={inekeAvatar} alt="Ineke AI Nursing Assistant" />
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                      <Bot className="h-6 w-6" />
+                    </AvatarFallback>
+                  </Avatar>
                   <div>
                     <h3 className="font-semibold text-lg">Ineke</h3>
                     <p className="text-xs text-muted-foreground">AI Nursing Assistant</p>
