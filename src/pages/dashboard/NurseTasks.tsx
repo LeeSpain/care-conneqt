@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,22 +28,35 @@ export default function NurseTasks() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
   const [createTaskOpen, setCreateTaskOpen] = useState(false);
+  const fetchInProgress = useRef(false);
 
   useEffect(() => {
     fetchTasks();
+    
+    return () => {
+      fetchInProgress.current = false;
+    };
   }, [user]);
 
   const fetchTasks = async () => {
-    if (!user) return;
+    if (!user || fetchInProgress.current) return;
+    
+    fetchInProgress.current = true;
 
-    const { data } = await supabase
-      .from('nurse_tasks')
-      .select('*')
-      .eq('nurse_id', user.id)
-      .order('created_at', { ascending: false });
+    try {
+      const { data } = await supabase
+        .from('nurse_tasks')
+        .select('*')
+        .eq('nurse_id', user.id)
+        .order('created_at', { ascending: false });
 
-    setTasks((data || []) as Task[]);
-    setLoading(false);
+      setTasks((data || []) as Task[]);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    } finally {
+      setLoading(false);
+      fetchInProgress.current = false;
+    }
   };
 
   const completeTask = async (taskId: string) => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { FamilyDashboardLayout } from '@/components/FamilyDashboardLayout';
 import { NurseDashboardLayout } from '@/components/NurseDashboardLayout';
@@ -18,6 +18,7 @@ export default function CareTeamPage() {
   const [loading, setLoading] = useState(true);
   const [primaryNurse, setPrimaryNurse] = useState<any>(null);
   const [memberId, setMemberId] = useState<string>('');
+  const fetchInProgress = useRef(false);
 
   // Select appropriate layout based on user role
   let Layout = MemberDashboardLayout;
@@ -31,7 +32,9 @@ export default function CareTeamPage() {
 
   useEffect(() => {
     const fetchCareTeam = async () => {
-      if (!user) return;
+      if (!user || fetchInProgress.current) return;
+      
+      fetchInProgress.current = true;
 
       // Get member ID
       const { data: member } = await supabase
@@ -82,9 +85,14 @@ export default function CareTeamPage() {
       }
 
       setLoading(false);
+      fetchInProgress.current = false;
     };
 
     fetchCareTeam();
+    
+    return () => {
+      fetchInProgress.current = false;
+    };
   }, [user]);
 
   if (loading) {

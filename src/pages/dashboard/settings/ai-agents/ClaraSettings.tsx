@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -36,12 +36,24 @@ export default function ClaraSettings() {
   const [agent, setAgent] = useState<AgentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const fetchInProgress = useRef(false);
 
   useEffect(() => {
     fetchAgent();
+    
+    return () => {
+      fetchInProgress.current = false;
+    };
   }, []);
 
   const fetchAgent = async () => {
+    if (fetchInProgress.current) {
+      console.log('[ClaraSettings] Fetch already in progress, skipping');
+      return;
+    }
+    
+    fetchInProgress.current = true;
+    
     try {
       const { data: agentData, error: agentError } = await supabase
         .from('ai_agents')
@@ -68,6 +80,7 @@ export default function ClaraSettings() {
       toast.error('Failed to load agent configuration');
     } finally {
       setLoading(false);
+      fetchInProgress.current = false;
     }
   };
 
