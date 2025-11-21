@@ -3,23 +3,24 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { roles, loading } = useAuth();
+  const { roles, loading, rolesLoaded } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Wait for roles to load completely before making routing decisions
-    if (loading) {
+    // Wait for both auth loading AND roles to be loaded before making routing decisions
+    if (loading || !rolesLoaded) {
+      console.log('[Dashboard] Still loading... loading:', loading, 'rolesLoaded:', rolesLoaded);
       return;
     }
 
+    console.log('[Dashboard] Routing user with roles:', roles);
+    
     // If still no roles after loading completes, default to member dashboard
     if (roles.length === 0) {
-      console.log('[Dashboard] No roles found after loading complete, defaulting to member. Loading:', loading, 'Roles:', roles);
+      console.log('[Dashboard] No roles found, defaulting to member');
       navigate('/dashboard/member', { replace: true });
       return;
     }
-    
-    console.log('[Dashboard] Routing user with roles:', roles);
 
     const urlParams = new URLSearchParams(window.location.search);
     const devMode = urlParams.get('devmode') === 'true';
@@ -41,7 +42,7 @@ export default function Dashboard() {
     } else if (roles.includes('member')) {
       navigate('/dashboard/member', { replace: true });
     }
-  }, [roles, loading, navigate]);
+  }, [roles, loading, rolesLoaded, navigate]);
 
   if (loading) {
     return (
