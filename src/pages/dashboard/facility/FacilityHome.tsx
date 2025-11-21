@@ -21,7 +21,7 @@ export default function FacilityHome() {
   const [facilityInfo, setFacilityInfo] = useState<any>(null);
 
   useEffect(() => {
-    if (user && !loading) {
+    if (user) {
       const timeout = setTimeout(() => {
         if (loading) {
           setError('Loading is taking longer than expected. Please refresh the page.');
