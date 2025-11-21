@@ -33,25 +33,25 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
       if (!hasRequiredRole && roles.length > 0) {
         // Redirect to appropriate dashboard based on user's actual role
         if (roles.includes('admin')) {
-          navigate('/dashboard/admin');
+          navigate('/dashboard/admin', { replace: true });
         } else if (roles.includes('facility_admin')) {
-          navigate('/dashboard/facility');
+          navigate('/dashboard/facility', { replace: true });
         } else if (roles.includes('nurse')) {
-          navigate('/dashboard/nurse');
+          navigate('/dashboard/nurse', { replace: true });
         } else if (roles.includes('family_carer')) {
-          navigate('/dashboard/family');
+          navigate('/dashboard/family', { replace: true });
         } else if (roles.includes('member')) {
-          navigate('/dashboard/member');
+          navigate('/dashboard/member', { replace: true });
         }
         return;
       }
     }
 
     if (requireOnboarding && profile && !profile.onboarding_completed) {
-      navigate('/onboarding');
+      navigate('/onboarding', { replace: true });
       return;
     }
-  }, [user?.id, profile?.id, roles.join(','), loading, requiredRole, requireOnboarding, navigate]);
+  }, [loading, user, roles, profile?.onboarding_completed, requiredRole, requireOnboarding, navigate]);
 
   // Always render children immediately for progressive loading
   return <>{children}</>;
