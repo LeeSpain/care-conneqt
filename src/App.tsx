@@ -13,29 +13,44 @@ import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
+
+// Member pages
+import MemberHome from "./pages/dashboard/member/MemberHome";
 import DeviceManagement from "./pages/dashboard/DeviceManagement";
 import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
 import SchedulePage from "./pages/dashboard/SchedulePage";
 import CareTeamPage from "./pages/dashboard/CareTeamPage";
 import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
-import AIChatPage from "./pages/dashboard/AIChatPage";
-import Settings from "./pages/dashboard/Settings";
-import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
-import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
-import InekeSettings from "./pages/dashboard/settings/ai-agents/InekeSettings";
-import UserManagement from "./pages/dashboard/settings/UserManagement";
-import PersonalCare from "./pages/PersonalCare";
-import InstitutionalCare from "./pages/InstitutionalCare";
-import Devices from "./pages/Devices";
-import OurNurses from "./pages/OurNurses";
-import Guide from "./pages/Guide";
-import Conneqtivity from "./pages/Conneqtivity";
+
+// Nurse pages
+import NurseHome from "./pages/dashboard/nurse/NurseHome";
 import NurseMembers from "./pages/dashboard/nurse/NurseMembers";
 import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
 import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
 import NurseMessages from "./pages/dashboard/nurse/NurseMessages";
 import NurseHealthMonitoring from "./pages/dashboard/nurse/NurseHealthMonitoring";
 import NurseTasks from "./pages/dashboard/NurseTasks";
+
+// Admin pages
+import AdminHome from "./pages/dashboard/admin/AdminHome";
+import UserManagement from "./pages/dashboard/settings/UserManagement";
+import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
+import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
+import InekeSettings from "./pages/dashboard/settings/ai-agents/InekeSettings";
+import Analytics from "./pages/dashboard/admin/Analytics";
+import SystemSettings from "./pages/dashboard/admin/SystemSettings";
+
+// Shared pages
+import AIChatPage from "./pages/dashboard/AIChatPage";
+import Settings from "./pages/dashboard/Settings";
+
+// Public pages
+import PersonalCare from "./pages/PersonalCare";
+import InstitutionalCare from "./pages/InstitutionalCare";
+import Devices from "./pages/Devices";
+import OurNurses from "./pages/OurNurses";
+import Guide from "./pages/Guide";
+import Conneqtivity from "./pages/Conneqtivity";
 
 const queryClient = new QueryClient();
 
@@ -61,14 +76,16 @@ const App = () => (
             <Route path="/onboarding" element={<ProtectedRoute><MemberOnboarding /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             
-            {/* Member-only routes */}
-            <Route path="/dashboard/devices" element={<ProtectedRoute requiredRole="member"><DeviceManagement /></ProtectedRoute>} />
-            <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="member"><FamilyInvitations /></ProtectedRoute>} />
-            <Route path="/dashboard/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/care-team" element={<ProtectedRoute requiredRole="member"><CareTeamPage /></ProtectedRoute>} />
-            <Route path="/dashboard/subscriptions" element={<ProtectedRoute requiredRole="member"><SubscriptionsPage /></ProtectedRoute>} />
+            {/* Member routes */}
+            <Route path="/dashboard/member" element={<ProtectedRoute requiredRole="member"><MemberHome /></ProtectedRoute>} />
+            <Route path="/dashboard/member/devices" element={<ProtectedRoute requiredRole="member"><DeviceManagement /></ProtectedRoute>} />
+            <Route path="/dashboard/member/family" element={<ProtectedRoute requiredRole="member"><FamilyInvitations /></ProtectedRoute>} />
+            <Route path="/dashboard/member/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/member/care-team" element={<ProtectedRoute requiredRole="member"><CareTeamPage /></ProtectedRoute>} />
+            <Route path="/dashboard/member/subscriptions" element={<ProtectedRoute requiredRole="member"><SubscriptionsPage /></ProtectedRoute>} />
             
-            {/* Nurse-only routes */}
+            {/* Nurse routes */}
+            <Route path="/dashboard/nurse" element={<ProtectedRoute requiredRole="nurse"><NurseHome /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/members" element={<ProtectedRoute requiredRole="nurse"><NurseMembers /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute requiredRole="nurse"><NurseMemberDetail /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/tasks" element={<ProtectedRoute requiredRole="nurse"><NurseTasks /></ProtectedRoute>} />
@@ -76,14 +93,19 @@ const App = () => (
             <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
             
+            {/* Admin routes */}
+            <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/users" element={<ProtectedRoute requiredRole="admin"><UserManagement /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/analytics" element={<ProtectedRoute requiredRole="admin"><Analytics /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/system-settings" element={<ProtectedRoute requiredRole="admin"><SystemSettings /></ProtectedRoute>} />
+            
             {/* Shared routes */}
             <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-          <Route path="/dashboard/settings/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
-          <Route path="/dashboard/settings/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
-          <Route path="/dashboard/settings/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
-          <Route path="/dashboard/settings/users" element={<ProtectedRoute requiredRole="admin"><UserManagement /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -23,7 +23,7 @@ export function NurseSidebar() {
   const { t } = useTranslation('common');
 
   const navigationItems = [
-    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
+    { title: t('sidebar.dashboard'), url: "/dashboard/nurse", icon: Home },
     { title: t('sidebar.myMembers'), url: "/dashboard/nurse/members", icon: Users },
     { title: t('sidebar.tasks'), url: "/dashboard/nurse/tasks", icon: ClipboardList },
     { title: t('sidebar.alerts'), url: "/dashboard/nurse/alerts", icon: AlertTriangle },
@@ -34,8 +34,8 @@ export function NurseSidebar() {
   ];
 
   const isActive = (path: string) => {
-    if (path === "/dashboard") {
-      return location.pathname === "/dashboard";
+    if (path === "/dashboard/nurse") {
+      return location.pathname === "/dashboard/nurse";
     }
     return location.pathname.startsWith(path);
   };
