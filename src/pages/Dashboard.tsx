@@ -7,10 +7,15 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading) return;
+    // Wait for roles to load completely before making routing decisions
+    if (loading) {
+      return;
+    }
 
-    // Wait for roles to load before navigating
+    // If still no roles after loading completes, default to member dashboard
     if (roles.length === 0) {
+      console.log('[Dashboard] No roles found, defaulting to member');
+      navigate('/dashboard/member', { replace: true });
       return;
     }
 
@@ -22,6 +27,7 @@ export default function Dashboard() {
       return;
     }
 
+    // Route to appropriate dashboard based on highest priority role
     if (roles.includes('admin')) {
       navigate('/dashboard/admin', { replace: true });
     } else if (roles.includes('facility_admin')) {
@@ -31,8 +37,6 @@ export default function Dashboard() {
     } else if (roles.includes('family_carer')) {
       navigate('/dashboard/family', { replace: true });
     } else if (roles.includes('member')) {
-      navigate('/dashboard/member', { replace: true });
-    } else {
       navigate('/dashboard/member', { replace: true });
     }
   }, [roles, loading, navigate]);

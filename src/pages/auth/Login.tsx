@@ -29,6 +29,7 @@ export default function Login() {
 
   useEffect(() => {
     // Redirect authenticated users to dashboard
+    // Dashboard.tsx will handle role-based routing
     if (user && !authLoading) {
       navigate('/dashboard', { replace: true });
     }
