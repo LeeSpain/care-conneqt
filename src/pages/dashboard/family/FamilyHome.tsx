@@ -4,10 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Users, AlertCircle, Calendar, MessageSquare, RefreshCw } from "lucide-react";
+import { Users, AlertCircle, Calendar, MessageSquare, RefreshCw, FileText, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function FamilyHome() {
   const { user } = useAuth();
@@ -262,16 +263,31 @@ export default function FamilyHome() {
             </CardHeader>
             <CardContent className="grid gap-2">
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/family/members')}>
+                <Users className="mr-2 h-4 w-4" />
                 View Family Members
               </Button>
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/care-team')}>
+                <MessageSquare className="mr-2 h-4 w-4" />
                 Contact Care Team
               </Button>
-              <Button variant="outline" className="justify-start">
-                View Health Reports
-              </Button>
-              <Button variant="outline" className="justify-start">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" className="justify-start" disabled>
+                    <FileText className="mr-2 h-4 w-4" />
+                    View Health Reports
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Coming soon - Health reports and analytics</p>
+                </TooltipContent>
+              </Tooltip>
+              <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/family/schedule')}>
+                <Video className="mr-2 h-4 w-4" />
                 Schedule Video Call
+              </Button>
+              <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/family/ai-chat')}>
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Talk to AI Guardian
               </Button>
             </CardContent>
           </Card>
