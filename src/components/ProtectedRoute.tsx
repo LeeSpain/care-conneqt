@@ -11,47 +11,47 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = false }: ProtectedRouteProps) => {
-  const { user, profile, roles, loading, rolesLoaded } = useAuth();
+  const { user, profile, roles, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check sessionStorage for cached auth to make instant decision
-    const cachedAuth = sessionStorage.getItem('auth_cached');
-    
-    if (!loading || cachedAuth) {
-      // Only redirect if we're sure user is not authenticated
-      if (!user && !cachedAuth) {
-        navigate('/auth/login');
-        return;
-      }
+    // Wait for auth to finish loading
+    if (loading) {
+      return;
+    }
 
-      if (requiredRole && user && rolesLoaded) {
-        const requiredRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
-        const hasRequiredRole = requiredRoles.some(role => roles.includes(role)) || roles.includes('admin');
-        
-        if (!hasRequiredRole && roles.length > 0) {
-          // Redirect to appropriate dashboard based on user's actual role
-          if (roles.includes('admin')) {
-            navigate('/dashboard/admin');
-          } else if (roles.includes('facility_admin')) {
-            navigate('/dashboard/facility');
-          } else if (roles.includes('nurse')) {
-            navigate('/dashboard/nurse');
-          } else if (roles.includes('family_carer')) {
-            navigate('/dashboard/family');
-          } else if (roles.includes('member')) {
-            navigate('/dashboard/member');
-          }
-          return;
+    // Only redirect if we're sure user is not authenticated
+    if (!user) {
+      navigate('/auth/login');
+      return;
+    }
+
+    if (requiredRole && user) {
+      const requiredRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
+      const hasRequiredRole = requiredRoles.some(role => roles.includes(role)) || roles.includes('admin');
+      
+      if (!hasRequiredRole && roles.length > 0) {
+        // Redirect to appropriate dashboard based on user's actual role
+        if (roles.includes('admin')) {
+          navigate('/dashboard/admin');
+        } else if (roles.includes('facility_admin')) {
+          navigate('/dashboard/facility');
+        } else if (roles.includes('nurse')) {
+          navigate('/dashboard/nurse');
+        } else if (roles.includes('family_carer')) {
+          navigate('/dashboard/family');
+        } else if (roles.includes('member')) {
+          navigate('/dashboard/member');
         }
-      }
-
-      if (requireOnboarding && profile && !profile.onboarding_completed) {
-        navigate('/onboarding');
         return;
       }
     }
-  }, [user?.id, profile?.id, roles.join(','), loading, rolesLoaded, requiredRole, requireOnboarding, navigate]);
+
+    if (requireOnboarding && profile && !profile.onboarding_completed) {
+      navigate('/onboarding');
+      return;
+    }
+  }, [user?.id, profile?.id, roles.join(','), loading, requiredRole, requireOnboarding, navigate]);
 
   // Always render children immediately for progressive loading
   return <>{children}</>;

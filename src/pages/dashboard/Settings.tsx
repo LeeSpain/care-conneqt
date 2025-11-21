@@ -7,7 +7,7 @@ export default function Settings() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Wait for roles to load
+    // Wait for auth to load
     if (loading) return;
     
     // Redirect to role-specific settings (check admin first - highest priority)

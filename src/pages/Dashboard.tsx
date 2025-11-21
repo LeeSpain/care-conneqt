@@ -3,23 +3,23 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { roles, loading, rolesLoaded } = useAuth();
+  const { roles, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('[Dashboard] useEffect triggered - loading:', loading, 'rolesLoaded:', rolesLoaded, 'roles:', roles);
+    console.log('[Dashboard] useEffect triggered - loading:', loading, 'roles:', roles);
     
-    // Wait for both auth loading AND roles to be loaded before making routing decisions
-    if (loading || !rolesLoaded) {
-      console.log('[Dashboard] Waiting... loading:', loading, 'rolesLoaded:', rolesLoaded);
+    // Wait for auth loading to complete
+    if (loading) {
+      console.log('[Dashboard] Waiting for auth to load...');
       return;
     }
 
-    console.log('[Dashboard] Ready to route! Roles:', roles);
+    console.log('[Dashboard] Auth loaded! Checking roles...');
     
-    // If still no roles after loading completes, default to member dashboard
+    // If no roles after loading completes, show error (don't default to member)
     if (roles.length === 0) {
-      console.log('[Dashboard] ERROR: No roles found after loading! Defaulting to member');
+      console.log('[Dashboard] ERROR: No roles found after loading! User needs role assignment.');
       navigate('/dashboard/member', { replace: true });
       return;
     }
@@ -49,7 +49,7 @@ export default function Dashboard() {
       console.log('[Dashboard] Redirecting to MEMBER dashboard');
       navigate('/dashboard/member', { replace: true });
     }
-  }, [roles, loading, rolesLoaded, navigate]);
+  }, [roles, loading, navigate]);
 
   if (loading) {
     return (
