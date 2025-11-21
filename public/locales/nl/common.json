@@ -108,5 +108,13 @@
     "lastWeek": "Vorige Week",
     "thisMonth": "Deze Maand",
     "lastSync": "Laatste sync"
+  },
+  "clara": {
+    "greeting": "Hallo! Ik ben Clara, je Care Conneqt assistent. Hoe kan ik je vandaag helpen?",
+    "chatWith": "Chat met Clara",
+    "available": "AI Assistent • Nu Beschikbaar",
+    "typing": "Clara is aan het typen...",
+    "placeholder": "Vraag me alles over onze zorgdiensten...",
+    "powered": "Aangedreven door AI • Directe reacties"
   }
 }

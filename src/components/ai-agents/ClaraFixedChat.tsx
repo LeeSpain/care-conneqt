@@ -15,7 +15,7 @@ interface Message {
 }
 
 export const ClaraFixedChat = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
@@ -23,13 +23,21 @@ export const ClaraFixedChat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! I'm Clara, your CareConneqt assistant. I'm here to help you learn about our services, pricing, and get started. How can I help you today?"
+      content: t('clara.greeting')
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Update initial greeting when language changes
+  useEffect(() => {
+    setMessages([{
+      role: 'assistant',
+      content: t('clara.greeting')
+    }]);
+  }, [currentLanguage, t]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -113,10 +121,10 @@ export const ClaraFixedChat = () => {
           
           <div className="text-left">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white">Chat with Clara</span>
+              <span className="font-bold text-white">{t('clara.chatWith')}</span>
               <Sparkles className="h-4 w-4 text-white/90 animate-pulse" />
             </div>
-            <p className="text-xs text-white/80">AI Assistant • Available Now</p>
+            <p className="text-xs text-white/80">{t('clara.available')}</p>
           </div>
         </div>
       </Button>
@@ -209,7 +217,7 @@ export const ClaraFixedChat = () => {
                   <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-2xl p-4 border border-secondary/20">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                      <span className="text-xs text-muted-foreground">Clara is typing...</span>
+                      <span className="text-xs text-muted-foreground">{t('clara.typing')}</span>
                     </div>
                   </div>
                 </div>
@@ -224,7 +232,7 @@ export const ClaraFixedChat = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything about our care services..."
+                placeholder={t('clara.placeholder')}
                 disabled={isLoading}
                 className="flex-1 rounded-full border-primary/20 focus:border-primary/40 bg-background"
               />
@@ -238,7 +246,7 @@ export const ClaraFixedChat = () => {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground text-center mt-2">
-              Powered by AI • Instant responses
+              {t('clara.powered')}
             </p>
           </div>
         </>
