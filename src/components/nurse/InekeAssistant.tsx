@@ -183,7 +183,16 @@ export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }
 
   return (
     <>
-      <Card className={`fixed bottom-6 right-6 ${isMinimized ? 'w-96 h-16' : 'w-96 h-[600px]'} shadow-2xl z-50 flex flex-col transition-all`}>
+      {/* Backdrop Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Centered Popup */}
+      <Card className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${isMinimized ? 'w-96 h-16' : 'w-[600px] h-[700px]'} shadow-2xl z-50 flex flex-col transition-all animate-scale-in`}>
         {/* Header */}
         <div className="p-4 border-b bg-gradient-to-r from-blue-500/10 to-cyan-500/10 flex items-center justify-between rounded-t-lg">
           <div className="flex items-center gap-3">
