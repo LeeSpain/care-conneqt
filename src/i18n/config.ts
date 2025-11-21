@@ -21,7 +21,8 @@ i18n
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
 
-    ns: ['common'], // Load only common initially for faster startup
+    // Preload all critical namespaces to prevent flickering
+    ns: ['common', 'dashboard', 'auth', 'home', 'devices', 'guide', 'nurses', 'personal-care', 'institutional-care'],
     defaultNS: 'common',
 
     detection: {
@@ -32,9 +33,12 @@ i18n
     },
 
     react: {
-      useSuspense: false, // CRITICAL: Allow progressive rendering without blocking
+      useSuspense: true, // Enable Suspense to wait for translations before rendering
     },
 
+    // Preload languages for faster switching
+    preload: ['nl', 'en', 'es'],
+    
     // Load namespaces on demand for better performance
     load: 'languageOnly',
     cleanCode: true,

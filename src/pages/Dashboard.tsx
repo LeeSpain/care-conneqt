@@ -7,7 +7,16 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('Dashboard: loading=', loading, 'roles=', roles);
+    
     if (loading) return;
+
+    // If no roles after loading completes, redirect to login
+    if (roles.length === 0) {
+      console.error('No roles found for user after loading!');
+      navigate('/auth/login', { replace: true });
+      return;
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
     const devMode = urlParams.get('devmode') === 'true';
