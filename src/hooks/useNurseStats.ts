@@ -92,11 +92,11 @@ export function useNurseData(userId: string | undefined) {
     queryKey: ['nurse-data', userId],
     queryFn: () => fetchNurseData(userId!),
     enabled: !!userId,
-    staleTime: 30 * 1000, // 30 seconds - more frequent updates
-    gcTime: 2 * 60 * 1000, // 2 minutes
+    staleTime: 30 * 1000, // 30 seconds for responsive updates
+    gcTime: 2 * 60 * 1000, // 2 minutes cache retention
     refetchOnWindowFocus: true, // Refetch when user returns to tab
     refetchInterval: 60 * 1000, // Auto-refetch every minute
-    retry: 2,
-    retryDelay: 1000,
+    retry: 2, // Retry failed requests twice
+    retryDelay: 1000, // Wait 1s between retries
   });
 }
