@@ -116,5 +116,15 @@
     "typing": "Clara está escribiendo...",
     "placeholder": "Pregúntame cualquier cosa sobre nuestros servicios de atención...",
     "powered": "Impulsado por IA • Respuestas instantáneas"
+  },
+  "ineke": {
+    "greeting": "¡Hola! Soy Ineke, tu asistente de enfermería. Puedo ayudarte a acceder a datos de miembros, encontrar protocolos de atención, verificar el estado de dispositivos y más. ¿Cómo puedo ayudarte?",
+    "available": "IA de Apoyo de Enfermería",
+    "typing": "Ineke está escribiendo...",
+    "placeholder": "Pregúntame lo que quieras..."
+  },
+  "aiGuardian": {
+    "greeting": "¡Hola! Soy tu Guardián IA. ¿Cómo te sientes hoy? Estoy aquí para ayudarte con cualquier pregunta de salud o simplemente charlar.",
+    "title": "Guardián IA"
   }
 }

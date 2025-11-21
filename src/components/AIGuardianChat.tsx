@@ -16,19 +16,27 @@ interface Message {
 
 export const AIGuardianChat = () => {
   const { user } = useAuth();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm your AI Guardian. How are you feeling today? I'm here to help with any health questions or just to chat."
+      content: t('aiGuardian.greeting')
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [memberId, setMemberId] = useState<string | null>(null);
+
+  // Update initial greeting when language changes
+  useEffect(() => {
+    setMessages([{
+      role: 'assistant',
+      content: t('aiGuardian.greeting')
+    }]);
+  }, [currentLanguage, t]);
 
   useEffect(() => {
     const fetchMemberId = async () => {
@@ -101,7 +109,7 @@ export const AIGuardianChat = () => {
       <CardHeader>
         <div className="flex items-center gap-2">
           <MessageSquare className="h-5 w-5 text-primary" />
-          <CardTitle>AI Guardian</CardTitle>
+          <CardTitle>{t('aiGuardian.title')}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col p-0">
