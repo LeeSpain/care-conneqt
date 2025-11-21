@@ -1373,6 +1373,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_nurse_assigned_to_member: {
+        Args: { p_member_id: string; p_nurse_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       alert_priority: "low" | "medium" | "high" | "critical"
