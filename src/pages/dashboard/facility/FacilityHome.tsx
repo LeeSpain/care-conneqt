@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { FacilityDashboardLayout } from "@/components/FacilityDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { Users, Bed, UserCheck, AlertCircle } from "lucide-react";
+import { Users, Bed, UserCheck, AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 export default function FacilityHome() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [stats, setStats] = useState({
     totalResidents: 0,
     occupancyRate: 0,
@@ -17,25 +20,14 @@ export default function FacilityHome() {
     activeAlerts: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [loadingStats, setLoadingStats] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [facilityInfo, setFacilityInfo] = useState<any>(null);
 
-  useEffect(() => {
-    if (user) {
-      const timeout = setTimeout(() => {
-        if (loading) {
-          setError('Loading is taking longer than expected. Please refresh the page.');
-          setLoading(false);
-        }
-      }, 10000);
-
-      fetchFacilityData();
-
-      return () => clearTimeout(timeout);
-    }
-  }, [user]);
-
   const fetchFacilityData = async () => {
+    const startTime = performance.now();
+    console.log('[FacilityHome] Starting data fetch for user:', user?.id);
+
     try {
       // Get facility staff record to find facility ID
       const { data: staffData, error: staffError } = await supabase
@@ -45,21 +37,27 @@ export default function FacilityHome() {
         .maybeSingle();
 
       if (staffError) {
-        console.error("Error fetching staff data:", staffError);
+        console.error("[FacilityHome] Staff query error:", {
+          message: staffError.message,
+          details: staffError.details,
+          hint: staffError.hint,
+          code: staffError.code
+        });
         throw staffError;
       }
 
       if (!staffData) {
-        console.log("No facility staff record found for user");
+        console.log("[FacilityHome] No facility staff record found for user");
         setError("No facility staff profile found. Please contact support.");
         setLoading(false);
+        setLoadingStats(false);
         return;
       }
 
       setFacilityInfo(staffData.facilities);
-        
       const facilityId = staffData.facility_id;
       
+      // Fetch stats in parallel with simpler queries
       const [residentsResult, staffResult, alertsResult] = await Promise.all([
         supabase
           .from("facility_residents")
@@ -71,15 +69,42 @@ export default function FacilityHome() {
           .select("id", { count: "exact", head: true })
           .eq("facility_id", facilityId),
         supabase
-          .from("alerts")
-          .select("id, members!inner(id), facility_residents!inner(facility_id)", { count: "exact", head: true })
-          .eq("status", "new")
-          .eq("facility_residents.facility_id", facilityId),
+          .from("facility_residents")
+          .select("member_id")
+          .eq("facility_id", facilityId)
+          .is("discharge_date", null)
       ]);
 
-      if (residentsResult.error) throw residentsResult.error;
-      if (staffResult.error) throw staffResult.error;
-      if (alertsResult.error) throw alertsResult.error;
+      if (residentsResult.error) {
+        console.error("[FacilityHome] Residents query error:", residentsResult.error);
+        throw residentsResult.error;
+      }
+      if (staffResult.error) {
+        console.error("[FacilityHome] Staff query error:", staffResult.error);
+        throw staffResult.error;
+      }
+      if (alertsResult.error) {
+        console.error("[FacilityHome] Alerts query error:", alertsResult.error);
+        throw alertsResult.error;
+      }
+
+      // Get alerts count for resident members
+      const memberIds = alertsResult.data?.map(r => r.member_id) || [];
+      let alertsCount = 0;
+      
+      if (memberIds.length > 0) {
+        const { count, error: alertCountError } = await supabase
+          .from("alerts")
+          .select("id", { count: "exact", head: true })
+          .in("member_id", memberIds)
+          .eq("status", "new");
+
+        if (alertCountError) {
+          console.error("[FacilityHome] Alert count error:", alertCountError);
+        } else {
+          alertsCount = count || 0;
+        }
+      }
 
       const totalBeds = staffData.facilities?.bed_capacity || 0;
       const occupiedBeds = residentsResult.count || 0;
@@ -89,17 +114,51 @@ export default function FacilityHome() {
         totalResidents: residentsResult.count || 0,
         occupancyRate,
         staffCount: staffResult.count || 0,
-        activeAlerts: alertsResult.count || 0,
+        activeAlerts: alertsCount,
       });
-    } catch (err) {
-      console.error("Error fetching facility data:", err);
-      setError("Failed to load facility dashboard. Please refresh the page.");
+
+      const endTime = performance.now();
+      console.log(`[FacilityHome] Data fetch completed in ${(endTime - startTime).toFixed(2)}ms`);
+
+    } catch (err: any) {
+      console.error("[FacilityHome] Unexpected error:", err);
+      setError(err.message || "Failed to load facility dashboard. Please try again.");
+      toast({
+        title: "Error loading dashboard",
+        description: err.message || "Failed to load facility dashboard",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+      setLoadingStats(false);
     }
   };
 
-  if (loading) {
+  useEffect(() => {
+    if (user) {
+      const timeout = setTimeout(() => {
+        if (loading) {
+          console.warn('[FacilityHome] Loading timeout reached');
+          setError('Loading is taking longer than expected. Please try refreshing.');
+          setLoading(false);
+          setLoadingStats(false);
+        }
+      }, 30000); // Increased to 30 seconds
+
+      fetchFacilityData();
+
+      return () => clearTimeout(timeout);
+    }
+  }, [user]);
+
+  const handleRefresh = () => {
+    setLoading(true);
+    setLoadingStats(true);
+    setError(null);
+    fetchFacilityData();
+  };
+
+  if (loading && !loadingStats) {
     return (
       <FacilityDashboardLayout title="Facility Dashboard">
         <div className="flex items-center justify-center h-64">
@@ -109,13 +168,16 @@ export default function FacilityHome() {
     );
   }
 
-  if (error) {
+  if (error && !facilityInfo) {
     return (
       <FacilityDashboardLayout title="Facility Dashboard">
         <Card className="border-destructive">
           <CardContent className="pt-6">
             <p className="text-destructive mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+            <Button onClick={handleRefresh}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh Page
+            </Button>
           </CardContent>
         </Card>
       </FacilityDashboardLayout>
@@ -125,13 +187,18 @@ export default function FacilityHome() {
   return (
     <FacilityDashboardLayout title="Facility Dashboard">
       <div className="space-y-6">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">
-            Welcome to {facilityInfo?.name || "Facility"} Dashboard
-          </h2>
-          <p className="text-muted-foreground">
-            Facility management and oversight dashboard
-          </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Welcome to {facilityInfo?.name || "Facility"} Dashboard
+            </h2>
+            <p className="text-muted-foreground">
+              Facility management and oversight dashboard
+            </p>
+          </div>
+          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
+            <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+          </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -141,8 +208,14 @@ export default function FacilityHome() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.totalResidents}</div>
-              <p className="text-xs text-muted-foreground">Current occupancy</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalResidents}</div>
+                  <p className="text-xs text-muted-foreground">Current occupancy</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -152,8 +225,14 @@ export default function FacilityHome() {
               <Bed className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : `${stats.occupancyRate}%`}</div>
-              <p className="text-xs text-muted-foreground">Of {facilityInfo?.bed_capacity || 0} beds</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.occupancyRate}%</div>
+                  <p className="text-xs text-muted-foreground">Of {facilityInfo?.bed_capacity || 0} beds</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -163,8 +242,14 @@ export default function FacilityHome() {
               <UserCheck className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.staffCount}</div>
-              <p className="text-xs text-muted-foreground">Active staff</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.staffCount}</div>
+                  <p className="text-xs text-muted-foreground">Active staff</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -174,8 +259,14 @@ export default function FacilityHome() {
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.activeAlerts}</div>
-              <p className="text-xs text-muted-foreground">Requiring attention</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.activeAlerts}</div>
+                  <p className="text-xs text-muted-foreground">Requiring attention</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -193,7 +284,7 @@ export default function FacilityHome() {
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/facility/staff')}>
                 Manage Staff
               </Button>
-              <Button variant="outline" className="justify-start">
+              <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/facility/reports')}>
                 View Reports
               </Button>
               <Button variant="outline" className="justify-start">

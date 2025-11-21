@@ -4,15 +4,20 @@ import { NurseDashboardLayout } from "@/components/NurseDashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, AlertTriangle, RefreshCw } from "lucide-react";
 import { formatDate } from '@/lib/intl';
+import { useToast } from '@/hooks/use-toast';
 
 export default function NurseHome() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(true);
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [loadingTasks, setLoadingTasks] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState({
     assignedMembers: 0,
@@ -23,78 +28,146 @@ export default function NurseHome() {
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
-  useEffect(() => {
-    const fetchNurseData = async () => {
-      if (!user) return;
+  const fetchNurseData = async () => {
+    if (!user) return;
 
-      try {
-        // Fetch assigned members count
-        const { count: membersCount, error: membersError } = await supabase
+    const startTime = performance.now();
+    console.log('[NurseHome] Starting data fetch for user:', user.id);
+
+    try {
+      // Fetch stats in parallel with better error handling
+      const statsPromises = [
+        supabase
           .from('nurse_assignments')
           .select('*', { count: 'exact', head: true })
-          .eq('nurse_id', user.id);
-
-        if (membersError) throw membersError;
-
-        // Fetch pending tasks count
-        const { count: tasksCount, error: tasksError } = await supabase
+          .eq('nurse_id', user.id),
+        supabase
           .from('nurse_tasks')
           .select('*', { count: 'exact', head: true })
           .eq('nurse_id', user.id)
-          .eq('status', 'pending');
-
-        if (tasksError) throw tasksError;
-
-        // Fetch active alerts count
-        const { count: alertsCount, error: alertsError } = await supabase
-          .from('alerts')
-          .select('*, nurse_assignments!inner(nurse_id)', { count: 'exact', head: true })
-          .neq('status', 'resolved')
-          .eq('nurse_assignments.nurse_id', user.id);
-
-        if (alertsError) throw alertsError;
-
-        // Fetch unread messages count
-        const { count: messagesCount, error: messagesError } = await supabase
+          .eq('status', 'pending'),
+        supabase
           .from('care_messages')
           .select('*', { count: 'exact', head: true })
           .eq('recipient_id', user.id)
-          .eq('is_read', false);
+          .eq('is_read', false)
+      ];
 
-        if (messagesError) throw messagesError;
+      const [membersResult, tasksResult, messagesResult] = await Promise.all(statsPromises);
 
-        // Fetch recent tasks
-        const { data: tasksData, error: recentTasksError } = await supabase
-          .from('nurse_tasks')
-          .select('*, members(id, user_id)')
-          .eq('nurse_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(5);
-
-        if (recentTasksError) throw recentTasksError;
-
-        setStats({
-          assignedMembers: membersCount || 0,
-          pendingTasks: tasksCount || 0,
-          activeAlerts: alertsCount || 0,
-          unreadMessages: messagesCount || 0,
+      // Log detailed error information
+      if (membersResult.error) {
+        console.error('[NurseHome] Members query error:', {
+          message: membersResult.error.message,
+          details: membersResult.error.details,
+          hint: membersResult.error.hint,
+          code: membersResult.error.code
         });
-
-        setRecentTasks(tasksData || []);
-      } catch (err) {
-        console.error('Error fetching nurse data:', err);
-        setError('Failed to load dashboard data. Please refresh the page.');
-      } finally {
-        setLoading(false);
       }
-    };
+      if (tasksResult.error) {
+        console.error('[NurseHome] Tasks query error:', {
+          message: tasksResult.error.message,
+          details: tasksResult.error.details,
+          hint: tasksResult.error.hint,
+          code: tasksResult.error.code
+        });
+      }
+      if (messagesResult.error) {
+        console.error('[NurseHome] Messages query error:', {
+          message: messagesResult.error.message,
+          details: messagesResult.error.details,
+          hint: messagesResult.error.hint,
+          code: messagesResult.error.code
+        });
+      }
 
+      // Get member IDs first for alerts query
+      const { data: assignmentsData } = await supabase
+        .from('nurse_assignments')
+        .select('member_id')
+        .eq('nurse_id', user.id);
+
+      const memberIds = assignmentsData?.map(a => a.member_id) || [];
+
+      // Fetch alerts count using simpler query
+      let alertsCount = 0;
+      if (memberIds.length > 0) {
+        const { count, error: alertsError } = await supabase
+          .from('alerts')
+          .select('id', { count: 'exact', head: true })
+          .in('member_id', memberIds)
+          .neq('status', 'resolved');
+
+        if (alertsError) {
+          console.error('[NurseHome] Alerts query error:', {
+            message: alertsError.message,
+            details: alertsError.details,
+            hint: alertsError.hint,
+            code: alertsError.code
+          });
+        } else {
+          alertsCount = count || 0;
+        }
+      }
+
+      setStats({
+        assignedMembers: membersResult.count || 0,
+        pendingTasks: tasksResult.count || 0,
+        activeAlerts: alertsCount,
+        unreadMessages: messagesResult.count || 0,
+      });
+
+      setLoadingStats(false);
+
+      // Fetch recent tasks separately
+      const { data: tasksData, error: recentTasksError } = await supabase
+        .from('nurse_tasks')
+        .select('*, members(id, user_id)')
+        .eq('nurse_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (recentTasksError) {
+        console.error('[NurseHome] Recent tasks query error:', {
+          message: recentTasksError.message,
+          details: recentTasksError.details,
+          hint: recentTasksError.hint,
+          code: recentTasksError.code
+        });
+      } else {
+        setRecentTasks(tasksData || []);
+      }
+
+      setLoadingTasks(false);
+
+      const endTime = performance.now();
+      console.log(`[NurseHome] Data fetch completed in ${(endTime - startTime).toFixed(2)}ms`);
+
+    } catch (err: any) {
+      console.error('[NurseHome] Unexpected error:', err);
+      setError(err.message || 'Failed to load dashboard data. Please try again.');
+      toast({
+        title: "Error loading dashboard",
+        description: err.message || "Failed to load dashboard data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+      setLoadingStats(false);
+      setLoadingTasks(false);
+    }
+  };
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       if (loading) {
-        setError('Loading is taking longer than expected. Please refresh the page.');
+        console.warn('[NurseHome] Loading timeout reached');
+        setError('Loading is taking longer than expected. Please try refreshing.');
         setLoading(false);
+        setLoadingStats(false);
+        setLoadingTasks(false);
       }
-    }, 10000);
+    }, 30000); // Increased to 30 seconds
 
     fetchNurseData();
 
@@ -109,7 +182,15 @@ export default function NurseHome() {
     return () => clearInterval(timer);
   }, []);
 
-  if (loading) {
+  const handleRefresh = () => {
+    setLoading(true);
+    setLoadingStats(true);
+    setLoadingTasks(true);
+    setError(null);
+    fetchNurseData();
+  };
+
+  if (loading && !loadingStats) {
     return (
       <NurseDashboardLayout title="Nurse Dashboard">
         <div className="flex items-center justify-center h-64">
@@ -119,13 +200,16 @@ export default function NurseHome() {
     );
   }
 
-  if (error) {
+  if (error && !stats.assignedMembers) {
     return (
       <NurseDashboardLayout title="Nurse Dashboard">
         <Card className="border-destructive">
           <CardContent className="pt-6">
             <p className="text-destructive mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+            <Button onClick={handleRefresh}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh Page
+            </Button>
           </CardContent>
         </Card>
       </NurseDashboardLayout>
@@ -142,17 +226,24 @@ export default function NurseHome() {
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
-            <h2 className="text-2xl font-bold mb-2">Welcome back, {firstName}</h2>
-            <p className="text-muted-foreground">
-              {formattedDate} at {formattedTime}
-            </p>
-            <div className="flex items-center gap-2 mt-2">
-              <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
-                On Duty
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {stats.assignedMembers} member{stats.assignedMembers !== 1 ? 's' : ''} under your care
-              </span>
+            <div className="flex justify-between items-start">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Welcome back, {firstName}</h2>
+                <p className="text-muted-foreground">
+                  {formattedDate} at {formattedTime}
+                </p>
+                <div className="flex items-center gap-2 mt-2">
+                  <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
+                    On Duty
+                  </Badge>
+                  <span className="text-sm text-muted-foreground">
+                    {stats.assignedMembers} member{stats.assignedMembers !== 1 ? 's' : ''} under your care
+                  </span>
+                </div>
+              </div>
+              <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
+                <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -165,8 +256,14 @@ export default function NurseHome() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.assignedMembers}</div>
-              <p className="text-xs text-muted-foreground">Active care assignments</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.assignedMembers}</div>
+                  <p className="text-xs text-muted-foreground">Active care assignments</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -176,10 +273,16 @@ export default function NurseHome() {
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.pendingTasks}</div>
-              <p className="text-xs text-muted-foreground">
-                {stats.pendingTasks === 0 ? 'All caught up!' : 'Tasks to complete'}
-              </p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.pendingTasks}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {stats.pendingTasks === 0 ? 'All caught up!' : 'Tasks to complete'}
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -189,10 +292,16 @@ export default function NurseHome() {
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.activeAlerts}</div>
-              <p className="text-xs text-muted-foreground">
-                {stats.activeAlerts === 0 ? 'No alerts' : 'Require attention'}
-              </p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.activeAlerts}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {stats.activeAlerts === 0 ? 'No alerts' : 'Require attention'}
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -202,8 +311,14 @@ export default function NurseHome() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.unreadMessages}</div>
-              <p className="text-xs text-muted-foreground">Unread messages</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.unreadMessages}</div>
+                  <p className="text-xs text-muted-foreground">Unread messages</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -214,10 +329,22 @@ export default function NurseHome() {
             <CardTitle>Recent Tasks</CardTitle>
           </CardHeader>
           <CardContent>
-            {recentTasks.length > 0 ? (
+            {loadingTasks ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-center gap-4 p-4 border rounded-lg">
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                    <div className="space-y-2 flex-1">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : recentTasks.length > 0 ? (
               <div className="space-y-4">
                 {recentTasks.slice(0, 3).map((task) => (
-                  <div key={task.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div key={task.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
                     <div className="flex items-center gap-4">
                       {task.status === 'completed' ? (
                         <CheckCircle2 className="h-8 w-8 text-green-500" />

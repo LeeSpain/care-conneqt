@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Building2, Activity, UserCheck } from "lucide-react";
+import { Users, Building2, Activity, UserCheck, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AdminHome() {
+  const { toast } = useToast();
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalFacilities: 0,
@@ -13,22 +16,13 @@ export default function AdminHome() {
     totalNurses: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [loadingStats, setLoadingStats] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (loading) {
-        setError('Loading is taking longer than expected. Please refresh the page.');
-        setLoading(false);
-      }
-    }, 10000);
-
-    fetchStats();
-
-    return () => clearTimeout(timeout);
-  }, []);
-
   const fetchStats = async () => {
+    const startTime = performance.now();
+    console.log('[AdminHome] Starting data fetch');
+
     try {
       const [usersResult, facilitiesResult, membersResult, nursesResult] = await Promise.all([
         supabase.from("profiles").select("id", { count: "exact", head: true }),
@@ -37,10 +31,18 @@ export default function AdminHome() {
         supabase.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "nurse"),
       ]);
 
-      if (usersResult.error) throw usersResult.error;
-      if (facilitiesResult.error) throw facilitiesResult.error;
-      if (membersResult.error) throw membersResult.error;
-      if (nursesResult.error) throw nursesResult.error;
+      if (usersResult.error) {
+        console.error("[AdminHome] Users query error:", usersResult.error);
+      }
+      if (facilitiesResult.error) {
+        console.error("[AdminHome] Facilities query error:", facilitiesResult.error);
+      }
+      if (membersResult.error) {
+        console.error("[AdminHome] Members query error:", membersResult.error);
+      }
+      if (nursesResult.error) {
+        console.error("[AdminHome] Nurses query error:", nursesResult.error);
+      }
 
       setStats({
         totalUsers: usersResult.count || 0,
@@ -48,15 +50,47 @@ export default function AdminHome() {
         activeMembers: membersResult.count || 0,
         totalNurses: nursesResult.count || 0,
       });
-    } catch (err) {
-      console.error("Error fetching stats:", err);
-      setError("Failed to load dashboard data. Please refresh the page.");
+
+      const endTime = performance.now();
+      console.log(`[AdminHome] Data fetch completed in ${(endTime - startTime).toFixed(2)}ms`);
+
+    } catch (err: any) {
+      console.error("[AdminHome] Unexpected error:", err);
+      setError(err.message || "Failed to load dashboard data. Please try again.");
+      toast({
+        title: "Error loading dashboard",
+        description: err.message || "Failed to load dashboard data",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+      setLoadingStats(false);
     }
   };
 
-  if (loading) {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('[AdminHome] Loading timeout reached');
+        setError('Loading is taking longer than expected. Please try refreshing.');
+        setLoading(false);
+        setLoadingStats(false);
+      }
+    }, 30000); // Increased to 30 seconds
+
+    fetchStats();
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const handleRefresh = () => {
+    setLoading(true);
+    setLoadingStats(true);
+    setError(null);
+    fetchStats();
+  };
+
+  if (loading && !loadingStats) {
     return (
       <AdminDashboardLayout title="Admin Dashboard">
         <div className="flex items-center justify-center h-64">
@@ -66,13 +100,16 @@ export default function AdminHome() {
     );
   }
 
-  if (error) {
+  if (error && stats.totalUsers === 0) {
     return (
       <AdminDashboardLayout title="Admin Dashboard">
         <Card className="border-destructive">
           <CardContent className="pt-6">
             <p className="text-destructive mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+            <Button onClick={handleRefresh}>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh Page
+            </Button>
           </CardContent>
         </Card>
       </AdminDashboardLayout>
@@ -82,11 +119,16 @@ export default function AdminHome() {
   return (
     <AdminDashboardLayout title="Admin Dashboard">
       <div className="space-y-6">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Welcome, Admin</h2>
-          <p className="text-muted-foreground">
-            System overview and management dashboard
-          </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Welcome, Admin</h2>
+            <p className="text-muted-foreground">
+              System overview and management dashboard
+            </p>
+          </div>
+          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
+            <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+          </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -96,8 +138,14 @@ export default function AdminHome() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.totalUsers}</div>
-              <p className="text-xs text-muted-foreground">All registered users</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalUsers}</div>
+                  <p className="text-xs text-muted-foreground">All registered users</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -107,8 +155,14 @@ export default function AdminHome() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.activeMembers}</div>
-              <p className="text-xs text-muted-foreground">Care recipients</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.activeMembers}</div>
+                  <p className="text-xs text-muted-foreground">Care recipients</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -118,8 +172,14 @@ export default function AdminHome() {
               <UserCheck className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.totalNurses}</div>
-              <p className="text-xs text-muted-foreground">Care professionals</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalNurses}</div>
+                  <p className="text-xs text-muted-foreground">Care professionals</p>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -129,8 +189,14 @@ export default function AdminHome() {
               <Building2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{loading ? "-" : stats.totalFacilities}</div>
-              <p className="text-xs text-muted-foreground">Care facilities</p>
+              {loadingStats ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{stats.totalFacilities}</div>
+                  <p className="text-xs text-muted-foreground">Care facilities</p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
