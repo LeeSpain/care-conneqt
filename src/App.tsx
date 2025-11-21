@@ -33,12 +33,20 @@ import NurseTasks from "./pages/dashboard/NurseTasks";
 
 // Admin pages
 import AdminHome from "./pages/dashboard/admin/AdminHome";
+import Nurses from "./pages/dashboard/admin/Nurses";
+import Members from "./pages/dashboard/admin/Members";
+import FamilyCarers from "./pages/dashboard/admin/FamilyCarers";
+import Facilities from "./pages/dashboard/admin/Facilities";
+import FacilityDetail from "./pages/dashboard/admin/FacilityDetail";
+import PlatformAnalytics from "./pages/dashboard/admin/PlatformAnalytics";
+import AIAnalytics from "./pages/dashboard/admin/AIAnalytics";
+import Announcements from "./pages/dashboard/admin/Announcements";
+import SupportTickets from "./pages/dashboard/admin/SupportTickets";
+import SystemSettings from "./pages/dashboard/admin/SystemSettings";
 import UserManagement from "./pages/dashboard/settings/UserManagement";
 import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
 import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
 import InekeSettings from "./pages/dashboard/settings/ai-agents/InekeSettings";
-import Analytics from "./pages/dashboard/admin/Analytics";
-import SystemSettings from "./pages/dashboard/admin/SystemSettings";
 
 // Shared pages
 import AIChatPage from "./pages/dashboard/AIChatPage";
@@ -95,12 +103,20 @@ const App = () => (
             
             {/* Admin routes */}
             <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/nurses" element={<ProtectedRoute requiredRole="admin"><Nurses /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/members" element={<ProtectedRoute requiredRole="admin"><Members /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/family-carers" element={<ProtectedRoute requiredRole="admin"><FamilyCarers /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/facilities" element={<ProtectedRoute requiredRole="admin"><Facilities /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/facilities/:id" element={<ProtectedRoute requiredRole="admin"><FacilityDetail /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/analytics" element={<ProtectedRoute requiredRole="admin"><PlatformAnalytics /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/ai-analytics" element={<ProtectedRoute requiredRole="admin"><AIAnalytics /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/announcements" element={<ProtectedRoute requiredRole="admin"><Announcements /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/support" element={<ProtectedRoute requiredRole="admin"><SupportTickets /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/system-settings" element={<ProtectedRoute requiredRole="admin"><SystemSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/users" element={<ProtectedRoute requiredRole="admin"><UserManagement /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/analytics" element={<ProtectedRoute requiredRole="admin"><Analytics /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/system-settings" element={<ProtectedRoute requiredRole="admin"><SystemSettings /></ProtectedRoute>} />
             
             {/* Shared routes */}
             <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />

@@ -101,10 +101,31 @@ export default function AdminHome() {
               <CardTitle>Quick Actions</CardTitle>
               <CardDescription>Common administrative tasks</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <p className="text-sm text-muted-foreground">
-                Use the navigation menu to access user management, AI agent configuration, analytics, and system settings.
-              </p>
+            <CardContent className="grid gap-2 md:grid-cols-2">
+              <button 
+                onClick={() => window.location.href = '/dashboard/admin/nurses'} 
+                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              >
+                Add Nurse
+              </button>
+              <button 
+                onClick={() => window.location.href = '/dashboard/admin/members'} 
+                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              >
+                Add Member
+              </button>
+              <button 
+                onClick={() => window.location.href = '/dashboard/admin/facilities'} 
+                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              >
+                Add Facility
+              </button>
+              <button 
+                onClick={() => window.location.href = '/dashboard/admin/announcements'} 
+                className="px-4 py-2 text-sm border rounded-md hover:bg-accent transition-colors text-left"
+              >
+                New Announcement
+              </button>
             </CardContent>
           </Card>
 
