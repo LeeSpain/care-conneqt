@@ -17,22 +17,34 @@ export default function FacilityHome() {
     activeAlerts: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [facilityInfo, setFacilityInfo] = useState<any>(null);
 
   useEffect(() => {
     if (user) {
+      const timeout = setTimeout(() => {
+        if (loading) {
+          setError('Loading is taking longer than expected. Please refresh the page.');
+          setLoading(false);
+        }
+      }, 10000);
+
       fetchFacilityData();
+
+      return () => clearTimeout(timeout);
     }
   }, [user]);
 
   const fetchFacilityData = async () => {
     try {
       // Get facility staff record to find facility ID
-      const { data: staffData } = await supabase
+      const { data: staffData, error: staffError } = await supabase
         .from("facility_staff")
         .select("facility_id, facilities(*)")
         .eq("user_id", user?.id)
-        .single();
+        .maybeSingle();
+
+      if (staffError) throw staffError;
 
       if (staffData) {
         setFacilityInfo(staffData.facilities);
@@ -55,6 +67,10 @@ export default function FacilityHome() {
             .eq("status", "new"),
         ]);
 
+        if (residentsResult.error) throw residentsResult.error;
+        if (staffResult.error) throw staffResult.error;
+        if (alertsResult.error) throw alertsResult.error;
+
         const totalBeds = staffData.facilities?.bed_capacity || 0;
         const occupiedBeds = residentsResult.count || 0;
         const occupancyRate = totalBeds > 0 ? Math.round((occupiedBeds / totalBeds) * 100) : 0;
@@ -66,12 +82,36 @@ export default function FacilityHome() {
           activeAlerts: alertsResult.count || 0,
         });
       }
-    } catch (error) {
-      console.error("Error fetching facility data:", error);
+    } catch (err) {
+      console.error("Error fetching facility data:", err);
+      setError("Failed to load facility dashboard. Please refresh the page.");
     } finally {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <FacilityDashboardLayout title="Facility Dashboard">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </FacilityDashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <FacilityDashboardLayout title="Facility Dashboard">
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <p className="text-destructive mb-4">{error}</p>
+            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+          </CardContent>
+        </Card>
+      </FacilityDashboardLayout>
+    );
+  }
 
   return (
     <FacilityDashboardLayout title="Facility Dashboard">
