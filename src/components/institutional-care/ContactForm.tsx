@@ -26,9 +26,6 @@ export const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // TODO: Connect to backend endpoint
-    console.log('Form submitted:', formData);
-    
     toast({
       title: "Request Received!",
       description: "Our team will contact you within 1 business day.",
