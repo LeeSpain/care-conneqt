@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -347,6 +348,7 @@ export default function OurNurses() {
       </section>
 
       <Footer />
+      <ClaraWidget />
     </div>
   );
 }

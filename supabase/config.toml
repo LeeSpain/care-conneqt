@@ -5,3 +5,6 @@ verify_jwt = true
 
 [functions.ineke-chat]
 verify_jwt = true
+
+[functions.clara-chat]
+verify_jwt = false

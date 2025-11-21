@@ -13,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, sessionId } = await req.json();
+    const { messages, sessionId, context } = await req.json();
     
     if (!messages || !Array.isArray(messages)) {
       throw new Error('Messages array is required');
@@ -58,6 +58,19 @@ serve(async (req) => {
       knowledge.forEach(item => {
         systemPrompt += `\n[${item.category}] ${item.title}:\n${item.content}\n`;
       });
+    }
+
+    // Add context-aware enhancements based on page
+    if (context?.page) {
+      if (context.page.includes('institutional') || context.page.includes('commercial')) {
+        systemPrompt += '\n\nCONTEXT: User is viewing institutional/commercial solutions. Focus on B2B offerings, volume pricing, enterprise features, and commercial partnerships. Offer to schedule demos and generate quotes.';
+      } else if (context.page.includes('personal-care')) {
+        systemPrompt += '\n\nCONTEXT: User is viewing personal care plans. Focus on individual/family memberships, pricing tiers, and getting started. Offer to capture leads and answer pricing questions.';
+      } else if (context.page.includes('devices')) {
+        systemPrompt += '\n\nCONTEXT: User is viewing our device catalog. Focus on device features, specifications, pricing, and compatibility. Help them understand which devices best suit their needs.';
+      } else if (context.page.includes('nurses')) {
+        systemPrompt += '\n\nCONTEXT: User is learning about our nursing team. Focus on nurse qualifications, 24/7 availability, response protocols, and the human care element of our service.';
+      }
     }
 
     console.log('Calling Lovable AI for Clara...');

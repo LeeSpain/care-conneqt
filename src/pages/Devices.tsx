@@ -7,6 +7,7 @@ import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer, Shiel
 import { useTranslation } from 'react-i18next';
 import { DeviceCard } from '@/components/devices/DeviceCard';
 import { Link } from 'react-router-dom';
+import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
 
 // Import device images
 import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
@@ -204,6 +205,7 @@ export default function Devices() {
       </section>
 
       <Footer />
+      <ClaraWidget />
     </div>
   );
 }

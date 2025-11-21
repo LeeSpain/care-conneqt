@@ -545,6 +545,45 @@ export type Database = {
           },
         ]
       }
+      demo_requests: {
+        Row: {
+          contact_email: string
+          contact_name: string
+          contact_phone: string | null
+          created_at: string | null
+          id: string
+          notes: string | null
+          organization_name: string
+          organization_type: string | null
+          preferred_time: string | null
+          status: string | null
+        }
+        Insert: {
+          contact_email: string
+          contact_name: string
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          organization_name: string
+          organization_type?: string | null
+          preferred_time?: string | null
+          status?: string | null
+        }
+        Update: {
+          contact_email?: string
+          contact_name?: string
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          organization_name?: string
+          organization_type?: string | null
+          preferred_time?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
       facilities: {
         Row: {
           address_line1: string | null
@@ -833,6 +872,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      leads: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          interest_type: string
+          message: string | null
+          name: string
+          phone: string | null
+          source_page: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          interest_type: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          source_page?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          interest_type?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          source_page?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       member_carers: {
         Row: {
@@ -1199,6 +1277,42 @@ export type Database = {
           phone?: string | null
           timezone?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      quote_requests: {
+        Row: {
+          contact_email: string
+          contract_length: string | null
+          created_at: string | null
+          estimated_price: string | null
+          features_needed: Json | null
+          id: string
+          organization_name: string
+          resident_count: number | null
+          status: string | null
+        }
+        Insert: {
+          contact_email: string
+          contract_length?: string | null
+          created_at?: string | null
+          estimated_price?: string | null
+          features_needed?: Json | null
+          id?: string
+          organization_name: string
+          resident_count?: number | null
+          status?: string | null
+        }
+        Update: {
+          contact_email?: string
+          contract_length?: string | null
+          created_at?: string | null
+          estimated_price?: string | null
+          features_needed?: Json | null
+          id?: string
+          organization_name?: string
+          resident_count?: number | null
+          status?: string | null
         }
         Relationships: []
       }

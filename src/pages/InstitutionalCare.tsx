@@ -9,6 +9,7 @@ import { ContactForm } from '@/components/institutional-care/ContactForm';
 import { InstitutionalFAQ } from '@/components/institutional-care/InstitutionalFAQ';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
 
 export default function InstitutionalCare() {
   return (
@@ -24,6 +25,7 @@ export default function InstitutionalCare() {
       <ContactForm />
       <InstitutionalFAQ />
       <Footer />
+      <ClaraWidget />
     </div>
   );
 }

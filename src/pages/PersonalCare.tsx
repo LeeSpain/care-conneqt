@@ -12,6 +12,7 @@ import { PackageCalculator } from "@/components/personal-care/PackageCalculator"
 import { FAQ } from "@/components/personal-care/FAQ";
 import { GuaranteeSection } from "@/components/personal-care/GuaranteeSection";
 import { FinalCTA } from "@/components/personal-care/FinalCTA";
+import { ClaraWidget } from "@/components/ai-agents/ClaraWidget";
 
 const PersonalCare = () => {
   return (
@@ -37,6 +38,7 @@ const PersonalCare = () => {
       <GuaranteeSection />
       <FinalCTA />
       <Footer />
+      <ClaraWidget />
     </div>
   );
 };
