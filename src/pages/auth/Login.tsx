@@ -127,18 +127,33 @@ export default function Login() {
               <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-2">
-                  Test Credentials
+                  Test Credentials - All Roles
                 </h4>
-                <div className="space-y-3 text-sm">
+                <div className="space-y-2 text-sm">
                   <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Member Account:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">member@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Member123!</p>
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Admin Account:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">admin@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Admin123!</p>
+                  </div>
+                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Facility Admin:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">facility@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Facility123!</p>
                   </div>
                   <div className="bg-white dark:bg-blue-900 p-2 rounded">
                     <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Nurse Account:</p>
                     <p className="font-mono text-xs text-blue-800 dark:text-blue-200">nurse@test.com</p>
                     <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Nurse123!</p>
+                  </div>
+                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Family Carer:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">family@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Family123!</p>
+                  </div>
+                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
+                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Member Account:</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">member@test.com</p>
+                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Member123!</p>
                   </div>
                 </div>
                 <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
