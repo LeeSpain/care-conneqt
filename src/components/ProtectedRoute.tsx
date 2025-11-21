@@ -22,7 +22,7 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
 
     // Only redirect if we're sure user is not authenticated
     if (!user) {
-      navigate('/auth/login');
+      navigate('/auth/login', { replace: true });
       return;
     }
 
