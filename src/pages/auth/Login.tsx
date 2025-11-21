@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Info } from 'lucide-react';
+import { Eye, EyeOff, Info, ArrowLeft } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 export default function Login() {
   const { t } = useTranslation('auth');
@@ -48,6 +49,13 @@ export default function Login() {
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
+            <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
+              <ArrowLeft className="h-4 w-4" />
+              <span className="text-sm">Back to Home</span>
+            </Link>
+            <div className="mb-6">
+              <Logo className="h-12" />
+            </div>
             <h2 className="text-3xl font-bold text-foreground">{t('login.title')}</h2>
             <p className="mt-2 text-muted-foreground">{t('login.subtitle')}</p>
           </div>
