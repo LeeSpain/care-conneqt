@@ -1,4 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import MemberDashboard from './dashboard/MemberDashboard';
 import FamilyDashboard from './dashboard/FamilyDashboard';
 import NurseDashboard from './dashboard/NurseDashboard';
@@ -7,6 +8,7 @@ import AdminDashboard from './dashboard/AdminDashboard';
 
 export default function Dashboard() {
   const { roles, loading } = useAuth();
+  const navigate = useNavigate();
   
   // Dev mode bypass for quick testing
   const urlParams = new URLSearchParams(window.location.search);
@@ -27,7 +29,7 @@ export default function Dashboard() {
 
   // Admin has access to everything
   if (roles.includes('admin')) {
-    window.location.href = '/dashboard/admin';
+    navigate('/dashboard/admin', { replace: true });
     return null;
   }
 
@@ -37,7 +39,7 @@ export default function Dashboard() {
   }
 
   if (roles.includes('nurse')) {
-    window.location.href = '/dashboard/nurse';
+    navigate('/dashboard/nurse', { replace: true });
     return null;
   }
 
@@ -46,10 +48,10 @@ export default function Dashboard() {
   }
 
   if (roles.includes('member')) {
-    window.location.href = '/dashboard/member';
+    navigate('/dashboard/member', { replace: true });
     return null;
   }
 
-  window.location.href = '/dashboard/member';
+  navigate('/dashboard/member', { replace: true });
   return null;
 }

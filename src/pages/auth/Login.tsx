@@ -17,14 +17,23 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, roles, loading: authLoading } = useAuth();
 
   useEffect(() => {
     // Only redirect once we have user AND roles are loaded
-    if (user && !authLoading) {
-      navigate('/dashboard');
+    if (user && !authLoading && roles.length > 0) {
+      // Direct role-based redirect
+      if (roles.includes('admin')) {
+        navigate('/dashboard/admin');
+      } else if (roles.includes('nurse')) {
+        navigate('/dashboard/nurse');
+      } else if (roles.includes('member')) {
+        navigate('/dashboard/member');
+      } else {
+        navigate('/dashboard');
+      }
     }
-  }, [user, authLoading, navigate]);
+  }, [user, roles, authLoading, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
