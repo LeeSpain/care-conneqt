@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,7 @@ export default function DeviceManagement() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [memberId, setMemberId] = useState<string | null>(null);
+  const fetchInProgress = useRef(false);
 
   // Form state
   const [deviceName, setDeviceName] = useState('');
@@ -38,28 +39,40 @@ export default function DeviceManagement() {
 
   useEffect(() => {
     fetchDevices();
+    
+    return () => {
+      fetchInProgress.current = false;
+    };
   }, [user]);
 
   const fetchDevices = async () => {
-    if (!user) return;
+    if (!user || fetchInProgress.current) return;
+    
+    fetchInProgress.current = true;
 
-    const { data: memberData } = await supabase
-      .from('members')
-      .select('id')
-      .eq('user_id', user.id)
-      .single();
+    try {
+      const { data: memberData } = await supabase
+        .from('members')
+        .select('id')
+        .eq('user_id', user.id)
+        .single();
 
-    if (memberData) {
-      setMemberId(memberData.id);
-      const { data } = await supabase
-        .from('member_devices')
-        .select('*')
-        .eq('member_id', memberData.id)
-        .order('created_at', { ascending: false });
+      if (memberData) {
+        setMemberId(memberData.id);
+        const { data } = await supabase
+          .from('member_devices')
+          .select('*')
+          .eq('member_id', memberData.id)
+          .order('created_at', { ascending: false });
 
-      setDevices(data || []);
+        setDevices(data || []);
+      }
+    } catch (error) {
+      console.error('Error fetching devices:', error);
+    } finally {
+      setLoading(false);
+      fetchInProgress.current = false;
     }
-    setLoading(false);
   };
 
   const addDevice = async () => {

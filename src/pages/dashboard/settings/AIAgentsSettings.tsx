@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Bot, Settings, TrendingUp, MessageSquare, Users, HeartPulse } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -28,12 +28,24 @@ export default function AIAgentsSettings() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [stats, setStats] = useState<Record<string, AgentStats>>({});
   const [loading, setLoading] = useState(true);
+  const fetchInProgress = useRef(false);
 
   useEffect(() => {
     fetchAgents();
+    
+    return () => {
+      fetchInProgress.current = false;
+    };
   }, []);
 
   const fetchAgents = async () => {
+    if (fetchInProgress.current) {
+      console.log('[AIAgentsSettings] Fetch already in progress, skipping');
+      return;
+    }
+    
+    fetchInProgress.current = true;
+    
     try {
       const { data: agentsData, error: agentsError } = await supabase
         .from('ai_agents')
@@ -66,6 +78,7 @@ export default function AIAgentsSettings() {
       toast.error('Failed to load AI agents');
     } finally {
       setLoading(false);
+      fetchInProgress.current = false;
     }
   };
 
