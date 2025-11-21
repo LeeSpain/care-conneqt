@@ -19,6 +19,8 @@ export default function MemberHome() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const fetchMemberData = async () => {
       if (!user) return;
 
@@ -46,20 +48,19 @@ export default function MemberHome() {
         console.error('Error fetching member data:', err);
         setError('Failed to load dashboard data. Please refresh the page.');
       } finally {
+        clearTimeout(timeoutId);
         setLoading(false);
       }
     };
 
-    const timeout = setTimeout(() => {
-      if (loading) {
-        setError('Loading is taking longer than expected. Please refresh the page.');
-        setLoading(false);
-      }
+    timeoutId = setTimeout(() => {
+      setError('Loading is taking longer than expected. Please refresh the page.');
+      setLoading(false);
     }, 10000);
 
     fetchMemberData();
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timeoutId);
   }, [user]);
 
   useEffect(() => {
