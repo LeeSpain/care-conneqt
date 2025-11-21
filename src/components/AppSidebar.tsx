@@ -26,16 +26,26 @@ export function AppSidebar() {
   const { roles } = useAuth();
 
   const isNurse = roles.includes('nurse');
+  const isMember = roles.includes('member');
 
   const navigationItems = isNurse ? [
-    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
+    { title: t('sidebar.dashboard'), url: "/dashboard/nurse", icon: Home },
     { title: t('sidebar.myMembers'), url: "/dashboard/nurse/members", icon: Users },
     { title: t('sidebar.tasks'), url: "/dashboard/nurse/tasks", icon: ClipboardList },
     { title: t('sidebar.alerts'), url: "/dashboard/nurse/alerts", icon: AlertTriangle },
     { title: t('sidebar.messages'), url: "/dashboard/nurse/messages", icon: Mail },
     { title: t('sidebar.healthMonitoring'), url: "/dashboard/nurse/health", icon: Activity },
     { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
-    { title: t('sidebar.settings'), url: "/settings", icon: Settings },
+    { title: t('sidebar.settings'), url: "/dashboard/nurse/settings", icon: Settings },
+  ] : isMember ? [
+    { title: t('sidebar.dashboard'), url: "/dashboard/member", icon: Home },
+    { title: t('sidebar.schedule'), url: "/dashboard/member/schedule", icon: Calendar },
+    { title: t('sidebar.careTeam'), url: "/dashboard/member/care-team", icon: UserCog },
+    { title: t('sidebar.devices'), url: "/dashboard/member/devices", icon: Package },
+    { title: t('sidebar.family'), url: "/dashboard/member/family", icon: Users },
+    { title: t('sidebar.subscription'), url: "/dashboard/member/subscriptions", icon: CreditCard },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.settings'), url: "/dashboard/member/settings", icon: Settings },
   ] : [
     { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
     { title: t('sidebar.schedule'), url: "/dashboard/schedule", icon: Calendar },

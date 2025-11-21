@@ -21,8 +21,17 @@ interface DashboardLayoutProps {
 }
 
 export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
-  const { profile, signOut } = useAuth();
+  const { profile, signOut, roles } = useAuth();
   const navigate = useNavigate();
+
+  const getSettingsPath = () => {
+    if (roles.includes('member')) return '/dashboard/member/settings';
+    if (roles.includes('nurse')) return '/dashboard/nurse/settings';
+    if (roles.includes('family_carer')) return '/dashboard/family/settings';
+    if (roles.includes('facility_admin')) return '/dashboard/facility/settings';
+    if (roles.includes('admin')) return '/dashboard/admin/system-settings';
+    return '/settings';
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -71,11 +80,11 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/settings/profile')}>
+                  <DropdownMenuItem onClick={() => navigate(getSettingsPath())}>
                     <User className="mr-2 h-4 w-4" />
                     Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  <DropdownMenuItem onClick={() => navigate(getSettingsPath())}>
                     <Settings className="mr-2 h-4 w-4" />
                     Settings
                   </DropdownMenuItem>
