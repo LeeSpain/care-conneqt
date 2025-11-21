@@ -7,19 +7,59 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Bell, Lock, Globe, User, Bot } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { cn } from '@/lib/utils';
 
 export default function Settings() {
   const { t } = useTranslation(['common', 'dashboard']);
   const { roles } = useAuth();
   const isAdmin = roles.includes('admin');
+  const location = useLocation();
+
+  const settingsSections = [
+    { id: 'profile', label: 'Profile', icon: User, path: '/settings' },
+    { id: 'notifications', label: 'Notifications', icon: Bell, path: '/settings#notifications' },
+    { id: 'language', label: 'Language & Region', icon: Globe, path: '/settings#language' },
+    { id: 'security', label: 'Security', icon: Lock, path: '/settings#security' },
+    ...(isAdmin ? [{ id: 'ai-agents', label: 'AI Agents', icon: Bot, path: '/dashboard/settings/ai-agents' }] : []),
+  ];
 
   return (
     <DashboardLayout title={t('common:sidebar.settings')}>
-      <div className="space-y-6">
-        {/* Profile Settings */}
-        <Card>
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Settings Navigation Sidebar */}
+        <aside className="lg:w-64 space-y-1">
+          <nav className="space-y-1">
+            {settingsSections.map((section) => {
+              const Icon = section.icon;
+              const isActive = section.path === '/dashboard/settings/ai-agents' 
+                ? location.pathname === section.path
+                : location.pathname === '/settings' && location.hash === section.path.split('#')[1];
+              
+              return (
+                <Link
+                  key={section.id}
+                  to={section.path}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-accent hover:text-accent-foreground"
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="text-sm font-medium">{section.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </aside>
+
+        {/* Settings Content */}
+        <div className="flex-1 space-y-6">
+          {/* Profile Settings */}
+          <Card id="profile">
           <CardHeader>
             <div className="flex items-center gap-2">
               <User className="h-5 w-5" />
@@ -42,8 +82,8 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        {/* Notification Settings */}
-        <Card>
+          {/* Notification Settings */}
+          <Card id="notifications">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Bell className="h-5 w-5" />
@@ -86,8 +126,8 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        {/* Language Settings */}
-        <Card>
+          {/* Language Settings */}
+          <Card id="language">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Globe className="h-5 w-5" />
@@ -108,8 +148,8 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        {/* Security Settings */}
-        <Card>
+          {/* Security Settings */}
+          <Card id="security">
           <CardHeader>
             <div className="flex items-center gap-2">
               <Lock className="h-5 w-5" />
@@ -134,27 +174,7 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        {/* AI Agents Settings - Admin Only */}
-        {isAdmin && (
-          <Card>
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <Bot className="h-5 w-5" />
-                <CardTitle>AI Agents</CardTitle>
-              </div>
-              <CardDescription>
-                Configure and manage Clara (Customer Service) and Ineke (Nurse Support) AI assistants
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button asChild>
-                <Link to="/dashboard/settings/ai-agents">
-                  Manage AI Agents
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+        </div>
       </div>
     </DashboardLayout>
   );
