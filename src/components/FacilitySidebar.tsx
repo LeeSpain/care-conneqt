@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Users, UserCheck, BarChart3, Settings } from "lucide-react";
+import { Home, Users, UserCheck, BarChart3, MessageSquare, Settings } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import {
   Sidebar,
@@ -25,6 +25,7 @@ export function FacilitySidebar() {
     { title: "Residents", url: "/dashboard/facility/residents", icon: Users },
     { title: "Staff", url: "/dashboard/facility/staff", icon: UserCheck },
     { title: "Reports", url: "/dashboard/facility/reports", icon: BarChart3 },
+    { title: "AI Guardian", url: "/dashboard/facility/ai-chat", icon: MessageSquare },
     { title: "Settings", url: "/dashboard/facility/settings", icon: Settings },
   ];
 

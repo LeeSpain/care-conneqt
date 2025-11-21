@@ -24,7 +24,7 @@ export function FamilySidebar() {
     { title: "Dashboard", url: "/dashboard/family", icon: Home },
     { title: "Family Members", url: "/dashboard/family/members", icon: Users },
     { title: "Schedule", url: "/dashboard/family/schedule", icon: Calendar },
-    { title: "Messages", url: "/dashboard/care-team", icon: MessageSquare },
+    { title: "AI Guardian", url: "/dashboard/family/ai-chat", icon: MessageSquare },
     { title: "Settings", url: "/dashboard/family/settings", icon: Settings },
   ];
 

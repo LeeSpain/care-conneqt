@@ -29,7 +29,7 @@ export function NurseSidebar() {
     { title: t('sidebar.alerts'), url: "/dashboard/nurse/alerts", icon: AlertTriangle },
     { title: t('sidebar.messages'), url: "/dashboard/nurse/messages", icon: Mail },
     { title: t('sidebar.healthMonitoring'), url: "/dashboard/nurse/health", icon: Activity },
-    { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.aiGuardian'), url: "/dashboard/nurse/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/dashboard/nurse/settings", icon: Settings },
   ];
 

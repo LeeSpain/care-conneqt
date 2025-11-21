@@ -105,6 +105,7 @@ const App = () => (
             <Route path="/dashboard/member/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
             <Route path="/dashboard/member/care-team" element={<ProtectedRoute requiredRole="member"><CareTeamPage /></ProtectedRoute>} />
             <Route path="/dashboard/member/subscriptions" element={<ProtectedRoute requiredRole="member"><SubscriptionsPage /></ProtectedRoute>} />
+            <Route path="/dashboard/member/ai-chat" element={<ProtectedRoute requiredRole="member"><AIChatPage /></ProtectedRoute>} />
             
             {/* Nurse routes */}
             <Route path="/dashboard/nurse" element={<ProtectedRoute requiredRole="nurse"><NurseHome /></ProtectedRoute>} />
@@ -116,12 +117,14 @@ const App = () => (
             <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/schedule" element={<ProtectedRoute requiredRole="nurse"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/ai-chat" element={<ProtectedRoute requiredRole="nurse"><AIChatPage /></ProtectedRoute>} />
             
             {/* Family Carer routes */}
             <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="family_carer"><FamilyHome /></ProtectedRoute>} />
             <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
             <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyMembers /></ProtectedRoute>} />
             <Route path="/dashboard/family/schedule" element={<ProtectedRoute requiredRole="family_carer"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/family/ai-chat" element={<ProtectedRoute requiredRole="family_carer"><AIChatPage /></ProtectedRoute>} />
             
             {/* Facility Admin routes */}
             <Route path="/dashboard/facility" element={<ProtectedRoute requiredRole="facility_admin"><FacilityHome /></ProtectedRoute>} />
@@ -129,6 +132,7 @@ const App = () => (
             <Route path="/dashboard/facility/residents" element={<ProtectedRoute requiredRole="facility_admin"><FacilityResidents /></ProtectedRoute>} />
             <Route path="/dashboard/facility/staff" element={<ProtectedRoute requiredRole="facility_admin"><FacilityStaff /></ProtectedRoute>} />
             <Route path="/dashboard/facility/schedule" element={<ProtectedRoute requiredRole="facility_admin"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/ai-chat" element={<ProtectedRoute requiredRole="facility_admin"><AIChatPage /></ProtectedRoute>} />
             
             {/* Admin routes */}
             <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />
@@ -146,9 +150,10 @@ const App = () => (
             <Route path="/dashboard/admin/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/ai-chat" element={<ProtectedRoute requiredRole="admin"><AIChatPage /></ProtectedRoute>} />
             
-            {/* Shared routes */}
-            <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
+            {/* Shared routes - redirect old AI chat route */}
+            <Route path="/dashboard/ai-chat" element={<Navigate to="/dashboard/member/ai-chat" replace />} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<Navigate to="/settings" replace />} />
             <Route path="*" element={<NotFound />} />
