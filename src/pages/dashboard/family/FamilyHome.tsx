@@ -42,36 +42,52 @@ export default function FamilyHome() {
         .eq("user_id", user?.id)
         .maybeSingle();
 
-      if (carerError) throw carerError;
-
-      if (carerData) {
-        const [membersResult, alertsResult, messagesResult] = await Promise.all([
-          supabase
-            .from("member_carers")
-            .select("id", { count: "exact", head: true })
-            .eq("carer_id", carerData.id),
-          supabase
-            .from("alerts")
-            .select("id", { count: "exact", head: true })
-            .eq("status", "new"),
-          supabase
-            .from("care_messages")
-            .select("id", { count: "exact", head: true })
-            .eq("recipient_id", user?.id)
-            .eq("is_read", false),
-        ]);
-
-        if (membersResult.error) throw membersResult.error;
-        if (alertsResult.error) throw alertsResult.error;
-        if (messagesResult.error) throw messagesResult.error;
-
-        setStats({
-          connectedMembers: membersResult.count || 0,
-          activeAlerts: alertsResult.count || 0,
-          upcomingAppointments: 0,
-          unreadMessages: messagesResult.count || 0,
-        });
+      if (carerError) {
+        console.error("Error fetching carer data:", carerError);
+        throw carerError;
       }
+
+      if (!carerData) {
+        console.log("No family carer record found for user");
+        setError("No family carer profile found. Please contact support.");
+        return;
+      }
+
+      const [membersResult, alertsResult, messagesResult] = await Promise.all([
+        supabase
+          .from("member_carers")
+          .select("id", { count: "exact", head: true })
+          .eq("carer_id", carerData.id),
+        supabase
+          .from("alerts")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "new"),
+        supabase
+          .from("care_messages")
+          .select("id", { count: "exact", head: true })
+          .eq("recipient_id", user?.id)
+          .eq("is_read", false),
+      ]);
+
+      if (membersResult.error) {
+        console.error("Members query error:", membersResult.error);
+        throw membersResult.error;
+      }
+      if (alertsResult.error) {
+        console.error("Alerts query error:", alertsResult.error);
+        throw alertsResult.error;
+      }
+      if (messagesResult.error) {
+        console.error("Messages query error:", messagesResult.error);
+        throw messagesResult.error;
+      }
+
+      setStats({
+        connectedMembers: membersResult.count || 0,
+        activeAlerts: alertsResult.count || 0,
+        upcomingAppointments: 0,
+        unreadMessages: messagesResult.count || 0,
+      });
     } catch (err) {
       console.error("Error fetching stats:", err);
       setError("Failed to load dashboard data. Please refresh the page.");
