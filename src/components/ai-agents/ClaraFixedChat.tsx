@@ -14,6 +14,7 @@ interface Message {
 }
 
 export const ClaraFixedChat = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -88,8 +89,37 @@ export const ClaraFixedChat = () => {
     }
   };
 
+  // Closed state - beautiful trigger button
+  if (!isOpen) {
+    return (
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="fixed top-24 right-6 h-auto px-6 py-4 rounded-2xl shadow-2xl z-40 bg-gradient-to-br from-primary via-secondary to-primary hover:scale-105 transition-all duration-300 border-2 border-primary/30 group animate-fade-in"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <Avatar className="h-12 w-12 border-2 border-white/50 shadow-lg">
+              <AvatarFallback className="bg-gradient-to-br from-white/90 to-white/70 text-primary font-bold text-lg">
+                C
+              </AvatarFallback>
+            </Avatar>
+            <div className="absolute -bottom-1 -right-1 h-4 w-4 bg-green-400 rounded-full border-2 border-white animate-pulse" />
+          </div>
+          
+          <div className="text-left">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-white">Chat with Clara</span>
+              <Sparkles className="h-4 w-4 text-white/90 animate-pulse" />
+            </div>
+            <p className="text-xs text-white/80">AI Assistant • Available Now</p>
+          </div>
+        </div>
+      </Button>
+    );
+  }
+
   return (
-    <Card className={`fixed top-24 right-6 w-96 shadow-2xl z-40 flex flex-col transition-all duration-300 border-2 border-primary/20 ${
+    <Card className={`fixed top-24 right-6 w-96 shadow-2xl z-40 flex flex-col transition-all duration-300 border-2 border-primary/20 animate-scale-in ${
       isMinimized ? 'h-20' : 'h-[600px]'
     }`}>
       {/* Header with Avatar */}
@@ -114,18 +144,28 @@ export const ClaraFixedChat = () => {
           </div>
         </div>
         
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsMinimized(!isMinimized)}
-          className="hover:bg-primary/10"
-        >
-          {isMinimized ? (
-            <PlusCircle className="h-5 w-5 text-primary" />
-          ) : (
-            <MinusCircle className="h-5 w-5 text-primary" />
-          )}
-        </Button>
+        <div className="flex gap-1">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMinimized(!isMinimized)}
+            className="hover:bg-primary/10"
+          >
+            {isMinimized ? (
+              <PlusCircle className="h-5 w-5 text-primary" />
+            ) : (
+              <MinusCircle className="h-5 w-5 text-primary" />
+            )}
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsOpen(false)}
+            className="hover:bg-primary/10"
+          >
+            <MinusCircle className="h-5 w-5 text-muted-foreground" />
+          </Button>
+        </div>
       </div>
 
       {!isMinimized && (
