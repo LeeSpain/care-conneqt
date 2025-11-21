@@ -74,15 +74,7 @@ export default function MemberHome() {
     return () => clearInterval(timer);
   }, []);
 
-  if (loading) {
-    return (
-      <MemberDashboardLayout title="Member Dashboard">
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      </MemberDashboardLayout>
-    );
-  }
+  // Show content immediately with skeleton - no blocking
 
   if (error) {
     return (
@@ -107,7 +99,7 @@ export default function MemberHome() {
         {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
-            <h2 className="text-2xl font-bold mb-2">Good day, {firstName}</h2>
+            <h2 className="text-2xl font-bold mb-2">Good day, {loading ? '...' : firstName}</h2>
             <p className="text-muted-foreground">
               {formattedDate} at {formattedTime}
             </p>

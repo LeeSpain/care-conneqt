@@ -32,12 +32,15 @@ i18n
     },
 
     react: {
-      useSuspense: true,
+      useSuspense: false, // CRITICAL: Allow progressive rendering without blocking
     },
 
     // Load namespaces on demand for better performance
     load: 'languageOnly',
     cleanCode: true,
+    
+    // Improve loading performance
+    partialBundledLanguages: true,
   });
 
 export default i18n;

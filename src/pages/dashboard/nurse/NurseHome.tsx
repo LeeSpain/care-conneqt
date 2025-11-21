@@ -199,15 +199,8 @@ export default function NurseHome() {
     fetchNurseData();
   };
 
-  if (loading) {
-    return (
-      <NurseDashboardLayout title="Nurse Dashboard">
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      </NurseDashboardLayout>
-    );
-  }
+  // Show skeleton immediately - no blocking
+  const showSkeleton = loading || loadingStats;
 
   if (error && !stats.assignedMembers) {
     return (
@@ -252,8 +245,8 @@ export default function NurseHome() {
                     </span>
                   </div>
                 </div>
-                <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
-                  <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+                <Button variant="outline" size="icon" onClick={handleRefresh} disabled={showSkeleton}>
+                  <RefreshCw className={`h-4 w-4 ${showSkeleton ? 'animate-spin' : ''}`} />
                 </Button>
               </div>
             </CardContent>
@@ -294,7 +287,7 @@ export default function NurseHome() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -311,7 +304,7 @@ export default function NurseHome() {
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -330,7 +323,7 @@ export default function NurseHome() {
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>
@@ -349,7 +342,7 @@ export default function NurseHome() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {loadingStats ? (
+              {showSkeleton ? (
                 <Skeleton className="h-8 w-16" />
               ) : (
                 <>

@@ -39,26 +39,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
+    // Parallelize profile and roles fetch for better performance
+    const [profileResult, rolesResult] = await Promise.all([
+      supabase.from('profiles').select('*').eq('id', userId).single(),
+      supabase.from('user_roles').select('role').eq('user_id', userId)
+    ]);
 
-    const { data: rolesData } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', userId);
-
-    setProfile(profileData);
-    setRoles(rolesData?.map(r => r.role as AppRole) || []);
+    setProfile(profileResult.data);
+    setRoles(rolesResult.data?.map(r => r.role as AppRole) || []);
     
-    // Apply user's language preference
-    if (profileData?.language) {
-      const savedLanguage = profileData.language;
-      // Apply the language preference
-      i18n.changeLanguage(savedLanguage);
-      localStorage.setItem('i18nextLng', savedLanguage);
+    // Apply user's language preference in background (non-blocking)
+    if (profileResult.data?.language) {
+      const savedLanguage = profileResult.data.language;
+      // Don't await - apply in background to avoid blocking
+      Promise.resolve().then(() => {
+        i18n.changeLanguage(savedLanguage);
+        localStorage.setItem('i18nextLng', savedLanguage);
+      });
     }
   };
 

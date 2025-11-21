@@ -2,6 +2,7 @@ import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Set
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/hooks/useAuth";
+import { memo } from "react";
 import { Logo } from "./Logo";
 import {
   Sidebar,
@@ -18,11 +19,11 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 
-export function AppSidebar() {
+const AppSidebarComponent = () => {
   const { state } = useSidebar();
   const location = useLocation();
   const isCollapsed = state === "collapsed";
-  const { t } = useTranslation('common');
+  const { t, ready } = useTranslation('common');
   const { roles } = useAuth();
 
   const isNurse = roles.includes('nurse');
@@ -99,7 +100,7 @@ export function AppSidebar() {
                     >
                       <NavLink to={item.url}>
                         <item.icon className="h-5 w-5" />
-                        {!isCollapsed && <span>{item.title}</span>}
+                        {!isCollapsed && <span>{ready ? item.title : item.title}</span>}
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -119,4 +120,7 @@ export function AppSidebar() {
       </SidebarFooter>
     </Sidebar>
   );
-}
+};
+
+// Memoize to prevent unnecessary re-renders
+export const AppSidebar = memo(AppSidebarComponent);
