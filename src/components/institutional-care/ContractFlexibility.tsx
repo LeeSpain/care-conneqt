@@ -13,7 +13,9 @@ export const ContractFlexibility = () => {
       duration: t('contractFlexibility.pilot.duration'),
       badge: t('contractFlexibility.pilot.badge'),
       description: t('contractFlexibility.pilot.description'),
-      features: t('contractFlexibility.pilot.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('contractFlexibility.pilot.features', { returnObjects: true }))
+        ? t('contractFlexibility.pilot.features', { returnObjects: true }) as string[]
+        : [],
       ideal: t('contractFlexibility.pilot.ideal')
     },
     {
@@ -22,7 +24,9 @@ export const ContractFlexibility = () => {
       duration: t('contractFlexibility.standard.duration'),
       badge: t('contractFlexibility.standard.badge'),
       description: t('contractFlexibility.standard.description'),
-      features: t('contractFlexibility.standard.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('contractFlexibility.standard.features', { returnObjects: true }))
+        ? t('contractFlexibility.standard.features', { returnObjects: true }) as string[]
+        : [],
       ideal: t('contractFlexibility.standard.ideal')
     },
     {
@@ -31,7 +35,9 @@ export const ContractFlexibility = () => {
       duration: t('contractFlexibility.preferred.duration'),
       badge: t('contractFlexibility.preferred.badge'),
       description: t('contractFlexibility.preferred.description'),
-      features: t('contractFlexibility.preferred.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('contractFlexibility.preferred.features', { returnObjects: true }))
+        ? t('contractFlexibility.preferred.features', { returnObjects: true }) as string[]
+        : [],
       ideal: t('contractFlexibility.preferred.ideal')
     },
     {
@@ -40,7 +46,9 @@ export const ContractFlexibility = () => {
       duration: t('contractFlexibility.enterprise.duration'),
       badge: t('contractFlexibility.enterprise.badge'),
       description: t('contractFlexibility.enterprise.description'),
-      features: t('contractFlexibility.enterprise.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('contractFlexibility.enterprise.features', { returnObjects: true }))
+        ? t('contractFlexibility.enterprise.features', { returnObjects: true }) as string[]
+        : [],
       ideal: t('contractFlexibility.enterprise.ideal')
     }
   ];

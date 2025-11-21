@@ -17,7 +17,9 @@ export const VolumePricing = () => {
       name: t('volumePricing.small.name'),
       range: t('volumePricing.small.range'),
       description: t('volumePricing.small.description'),
-      features: t('volumePricing.small.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('volumePricing.small.features', { returnObjects: true }))
+        ? t('volumePricing.small.features', { returnObjects: true }) as string[]
+        : [],
       savings: t('volumePricing.small.savings'),
       badge: undefined
     },
@@ -27,7 +29,9 @@ export const VolumePricing = () => {
       range: t('volumePricing.medium.range'),
       badge: t('volumePricing.medium.badge'),
       description: t('volumePricing.medium.description'),
-      features: t('volumePricing.medium.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('volumePricing.medium.features', { returnObjects: true }))
+        ? t('volumePricing.medium.features', { returnObjects: true }) as string[]
+        : [],
       savings: t('volumePricing.medium.savings')
     },
     {
@@ -35,7 +39,9 @@ export const VolumePricing = () => {
       name: t('volumePricing.large.name'),
       range: t('volumePricing.large.range'),
       description: t('volumePricing.large.description'),
-      features: t('volumePricing.large.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('volumePricing.large.features', { returnObjects: true }))
+        ? t('volumePricing.large.features', { returnObjects: true }) as string[]
+        : [],
       savings: t('volumePricing.large.savings'),
       badge: undefined
     },
@@ -45,7 +51,9 @@ export const VolumePricing = () => {
       range: t('volumePricing.enterprise.range'),
       badge: t('volumePricing.enterprise.badge'),
       description: t('volumePricing.enterprise.description'),
-      features: t('volumePricing.enterprise.features', { returnObjects: true }) as string[],
+      features: Array.isArray(t('volumePricing.enterprise.features', { returnObjects: true }))
+        ? t('volumePricing.enterprise.features', { returnObjects: true }) as string[]
+        : [],
       savings: t('volumePricing.enterprise.savings')
     }
   ];

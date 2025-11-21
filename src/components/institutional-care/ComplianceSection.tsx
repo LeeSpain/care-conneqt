@@ -10,37 +10,49 @@ export const ComplianceSection = () => {
       icon: Shield,
       title: t('complianceSection.gdpr.title'),
       description: t('complianceSection.gdpr.description'),
-      certifications: t('complianceSection.gdpr.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.gdpr.certifications', { returnObjects: true }))
+        ? t('complianceSection.gdpr.certifications', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: FileCheck,
       title: t('complianceSection.cqc.title'),
       description: t('complianceSection.cqc.description'),
-      certifications: t('complianceSection.cqc.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.cqc.certifications', { returnObjects: true }))
+        ? t('complianceSection.cqc.certifications', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Lock,
       title: t('complianceSection.security.title'),
       description: t('complianceSection.security.description'),
-      certifications: t('complianceSection.security.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.security.certifications', { returnObjects: true }))
+        ? t('complianceSection.security.certifications', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Eye,
       title: t('complianceSection.audit.title'),
       description: t('complianceSection.audit.description'),
-      certifications: t('complianceSection.audit.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.audit.certifications', { returnObjects: true }))
+        ? t('complianceSection.audit.certifications', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: AlertTriangle,
       title: t('complianceSection.risk.title'),
       description: t('complianceSection.risk.description'),
-      certifications: t('complianceSection.risk.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.risk.certifications', { returnObjects: true }))
+        ? t('complianceSection.risk.certifications', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Award,
       title: t('complianceSection.standards.title'),
       description: t('complianceSection.standards.description'),
-      certifications: t('complianceSection.standards.certifications', { returnObjects: true }) as string[]
+      certifications: Array.isArray(t('complianceSection.standards.certifications', { returnObjects: true }))
+        ? t('complianceSection.standards.certifications', { returnObjects: true }) as string[]
+        : []
     }
   ];
 
@@ -86,23 +98,29 @@ export const ComplianceSection = () => {
               <div>
                 <h3 className="text-xl font-bold mb-4">{t('complianceSection.certifications.title')}</h3>
                 <ul className="space-y-2">
-                  {(t('complianceSection.certifications.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
+                  {Array.isArray(t('complianceSection.certifications.items', { returnObjects: true })) 
+                    ? (t('complianceSection.certifications.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
+                        <span className="text-sm text-muted-foreground">{item}</span>
+                      </li>
+                    ))
+                    : null
+                  }
                 </ul>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4">{t('complianceSection.dataProtection.title')}</h3>
                 <ul className="space-y-2">
-                  {(t('complianceSection.dataProtection.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
+                  {Array.isArray(t('complianceSection.dataProtection.items', { returnObjects: true }))
+                    ? (t('complianceSection.dataProtection.items', { returnObjects: true }) as string[]).map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-secondary mt-2" />
+                        <span className="text-sm text-muted-foreground">{item}</span>
+                      </li>
+                    ))
+                    : null
+                  }
                 </ul>
               </div>
             </div>

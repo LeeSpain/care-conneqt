@@ -10,25 +10,33 @@ export const SolutionTypes = () => {
       icon: Building2,
       title: t('solutionTypes.careHomes.title'),
       description: t('solutionTypes.careHomes.description'),
-      features: t('solutionTypes.careHomes.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('solutionTypes.careHomes.features', { returnObjects: true })) 
+        ? t('solutionTypes.careHomes.features', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Users,
       title: t('solutionTypes.municipalities.title'),
       description: t('solutionTypes.municipalities.description'),
-      features: t('solutionTypes.municipalities.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('solutionTypes.municipalities.features', { returnObjects: true }))
+        ? t('solutionTypes.municipalities.features', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Shield,
       title: t('solutionTypes.insurers.title'),
       description: t('solutionTypes.insurers.description'),
-      features: t('solutionTypes.insurers.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('solutionTypes.insurers.features', { returnObjects: true }))
+        ? t('solutionTypes.insurers.features', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Briefcase,
       title: t('solutionTypes.employers.title'),
       description: t('solutionTypes.employers.description'),
-      features: t('solutionTypes.employers.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('solutionTypes.employers.features', { returnObjects: true }))
+        ? t('solutionTypes.employers.features', { returnObjects: true }) as string[]
+        : []
     }
   ];
 

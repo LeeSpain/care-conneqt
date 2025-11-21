@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 
 export const InstitutionalFAQ = () => {
   const { t } = useTranslation('institutional-care');
-  const faqs = t('faq.questions', { returnObjects: true }) as Array<{ question: string; answer: string }>;
+  const faqsData = t('faq.questions', { returnObjects: true });
+  const faqs = Array.isArray(faqsData) ? faqsData as Array<{ question: string; answer: string }> : [];
 
   return (
     <section className="py-20 bg-background">

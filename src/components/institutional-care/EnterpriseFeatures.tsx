@@ -11,37 +11,49 @@ export const EnterpriseFeatures = () => {
       icon: LayoutDashboard,
       title: t('enterpriseFeatures.dashboard.title'),
       description: t('enterpriseFeatures.dashboard.description'),
-      highlights: t('enterpriseFeatures.dashboard.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.dashboard.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.dashboard.highlights', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: BarChart3,
       title: t('enterpriseFeatures.analytics.title'),
       description: t('enterpriseFeatures.analytics.description'),
-      highlights: t('enterpriseFeatures.analytics.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.analytics.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.analytics.highlights', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Puzzle,
       title: t('enterpriseFeatures.integration.title'),
       description: t('enterpriseFeatures.integration.description'),
-      highlights: t('enterpriseFeatures.integration.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.integration.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.integration.highlights', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Headphones,
       title: t('enterpriseFeatures.support.title'),
       description: t('enterpriseFeatures.support.description'),
-      highlights: t('enterpriseFeatures.support.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.support.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.support.highlights', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: FileCheck,
       title: t('enterpriseFeatures.sla.title'),
       description: t('enterpriseFeatures.sla.description'),
-      highlights: t('enterpriseFeatures.sla.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.sla.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.sla.highlights', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Zap,
       title: t('enterpriseFeatures.onboarding.title'),
       description: t('enterpriseFeatures.onboarding.description'),
-      highlights: t('enterpriseFeatures.onboarding.highlights', { returnObjects: true }) as string[]
+      highlights: Array.isArray(t('enterpriseFeatures.onboarding.highlights', { returnObjects: true }))
+        ? t('enterpriseFeatures.onboarding.highlights', { returnObjects: true }) as string[]
+        : []
     }
   ];
 
