@@ -39,23 +39,38 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
-    // Parallelize profile and roles fetch for better performance
-    const [profileResult, rolesResult] = await Promise.all([
-      supabase.from('profiles').select('*').eq('id', userId).single(),
-      supabase.from('user_roles').select('role').eq('user_id', userId)
-    ]);
+    try {
+      // Parallelize profile and roles fetch for better performance
+      const [profileResult, rolesResult] = await Promise.all([
+        supabase.from('profiles').select('*').eq('id', userId).single(),
+        supabase.from('user_roles').select('role').eq('user_id', userId)
+      ]);
 
-    setProfile(profileResult.data);
-    setRoles(rolesResult.data?.map(r => r.role as AppRole) || []);
-    
-    // Apply user's language preference in background (non-blocking)
-    if (profileResult.data?.language) {
-      const savedLanguage = profileResult.data.language;
-      // Don't await - apply in background to avoid blocking
-      Promise.resolve().then(() => {
-        i18n.changeLanguage(savedLanguage);
-        localStorage.setItem('i18nextLng', savedLanguage);
-      });
+      const profileData = profileResult.data;
+      const userRoles = rolesResult.data?.map(r => r.role as AppRole) || [];
+
+      setProfile(profileData);
+      setRoles(userRoles);
+      
+      // Cache auth state for faster subsequent loads
+      sessionStorage.setItem('auth_cached', JSON.stringify({
+        user,
+        profile: profileData,
+        roles: userRoles,
+        timestamp: Date.now()
+      }));
+      
+      // Apply language preference in background (non-blocking)
+      if (profileData?.language) {
+        setTimeout(() => {
+          i18n.changeLanguage(profileData.language);
+          localStorage.setItem('i18nextLng', profileData.language);
+        }, 0);
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,38 +81,62 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    // Set up auth state listener FIRST
+    let mounted = true;
+
+    // Try to load cached auth state for instant loading
+    const cachedAuth = sessionStorage.getItem('auth_cached');
+    if (cachedAuth) {
+      try {
+        const { user: cachedUser, profile: cachedProfile, roles: cachedRoles, timestamp } = JSON.parse(cachedAuth);
+        // Use cache if less than 1 minute old
+        if (Date.now() - timestamp < 60000) {
+          setUser(cachedUser);
+          setProfile(cachedProfile);
+          setRoles(cachedRoles);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error loading cached auth:', error);
+        sessionStorage.removeItem('auth_cached');
+      }
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('[useAuth] Auth state change:', event, 'User ID:', session?.user?.id);
+        if (!mounted) return;
+        
+        console.log('Auth state changed:', event);
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          setLoading(true);
           await fetchProfile(session.user.id);
-          setLoading(false);
         } else {
           setProfile(null);
           setRoles([]);
           setLoading(false);
+          sessionStorage.removeItem('auth_cached');
         }
       }
     );
 
-    // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
+      
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        fetchProfile(session.user.id).finally(() => setLoading(false));
+        fetchProfile(session.user.id);
       } else {
         setLoading(false);
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signOut = async () => {
@@ -106,6 +145,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setSession(null);
     setProfile(null);
     setRoles([]);
+    sessionStorage.removeItem('auth_cached');
   };
 
   return (
