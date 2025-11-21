@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useRef, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let mounted = true;
-    let profileFetched = false;
+    const profileFetchedRef = { current: false };
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -103,8 +103,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        if (session?.user && !profileFetched) {
-          profileFetched = true;
+        if (session?.user && !profileFetchedRef.current) {
+          profileFetchedRef.current = true;
           await fetchProfile(session.user.id);
         } else if (!session?.user) {
           setProfile(null);
@@ -115,16 +115,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    // Get initial session - but DON'T call fetchProfile again
-    // The onAuthStateChange will handle it
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Get initial session and fetch profile immediately
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!mounted) return;
       
-      // Only set loading to false if no session
-      if (!session?.user) {
+      if (session?.user && !profileFetchedRef.current) {
+        profileFetchedRef.current = true;
+        setSession(session);
+        setUser(session.user);
+        await fetchProfile(session.user.id);
+      } else if (!session?.user) {
         setLoading(false);
       }
-      // If there IS a session, onAuthStateChange will handle the fetchProfile
     });
 
     return () => {
