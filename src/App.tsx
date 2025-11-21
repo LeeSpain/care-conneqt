@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,68 +7,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Public pages (loaded immediately)
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import Dashboard from "./pages/Dashboard";
-import MemberOnboarding from "./pages/onboarding/MemberOnboarding";
-
-// Member pages
-import MemberHome from "./pages/dashboard/member/MemberHome";
-import MemberSettings from "./pages/dashboard/member/MemberSettings";
-import DeviceManagement from "./pages/dashboard/DeviceManagement";
-import FamilyInvitations from "./pages/dashboard/FamilyInvitations";
-import SchedulePage from "./pages/dashboard/SchedulePage";
-import CareTeamPage from "./pages/dashboard/CareTeamPage";
-import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
-
-// Family Carer pages
-import FamilyHome from "./pages/dashboard/family/FamilyHome";
-import FamilySettings from "./pages/dashboard/family/FamilySettings";
-import FamilyMembers from "./pages/dashboard/family/FamilyMembers";
-
-// Facility Admin pages
-import FacilityHome from "./pages/dashboard/facility/FacilityHome";
-import FacilitySettings from "./pages/dashboard/facility/FacilitySettings";
-import FacilityResidents from "./pages/dashboard/facility/FacilityResidents";
-import FacilityStaff from "./pages/dashboard/facility/FacilityStaff";
-import FacilityReports from "./pages/dashboard/facility/FacilityReports";
-
-// Nurse pages
-import NurseHome from "./pages/dashboard/nurse/NurseHome";
-import NurseSettings from "./pages/dashboard/nurse/NurseSettings";
-import NurseMembers from "./pages/dashboard/nurse/NurseMembers";
-import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
-import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
-import NurseMessages from "./pages/dashboard/nurse/NurseMessages";
-import NurseHealthMonitoring from "./pages/dashboard/nurse/NurseHealthMonitoring";
-import NurseTasks from "./pages/dashboard/NurseTasks";
-
-// Admin pages
-import AdminHome from "./pages/dashboard/admin/AdminHome";
-import Nurses from "./pages/dashboard/admin/Nurses";
-import Members from "./pages/dashboard/admin/Members";
-import FamilyCarers from "./pages/dashboard/admin/FamilyCarers";
-import Facilities from "./pages/dashboard/admin/Facilities";
-import FacilityDetail from "./pages/dashboard/admin/FacilityDetail";
-import PlatformAnalytics from "./pages/dashboard/admin/PlatformAnalytics";
-import AIAnalytics from "./pages/dashboard/admin/AIAnalytics";
-import Announcements from "./pages/dashboard/admin/Announcements";
-import SupportTickets from "./pages/dashboard/admin/SupportTickets";
-import SystemSettings from "./pages/dashboard/admin/SystemSettings";
-import SystemHealth from "./pages/dashboard/admin/SystemHealth";
-import UserManagement from "./pages/dashboard/settings/UserManagement";
-import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
-import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
-import InekeSettings from "./pages/dashboard/settings/ai-agents/InekeSettings";
-
-// Shared pages
-import AIChatPage from "./pages/dashboard/AIChatPage";
-import Settings from "./pages/dashboard/Settings";
-
-// Public pages
 import PersonalCare from "./pages/PersonalCare";
 import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
@@ -75,7 +22,86 @@ import OurNurses from "./pages/OurNurses";
 import Guide from "./pages/Guide";
 import Conneqtivity from "./pages/Conneqtivity";
 
-const queryClient = new QueryClient();
+// Dashboard pages (lazy loaded)
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const MemberOnboarding = lazy(() => import("./pages/onboarding/MemberOnboarding"));
+
+// Member pages
+const MemberHome = lazy(() => import("./pages/dashboard/member/MemberHome"));
+const MemberSettings = lazy(() => import("./pages/dashboard/member/MemberSettings"));
+const DeviceManagement = lazy(() => import("./pages/dashboard/DeviceManagement"));
+const FamilyInvitations = lazy(() => import("./pages/dashboard/FamilyInvitations"));
+const SchedulePage = lazy(() => import("./pages/dashboard/SchedulePage"));
+const CareTeamPage = lazy(() => import("./pages/dashboard/CareTeamPage"));
+const SubscriptionsPage = lazy(() => import("./pages/dashboard/SubscriptionsPage"));
+
+// Family Carer pages
+const FamilyHome = lazy(() => import("./pages/dashboard/family/FamilyHome"));
+const FamilySettings = lazy(() => import("./pages/dashboard/family/FamilySettings"));
+const FamilyMembers = lazy(() => import("./pages/dashboard/family/FamilyMembers"));
+
+// Facility Admin pages
+const FacilityHome = lazy(() => import("./pages/dashboard/facility/FacilityHome"));
+const FacilitySettings = lazy(() => import("./pages/dashboard/facility/FacilitySettings"));
+const FacilityResidents = lazy(() => import("./pages/dashboard/facility/FacilityResidents"));
+const FacilityStaff = lazy(() => import("./pages/dashboard/facility/FacilityStaff"));
+const FacilityReports = lazy(() => import("./pages/dashboard/facility/FacilityReports"));
+
+// Nurse pages
+const NurseHome = lazy(() => import("./pages/dashboard/nurse/NurseHome"));
+const NurseSettings = lazy(() => import("./pages/dashboard/nurse/NurseSettings"));
+const NurseMembers = lazy(() => import("./pages/dashboard/nurse/NurseMembers"));
+const NurseMemberDetail = lazy(() => import("./pages/dashboard/nurse/NurseMemberDetail"));
+const NurseAlerts = lazy(() => import("./pages/dashboard/nurse/NurseAlerts"));
+const NurseMessages = lazy(() => import("./pages/dashboard/nurse/NurseMessages"));
+const NurseHealthMonitoring = lazy(() => import("./pages/dashboard/nurse/NurseHealthMonitoring"));
+const NurseTasks = lazy(() => import("./pages/dashboard/NurseTasks"));
+
+// Admin pages
+const AdminHome = lazy(() => import("./pages/dashboard/admin/AdminHome"));
+const Nurses = lazy(() => import("./pages/dashboard/admin/Nurses"));
+const Members = lazy(() => import("./pages/dashboard/admin/Members"));
+const FamilyCarers = lazy(() => import("./pages/dashboard/admin/FamilyCarers"));
+const Facilities = lazy(() => import("./pages/dashboard/admin/Facilities"));
+const FacilityDetail = lazy(() => import("./pages/dashboard/admin/FacilityDetail"));
+const PlatformAnalytics = lazy(() => import("./pages/dashboard/admin/PlatformAnalytics"));
+const AIAnalytics = lazy(() => import("./pages/dashboard/admin/AIAnalytics"));
+const Announcements = lazy(() => import("./pages/dashboard/admin/Announcements"));
+const SupportTickets = lazy(() => import("./pages/dashboard/admin/SupportTickets"));
+const SystemSettings = lazy(() => import("./pages/dashboard/admin/SystemSettings"));
+const SystemHealth = lazy(() => import("./pages/dashboard/admin/SystemHealth"));
+const UserManagement = lazy(() => import("./pages/dashboard/settings/UserManagement"));
+const AIAgentsSettings = lazy(() => import("./pages/dashboard/settings/AIAgentsSettings"));
+const ClaraSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraSettings"));
+const InekeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/InekeSettings"));
+
+// Shared pages
+const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
+const Settings = lazy(() => import("./pages/dashboard/Settings"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="space-y-4 w-full max-w-md px-4">
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-32 w-full" />
+      <Skeleton className="h-32 w-full" />
+    </div>
+  </div>
+);
+
+// Configure QueryClient with aggressive caching
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -86,6 +112,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
+            {/* Public routes - no lazy loading */}
             <Route path="/" element={<Index />} />
             <Route path="/personal-care" element={<PersonalCare />} />
             <Route path="/institutional-care" element={<InstitutionalCare />} />
@@ -96,71 +123,391 @@ const App = () => (
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-            <Route path="/onboarding" element={<ProtectedRoute><MemberOnboarding /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/dashboard/devices" element={<ProtectedRoute><DeviceManagement /></ProtectedRoute>} />
+            
+            {/* Dashboard routes - lazy loaded with suspense */}
+            <Route path="/onboarding" element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <MemberOnboarding />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <Dashboard />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/devices" element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <DeviceManagement />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Member routes */}
-            <Route path="/dashboard/member" element={<ProtectedRoute requiredRole="member"><MemberHome /></ProtectedRoute>} />
-            <Route path="/dashboard/member/settings" element={<ProtectedRoute requiredRole="member"><MemberSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/member/devices" element={<ProtectedRoute requiredRole="member"><DeviceManagement /></ProtectedRoute>} />
-            <Route path="/dashboard/member/family" element={<ProtectedRoute requiredRole="member"><FamilyInvitations /></ProtectedRoute>} />
-            <Route path="/dashboard/member/schedule" element={<ProtectedRoute requiredRole="member"><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/member/care-team" element={<ProtectedRoute requiredRole="member"><CareTeamPage /></ProtectedRoute>} />
-            <Route path="/dashboard/member/subscriptions" element={<ProtectedRoute requiredRole="member"><SubscriptionsPage /></ProtectedRoute>} />
-            <Route path="/dashboard/member/ai-chat" element={<ProtectedRoute requiredRole="member"><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/member" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <MemberHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/settings" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <MemberSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/devices" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <DeviceManagement />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/family" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilyInvitations />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/schedule" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <SchedulePage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/care-team" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <CareTeamPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/subscriptions" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <SubscriptionsPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/member/ai-chat" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Nurse routes */}
-            <Route path="/dashboard/nurse" element={<ProtectedRoute requiredRole="nurse"><NurseHome /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/settings" element={<ProtectedRoute requiredRole="nurse"><NurseSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/members" element={<ProtectedRoute requiredRole="nurse"><NurseMembers /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute requiredRole="nurse"><NurseMemberDetail /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/tasks" element={<ProtectedRoute requiredRole="nurse"><NurseTasks /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/alerts" element={<ProtectedRoute requiredRole="nurse"><NurseAlerts /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/messages" element={<ProtectedRoute requiredRole="nurse"><NurseMessages /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/health" element={<ProtectedRoute requiredRole="nurse"><NurseHealthMonitoring /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/schedule" element={<ProtectedRoute requiredRole="nurse"><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/nurse/ai-chat" element={<ProtectedRoute requiredRole="nurse"><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/settings" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/members" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseMembers />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/members/:memberId" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseMemberDetail />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/tasks" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseTasks />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/alerts" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseAlerts />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/messages" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseMessages />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/health" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <NurseHealthMonitoring />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/schedule" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <SchedulePage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/nurse/ai-chat" element={
+              <ProtectedRoute requiredRole="nurse">
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Family Carer routes */}
-            <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="family_carer"><FamilyHome /></ProtectedRoute>} />
-            <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
-            <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyMembers /></ProtectedRoute>} />
-            <Route path="/dashboard/family/schedule" element={<ProtectedRoute requiredRole="family_carer"><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/family/care-team" element={<ProtectedRoute requiredRole="family_carer"><CareTeamPage /></ProtectedRoute>} />
-            <Route path="/dashboard/family/ai-chat" element={<ProtectedRoute requiredRole="family_carer"><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/family" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilyHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/family/settings" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilySettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/family/members" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilyMembers />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/family/schedule" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <SchedulePage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/family/care-team" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <CareTeamPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/family/ai-chat" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Facility Admin routes */}
-            <Route path="/dashboard/facility" element={<ProtectedRoute requiredRole="facility_admin"><FacilityHome /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/settings" element={<ProtectedRoute requiredRole="facility_admin"><FacilitySettings /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/residents" element={<ProtectedRoute requiredRole="facility_admin"><FacilityResidents /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/staff" element={<ProtectedRoute requiredRole="facility_admin"><FacilityStaff /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/reports" element={<ProtectedRoute requiredRole="facility_admin"><FacilityReports /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/schedule" element={<ProtectedRoute requiredRole="facility_admin"><SchedulePage /></ProtectedRoute>} />
-            <Route path="/dashboard/facility/ai-chat" element={<ProtectedRoute requiredRole="facility_admin"><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/facility" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/settings" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilitySettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/residents" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityResidents />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/staff" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityStaff />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/reports" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityReports />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/schedule" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <SchedulePage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/ai-chat" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Admin routes */}
-            <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/nurses" element={<ProtectedRoute requiredRole="admin"><Nurses /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/members" element={<ProtectedRoute requiredRole="admin"><Members /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/family-carers" element={<ProtectedRoute requiredRole="admin"><FamilyCarers /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/facilities" element={<ProtectedRoute requiredRole="admin"><Facilities /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/facilities/:id" element={<ProtectedRoute requiredRole="admin"><FacilityDetail /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/analytics" element={<ProtectedRoute requiredRole="admin"><PlatformAnalytics /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/ai-analytics" element={<ProtectedRoute requiredRole="admin"><AIAnalytics /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/system-health" element={<ProtectedRoute requiredRole="admin"><SystemHealth /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/announcements" element={<ProtectedRoute requiredRole="admin"><Announcements /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/support" element={<ProtectedRoute requiredRole="admin"><SupportTickets /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/system-settings" element={<ProtectedRoute requiredRole="admin"><SystemSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/users" element={<ProtectedRoute requiredRole="admin"><UserManagement /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
-            <Route path="/dashboard/admin/ai-chat" element={<ProtectedRoute requiredRole="admin"><AIChatPage /></ProtectedRoute>} />
+            <Route path="/dashboard/admin" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AdminHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/nurses" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Nurses />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/members" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Members />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/family-carers" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilyCarers />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/facilities" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Facilities />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/facilities/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityDetail />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/analytics" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <PlatformAnalytics />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-analytics" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AIAnalytics />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/system-health" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <SystemHealth />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/announcements" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Announcements />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/support" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <SupportTickets />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/system-settings" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <SystemSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/users" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <UserManagement />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AIAgentsSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/clara" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ClaraSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/ineke" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <InekeSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-chat" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Shared routes */}
-            <Route path="/dashboard/ai-chat" element={<ProtectedRoute><AIChatPage /></ProtectedRoute>} />
-            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/dashboard/ai-chat" element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <Suspense fallback={<PageLoader />}>
+                  <Settings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             <Route path="/settings/profile" element={<Navigate to="/settings" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

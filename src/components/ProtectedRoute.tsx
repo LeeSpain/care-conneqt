@@ -15,17 +15,21 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
+    // Check sessionStorage for cached auth to make instant decision
+    const cachedAuth = sessionStorage.getItem('auth_cached');
+    
+    if (!loading || cachedAuth) {
+      // Only redirect if we're sure user is not authenticated
+      if (!user && !cachedAuth) {
         navigate('/auth/login');
         return;
       }
 
-      if (requiredRole) {
+      if (requiredRole && user) {
         const requiredRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
         const hasRequiredRole = requiredRoles.some(role => roles.includes(role)) || roles.includes('admin');
         
-        if (!hasRequiredRole) {
+        if (!hasRequiredRole && roles.length > 0) {
           // Redirect to appropriate dashboard based on user's actual role
           if (roles.includes('admin')) {
             navigate('/dashboard/admin');
@@ -37,8 +41,6 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
             navigate('/dashboard/family');
           } else if (roles.includes('member')) {
             navigate('/dashboard/member');
-          } else {
-            navigate('/auth/login');
           }
           return;
         }
@@ -51,10 +53,6 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
     }
   }, [user?.id, profile?.id, roles.join(','), loading, requiredRole, requireOnboarding, navigate]);
 
-  // Show content immediately with skeleton - no blocking spinner
-  if (loading) {
-    return <>{children}</>;
-  }
-
+  // Always render children immediately for progressive loading
   return <>{children}</>;
 };

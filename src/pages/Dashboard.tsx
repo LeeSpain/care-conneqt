@@ -9,13 +9,6 @@ export default function Dashboard() {
   const urlParams = new URLSearchParams(window.location.search);
   const devMode = urlParams.get('devmode') === 'true';
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
 
   // Dev mode bypass - default to Family Dashboard
   if (devMode) {
