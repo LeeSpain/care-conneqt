@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { HeartPulse, X, Send, Loader2, Minimize2, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -11,6 +12,11 @@ import { useTranslation } from 'react-i18next';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+}
+
+interface AgentData {
+  avatar_url: string | null;
+  display_name: string;
 }
 
 interface InekeAssistantProps {
@@ -27,6 +33,7 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [agent, setAgent] = useState<AgentData | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -36,6 +43,21 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Fetch agent data on mount
+  useEffect(() => {
+    const fetchAgent = async () => {
+      const { data } = await supabase
+        .from('ai_agents')
+        .select('avatar_url, display_name')
+        .eq('name', 'ineke')
+        .single();
+      
+      if (data) setAgent(data);
+    };
+    
+    fetchAgent();
+  }, []);
 
   // Update initial greeting when language changes
   useEffect(() => {
@@ -122,9 +144,15 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
       {/* Header */}
       <div className="p-4 border-b bg-gradient-to-r from-blue-500/10 to-cyan-500/10 flex items-center justify-between rounded-t-lg">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-blue-500/20">
-            <HeartPulse className="h-5 w-5 text-blue-500" />
-          </div>
+          <Avatar className="h-10 w-10">
+            {agent?.avatar_url ? (
+              <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+            ) : (
+              <AvatarFallback className="bg-blue-500/20">
+                <HeartPulse className="h-5 w-5 text-blue-500" />
+              </AvatarFallback>
+            )}
+          </Avatar>
           <div>
             <h3 className="font-semibold">Ineke</h3>
             <p className="text-xs text-muted-foreground">{t('ineke.available')}</p>

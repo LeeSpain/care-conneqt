@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare, X, Send, Loader2, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -19,12 +20,18 @@ interface Message {
   content: string;
 }
 
+interface AgentData {
+  avatar_url: string | null;
+  display_name: string;
+}
+
 export const ClaraWidget = () => {
   const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [agent, setAgent] = useState<AgentData | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -36,6 +43,21 @@ export const ClaraWidget = () => {
   const [sessionId] = useState(() => crypto.randomUUID());
   const scrollRef = useRef<HTMLDivElement>(null);
   const expandedScrollRef = useRef<HTMLDivElement>(null);
+
+  // Fetch agent data on mount
+  useEffect(() => {
+    const fetchAgent = async () => {
+      const { data } = await supabase
+        .from('ai_agents')
+        .select('avatar_url, display_name')
+        .eq('name', 'clara')
+        .single();
+      
+      if (data) setAgent(data);
+    };
+    
+    fetchAgent();
+  }, []);
 
   // Update initial greeting when language changes
   useEffect(() => {
@@ -133,9 +155,15 @@ export const ClaraWidget = () => {
         {/* Header */}
         <div className="p-4 border-b bg-gradient-to-r from-purple-500/10 to-pink-500/10 flex items-center justify-between rounded-t-lg">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-purple-500/20">
-              <MessageSquare className="h-5 w-5 text-purple-500" />
-            </div>
+            <Avatar className="h-10 w-10">
+              {agent?.avatar_url ? (
+                <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+              ) : (
+                <AvatarFallback className="bg-purple-500/20">
+                  <MessageSquare className="h-5 w-5 text-purple-500" />
+                </AvatarFallback>
+              )}
+            </Avatar>
             <div>
               <h3 className="font-semibold">Clara</h3>
               <p className="text-xs text-muted-foreground">AI Care Assistant • 24/7</p>
@@ -216,9 +244,15 @@ export const ClaraWidget = () => {
         <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0">
           <DialogHeader className="p-6 pb-4 border-b bg-gradient-to-r from-purple-500/10 to-pink-500/10">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-purple-500/20">
-                <MessageSquare className="h-6 w-6 text-purple-500" />
-              </div>
+              <Avatar className="h-12 w-12">
+                {agent?.avatar_url ? (
+                  <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+                ) : (
+                  <AvatarFallback className="bg-purple-500/20">
+                    <MessageSquare className="h-6 w-6 text-purple-500" />
+                  </AvatarFallback>
+                )}
+              </Avatar>
               <div>
                 <DialogTitle className="text-xl">Clara - AI Care Assistant</DialogTitle>
                 <p className="text-sm text-muted-foreground">Available 24/7 to help you</p>

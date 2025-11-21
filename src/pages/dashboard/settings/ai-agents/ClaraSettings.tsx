@@ -9,7 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, MessageSquare } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { ArrowLeft, MessageSquare, Upload, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -23,6 +24,7 @@ interface AgentData {
   display_name: string;
   description: string;
   status: string;
+  avatar_url: string | null;
   config: {
     system_prompt: string;
     model: string;
@@ -36,7 +38,9 @@ export default function ClaraSettings() {
   const [agent, setAgent] = useState<AgentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fetchInProgress = useRef(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchAgent();
@@ -134,6 +138,93 @@ export default function ClaraSettings() {
     }
   };
 
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!agent || !e.target.files || !e.target.files[0]) return;
+    
+    const file = e.target.files[0];
+    
+    // Validate file
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('File size must be less than 2MB');
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      toast.error('Only JPG, PNG, and WebP formats are allowed');
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${agent.id}/avatar.${fileExt}`;
+
+      // Upload to storage
+      const { error: uploadError } = await supabase.storage
+        .from('ai-agent-avatars')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('ai-agent-avatars')
+        .getPublicUrl(filePath);
+
+      // Update agent record
+      const { error: updateError } = await supabase
+        .from('ai_agents')
+        .update({ avatar_url: publicUrl })
+        .eq('id', agent.id);
+
+      if (updateError) throw updateError;
+
+      setAgent({ ...agent, avatar_url: publicUrl });
+      toast.success('Avatar uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      toast.error('Failed to upload avatar');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    if (!agent || !agent.avatar_url) return;
+    
+    setUploading(true);
+
+    try {
+      // Extract file path from URL
+      const urlParts = agent.avatar_url.split('/');
+      const filePath = urlParts.slice(-2).join('/');
+
+      // Delete from storage
+      const { error: deleteError } = await supabase.storage
+        .from('ai-agent-avatars')
+        .remove([filePath]);
+
+      if (deleteError) throw deleteError;
+
+      // Update agent record
+      const { error: updateError } = await supabase
+        .from('ai_agents')
+        .update({ avatar_url: null })
+        .eq('id', agent.id);
+
+      if (updateError) throw updateError;
+
+      setAgent({ ...agent, avatar_url: null });
+      toast.success('Avatar removed successfully');
+    } catch (error) {
+      console.error('Error removing avatar:', error);
+      toast.error('Failed to remove avatar');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   if (loading) {
     return (
       <AdminDashboardLayout title="Clara Settings">
@@ -195,7 +286,58 @@ export default function ClaraSettings() {
                 <CardTitle>General Settings</CardTitle>
                 <CardDescription>Basic agent information and status</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
+                {/* Avatar Section */}
+                <div className="flex items-center gap-6 pb-6 border-b">
+                  <Avatar className="h-24 w-24 border-2 border-primary/20">
+                    {agent.avatar_url ? (
+                      <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+                    ) : (
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                        <MessageSquare className="h-10 w-10 text-purple-500" />
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                  
+                  <div className="flex-1 space-y-3">
+                    <div>
+                      <Label className="text-base font-semibold">Agent Avatar</Label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Upload a profile picture for Clara (max 2MB, JPG/PNG/WebP)
+                      </p>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleAvatarUpload}
+                        accept="image/jpeg,image/png,image/webp"
+                        className="hidden"
+                      />
+                      <Button
+                        variant="outline"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploading}
+                      >
+                        <Upload className="h-4 w-4 mr-2" />
+                        {uploading ? 'Uploading...' : 'Upload Avatar'}
+                      </Button>
+                      
+                      {agent.avatar_url && (
+                        <Button
+                          variant="outline"
+                          onClick={handleRemoveAvatar}
+                          disabled={uploading}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
                 <div>
                   <Label htmlFor="display_name">Display Name</Label>
                   <Input
