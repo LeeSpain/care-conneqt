@@ -14,10 +14,12 @@ export default function Dashboard() {
 
     // If still no roles after loading completes, default to member dashboard
     if (roles.length === 0) {
-      console.log('[Dashboard] No roles found, defaulting to member');
+      console.log('[Dashboard] No roles found after loading complete, defaulting to member. Loading:', loading, 'Roles:', roles);
       navigate('/dashboard/member', { replace: true });
       return;
     }
+    
+    console.log('[Dashboard] Routing user with roles:', roles);
 
     const urlParams = new URLSearchParams(window.location.search);
     const devMode = urlParams.get('devmode') === 'true';

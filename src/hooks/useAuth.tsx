@@ -57,6 +57,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const profileData = profileResult.data;
       const userRoles = rolesResult.data?.map(r => r.role as AppRole) || [];
 
+      console.log('[useAuth] Fetched roles for user:', userId, 'roles:', userRoles);
+      
       setProfile(profileData);
       setRoles(userRoles);
       
