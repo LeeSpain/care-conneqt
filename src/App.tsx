@@ -25,6 +25,7 @@ import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
 
 // Nurse pages
 import NurseHome from "./pages/dashboard/nurse/NurseHome";
+import NurseSettings from "./pages/dashboard/nurse/NurseSettings";
 import NurseMembers from "./pages/dashboard/nurse/NurseMembers";
 import NurseMemberDetail from "./pages/dashboard/nurse/NurseMemberDetail";
 import NurseAlerts from "./pages/dashboard/nurse/NurseAlerts";
@@ -96,6 +97,7 @@ const App = () => (
             
             {/* Nurse routes */}
             <Route path="/dashboard/nurse" element={<ProtectedRoute requiredRole="nurse"><NurseHome /></ProtectedRoute>} />
+            <Route path="/dashboard/nurse/settings" element={<ProtectedRoute requiredRole="nurse"><NurseSettings /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/members" element={<ProtectedRoute requiredRole="nurse"><NurseMembers /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/members/:memberId" element={<ProtectedRoute requiredRole="nurse"><NurseMemberDetail /></ProtectedRoute>} />
             <Route path="/dashboard/nurse/tasks" element={<ProtectedRoute requiredRole="nurse"><NurseTasks /></ProtectedRoute>} />

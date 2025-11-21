@@ -30,7 +30,7 @@ export function NurseSidebar() {
     { title: t('sidebar.messages'), url: "/dashboard/nurse/messages", icon: Mail },
     { title: t('sidebar.healthMonitoring'), url: "/dashboard/nurse/health", icon: Activity },
     { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
-    { title: t('sidebar.settings'), url: "/settings", icon: Settings },
+    { title: t('sidebar.settings'), url: "/dashboard/nurse/settings", icon: Settings },
   ];
 
   const isActive = (path: string) => {
