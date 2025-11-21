@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, AlertTriangle, RefreshCw } from "lucide-react";
+import { Users, AlertCircle, MessageSquare, Activity, Clock, CheckCircle2, AlertTriangle, RefreshCw, Bot } from "lucide-react";
 import { formatDate } from '@/lib/intl';
 import { useToast } from '@/hooks/use-toast';
 
@@ -223,30 +223,60 @@ export default function NurseHome() {
   return (
     <NurseDashboardLayout title="Nurse Dashboard">
       <div className="space-y-6">
-        {/* Welcome Card */}
-        <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
-          <CardContent className="pt-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-2xl font-bold mb-2">Welcome back, {firstName}</h2>
-                <p className="text-muted-foreground">
-                  {formattedDate} at {formattedTime}
-                </p>
-                <div className="flex items-center gap-2 mt-2">
-                  <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
-                    On Duty
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">
-                    {stats.assignedMembers} member{stats.assignedMembers !== 1 ? 's' : ''} under your care
-                  </span>
+        {/* Welcome and Ineke Card Grid */}
+        <div className="grid gap-4 lg:grid-cols-3">
+          {/* Welcome Card */}
+          <Card className="bg-gradient-to-r from-primary/10 to-primary/5 lg:col-span-2">
+            <CardContent className="pt-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Welcome back, {firstName}</h2>
+                  <p className="text-muted-foreground">
+                    {formattedDate} at {formattedTime}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Badge variant="outline" className="bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20">
+                      On Duty
+                    </Badge>
+                    <span className="text-sm text-muted-foreground">
+                      {stats.assignedMembers} member{stats.assignedMembers !== 1 ? 's' : ''} under your care
+                    </span>
+                  </div>
                 </div>
+                <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
+                  <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
+                </Button>
               </div>
-              <Button variant="outline" size="icon" onClick={handleRefresh} disabled={loadingStats}>
-                <RefreshCw className={`h-4 w-4 ${loadingStats ? 'animate-spin' : ''}`} />
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          {/* Ineke AI Agent Card */}
+          <Card className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border-purple-500/20">
+            <CardContent className="pt-6">
+              <div className="flex flex-col h-full">
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                    <Bot className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Ineke</h3>
+                    <p className="text-xs text-muted-foreground">AI Nursing Assistant</p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4 flex-grow">
+                  Get instant support with patient care, medication queries, and clinical guidance.
+                </p>
+                <Button 
+                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
+                  onClick={() => navigate('/dashboard/ai-chat')}
+                >
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Chat with Ineke
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Quick Stats */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
