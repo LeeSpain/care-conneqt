@@ -39,28 +39,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
+    console.log('[fetchProfile] START - userId:', userId);
     try {
       // Parallelize profile and roles fetch for better performance
+      console.log('[fetchProfile] Fetching profile and roles...');
       const [profileResult, rolesResult] = await Promise.all([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('user_roles').select('role').eq('user_id', userId)
       ]);
 
+      console.log('[fetchProfile] Profile result:', profileResult);
+      console.log('[fetchProfile] Roles result:', rolesResult);
+
       // Handle errors silently in production
-      if (profileResult.error && import.meta.env.DEV) {
-        console.error('Profile fetch error:', profileResult.error);
+      if (profileResult.error) {
+        console.error('[fetchProfile] Profile fetch error:', profileResult.error);
       }
-      if (rolesResult.error && import.meta.env.DEV) {
-        console.error('Roles fetch error:', rolesResult.error);
+      if (rolesResult.error) {
+        console.error('[fetchProfile] Roles fetch error:', rolesResult.error);
       }
 
       const profileData = profileResult.data;
       const userRoles = rolesResult.data?.map(r => r.role as AppRole) || [];
 
-      console.log('[useAuth] Fetched roles for user:', userId, 'roles:', userRoles);
+      console.log('[fetchProfile] Processed - userRoles:', userRoles, 'profileData:', profileData);
       
       setProfile(profileData);
       setRoles(userRoles);
+      console.log('[fetchProfile] State updated - roles set to:', userRoles);
       
       // Cache auth state for faster subsequent loads
       sessionStorage.setItem('auth_cached', JSON.stringify({
@@ -76,11 +82,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('i18nextLng', profileData.language);
       }
     } catch (error) {
-      if (import.meta.env.DEV) {
-        console.error('Error fetching profile:', error);
-      }
+      console.error('[fetchProfile] CATCH block - error:', error);
       setRoles([]);
     } finally {
+      console.log('[fetchProfile] FINALLY block - setting loading to false');
       setLoading(false);
     }
   };
@@ -97,15 +102,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('[onAuthStateChange] Event:', event, 'User:', session?.user?.email);
         if (!mounted) return;
         
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user && !profileFetchedRef.current) {
+          console.log('[onAuthStateChange] Fetching profile for user:', session.user.id);
           profileFetchedRef.current = true;
           await fetchProfile(session.user.id);
         } else if (!session?.user) {
+          console.log('[onAuthStateChange] No user - clearing state');
           setProfile(null);
           setRoles([]);
           setLoading(false);
@@ -116,14 +124,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     // Get initial session and fetch profile immediately
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      console.log('[getSession] Initial session:', session?.user?.email);
       if (!mounted) return;
       
       if (session?.user && !profileFetchedRef.current) {
+        console.log('[getSession] Fetching profile for user:', session.user.id);
         profileFetchedRef.current = true;
         setSession(session);
         setUser(session.user);
         await fetchProfile(session.user.id);
       } else if (!session?.user) {
+        console.log('[getSession] No user found - setting loading false');
         setLoading(false);
       }
     });
