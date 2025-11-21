@@ -78,14 +78,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         i18n.changeLanguage(profileData.language);
         localStorage.setItem('i18nextLng', profileData.language);
       }
-    } catch (error) {
-      if (import.meta.env.DEV) {
-        console.error('Error fetching profile:', error);
-      }
-      setRoles([]); // Explicitly set empty on error
-    } finally {
-      setLoading(false);
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error('Error fetching profile:', error);
     }
+    setRoles([]); // Explicitly set empty on error
+    setRolesLoaded(true); // Mark as loaded even on error
+  } finally {
+    setLoading(false);
+  }
   };
 
   const refreshProfile = async () => {
