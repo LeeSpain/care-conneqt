@@ -26,13 +26,18 @@ interface InekeAssistantProps {
     alerts?: any[];
     tasks?: any[];
   };
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export const InekeAssistant = ({ context }: InekeAssistantProps) => {
+export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }: InekeAssistantProps) => {
   const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+  const setIsOpen = onOpenChange || setInternalIsOpen;
+  
   const [isMinimized, setIsMinimized] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [agent, setAgent] = useState<AgentData | null>(null);
