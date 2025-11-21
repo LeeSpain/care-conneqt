@@ -28,21 +28,24 @@ export default function Login() {
   const { user, roles, loading: authLoading } = useAuth();
 
   useEffect(() => {
-    // Only redirect once we have user AND roles are loaded
-    if (user && !authLoading && roles.length > 0) {
-      // Direct role-based redirect
-      if (roles.includes('admin')) {
-        navigate('/dashboard/admin');
-      } else if (roles.includes('facility_admin')) {
-        navigate('/dashboard/facility');
-      } else if (roles.includes('nurse')) {
-        navigate('/dashboard/nurse');
-      } else if (roles.includes('family_carer')) {
-        navigate('/dashboard/family');
-      } else if (roles.includes('member')) {
-        navigate('/dashboard/member');
+    // Only redirect once we have user AND auth is done loading
+    if (user && !authLoading) {
+      // If roles are loaded, do role-based redirect
+      if (roles.length > 0) {
+        if (roles.includes('admin')) {
+          navigate('/dashboard/admin', { replace: true });
+        } else if (roles.includes('facility_admin')) {
+          navigate('/dashboard/facility', { replace: true });
+        } else if (roles.includes('nurse')) {
+          navigate('/dashboard/nurse', { replace: true });
+        } else if (roles.includes('family_carer')) {
+          navigate('/dashboard/family', { replace: true });
+        } else if (roles.includes('member')) {
+          navigate('/dashboard/member', { replace: true });
+        }
       } else {
-        navigate('/dashboard/member'); // Default fallback
+        // Fallback: redirect to /dashboard which will sort it out
+        navigate('/dashboard', { replace: true });
       }
     }
   }, [user, roles, authLoading, navigate]);
