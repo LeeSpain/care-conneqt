@@ -63,8 +63,9 @@ export default function FacilityHome() {
             .eq("facility_id", facilityId),
           supabase
             .from("alerts")
-            .select("id", { count: "exact", head: true })
-            .eq("status", "new"),
+            .select("id, members!inner(id), facility_residents!inner(facility_id)", { count: "exact", head: true })
+            .eq("status", "new")
+            .eq("facility_residents.facility_id", facilityId),
         ]);
 
         if (residentsResult.error) throw residentsResult.error;
