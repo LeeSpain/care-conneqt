@@ -21,6 +21,8 @@ import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
 import AIChatPage from "./pages/dashboard/AIChatPage";
 import Settings from "./pages/dashboard/Settings";
 import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
+import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
+import InekeSettings from "./pages/dashboard/settings/ai-agents/InekeSettings";
 import PersonalCare from "./pages/PersonalCare";
 import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
@@ -78,6 +80,8 @@ const App = () => (
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/settings/profile" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/dashboard/settings/ai-agents" element={<ProtectedRoute requiredRole="admin"><AIAgentsSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/settings/ai-agents/clara" element={<ProtectedRoute requiredRole="admin"><ClaraSettings /></ProtectedRoute>} />
+            <Route path="/dashboard/settings/ai-agents/ineke" element={<ProtectedRoute requiredRole="admin"><InekeSettings /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
