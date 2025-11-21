@@ -1,10 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import MemberDashboard from './dashboard/MemberDashboard';
-import FamilyDashboard from './dashboard/FamilyDashboard';
-import NurseDashboard from './dashboard/NurseDashboard';
-import FacilityDashboard from './dashboard/FacilityDashboard';
-import AdminDashboard from './dashboard/AdminDashboard';
 
 export default function Dashboard() {
   const { roles, loading } = useAuth();
@@ -24,7 +19,8 @@ export default function Dashboard() {
 
   // Dev mode bypass - default to Family Dashboard
   if (devMode) {
-    return <FamilyDashboard />;
+    navigate('/dashboard/family', { replace: true });
+    return null;
   }
 
   // Admin has access to everything
@@ -35,7 +31,8 @@ export default function Dashboard() {
 
   // Route to appropriate dashboard based on primary role
   if (roles.includes('facility_admin')) {
-    return <FacilityDashboard />;
+    navigate('/dashboard/facility', { replace: true });
+    return null;
   }
 
   if (roles.includes('nurse')) {
@@ -44,7 +41,8 @@ export default function Dashboard() {
   }
 
   if (roles.includes('family_carer')) {
-    return <FamilyDashboard />;
+    navigate('/dashboard/family', { replace: true });
+    return null;
   }
 
   if (roles.includes('member')) {
