@@ -7,7 +7,7 @@ import { TrustSection } from "@/components/TrustSection";
 import { CTASection } from "@/components/CTASection";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { ClaraWidget } from "@/components/ai-agents/ClaraWidget";
+import { ClaraFixedChat } from "@/components/ai-agents/ClaraFixedChat";
 
 const Index = () => {
   return (
@@ -23,7 +23,7 @@ const Index = () => {
         <CTASection />
       </main>
       <Footer />
-      <ClaraWidget />
+      <ClaraFixedChat />
     </div>
   );
 };
