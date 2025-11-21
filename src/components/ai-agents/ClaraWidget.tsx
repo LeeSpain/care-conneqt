@@ -14,7 +14,7 @@ interface Message {
 }
 
 export const ClaraWidget = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
