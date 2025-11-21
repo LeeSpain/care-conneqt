@@ -57,6 +57,7 @@ import AIAnalytics from "./pages/dashboard/admin/AIAnalytics";
 import Announcements from "./pages/dashboard/admin/Announcements";
 import SupportTickets from "./pages/dashboard/admin/SupportTickets";
 import SystemSettings from "./pages/dashboard/admin/SystemSettings";
+import SystemHealth from "./pages/dashboard/admin/SystemHealth";
 import UserManagement from "./pages/dashboard/settings/UserManagement";
 import AIAgentsSettings from "./pages/dashboard/settings/AIAgentsSettings";
 import ClaraSettings from "./pages/dashboard/settings/ai-agents/ClaraSettings";
@@ -146,6 +147,7 @@ const App = () => (
             <Route path="/dashboard/admin/facilities/:id" element={<ProtectedRoute requiredRole="admin"><FacilityDetail /></ProtectedRoute>} />
             <Route path="/dashboard/admin/analytics" element={<ProtectedRoute requiredRole="admin"><PlatformAnalytics /></ProtectedRoute>} />
             <Route path="/dashboard/admin/ai-analytics" element={<ProtectedRoute requiredRole="admin"><AIAnalytics /></ProtectedRoute>} />
+            <Route path="/dashboard/admin/system-health" element={<ProtectedRoute requiredRole="admin"><SystemHealth /></ProtectedRoute>} />
             <Route path="/dashboard/admin/announcements" element={<ProtectedRoute requiredRole="admin"><Announcements /></ProtectedRoute>} />
             <Route path="/dashboard/admin/support" element={<ProtectedRoute requiredRole="admin"><SupportTickets /></ProtectedRoute>} />
             <Route path="/dashboard/admin/system-settings" element={<ProtectedRoute requiredRole="admin"><SystemSettings /></ProtectedRoute>} />
