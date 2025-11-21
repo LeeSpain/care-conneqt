@@ -9,6 +9,14 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Eye, EyeOff, Info, ArrowLeft } from 'lucide-react';
 import { Logo } from '@/components/Logo';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Login() {
   const { t } = useTranslation('auth');
@@ -119,49 +127,71 @@ export default function Login() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? t('login.signingIn') : t('login.signIn')}
             </Button>
-          </form>
 
-          {/* Test Credentials Panel */}
-          <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <div className="flex items-start gap-2 mb-3">
-              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-2">
-                  Test Credentials - All Roles
-                </h4>
-                <div className="space-y-2 text-sm">
-                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Admin Account:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">admin@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Admin123!</p>
+            {/* Test Credentials Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button type="button" variant="outline" className="w-full">
+                  <Info className="h-4 w-4 mr-2" />
+                  View Test Credentials
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Test Credentials - All Roles</DialogTitle>
+                  <DialogDescription>
+                    Use these credentials to test different user roles. Create accounts via signup if they don't exist yet.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-3 mt-4">
+                  <div className="bg-secondary/50 p-3 rounded-lg">
+                    <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-purple-500"></span>
+                      Admin Account
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">admin@test.com</p>
+                    <p className="font-mono text-xs text-muted-foreground">Admin123!</p>
                   </div>
-                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Facility Admin:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">facility@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Facility123!</p>
+                  
+                  <div className="bg-secondary/50 p-3 rounded-lg">
+                    <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-blue-500"></span>
+                      Facility Admin
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">facility@test.com</p>
+                    <p className="font-mono text-xs text-muted-foreground">Facility123!</p>
                   </div>
-                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Nurse Account:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">nurse@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Nurse123!</p>
+                  
+                  <div className="bg-secondary/50 p-3 rounded-lg">
+                    <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-green-500"></span>
+                      Nurse Account
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">nurse@test.com</p>
+                    <p className="font-mono text-xs text-muted-foreground">Nurse123!</p>
                   </div>
-                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Family Carer:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">family@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Family123!</p>
+                  
+                  <div className="bg-secondary/50 p-3 rounded-lg">
+                    <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-orange-500"></span>
+                      Family Carer
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">family@test.com</p>
+                    <p className="font-mono text-xs text-muted-foreground">Family123!</p>
                   </div>
-                  <div className="bg-white dark:bg-blue-900 p-2 rounded">
-                    <p className="font-medium text-blue-900 dark:text-blue-100 mb-1">Member Account:</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">member@test.com</p>
-                    <p className="font-mono text-xs text-blue-800 dark:text-blue-200">Member123!</p>
+                  
+                  <div className="bg-secondary/50 p-3 rounded-lg">
+                    <p className="font-semibold text-sm mb-2 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-pink-500"></span>
+                      Member Account
+                    </p>
+                    <p className="font-mono text-xs text-muted-foreground">member@test.com</p>
+                    <p className="font-mono text-xs text-muted-foreground">Member123!</p>
                   </div>
                 </div>
-                <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
-                  Create these accounts via signup if they don't exist yet
-                </p>
-              </div>
-            </div>
-          </div>
+              </DialogContent>
+            </Dialog>
+          </form>
 
           <p className="text-center text-sm text-muted-foreground">
             {t('login.noAccount')}{' '}
