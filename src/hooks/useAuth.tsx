@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin';
 
@@ -30,6 +31,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const { i18n } = useTranslation();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -50,6 +52,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     setProfile(profileData);
     setRoles(rolesData?.map(r => r.role as AppRole) || []);
+    
+    // Apply user's language preference
+    if (profileData?.language) {
+      const savedLanguage = profileData.language;
+      // Apply the language preference
+      i18n.changeLanguage(savedLanguage);
+      localStorage.setItem('i18nextLng', savedLanguage);
+    }
   };
 
   const refreshProfile = async () => {
