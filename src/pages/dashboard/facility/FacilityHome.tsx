@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FacilityDashboardLayout } from "@/components/FacilityDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,8 +23,14 @@ export default function FacilityHome() {
   const [loadingStats, setLoadingStats] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [facilityInfo, setFacilityInfo] = useState<any>(null);
+  const fetchInProgress = useRef(false);
 
   const fetchFacilityData = async () => {
+    if (!user || fetchInProgress.current) return;
+
+    fetchInProgress.current = true;
+    setLoadingStats(true);
+
     const startTime = performance.now();
     console.log('[FacilityHome] Starting data fetch for user:', user?.id);
 
@@ -131,6 +137,7 @@ export default function FacilityHome() {
     } finally {
       setLoading(false);
       setLoadingStats(false);
+      fetchInProgress.current = false;
     }
   };
 
@@ -149,7 +156,7 @@ export default function FacilityHome() {
 
       return () => clearTimeout(timeout);
     }
-  }, [user]);
+  }, [user?.id]);
 
   const handleRefresh = () => {
     setLoading(true);

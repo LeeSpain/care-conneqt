@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FamilyDashboardLayout } from "@/components/FamilyDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,8 +23,14 @@ export default function FamilyHome() {
   const [loading, setLoading] = useState(true);
   const [loadingStats, setLoadingStats] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const fetchInProgress = useRef(false);
 
   const fetchStats = async () => {
+    if (!user || fetchInProgress.current) return;
+
+    fetchInProgress.current = true;
+    setLoadingStats(true);
+
     const startTime = performance.now();
     console.log('[FamilyHome] Starting data fetch for user:', user?.id);
 
@@ -117,6 +123,7 @@ export default function FamilyHome() {
     } finally {
       setLoading(false);
       setLoadingStats(false);
+      fetchInProgress.current = false;
     }
   };
 
@@ -135,7 +142,7 @@ export default function FamilyHome() {
 
       return () => clearTimeout(timeout);
     }
-  }, [user]);
+  }, [user?.id]);
 
   const handleRefresh = () => {
     setLoading(true);

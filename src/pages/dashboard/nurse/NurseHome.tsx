@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NurseDashboardLayout } from "@/components/NurseDashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,9 +29,14 @@ export default function NurseHome() {
   });
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const fetchInProgress = useRef(false);
 
   const fetchNurseData = async () => {
-    if (!user) return;
+    if (!user || fetchInProgress.current) return;
+
+    fetchInProgress.current = true;
+    setLoadingStats(true);
+    setLoadingTasks(true);
 
     const startTime = performance.now();
     console.log('[NurseHome] Starting data fetch for user:', user.id);
@@ -157,6 +162,7 @@ export default function NurseHome() {
       setLoading(false);
       setLoadingStats(false);
       setLoadingTasks(false);
+      fetchInProgress.current = false;
     }
   };
 
@@ -174,7 +180,7 @@ export default function NurseHome() {
     fetchNurseData();
 
     return () => clearTimeout(timeout);
-  }, [user]);
+  }, [user?.id]);
 
   useEffect(() => {
     const timer = setInterval(() => {
