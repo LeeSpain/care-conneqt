@@ -26,10 +26,13 @@ import SubscriptionsPage from "./pages/dashboard/SubscriptionsPage";
 // Family Carer pages
 import FamilyHome from "./pages/dashboard/family/FamilyHome";
 import FamilySettings from "./pages/dashboard/family/FamilySettings";
+import FamilyMembers from "./pages/dashboard/family/FamilyMembers";
 
 // Facility Admin pages
 import FacilityHome from "./pages/dashboard/facility/FacilityHome";
 import FacilitySettings from "./pages/dashboard/facility/FacilitySettings";
+import FacilityResidents from "./pages/dashboard/facility/FacilityResidents";
+import FacilityStaff from "./pages/dashboard/facility/FacilityStaff";
 
 // Nurse pages
 import NurseHome from "./pages/dashboard/nurse/NurseHome";
@@ -116,11 +119,13 @@ const App = () => (
             {/* Family Carer routes */}
             <Route path="/dashboard/family" element={<ProtectedRoute requiredRole="family_carer"><FamilyHome /></ProtectedRoute>} />
             <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
-            <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyInvitations /></ProtectedRoute>} />
+            <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyMembers /></ProtectedRoute>} />
             
             {/* Facility Admin routes */}
             <Route path="/dashboard/facility" element={<ProtectedRoute requiredRole="facility_admin"><FacilityHome /></ProtectedRoute>} />
             <Route path="/dashboard/facility/settings" element={<ProtectedRoute requiredRole="facility_admin"><FacilitySettings /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/residents" element={<ProtectedRoute requiredRole="facility_admin"><FacilityResidents /></ProtectedRoute>} />
+            <Route path="/dashboard/facility/staff" element={<ProtectedRoute requiredRole="facility_admin"><FacilityStaff /></ProtectedRoute>} />
             
             {/* Admin routes */}
             <Route path="/dashboard/admin" element={<ProtectedRoute requiredRole="admin"><AdminHome /></ProtectedRoute>} />
