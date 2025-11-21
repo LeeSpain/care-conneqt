@@ -49,6 +49,286 @@ export type Database = {
           },
         ]
       }
+      ai_agent_analytics: {
+        Row: {
+          agent_id: string
+          average_response_time: number | null
+          average_satisfaction: number | null
+          created_at: string
+          date: string
+          escalations: number | null
+          id: string
+          successful_resolutions: number | null
+          topics_discussed: Json | null
+          total_conversations: number | null
+        }
+        Insert: {
+          agent_id: string
+          average_response_time?: number | null
+          average_satisfaction?: number | null
+          created_at?: string
+          date: string
+          escalations?: number | null
+          id?: string
+          successful_resolutions?: number | null
+          topics_discussed?: Json | null
+          total_conversations?: number | null
+        }
+        Update: {
+          agent_id?: string
+          average_response_time?: number | null
+          average_satisfaction?: number | null
+          created_at?: string
+          date?: string
+          escalations?: number | null
+          id?: string
+          successful_resolutions?: number | null
+          topics_discussed?: Json | null
+          total_conversations?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_analytics_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_agent_configurations: {
+        Row: {
+          agent_id: string
+          business_hours: Json | null
+          created_at: string
+          escalation_rules: Json | null
+          function_calling_enabled: boolean | null
+          id: string
+          knowledge_base_enabled: boolean | null
+          language_preferences: Json | null
+          max_tokens: number | null
+          model: string
+          response_style: string | null
+          system_prompt: string
+          temperature: number | null
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          business_hours?: Json | null
+          created_at?: string
+          escalation_rules?: Json | null
+          function_calling_enabled?: boolean | null
+          id?: string
+          knowledge_base_enabled?: boolean | null
+          language_preferences?: Json | null
+          max_tokens?: number | null
+          model?: string
+          response_style?: string | null
+          system_prompt: string
+          temperature?: number | null
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          business_hours?: Json | null
+          created_at?: string
+          escalation_rules?: Json | null
+          function_calling_enabled?: boolean | null
+          id?: string
+          knowledge_base_enabled?: boolean | null
+          language_preferences?: Json | null
+          max_tokens?: number | null
+          model?: string
+          response_style?: string | null
+          system_prompt?: string
+          temperature?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_configurations_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: true
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_agent_conversations: {
+        Row: {
+          agent_id: string
+          conversation_data: Json
+          created_at: string
+          ended_at: string | null
+          escalation_reason: string | null
+          id: string
+          satisfaction_rating: number | null
+          sentiment_score: number | null
+          session_id: string | null
+          user_id: string | null
+          was_escalated: boolean | null
+        }
+        Insert: {
+          agent_id: string
+          conversation_data?: Json
+          created_at?: string
+          ended_at?: string | null
+          escalation_reason?: string | null
+          id?: string
+          satisfaction_rating?: number | null
+          sentiment_score?: number | null
+          session_id?: string | null
+          user_id?: string | null
+          was_escalated?: boolean | null
+        }
+        Update: {
+          agent_id?: string
+          conversation_data?: Json
+          created_at?: string
+          ended_at?: string | null
+          escalation_reason?: string | null
+          id?: string
+          satisfaction_rating?: number | null
+          sentiment_score?: number | null
+          session_id?: string | null
+          user_id?: string | null
+          was_escalated?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_conversations_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_agent_functions: {
+        Row: {
+          agent_id: string
+          created_at: string
+          function_description: string
+          function_name: string
+          id: string
+          is_enabled: boolean | null
+          parameters: Json
+          requires_permission: boolean | null
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          function_description: string
+          function_name: string
+          id?: string
+          is_enabled?: boolean | null
+          parameters: Json
+          requires_permission?: boolean | null
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          function_description?: string
+          function_name?: string
+          id?: string
+          is_enabled?: boolean | null
+          parameters?: Json
+          requires_permission?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_functions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_agent_knowledge_base: {
+        Row: {
+          agent_id: string
+          category: string
+          content: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          priority: number | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          category: string
+          content: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          priority?: number | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          priority?: number | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_knowledge_base_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_agents: {
+        Row: {
+          agent_type: string
+          avatar_url: string | null
+          created_at: string
+          description: string | null
+          display_name: string
+          id: string
+          name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          agent_type: string
+          avatar_url?: string | null
+          created_at?: string
+          description?: string | null
+          display_name: string
+          id?: string
+          name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          agent_type?: string
+          avatar_url?: string | null
+          created_at?: string
+          description?: string | null
+          display_name?: string
+          id?: string
+          name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       alerts: {
         Row: {
           alert_type: string
@@ -937,7 +1217,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       alert_priority: "low" | "medium" | "high" | "critical"
