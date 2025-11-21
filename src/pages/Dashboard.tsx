@@ -11,12 +11,13 @@ export default function Dashboard() {
     
     if (loading) return;
 
-    // If no roles after loading completes, redirect to login
+    // Wait for roles to load before navigating
     if (roles.length === 0) {
-      console.error('No roles found for user after loading!');
-      navigate('/auth/login', { replace: true });
+      console.warn('Waiting for roles to load...');
       return;
     }
+
+    console.log('Navigating based on roles:', roles);
 
     const urlParams = new URLSearchParams(window.location.search);
     const devMode = urlParams.get('devmode') === 'true';
@@ -27,6 +28,7 @@ export default function Dashboard() {
     }
 
     if (roles.includes('admin')) {
+      console.log('Redirecting to admin dashboard');
       navigate('/dashboard/admin', { replace: true });
     } else if (roles.includes('facility_admin')) {
       navigate('/dashboard/facility', { replace: true });
