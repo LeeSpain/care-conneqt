@@ -83,18 +83,120 @@ serve(async (req) => {
       });
     }
 
-    // Add dashboard context if provided
-    if (context) {
-      systemPrompt += '\n\nCurrent Dashboard Context:\n';
-      if (context.memberId) {
-        systemPrompt += `Current Member ID: ${context.memberId}\n`;
+    // Add comprehensive member context if provided
+    if (context?.memberId) {
+      systemPrompt += '\n\n=== CURRENT MEMBER CONTEXT ===\n';
+      
+      // Fetch full member data with profile
+      const { data: memberData } = await supabase
+        .from('members')
+        .select(`
+          *,
+          profiles:user_id (first_name, last_name, phone, email)
+        `)
+        .eq('id', context.memberId)
+        .single();
+
+      if (memberData) {
+        systemPrompt += `\nMember: ${memberData.profiles?.first_name} ${memberData.profiles?.last_name}\n`;
+        systemPrompt += `Contact: ${memberData.profiles?.phone || 'N/A'}\n`;
+        systemPrompt += `Date of Birth: ${memberData.date_of_birth || 'N/A'}\n`;
+        systemPrompt += `Care Level: ${memberData.care_level || 'N/A'}\n`;
+        systemPrompt += `Mobility: ${memberData.mobility_level || 'N/A'}\n`;
+        
+        if (memberData.medical_conditions && memberData.medical_conditions.length > 0) {
+          systemPrompt += `\nMedical Conditions: ${JSON.stringify(memberData.medical_conditions)}\n`;
+        }
+        
+        if (memberData.medications && memberData.medications.length > 0) {
+          systemPrompt += `Current Medications: ${JSON.stringify(memberData.medications)}\n`;
+        }
+        
+        if (memberData.allergies && memberData.allergies.length > 0) {
+          systemPrompt += `⚠️ ALLERGIES: ${JSON.stringify(memberData.allergies)}\n`;
+        }
+
+        if (memberData.emergency_contact_name) {
+          systemPrompt += `\nEmergency Contact: ${memberData.emergency_contact_name} (${memberData.emergency_contact_relationship || 'N/A'})\n`;
+          systemPrompt += `Emergency Phone: ${memberData.emergency_contact_phone || 'N/A'}\n`;
+        }
       }
-      if (context.alerts) {
-        systemPrompt += `Active Alerts: ${JSON.stringify(context.alerts)}\n`;
+
+      // Fetch recent health metrics (last 20)
+      const { data: vitals } = await supabase
+        .from('health_metrics')
+        .select('*')
+        .eq('member_id', context.memberId)
+        .order('recorded_at', { ascending: false })
+        .limit(20);
+
+      if (vitals && vitals.length > 0) {
+        systemPrompt += `\n--- Recent Vitals (Last 20 readings) ---\n`;
+        vitals.forEach(v => {
+          systemPrompt += `${v.metric_type}: ${v.metric_value} ${v.metric_unit || ''} (${new Date(v.recorded_at || v.created_at).toLocaleString()})\n`;
+        });
       }
-      if (context.tasks) {
-        systemPrompt += `Pending Tasks: ${JSON.stringify(context.tasks)}\n`;
+
+      // Fetch activity logs (last 50)
+      const { data: activities } = await supabase
+        .from('activity_logs')
+        .select('*')
+        .eq('member_id', context.memberId)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (activities && activities.length > 0) {
+        systemPrompt += `\n--- Recent Activities (Last 50) ---\n`;
+        activities.forEach(a => {
+          systemPrompt += `[${a.activity_type}] ${a.description} (${new Date(a.created_at).toLocaleString()})\n`;
+        });
       }
+
+      // Fetch clinical notes (last 10)
+      const { data: notes } = await supabase
+        .from('clinical_notes')
+        .select('*')
+        .eq('member_id', context.memberId)
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (notes && notes.length > 0) {
+        systemPrompt += `\n--- Clinical Notes (Last 10) ---\n`;
+        notes.forEach(n => {
+          systemPrompt += `[${n.note_type || 'General'}] ${n.content}\n`;
+          systemPrompt += `By: ${n.author_id} on ${new Date(n.created_at).toLocaleString()}\n\n`;
+        });
+      }
+
+      // Fetch connected devices
+      const { data: devices } = await supabase
+        .from('member_devices')
+        .select('*')
+        .eq('member_id', context.memberId);
+
+      if (devices && devices.length > 0) {
+        systemPrompt += `\n--- Connected Devices ---\n`;
+        devices.forEach(d => {
+          systemPrompt += `${d.device_name} (${d.device_type}): ${d.device_status}\n`;
+          if (d.battery_level) {
+            systemPrompt += `  Battery: ${d.battery_level}%\n`;
+          }
+          if (d.last_sync_at) {
+            systemPrompt += `  Last Sync: ${new Date(d.last_sync_at).toLocaleString()}\n`;
+          }
+        });
+      }
+
+      // Add alerts and tasks from context
+      if (context.alerts && context.alerts.length > 0) {
+        systemPrompt += `\n--- Active Alerts ---\n${JSON.stringify(context.alerts, null, 2)}\n`;
+      }
+      
+      if (context.tasks && context.tasks.length > 0) {
+        systemPrompt += `\n--- Pending Tasks ---\n${JSON.stringify(context.tasks, null, 2)}\n`;
+      }
+
+      systemPrompt += '\n=== END MEMBER CONTEXT ===\n';
     }
 
     console.log('Calling Lovable AI for Ineke...');

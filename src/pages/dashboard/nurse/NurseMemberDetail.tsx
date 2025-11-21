@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CallMemberDialog } from '@/components/nurse/CallMemberDialog';
 import { MessageMemberDialog } from '@/components/nurse/MessageMemberDialog';
+import { InekeAssistant } from '@/components/nurse/InekeAssistant';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Phone, MessageSquare, ArrowLeft, Heart, Activity, AlertTriangle, Pill, FileText } from 'lucide-react';
@@ -346,6 +347,15 @@ export default function NurseMemberDetail() {
             memberName={`${member.profiles.first_name} ${member.profiles.last_name}`}
             memberId={member.id}
             recipientUserId={member.user_id}
+          />
+          
+          {/* Ineke AI Assistant with full member context */}
+          <InekeAssistant 
+            context={{
+              memberId: member.id,
+              alerts: alerts,
+              tasks: []
+            }}
           />
         </>
       )}
