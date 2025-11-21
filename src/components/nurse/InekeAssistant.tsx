@@ -73,7 +73,7 @@ export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }
       role: 'assistant',
       content: t('ineke.greeting')
     }]);
-  }, [currentLanguage, t]);
+  }, [currentLanguage]);
 
   useEffect(() => {
     if (scrollRef.current) {

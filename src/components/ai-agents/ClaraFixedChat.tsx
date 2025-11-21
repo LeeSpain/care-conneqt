@@ -66,7 +66,7 @@ export const ClaraFixedChat = () => {
       role: 'assistant',
       content: t('clara.greeting')
     }]);
-  }, [currentLanguage, t]);
+  }, [currentLanguage]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {

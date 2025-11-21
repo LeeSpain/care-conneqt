@@ -65,7 +65,7 @@ export const ClaraWidget = () => {
       role: 'assistant',
       content: t('clara.greeting')
     }]);
-  }, [currentLanguage, t]);
+  }, [currentLanguage]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
