@@ -1,4 +1,4 @@
-import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings } from "lucide-react";
+import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, Activity, Heart } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Logo } from "./Logo";
@@ -23,19 +23,19 @@ export function MemberSidebar() {
   const { t } = useTranslation('common');
 
   const navigationItems = [
-    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
-    { title: t('sidebar.schedule'), url: "/dashboard/schedule", icon: Calendar },
-    { title: t('sidebar.careTeam'), url: "/dashboard/care-team", icon: UserCog },
-    { title: t('sidebar.devices'), url: "/dashboard/devices", icon: Package },
-    { title: t('sidebar.family'), url: "/dashboard/family", icon: Users },
-    { title: t('sidebar.subscription'), url: "/dashboard/subscriptions", icon: CreditCard },
+    { title: t('sidebar.dashboard'), url: "/dashboard/member", icon: Home },
+    { title: t('sidebar.schedule'), url: "/dashboard/member/schedule", icon: Calendar },
+    { title: t('sidebar.careTeam'), url: "/dashboard/member/care-team", icon: UserCog },
+    { title: t('sidebar.devices'), url: "/dashboard/member/devices", icon: Activity },
+    { title: t('sidebar.family'), url: "/dashboard/member/family", icon: Heart },
+    { title: t('sidebar.subscription'), url: "/dashboard/member/subscriptions", icon: CreditCard },
     { title: t('sidebar.aiGuardian'), url: "/dashboard/ai-chat", icon: MessageSquare },
     { title: t('sidebar.settings'), url: "/settings", icon: Settings },
   ];
 
   const isActive = (path: string) => {
-    if (path === "/dashboard") {
-      return location.pathname === "/dashboard";
+    if (path === "/dashboard/member") {
+      return location.pathname === "/dashboard/member";
     }
     return location.pathname.startsWith(path);
   };

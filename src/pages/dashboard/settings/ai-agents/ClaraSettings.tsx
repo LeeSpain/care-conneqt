@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -123,30 +123,30 @@ export default function ClaraSettings() {
 
   if (loading) {
     return (
-      <DashboardLayout title="Clara Settings">
+      <AdminDashboardLayout title="Clara Settings">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </AdminDashboardLayout>
     );
   }
 
   if (!agent) {
     return (
-      <DashboardLayout title="Clara Settings">
+      <AdminDashboardLayout title="Clara Settings">
         <div className="text-center py-8">Agent not found</div>
-      </DashboardLayout>
+      </AdminDashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout title="Clara Configuration">
+    <AdminDashboardLayout title="Clara Configuration">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" asChild>
-              <Link to="/dashboard/settings/ai-agents">
+              <Link to="/dashboard/admin/ai-agents">
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </Button>
@@ -361,6 +361,6 @@ export default function ClaraSettings() {
         {/* Analytics Section */}
         <AgentAnalytics agentId={agent.id} />
       </div>
-    </DashboardLayout>
+    </AdminDashboardLayout>
   );
 }

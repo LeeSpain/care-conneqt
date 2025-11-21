@@ -27,7 +27,8 @@ export default function Dashboard() {
 
   // Admin has access to everything
   if (roles.includes('admin')) {
-    return <AdminDashboard />;
+    window.location.href = '/dashboard/admin';
+    return null;
   }
 
   // Route to appropriate dashboard based on primary role
@@ -36,7 +37,8 @@ export default function Dashboard() {
   }
 
   if (roles.includes('nurse')) {
-    return <NurseDashboard />;
+    window.location.href = '/dashboard/nurse';
+    return null;
   }
 
   if (roles.includes('family_carer')) {
@@ -44,8 +46,10 @@ export default function Dashboard() {
   }
 
   if (roles.includes('member')) {
-    return <MemberDashboard />;
+    window.location.href = '/dashboard/member';
+    return null;
   }
 
-  return <MemberDashboard />;
+  window.location.href = '/dashboard/member';
+  return null;
 }

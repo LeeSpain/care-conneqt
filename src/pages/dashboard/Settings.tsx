@@ -23,8 +23,8 @@ export default function Settings() {
     { id: 'language', label: 'Language & Region', icon: Globe, path: '/settings#language' },
     { id: 'security', label: 'Security', icon: Lock, path: '/settings#security' },
     ...(isAdmin ? [
-      { id: 'ai-agents', label: 'AI Agents', icon: Bot, path: '/dashboard/settings/ai-agents' },
-      { id: 'users', label: 'User Management', icon: User, path: '/dashboard/settings/users' }
+      { id: 'ai-agents', label: 'AI Agents', icon: Bot, path: '/dashboard/admin/ai-agents' },
+      { id: 'users', label: 'User Management', icon: User, path: '/dashboard/admin/users' }
     ] : []),
   ];
 
@@ -36,7 +36,7 @@ export default function Settings() {
           <nav className="space-y-1">
             {settingsSections.map((section) => {
               const Icon = section.icon;
-              const isActive = section.path === '/dashboard/settings/ai-agents' 
+              const isActive = section.path === '/dashboard/admin/ai-agents' || section.path === '/dashboard/admin/users'
                 ? location.pathname === section.path
                 : location.pathname === '/settings' && location.hash === section.path.split('#')[1];
               

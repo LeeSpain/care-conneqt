@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -157,16 +157,16 @@ export default function UserManagement() {
 
   if (loading) {
     return (
-      <DashboardLayout title="User Management">
+      <AdminDashboardLayout title="User Management">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </AdminDashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout title="User Management">
+    <AdminDashboardLayout title="User Management">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -269,6 +269,6 @@ export default function UserManagement() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </DashboardLayout>
+    </AdminDashboardLayout>
   );
 }

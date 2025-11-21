@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/DashboardLayout';
+import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -90,11 +90,11 @@ export default function AIAgentsSettings() {
 
   if (loading) {
     return (
-      <DashboardLayout title="AI Agents">
+      <AdminDashboardLayout title="AI Agents">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
-      </DashboardLayout>
+      </AdminDashboardLayout>
     );
   }
 
@@ -102,7 +102,7 @@ export default function AIAgentsSettings() {
   const ineke = agents.find(a => a.name === 'ineke');
 
   return (
-    <DashboardLayout title="AI Agents">
+    <AdminDashboardLayout title="AI Agents">
       <div className="space-y-6">
         {/* Overview */}
         <div>
@@ -165,13 +165,13 @@ export default function AIAgentsSettings() {
               
               <div className="flex gap-2">
                 <Button asChild className="flex-1">
-                  <Link to="/dashboard/settings/ai-agents/clara">
+                  <Link to="/dashboard/admin/ai-agents/clara">
                     <Settings className="h-4 w-4 mr-2" />
                     Configure Clara
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="flex-1">
-                  <Link to="/dashboard/settings/ai-agents/clara/analytics">
+                  <Link to="/dashboard/admin/ai-agents/clara/analytics">
                     <TrendingUp className="h-4 w-4 mr-2" />
                     View Analytics
                   </Link>
@@ -234,13 +234,13 @@ export default function AIAgentsSettings() {
               
               <div className="flex gap-2">
                 <Button asChild className="flex-1">
-                  <Link to="/dashboard/settings/ai-agents/ineke">
+                  <Link to="/dashboard/admin/ai-agents/ineke">
                     <Settings className="h-4 w-4 mr-2" />
                     Configure Ineke
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="flex-1">
-                  <Link to="/dashboard/settings/ai-agents/ineke/analytics">
+                  <Link to="/dashboard/admin/ai-agents/ineke/analytics">
                     <TrendingUp className="h-4 w-4 mr-2" />
                     View Analytics
                   </Link>
@@ -273,6 +273,6 @@ export default function AIAgentsSettings() {
           </CardContent>
         </Card>
       </div>
-    </DashboardLayout>
+    </AdminDashboardLayout>
   );
 }
