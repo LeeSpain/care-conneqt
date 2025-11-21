@@ -127,6 +127,7 @@ const App = () => (
             <Route path="/dashboard/family/settings" element={<ProtectedRoute requiredRole="family_carer"><FamilySettings /></ProtectedRoute>} />
             <Route path="/dashboard/family/members" element={<ProtectedRoute requiredRole="family_carer"><FamilyMembers /></ProtectedRoute>} />
             <Route path="/dashboard/family/schedule" element={<ProtectedRoute requiredRole="family_carer"><SchedulePage /></ProtectedRoute>} />
+            <Route path="/dashboard/family/care-team" element={<ProtectedRoute requiredRole="family_carer"><CareTeamPage /></ProtectedRoute>} />
             <Route path="/dashboard/family/ai-chat" element={<ProtectedRoute requiredRole="family_carer"><AIChatPage /></ProtectedRoute>} />
             
             {/* Facility Admin routes */}
