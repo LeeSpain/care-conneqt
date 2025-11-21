@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import inekeAvatar from "@/assets/ineke-avatar.png";
 import { InekeAssistant } from '@/components/nurse/InekeAssistant';
 import { useNurseData } from '@/hooks/useNurseStats';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function NurseHome() {
   const { user, profile } = useAuth();
@@ -21,6 +22,53 @@ export default function NurseHome() {
   const { data, isLoading, isError, error, refetch } = useNurseData(user?.id);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [inekeAssistantOpen, setInekeAssistantOpen] = useState(false);
+
+  // Real-time updates for tasks and alerts
+  useEffect(() => {
+    if (!user?.id) return;
+
+    console.log('[NurseHome] Setting up real-time subscriptions for nurse:', user.id);
+
+    const channel = supabase
+      .channel('nurse-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'nurse_tasks',
+          filter: `nurse_id=eq.${user.id}`
+        },
+        (payload) => {
+          console.log('[NurseHome] Task update received:', payload);
+          refetch();
+          toast({
+            title: "Update",
+            description: "Tasks have been updated",
+          });
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'alerts'
+        },
+        (payload) => {
+          console.log('[NurseHome] Alert update received:', payload);
+          refetch();
+        }
+      )
+      .subscribe((status) => {
+        console.log('[NurseHome] Subscription status:', status);
+      });
+
+    return () => {
+      console.log('[NurseHome] Cleaning up real-time subscriptions');
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, refetch, toast]);
 
   useEffect(() => {
     const timer = setInterval(() => {
