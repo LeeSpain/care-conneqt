@@ -11,7 +11,7 @@ interface ProtectedRouteProps {
 }
 
 export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = false }: ProtectedRouteProps) => {
-  const { user, profile, roles, loading } = useAuth();
+  const { user, profile, roles, loading, rolesLoaded } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
         return;
       }
 
-      if (requiredRole && user) {
+      if (requiredRole && user && rolesLoaded) {
         const requiredRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
         const hasRequiredRole = requiredRoles.some(role => roles.includes(role)) || roles.includes('admin');
         
@@ -51,7 +51,7 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
         return;
       }
     }
-  }, [user?.id, profile?.id, roles.join(','), loading, requiredRole, requireOnboarding, navigate]);
+  }, [user?.id, profile?.id, roles.join(','), loading, rolesLoaded, requiredRole, requireOnboarding, navigate]);
 
   // Always render children immediately for progressive loading
   return <>{children}</>;

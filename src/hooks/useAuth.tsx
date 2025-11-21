@@ -24,6 +24,7 @@ interface AuthContextType {
   profile: Profile | null;
   roles: AppRole[];
   loading: boolean;
+  rolesLoaded: boolean;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [roles, setRoles] = useState<AppRole[]>([]);
   const [loading, setLoading] = useState(true);
+  const [rolesLoaded, setRolesLoaded] = useState(false);
 
   const fetchProfile = async (userId: string) => {
     try {
@@ -61,6 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       setProfile(profileData);
       setRoles(userRoles);
+      setRolesLoaded(true);
       
       // Cache auth state for faster subsequent loads
       sessionStorage.setItem('auth_cached', JSON.stringify({
@@ -108,6 +111,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else if (!session?.user) {
           setProfile(null);
           setRoles([]);
+          setRolesLoaded(true); // No user = no roles to load
           setLoading(false);
           sessionStorage.removeItem('auth_cached');
         }
@@ -140,11 +144,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setSession(null);
     setProfile(null);
     setRoles([]);
+    setRolesLoaded(false);
     sessionStorage.removeItem('auth_cached');
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, profile, roles, loading, signOut, refreshProfile }}>
+    <AuthContext.Provider value={{ user, session, profile, roles, loading, rolesLoaded, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );
