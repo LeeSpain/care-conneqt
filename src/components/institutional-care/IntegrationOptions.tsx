@@ -10,25 +10,33 @@ export const IntegrationOptions = () => {
       icon: Database,
       title: t('integrationOptions.careManagement.title'),
       description: t('integrationOptions.careManagement.description'),
-      examples: t('integrationOptions.careManagement.examples', { returnObjects: true }) as string[]
+      examples: Array.isArray(t('integrationOptions.careManagement.examples', { returnObjects: true }))
+        ? t('integrationOptions.careManagement.examples', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Plug,
       title: t('integrationOptions.ehr.title'),
       description: t('integrationOptions.ehr.description'),
-      examples: t('integrationOptions.ehr.examples', { returnObjects: true }) as string[]
+      examples: Array.isArray(t('integrationOptions.ehr.examples', { returnObjects: true }))
+        ? t('integrationOptions.ehr.examples', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Globe,
       title: t('integrationOptions.localAuthority.title'),
       description: t('integrationOptions.localAuthority.description'),
-      examples: t('integrationOptions.localAuthority.examples', { returnObjects: true }) as string[]
+      examples: Array.isArray(t('integrationOptions.localAuthority.examples', { returnObjects: true }))
+        ? t('integrationOptions.localAuthority.examples', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Zap,
       title: t('integrationOptions.api.title'),
       description: t('integrationOptions.api.description'),
-      examples: t('integrationOptions.api.examples', { returnObjects: true }) as string[]
+      examples: Array.isArray(t('integrationOptions.api.examples', { returnObjects: true }))
+        ? t('integrationOptions.api.examples', { returnObjects: true }) as string[]
+        : []
     }
   ];
 
@@ -37,13 +45,17 @@ export const IntegrationOptions = () => {
       icon: Palette,
       title: t('integrationOptions.whiteLabel.branding.title'),
       description: t('integrationOptions.whiteLabel.branding.description'),
-      features: t('integrationOptions.whiteLabel.branding.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('integrationOptions.whiteLabel.branding.features', { returnObjects: true }))
+        ? t('integrationOptions.whiteLabel.branding.features', { returnObjects: true }) as string[]
+        : []
     },
     {
       icon: Lock,
       title: t('integrationOptions.whiteLabel.deployment.title'),
       description: t('integrationOptions.whiteLabel.deployment.description'),
-      features: t('integrationOptions.whiteLabel.deployment.features', { returnObjects: true }) as string[]
+      features: Array.isArray(t('integrationOptions.whiteLabel.deployment.features', { returnObjects: true }))
+        ? t('integrationOptions.whiteLabel.deployment.features', { returnObjects: true }) as string[]
+        : []
     }
   ];
 
