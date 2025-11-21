@@ -22,7 +22,10 @@ export default function Settings() {
     { id: 'notifications', label: 'Notifications', icon: Bell, path: '/settings#notifications' },
     { id: 'language', label: 'Language & Region', icon: Globe, path: '/settings#language' },
     { id: 'security', label: 'Security', icon: Lock, path: '/settings#security' },
-    ...(isAdmin ? [{ id: 'ai-agents', label: 'AI Agents', icon: Bot, path: '/dashboard/settings/ai-agents' }] : []),
+    ...(isAdmin ? [
+      { id: 'ai-agents', label: 'AI Agents', icon: Bot, path: '/dashboard/settings/ai-agents' },
+      { id: 'users', label: 'User Management', icon: User, path: '/dashboard/settings/users' }
+    ] : []),
   ];
 
   return (
