@@ -3,11 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, Loader2, Sparkles, MinusCircle, PlusCircle } from 'lucide-react';
+import { Send, Loader2, Sparkles, MinusCircle, PlusCircle, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useTranslation } from 'react-i18next';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -20,6 +26,7 @@ export const ClaraFixedChat = () => {
   
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -30,6 +37,7 @@ export const ClaraFixedChat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
   const scrollRef = useRef<HTMLDivElement>(null);
+  const expandedScrollRef = useRef<HTMLDivElement>(null);
 
   // Update initial greeting when language changes
   useEffect(() => {
@@ -39,11 +47,21 @@ export const ClaraFixedChat = () => {
     }]);
   }, [currentLanguage, t]);
 
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
+    const scrollToBottom = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+      if (expandedScrollRef.current) {
+        expandedScrollRef.current.scrollTop = expandedScrollRef.current.scrollHeight;
+      }
+    };
+    
+    // Small delay to ensure DOM is updated
+    const timer = setTimeout(scrollToBottom, 100);
+    return () => clearTimeout(timer);
+  }, [messages, isLoading]);
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -161,6 +179,15 @@ export const ClaraFixedChat = () => {
           <Button
             variant="ghost"
             size="icon"
+            onClick={() => setIsExpanded(true)}
+            className="hover:bg-primary/10"
+            title="Expand to full view"
+          >
+            <Maximize2 className="h-5 w-5 text-primary" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setIsMinimized(!isMinimized)}
             className="hover:bg-primary/10"
           >
@@ -251,6 +278,95 @@ export const ClaraFixedChat = () => {
           </div>
         </>
       )}
+
+      {/* Expanded Full-Page View */}
+      <Dialog open={isExpanded} onOpenChange={setIsExpanded}>
+        <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0">
+          <DialogHeader className="p-6 pb-4 border-b bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-12 w-12 border-2 border-primary/30 shadow-lg">
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold text-lg">
+                  C
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <div className="flex items-center gap-2">
+                  <DialogTitle className="text-xl">Clara</DialogTitle>
+                  <Sparkles className="h-5 w-5 text-primary animate-pulse" />
+                </div>
+                <p className="text-sm text-muted-foreground">AI Care Assistant • Available 24/7</p>
+              </div>
+            </div>
+          </DialogHeader>
+
+          {/* Messages in Expanded View */}
+          <ScrollArea className="flex-1 p-6" ref={expandedScrollRef}>
+            <div className="space-y-4 max-w-3xl mx-auto">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[75%] rounded-2xl p-4 shadow-sm ${
+                      message.role === 'user'
+                        ? 'bg-gradient-to-br from-primary to-primary/80 text-primary-foreground'
+                        : 'bg-gradient-to-br from-secondary/20 to-secondary/10 text-foreground border border-secondary/20'
+                    }`}
+                  >
+                    {message.role === 'assistant' && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <Avatar className="h-6 w-6">
+                          <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white text-xs">
+                            C
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-xs font-semibold text-primary">Clara</span>
+                      </div>
+                    )}
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-2xl p-4 border border-secondary/20">
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                      <span className="text-sm text-muted-foreground">{t('clara.typing')}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+
+          {/* Input in Expanded View */}
+          <div className="p-6 pt-4 border-t bg-muted/30">
+            <div className="flex gap-3 max-w-3xl mx-auto">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={t('clara.placeholder')}
+                disabled={isLoading}
+                className="flex-1 h-12 text-base rounded-full border-primary/20 focus:border-primary/40"
+              />
+              <Button
+                onClick={sendMessage}
+                disabled={isLoading || !input.trim()}
+                size="lg"
+                className="h-12 px-8 rounded-full bg-gradient-to-br from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+              >
+                <Send className="h-5 w-5" />
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-3">
+              {t('clara.powered')}
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
