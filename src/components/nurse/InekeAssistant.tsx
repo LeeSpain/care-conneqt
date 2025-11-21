@@ -22,7 +22,7 @@ interface InekeAssistantProps {
 }
 
 export const InekeAssistant = ({ context }: InekeAssistantProps) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
@@ -30,12 +30,20 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm Ineke, your nursing assistant. I can help you access member data, find care protocols, check device status, and more. How can I assist you?"
+      content: t('ineke.greeting')
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Update initial greeting when language changes
+  useEffect(() => {
+    setMessages([{
+      role: 'assistant',
+      content: t('ineke.greeting')
+    }]);
+  }, [currentLanguage, t]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -119,7 +127,7 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
           </div>
           <div>
             <h3 className="font-semibold">Ineke</h3>
-            <p className="text-xs text-muted-foreground">Nurse Support AI</p>
+            <p className="text-xs text-muted-foreground">{t('ineke.available')}</p>
           </div>
         </div>
         <div className="flex gap-1">
@@ -178,7 +186,7 @@ export const InekeAssistant = ({ context }: InekeAssistantProps) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything..."
+                placeholder={t('ineke.placeholder')}
                 disabled={isLoading}
                 className="flex-1"
               />

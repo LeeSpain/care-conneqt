@@ -116,5 +116,15 @@
     "typing": "Clara is typing...",
     "placeholder": "Ask me anything about our care services...",
     "powered": "Powered by AI • Instant responses"
+  },
+  "ineke": {
+    "greeting": "Hello! I'm Ineke, your nursing assistant. I can help you access member data, find care protocols, check device status, and more. How can I assist you?",
+    "available": "Nurse Support AI",
+    "typing": "Ineke is typing...",
+    "placeholder": "Ask me anything..."
+  },
+  "aiGuardian": {
+    "greeting": "Hello! I'm your AI Guardian. How are you feeling today? I'm here to help with any health questions or just to chat.",
+    "title": "AI Guardian"
   }
 }

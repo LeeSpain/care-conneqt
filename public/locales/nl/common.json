@@ -116,5 +116,15 @@
     "typing": "Clara is aan het typen...",
     "placeholder": "Vraag me alles over onze zorgdiensten...",
     "powered": "Aangedreven door AI • Directe reacties"
+  },
+  "ineke": {
+    "greeting": "Hallo! Ik ben Ineke, je verpleegassistent. Ik kan je helpen met toegang tot ledengegevens, zorgprotocollen vinden, apparaatstatus controleren en meer. Hoe kan ik je helpen?",
+    "available": "Verpleegkundige Ondersteuning AI",
+    "typing": "Ineke is aan het typen...",
+    "placeholder": "Vraag me wat je wilt..."
+  },
+  "aiGuardian": {
+    "greeting": "Hallo! Ik ben je AI Bewaker. Hoe voel je je vandaag? Ik ben hier om te helpen met gezondheidsvragen of gewoon om te chatten.",
+    "title": "AI Bewaker"
   }
 }
