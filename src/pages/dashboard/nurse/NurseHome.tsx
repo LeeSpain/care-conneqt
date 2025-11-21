@@ -68,7 +68,7 @@ export default function NurseHome() {
       console.log('[NurseHome] Cleaning up real-time subscriptions');
       supabase.removeChannel(channel);
     };
-  }, [user?.id, refetch, toast]);
+  }, [user?.id]); // Remove refetch and toast from dependencies - they're stable
 
   useEffect(() => {
     const timer = setInterval(() => {

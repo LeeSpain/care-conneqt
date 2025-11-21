@@ -68,15 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setRoles(userRoles);
       console.log('[fetchProfile] State updated - roles set to:', userRoles);
       
-      // Cache auth state for faster subsequent loads
-      sessionStorage.setItem('auth_cached', JSON.stringify({
-        user,
-        profile: profileData,
-        roles: userRoles,
-        timestamp: Date.now()
-      }));
-      
-      // Apply language preference immediately (no setTimeout)
+      // Apply language preference immediately
       if (profileData?.language && profileData.language !== i18n.language) {
         i18n.changeLanguage(profileData.language);
         localStorage.setItem('i18nextLng', profileData.language);
@@ -119,7 +111,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setProfile(null);
           setRoles([]);
           setLoading(false);
-          sessionStorage.removeItem('auth_cached');
         }
       }
     );
@@ -155,7 +146,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setSession(null);
     setProfile(null);
     setRoles([]);
-    sessionStorage.removeItem('auth_cached');
   };
 
   return (

@@ -91,15 +91,16 @@ const PageLoader = () => (
   </div>
 );
 
-// Configure QueryClient with aggressive caching
+// Configure QueryClient for responsive data updates
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      retry: 1,
+      staleTime: 1 * 60 * 1000, // 1 minute for responsive updates
+      gcTime: 5 * 60 * 1000, // 5 minutes cache retention
+      refetchOnWindowFocus: true, // Refetch when user returns to tab
+      refetchOnMount: true, // Refetch when component mounts
+      retry: 2, // Retry failed requests twice
+      retryDelay: 1000, // 1 second between retries
     },
   },
 });
