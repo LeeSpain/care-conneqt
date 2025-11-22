@@ -43,19 +43,24 @@ export default function Devices() {
     'from-primary/10 to-primary/5', 'from-lilac/10 to-lilac/5'
   ];
   
-  const devices = deviceKeys.map((key, index) => ({
-    icon: deviceIcons[index],
-    image: deviceImages[index],
-    name: t(`devices.${key}.name`),
-    tagline: t(`devices.${key}.tagline`),
-    description: t(`devices.${key}.description`),
-    price: t(`devices.${key}.price`),
-    features: t(`devices.${key}.features`, { returnObjects: true }) as string[],
-    specs: t(`devices.${key}.specs`, { returnObjects: true }) as Record<string, string>,
-    color: deviceColors[index],
-    gradient: deviceGradients[index],
-    popular: index === 0 // Mark first device as popular
-  }));
+  const devices = deviceKeys.map((key, index) => {
+    const featuresData = t(`devices.${key}.features`, { returnObjects: true });
+    const specsData = t(`devices.${key}.specs`, { returnObjects: true });
+    
+    return {
+      icon: deviceIcons[index],
+      image: deviceImages[index],
+      name: t(`devices.${key}.name`),
+      tagline: t(`devices.${key}.tagline`),
+      description: t(`devices.${key}.description`),
+      price: t(`devices.${key}.price`),
+      features: Array.isArray(featuresData) ? featuresData : [],
+      specs: typeof specsData === 'object' && specsData !== null ? specsData as Record<string, string> : {},
+      color: deviceColors[index],
+      gradient: deviceGradients[index],
+      popular: index === 0 // Mark first device as popular
+    };
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -130,9 +135,13 @@ export default function Devices() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  {(t('included.deviceProtection.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <p key={idx}>• {item}</p>
-                  ))}
+                  {(() => {
+                    const items = t('included.deviceProtection.items', { returnObjects: true });
+                    const safeItems = Array.isArray(items) ? items : [];
+                    return safeItems.map((item: string, idx: number) => (
+                      <p key={idx}>• {item}</p>
+                    ));
+                  })()}
                 </CardContent>
               </Card>
 
@@ -144,9 +153,13 @@ export default function Devices() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  {(t('included.easySetup.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <p key={idx}>• {item}</p>
-                  ))}
+                  {(() => {
+                    const items = t('included.easySetup.items', { returnObjects: true });
+                    const safeItems = Array.isArray(items) ? items : [];
+                    return safeItems.map((item: string, idx: number) => (
+                      <p key={idx}>• {item}</p>
+                    ));
+                  })()}
                 </CardContent>
               </Card>
 
@@ -158,9 +171,13 @@ export default function Devices() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  {(t('included.integration.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <p key={idx}>• {item}</p>
-                  ))}
+                  {(() => {
+                    const items = t('included.integration.items', { returnObjects: true });
+                    const safeItems = Array.isArray(items) ? items : [];
+                    return safeItems.map((item: string, idx: number) => (
+                      <p key={idx}>• {item}</p>
+                    ));
+                  })()}
                 </CardContent>
               </Card>
 
@@ -172,9 +189,13 @@ export default function Devices() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2 text-sm text-muted-foreground">
-                  {(t('included.qualityGuarantee.items', { returnObjects: true }) as string[]).map((item, idx) => (
-                    <p key={idx}>• {item}</p>
-                  ))}
+                  {(() => {
+                    const items = t('included.qualityGuarantee.items', { returnObjects: true });
+                    const safeItems = Array.isArray(items) ? items : [];
+                    return safeItems.map((item: string, idx: number) => (
+                      <p key={idx}>• {item}</p>
+                    ));
+                  })()}
                 </CardContent>
               </Card>
             </div>
