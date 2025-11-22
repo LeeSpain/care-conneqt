@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface FacilityDashboardLayoutProps {
   children: ReactNode;
@@ -41,6 +42,7 @@ export const FacilityDashboardLayout = ({ children, title }: FacilityDashboardLa
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
             <SidebarTrigger />
             <h1 className="text-xl font-semibold flex-1">{title}</h1>
+            <LanguageSwitcher />
             <Button variant="ghost" size="icon">
               <Bell className="h-5 w-5" />
             </Button>

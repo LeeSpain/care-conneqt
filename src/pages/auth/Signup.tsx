@@ -7,7 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { Logo } from '@/components/Logo';
 
 export default function Signup() {
   const { t } = useTranslation('auth');
@@ -77,7 +79,17 @@ export default function Signup() {
     <div className="min-h-screen flex">
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          <div className="flex items-start justify-between">
+            <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
+              <ArrowLeft className="h-4 w-4" />
+              <span className="text-sm">Back to Home</span>
+            </Link>
+            <LanguageSwitcher />
+          </div>
           <div>
+            <div className="mb-6">
+              <Logo className="h-12" />
+            </div>
             <h2 className="text-3xl font-bold text-foreground">{t('signup.title')}</h2>
             <p className="mt-2 text-muted-foreground">{t('signup.subtitle')}</p>
           </div>
