@@ -73,17 +73,8 @@ export const PricingSection = () => {
                   </Button>
                 </CardContent>
               </Card>
-            );
+          );
           })}
-        </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-4">
-            {t('pricing.addons.title')} <span className="font-semibold text-secondary">{formatCurrency(2.99, 'EUR', i18n.language)}{t('pricing.perMonth')}</span> {t('pricing.addons.subtitle')}
-          </p>
-          <Button variant="outline" size="lg">
-            {t('common:buttons.viewAll')}
-          </Button>
         </div>
       </div>
     </section>
