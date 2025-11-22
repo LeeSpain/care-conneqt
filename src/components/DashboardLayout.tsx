@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Bell, LogOut, Settings, User } from 'lucide-react';
 
 interface DashboardLayoutProps {
@@ -55,6 +56,8 @@ export const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
               <div className="flex-1">
                 <h1 className="text-2xl font-bold text-foreground">{title}</h1>
               </div>
+
+              <LanguageSwitcher />
 
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />

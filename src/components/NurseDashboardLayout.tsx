@@ -15,6 +15,7 @@ import {
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { NurseSidebar } from '@/components/NurseSidebar';
 import { CreateTaskDialog } from '@/components/nurse/CreateTaskDialog';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Bell, LogOut, Settings, User, Plus } from 'lucide-react';
 
 interface NurseDashboardLayoutProps {
@@ -52,6 +53,8 @@ export const NurseDashboardLayout = ({ children, title }: NurseDashboardLayoutPr
                   On Duty
                 </Badge>
               </div>
+
+              <LanguageSwitcher />
 
               <Button 
                 variant="outline" 
