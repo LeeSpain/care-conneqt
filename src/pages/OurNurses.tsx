@@ -18,90 +18,35 @@ export default function OurNurses() {
   const { t } = useTranslation(['nurses', 'home', 'common']);
   
   const nurseImages = [nurseSarah, nurseJames, nurseMaria, nurseDavid, nurseEmma, nurseAisha];
-  const nursesData = t('nurses:team.nurses', { returnObjects: true }) as Array<{
-    name: string;
-    title: string;
-    credentials: string;
-    experience: string;
-    specialties: string[];
-    bio: string;
-  }>;
+  const nursesData = t('nurses:team.nurses', { returnObjects: true });
   
-  const nurses = nursesData.map((nurse, index) => ({
+  // Ensure nursesData is an array before mapping
+  const nursesArray = Array.isArray(nursesData) ? nursesData : [];
+  
+  const nurses = nursesArray.map((nurse: any, index: number) => ({
     ...nurse,
     image: nurseImages[index]
   }));
-  
-  const oldNurses = [
-    {
-      name: 'Sarah Thompson',
-      title: 'Lead Clinical Nurse',
-      credentials: 'RGN, BSc (Hons)',
-      experience: '15+ years',
-      specialties: ['Emergency Care', 'Geriatric Nursing', 'Cardiac Care'],
-      bio: 'Sarah leads our clinical team with extensive experience in emergency medicine and elderly care. She ensures our response protocols meet the highest clinical standards.',
-      image: nurseSarah
-    },
-    {
-      name: 'James Mitchell',
-      title: 'Senior Nurse Specialist',
-      credentials: 'RGN, MSc',
-      experience: '12+ years',
-      specialties: ['Diabetes Management', 'Chronic Disease', 'Health Education'],
-      bio: 'James specializes in chronic disease management and brings deep expertise in supporting patients with complex health needs at home.',
-      image: nurseJames
-    },
-    {
-      name: 'Maria Garcia',
-      title: 'Clinical Nurse Manager',
-      credentials: 'RGN, Advanced Diploma',
-      experience: '18+ years',
-      specialties: ['Palliative Care', 'Mental Health', 'Family Support'],
-      bio: 'Maria oversees quality assurance and staff training, ensuring compassionate, person-centered care for all our members and their families.',
-      image: nurseMaria
-    },
-    {
-      name: 'David Chen',
-      title: 'Technology Integration Nurse',
-      credentials: 'RGN, Health Informatics',
-      experience: '10+ years',
-      specialties: ['Remote Monitoring', 'Digital Health', 'Care Innovation'],
-      bio: 'David bridges healthcare and technology, ensuring our AI systems and devices deliver accurate, clinically relevant insights.',
-      image: nurseDavid
-    },
-    {
-      name: 'Emma Williams',
-      title: 'Night Shift Coordinator',
-      credentials: 'RGN, Critical Care',
-      experience: '14+ years',
-      specialties: ['Overnight Care', 'Crisis Response', 'Sleep Disorders'],
-      bio: 'Emma leads our 24/7 night team, providing expert care and rapid response when it matters most.',
-      image: nurseEmma
-    },
-    {
-      name: 'Aisha Patel',
-      title: 'Community Nurse Liaison',
-      credentials: 'RGN, Community Health',
-      experience: '11+ years',
-      specialties: ['Home Care', 'Fall Prevention', 'Medication Management'],
-      bio: 'Aisha coordinates with GPs, families, and social services to ensure seamless, integrated care for our members.',
-      image: nurseAisha
-    }
-  ];
 
   const certificationIcons = [Shield, Heart, Shield, Heart, Users, Award];
-  const certifications = (t('nurses:certifications.items', { returnObjects: true }) as string[]).map((name, index) => ({
+  const certificationsData = t('nurses:certifications.items', { returnObjects: true });
+  const certifications = (Array.isArray(certificationsData) ? certificationsData : []).map((name: string, index: number) => ({
     name,
     icon: certificationIcons[index]
   }));
 
   const statsIcons = [Clock, Users, Award, Phone];
-  const statsData = [
+  const statsDataRaw = [
     t('nurses:stats.coverage', { returnObjects: true }),
     t('nurses:stats.staff', { returnObjects: true }),
     t('nurses:stats.experience', { returnObjects: true }),
     t('nurses:stats.response', { returnObjects: true })
-  ] as Array<{ value: string; label: string }>;
+  ];
+  
+  // Ensure each stat is a valid object with value and label
+  const statsData = statsDataRaw.filter((stat): stat is { value: string; label: string } => 
+    stat && typeof stat === 'object' && 'value' in stat && 'label' in stat
+  );
   
   const stats = statsData.map((stat, index) => ({
     ...stat,
@@ -302,23 +247,27 @@ export default function OurNurses() {
             </h2>
 
             <div className="space-y-6">
-              {(t('nurses:howItWorks.steps', { returnObjects: true }) as Array<{ number: string; title: string; description: string }>).map((step, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
-                        {step.number}
+              {(() => {
+                const stepsData = t('nurses:howItWorks.steps', { returnObjects: true });
+                const steps = Array.isArray(stepsData) ? stepsData : [];
+                return steps.map((step: any, index: number) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 font-bold">
+                          {step.number}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold mb-2">{step.title}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {step.description}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              ))}
+                    </CardHeader>
+                  </Card>
+                ));
+              })()}
             </div>
           </div>
         </div>
