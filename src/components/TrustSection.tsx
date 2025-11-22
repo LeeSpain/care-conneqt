@@ -56,6 +56,7 @@ export const TrustSection = () => {
                 src={facilityImage}
                 alt={t('trust.enterprise.imageAlt')}
                 className="w-full"
+                loading="lazy"
               />
             </div>
             <div className="p-6 rounded-xl bg-background border-2 border-primary/20">
