@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Activity, Heart, Droplet, Weight, TrendingUp } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 interface MetricCardProps {
   icon: React.ReactNode;
@@ -52,6 +53,8 @@ const MetricCard = ({ icon, label, value, unit, trend, data }: MetricCardProps) 
 };
 
 export const HealthMonitoring = () => {
+  const { t } = useTranslation('dashboard');
+  
   const heartRateData = [
     { time: '00:00', value: 68 },
     { time: '04:00', value: 65 },
@@ -73,56 +76,56 @@ export const HealthMonitoring = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-foreground mb-2">Health Monitoring</h2>
-        <p className="text-muted-foreground">Real-time health metrics from connected devices</p>
+        <h2 className="text-2xl font-bold text-foreground mb-2">{t('components.healthMonitoring.title')}</h2>
+        <p className="text-muted-foreground">{t('components.healthMonitoring.subtitle')}</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <MetricCard
           icon={<Heart className="h-4 w-4" />}
-          label="Heart Rate"
+          label={t('components.healthMonitoring.heartRate')}
           value="72"
-          unit="bpm"
+          unit={t('components.healthMonitoring.bpm')}
           trend="stable"
           data={heartRateData}
         />
         <MetricCard
           icon={<Droplet className="h-4 w-4" />}
-          label="Blood Pressure"
+          label={t('components.healthMonitoring.bloodPressure')}
           value="120/80"
-          unit="mmHg"
+          unit={t('components.healthMonitoring.mmHg')}
           trend="stable"
           data={bloodPressureData}
         />
         <MetricCard
           icon={<Weight className="h-4 w-4" />}
-          label="Weight"
+          label={t('components.healthMonitoring.weight')}
           value="68.5"
-          unit="kg"
+          unit={t('components.healthMonitoring.kg')}
           trend="down"
           data={heartRateData}
         />
         <MetricCard
           icon={<Activity className="h-4 w-4" />}
-          label="Steps Today"
+          label={t('components.healthMonitoring.stepsToday')}
           value="2,847"
-          unit="steps"
+          unit={t('components.healthMonitoring.steps')}
           trend="up"
           data={heartRateData}
         />
         <MetricCard
           icon={<Activity className="h-4 w-4" />}
-          label="Sleep Quality"
+          label={t('components.healthMonitoring.sleepQuality')}
           value="7.5"
-          unit="hours"
+          unit={t('components.healthMonitoring.hoursUnit')}
           trend="stable"
           data={heartRateData}
         />
         <MetricCard
           icon={<Activity className="h-4 w-4" />}
-          label="Activity Level"
-          value="Good"
-          unit="Active 4h 23m"
+          label={t('components.healthMonitoring.activityLevel')}
+          value={t('components.healthMonitoring.good')}
+          unit={`${t('components.healthMonitoring.active')} 4h 23m`}
           trend="up"
           data={heartRateData}
         />

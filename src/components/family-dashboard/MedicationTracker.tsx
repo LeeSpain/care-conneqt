@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Pill, Clock, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Medication {
   id: string;
@@ -12,6 +13,8 @@ interface Medication {
 }
 
 export const MedicationTracker = () => {
+  const { t } = useTranslation('dashboard');
+  
   const medications: Medication[] = [
     {
       id: '1',
@@ -48,10 +51,10 @@ export const MedicationTracker = () => {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Pill className="h-5 w-5 text-primary" />
-            Medication Tracker
+            {t('components.medicationTracker.title')}
           </CardTitle>
           <Badge variant="secondary" className="bg-secondary/10 text-secondary">
-            {adherenceRate}% adherence
+            {adherenceRate}% {t('components.medicationTracker.adherence')}
           </Badge>
         </div>
       </CardHeader>
@@ -59,7 +62,7 @@ export const MedicationTracker = () => {
         <div className="p-4 bg-secondary/10 rounded-lg border border-secondary/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Today's Progress</p>
+              <p className="text-sm text-muted-foreground">{t('components.medicationTracker.todaysProgress')}</p>
               <p className="text-2xl font-bold text-secondary">
                 {takenCount} / {medications.length}
               </p>
@@ -89,13 +92,13 @@ export const MedicationTracker = () => {
                   <p className="text-xs text-muted-foreground">{med.dosage} • {med.frequency}</p>
                   <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />
-                    <span>Next dose: {med.nextDose}</span>
+                    <span>{t('components.medicationTracker.nextDose')} {med.nextDose}</span>
                   </div>
                 </div>
                 <Badge variant={med.taken ? 'default' : 'outline'} className={
                   med.taken ? 'bg-secondary/10 text-secondary' : ''
                 }>
-                  {med.taken ? 'Taken' : 'Pending'}
+                  {med.taken ? t('components.medicationTracker.taken') : t('components.medicationTracker.pending')}
                 </Badge>
               </div>
             </div>

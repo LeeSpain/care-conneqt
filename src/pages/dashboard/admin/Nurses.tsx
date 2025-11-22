@@ -9,10 +9,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Search, UserPlus, Filter } from "lucide-react";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from 'react-i18next';
 
 export default function Nurses() {
   const [searchQuery, setSearchQuery] = useState("");
   const [workloadFilter, setWorkloadFilter] = useState<string>("all");
+  const { t } = useTranslation('dashboard');
 
   const { data: nurses, isLoading } = useQuery({
     queryKey: ["admin-nurses"],
@@ -60,18 +62,18 @@ export default function Nurses() {
   });
 
   return (
-    <AdminDashboardLayout title="Nurse Management">
+    <AdminDashboardLayout title={t('admin.nurses.title')}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Nurses</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('admin.nurses.pageTitle')}</h2>
             <p className="text-muted-foreground">
-              Manage nursing staff and member assignments
+              {t('admin.nurses.description')}
             </p>
           </div>
           <Button>
             <UserPlus className="h-4 w-4 mr-2" />
-            Add Nurse
+            {t('admin.nurses.addNurse')}
           </Button>
         </div>
 
@@ -79,7 +81,7 @@ export default function Nurses() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search nurses..."
+              placeholder={t('admin.nurses.searchPlaceholder')}
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -88,13 +90,13 @@ export default function Nurses() {
           <Select value={workloadFilter} onValueChange={setWorkloadFilter}>
             <SelectTrigger className="w-[200px]">
               <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Workload" />
+              <SelectValue placeholder={t('admin.nurses.workload')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Workloads</SelectItem>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="all">{t('admin.nurses.allWorkloads')}</SelectItem>
+              <SelectItem value="low">{t('admin.nurses.low')}</SelectItem>
+              <SelectItem value="medium">{t('admin.nurses.medium')}</SelectItem>
+              <SelectItem value="high">{t('admin.nurses.high')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -138,15 +140,15 @@ export default function Nurses() {
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Assigned Members:</span>
+                      <span className="text-muted-foreground">{t('admin.nurses.assignedMembers')}</span>
                       <span className="font-medium">{nurse.assignedMembers}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Phone:</span>
+                      <span className="text-muted-foreground">{t('admin.nurses.phone')}</span>
                       <span className="font-medium">{nurse.phone || "N/A"}</span>
                     </div>
                     <Button variant="outline" className="w-full mt-4">
-                      View Details
+                      {t('admin.nurses.viewDetails')}
                     </Button>
                   </div>
                 </CardContent>
@@ -158,7 +160,7 @@ export default function Nurses() {
         {!isLoading && filteredNurses?.length === 0 && (
           <Card>
             <CardContent className="p-12 text-center">
-              <p className="text-muted-foreground">No nurses found matching your criteria</p>
+              <p className="text-muted-foreground">{t('admin.nurses.noNurses')}</p>
             </CardContent>
           </Card>
         )}

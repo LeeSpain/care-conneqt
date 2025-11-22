@@ -94,6 +94,15 @@
     "recentActivity": "Recente Activiteit",
     "pendingMessages": "Onbehandelde Berichten",
     "viewMember": "Bekijk Lid",
+    "tasks": {
+      "newTask": "Nieuwe Taak",
+      "allTasks": "Alle Taken",
+      "noTasksFound": "Geen taken gevonden",
+      "taskId": "Taak #",
+      "due": "Vervaldatum",
+      "failedUpdate": "Taak bijwerken mislukt",
+      "taskCompleted": "Taak voltooid"
+    },
     "members": {
       "title": "Mijn Leden",
       "search": "Zoek leden...",
@@ -108,7 +117,33 @@
       "planTier": "Plan Tier",
       "contactMember": "Contact Lid",
       "viewDetails": "Bekijk Details",
-      "noMembersFound": "Geen leden gevonden"
+      "noMembersFound": "Geen leden gevonden",
+      "totalMembers": "Totaal Leden",
+      "criticalStatus": "Kritieke Status",
+      "needAttention": "Aandacht Nodig",
+      "highRisk": "Hoog Risico",
+      "searchPlaceholder": "Zoek op naam, e-mail of plaats...",
+      "allLevels": "Alle Niveaus",
+      "lowCare": "Lage Zorg",
+      "mediumCare": "Gemiddelde Zorg",
+      "highCare": "Hoge Zorg",
+      "allStatus": "Alle Status",
+      "stable": "Stabiel",
+      "sortName": "Naam (A-Z)",
+      "sortNameReverse": "Naam (Z-A)",
+      "sortLastContact": "Laatste Contact (Recent)",
+      "sortAlerts": "Meeste Waarschuwingen",
+      "sortRisk": "Hoogste Risico",
+      "sortCareLevel": "Zorgniveau",
+      "age": "Leeftijd",
+      "careLevel": "Zorgniveau",
+      "activeAlerts": "Actieve Waarschuwingen",
+      "highRiskLabel": "Hoog Risico",
+      "mediumRiskLabel": "Gemiddeld Risico",
+      "lowRiskLabel": "Laag Risico",
+      "conditions": "Aandoeningen",
+      "medications": "Medicijnen",
+      "tryAdjusting": "Pas uw filters aan"
     },
     "memberDetail": {
       "title": "Lid Details",
@@ -166,7 +201,11 @@
       "noConversations": "Nog geen gesprekken",
       "startConversation": "Begin een nieuw gesprek met uw leden",
       "typeMessage": "Typ uw bericht...",
-      "unread": "ongelezen"
+      "unread": "ongelezen",
+      "selectConversation": "Selecteer een gesprek",
+      "chooseConversation": "Kies een gesprek uit de lijst om te beginnen met berichten",
+      "messageSent": "Bericht verzonden",
+      "failedToSend": "Bericht verzenden mislukt"
     },
     "healthMonitoring": {
       "title": "Gezondheidsmonitoring Overzicht",
@@ -179,7 +218,12 @@
       "normal": "Normaal",
       "warning": "Waarschuwing",
       "critical": "Kritiek",
-      "noData": "Geen gegevens beschikbaar"
+      "noData": "Geen gegevens beschikbaar",
+      "heartRate": "Hartslag",
+      "bloodPressure": "Bloeddruk",
+      "oxygenSaturation": "Zuurstofsaturatie",
+      "temperature": "Temperatuur",
+      "bloodGlucose": "Bloedglucose"
     },
     "filter": {
       "all": "Alle Taken",
@@ -219,7 +263,41 @@
   "admin": {
     "title": "Beheerdersdashboard",
     "controlPanel": "Beheerders Configuratiescherm",
-    "description": "Volledige systeembeheer- en bewakingsmogelijkheden."
+    "description": "Volledige systeembeheer- en bewakingsmogelijkheden.",
+    "nurses": {
+      "title": "Verpleegkundigenbeheer",
+      "pageTitle": "Verpleegkundigen",
+      "description": "Beheer verpleegkundig personeel en ledentoewijzingen",
+      "addNurse": "Verpleegkundige Toevoegen",
+      "searchPlaceholder": "Zoek verpleegkundigen...",
+      "workload": "Werkdruk",
+      "allWorkloads": "Alle Werkdruk",
+      "low": "Laag",
+      "medium": "Gemiddeld",
+      "high": "Hoog",
+      "assignedMembers": "Toegewezen Leden:",
+      "phone": "Telefoon:",
+      "viewDetails": "Bekijk Details",
+      "noNurses": "Geen verpleegkundigen gevonden die aan uw criteria voldoen"
+    },
+    "members": {
+      "title": "Ledenbeheer",
+      "pageTitle": "Zorgontvangers",
+      "description": "Beheer leden en hun zorgplannen",
+      "addMember": "Lid Toevoegen",
+      "searchPlaceholder": "Zoek leden...",
+      "subscription": "Abonnement",
+      "allSubscriptions": "Alle Abonnementen",
+      "trial": "Proefperiode",
+      "active": "Actief",
+      "cancelled": "Geannuleerd",
+      "devices": "Apparaten:",
+      "careLevel": "Zorgniveau:",
+      "standard": "Standaard",
+      "activeAlerts": "Actieve Waarschuwingen",
+      "viewProfile": "Bekijk Profiel",
+      "noMembers": "Geen leden gevonden die aan uw criteria voldoen"
+    }
   },
   "settings": {
     "title": "Instellingen",
@@ -326,7 +404,18 @@
     "details": "Lidgegevens",
     "noMembers": "Geen leden gevonden",
     "healthSummary": "Gezondheidssamenvatting",
-    "recentActivity": "Recente activiteit"
+    "recentActivity": "Recente activiteit",
+    "memberId": "Lid ID:",
+    "age": "Leeftijd:",
+    "years": "jaar",
+    "contact": "Contact:",
+    "address": "Adres:",
+    "emergencyContact": "Noodcontact",
+    "viewFullProfile": "Volledig Profiel Bekijken",
+    "healthScore": "Gezondheidsscore",
+    "activeDevices": "Actieve Apparaten",
+    "memberSince": "Lid Sinds",
+    "months": "maanden"
   },
   "family": {
     "dashboard": "Gezinsdashboard",
@@ -358,5 +447,83 @@
     "ready": "Klaar",
     "reports": "Rapporten",
     "notifications": "Meldingen"
+  },
+  "components": {
+    "deviceStatus": {
+      "title": "Verbonden Apparaten",
+      "online": "online",
+      "offline": "offline",
+      "charging": "opladen",
+      "lastSync": "Laatste sync:"
+    },
+    "healthMonitoring": {
+      "title": "Gezondheidsmonitoring",
+      "subtitle": "Realtime gezondheidsstatistieken van verbonden apparaten",
+      "heartRate": "Hartslag",
+      "bloodPressure": "Bloeddruk",
+      "weight": "Gewicht",
+      "stepsToday": "Stappen Vandaag",
+      "sleepQuality": "Slaapkwaliteit",
+      "activityLevel": "Activiteitsniveau",
+      "bpm": "SLM",
+      "mmHg": "mmHg",
+      "kg": "kg",
+      "steps": "stappen",
+      "hoursUnit": "uur",
+      "good": "Goed",
+      "active": "Actief"
+    },
+    "medicationTracker": {
+      "title": "Medicijntracker",
+      "adherence": "therapietrouw",
+      "todaysProgress": "Voortgang Vandaag",
+      "taken": "Ingenomen",
+      "pending": "In behandeling",
+      "nextDose": "Volgende dosis:"
+    },
+    "activityTimeline": {
+      "title": "Activiteit van Vandaag",
+      "morningMedication": "Ochtendmedicatie",
+      "allTaken": "Alle 3 medicijnen op tijd ingenomen",
+      "morningWalk": "Ochtendwandeling",
+      "walkDetails": "1.234 stappen, 15 minuten",
+      "lunch": "Lunch",
+      "afternoonActivity": "Middagactiviteit",
+      "lightMovement": "Lichte beweging gedetecteerd"
+    },
+    "careTeam": {
+      "assignedNurse": "Uw Toegewezen Verpleegkundige",
+      "seniorNurse": "Senior Verpleegkundige",
+      "experience": "jaar ervaring",
+      "message": "Bericht",
+      "scheduleCall": "Plan Gesprek",
+      "nextCheckIn": "Volgende Check-in",
+      "callCenter": "24/7 Callcenter",
+      "alwaysAvailable": "Altijd Beschikbaar",
+      "callNow": "Nu Bellen",
+      "responseTime": "Gemiddelde reactietijd: <30 seconden",
+      "recentCalls": "Recente oproepen:",
+      "thisWeek": "deze week",
+      "lastContact": "Laatste contact:",
+      "daysAgo": "dagen geleden"
+    },
+    "healthReports": {
+      "title": "Gezondheidsrapporten",
+      "viewTrends": "Bekijk Trends",
+      "weeklyHealth": "Wekelijkse Gezondheidssamenvatting",
+      "monthlyReport": "Maandelijks Gezondheidsrapport",
+      "viewAll": "Bekijk Alle Rapporten"
+    },
+    "alertsCenter": {
+      "title": "Recente Waarschuwingen",
+      "total": "totaal",
+      "allClear": "Alles Veilig!",
+      "noAlerts": "Geen actieve waarschuwingen op dit moment",
+      "medicationTaken": "Medicijn Ingenomen",
+      "morningMedTaken": "Ochtendmedicatie ingenomen om 9:00",
+      "activityUpdate": "Activiteitsupdate",
+      "stepGoal": "Dagelijks stapsdoel behaald (5.000 stappen)",
+      "viewAllAlerts": "Bekijk Alle Waarschuwingen"
+    }
   }
 }

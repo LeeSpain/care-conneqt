@@ -94,6 +94,15 @@
     "recentActivity": "Recent Activity",
     "pendingMessages": "Pending Messages",
     "viewMember": "View Member",
+    "tasks": {
+      "newTask": "New Task",
+      "allTasks": "All Tasks",
+      "noTasksFound": "No tasks found",
+      "taskId": "Task #",
+      "due": "Due",
+      "failedUpdate": "Failed to update task",
+      "taskCompleted": "Task completed"
+    },
     "members": {
       "title": "My Members",
       "search": "Search members...",
@@ -108,7 +117,33 @@
       "planTier": "Plan Tier",
       "contactMember": "Contact Member",
       "viewDetails": "View Details",
-      "noMembersFound": "No members found"
+      "noMembersFound": "No members found",
+      "totalMembers": "Total Members",
+      "criticalStatus": "Critical Status",
+      "needAttention": "Need Attention",
+      "highRisk": "High Risk",
+      "searchPlaceholder": "Search by name, email, or city...",
+      "allLevels": "All Levels",
+      "lowCare": "Low Care",
+      "mediumCare": "Medium Care",
+      "highCare": "High Care",
+      "allStatus": "All Status",
+      "stable": "Stable",
+      "sortName": "Name (A-Z)",
+      "sortNameReverse": "Name (Z-A)",
+      "sortLastContact": "Last Contact (Recent)",
+      "sortAlerts": "Most Alerts",
+      "sortRisk": "Highest Risk",
+      "sortCareLevel": "Care Level",
+      "age": "Age",
+      "careLevel": "Care Level",
+      "activeAlerts": "Active Alerts",
+      "highRiskLabel": "High Risk",
+      "mediumRiskLabel": "Medium Risk",
+      "lowRiskLabel": "Low Risk",
+      "conditions": "Conditions",
+      "medications": "Medications",
+      "tryAdjusting": "Try adjusting your filters"
     },
     "memberDetail": {
       "title": "Member Details",
@@ -166,7 +201,11 @@
       "noConversations": "No conversations yet",
       "startConversation": "Start a new conversation with your members",
       "typeMessage": "Type your message...",
-      "unread": "unread"
+      "unread": "unread",
+      "selectConversation": "Select a conversation",
+      "chooseConversation": "Choose a conversation from the list to start messaging",
+      "messageSent": "Message sent",
+      "failedToSend": "Failed to send message"
     },
     "healthMonitoring": {
       "title": "Health Monitoring Overview",
@@ -179,7 +218,12 @@
       "normal": "Normal",
       "warning": "Warning",
       "critical": "Critical",
-      "noData": "No data available"
+      "noData": "No data available",
+      "heartRate": "Heart Rate",
+      "bloodPressure": "Blood Pressure",
+      "oxygenSaturation": "Oxygen Saturation",
+      "temperature": "Temperature",
+      "bloodGlucose": "Blood Glucose"
     },
     "filter": {
       "all": "All Tasks",
@@ -219,7 +263,41 @@
   "admin": {
     "title": "Admin Dashboard",
     "controlPanel": "Admin Control Panel",
-    "description": "Full system administration and monitoring capabilities."
+    "description": "Full system administration and monitoring capabilities.",
+    "nurses": {
+      "title": "Nurse Management",
+      "pageTitle": "Nurses",
+      "description": "Manage nursing staff and member assignments",
+      "addNurse": "Add Nurse",
+      "searchPlaceholder": "Search nurses...",
+      "workload": "Workload",
+      "allWorkloads": "All Workloads",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "assignedMembers": "Assigned Members:",
+      "phone": "Phone:",
+      "viewDetails": "View Details",
+      "noNurses": "No nurses found matching your criteria"
+    },
+    "members": {
+      "title": "Member Management",
+      "pageTitle": "Care Recipients",
+      "description": "Manage members and their care plans",
+      "addMember": "Add Member",
+      "searchPlaceholder": "Search members...",
+      "subscription": "Subscription",
+      "allSubscriptions": "All Subscriptions",
+      "trial": "Trial",
+      "active": "Active",
+      "cancelled": "Cancelled",
+      "devices": "Devices:",
+      "careLevel": "Care Level:",
+      "standard": "Standard",
+      "activeAlerts": "Active Alerts",
+      "viewProfile": "View Profile",
+      "noMembers": "No members found matching your criteria"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -326,7 +404,18 @@
     "details": "Member Details",
     "noMembers": "No members found",
     "healthSummary": "Health Summary",
-    "recentActivity": "Recent Activity"
+    "recentActivity": "Recent Activity",
+    "memberId": "Member ID:",
+    "age": "Age:",
+    "years": "years",
+    "contact": "Contact:",
+    "address": "Address:",
+    "emergencyContact": "Emergency Contact",
+    "viewFullProfile": "View Full Profile",
+    "healthScore": "Health Score",
+    "activeDevices": "Active Devices",
+    "memberSince": "Member Since",
+    "months": "months"
   },
   "family": {
     "dashboard": "Family Dashboard",
@@ -358,5 +447,83 @@
     "ready": "Ready",
     "reports": "Reports",
     "notifications": "Notifications"
+  },
+  "components": {
+    "deviceStatus": {
+      "title": "Connected Devices",
+      "online": "online",
+      "offline": "offline",
+      "charging": "charging",
+      "lastSync": "Last sync:"
+    },
+    "healthMonitoring": {
+      "title": "Health Monitoring",
+      "subtitle": "Real-time health metrics from connected devices",
+      "heartRate": "Heart Rate",
+      "bloodPressure": "Blood Pressure",
+      "weight": "Weight",
+      "stepsToday": "Steps Today",
+      "sleepQuality": "Sleep Quality",
+      "activityLevel": "Activity Level",
+      "bpm": "bpm",
+      "mmHg": "mmHg",
+      "kg": "kg",
+      "steps": "steps",
+      "hoursUnit": "hours",
+      "good": "Good",
+      "active": "Active"
+    },
+    "medicationTracker": {
+      "title": "Medication Tracker",
+      "adherence": "adherence",
+      "todaysProgress": "Today's Progress",
+      "taken": "Taken",
+      "pending": "Pending",
+      "nextDose": "Next dose:"
+    },
+    "activityTimeline": {
+      "title": "Today's Activity",
+      "morningMedication": "Morning Medication",
+      "allTaken": "All 3 medications taken on time",
+      "morningWalk": "Morning Walk",
+      "walkDetails": "1,234 steps, 15 minutes",
+      "lunch": "Lunch",
+      "afternoonActivity": "Afternoon Activity",
+      "lightMovement": "Light movement detected"
+    },
+    "careTeam": {
+      "assignedNurse": "Your Assigned Nurse",
+      "seniorNurse": "Senior Care Nurse",
+      "experience": "years experience",
+      "message": "Message",
+      "scheduleCall": "Schedule Call",
+      "nextCheckIn": "Next Check-in",
+      "callCenter": "24/7 Call Center",
+      "alwaysAvailable": "Always Available",
+      "callNow": "Call Now",
+      "responseTime": "Average response time: <30 seconds",
+      "recentCalls": "Recent calls:",
+      "thisWeek": "this week",
+      "lastContact": "Last contact:",
+      "daysAgo": "days ago"
+    },
+    "healthReports": {
+      "title": "Health Reports",
+      "viewTrends": "View Trends",
+      "weeklyHealth": "Weekly Health Summary",
+      "monthlyReport": "Monthly Health Report",
+      "viewAll": "View All Reports"
+    },
+    "alertsCenter": {
+      "title": "Recent Alerts",
+      "total": "total",
+      "allClear": "All Clear!",
+      "noAlerts": "No active alerts at this time",
+      "medicationTaken": "Medication Taken",
+      "morningMedTaken": "Morning medication taken at 9:00 AM",
+      "activityUpdate": "Activity Update",
+      "stepGoal": "Daily step goal achieved (5,000 steps)",
+      "viewAllAlerts": "View All Alerts"
+    }
   }
 }
