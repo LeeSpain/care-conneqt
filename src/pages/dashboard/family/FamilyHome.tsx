@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFamilyStats } from "@/hooks/useFamilyStats";
+import { useTranslation } from 'react-i18next';
 
 export default function FamilyHome() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('dashboard');
   const { data: stats, isLoading, isError, error, refetch } = useFamilyStats(user?.id);
 
   const handleRefresh = () => {
@@ -23,13 +25,13 @@ export default function FamilyHome() {
 
   if (isError) {
     return (
-      <FamilyDashboardLayout title="Family Dashboard">
+      <FamilyDashboardLayout title={t('family.dashboard')}>
         <Card className="border-destructive">
           <CardContent className="pt-6">
-            <p className="text-destructive mb-4">{error?.message || "Failed to load dashboard data"}</p>
+            <p className="text-destructive mb-4">{error?.message || t('errors.loadFailed')}</p>
             <Button onClick={handleRefresh}>
               <RefreshCw className="mr-2 h-4 w-4" />
-              Refresh Page
+              {t('errors.refresh')}
             </Button>
           </CardContent>
         </Card>
@@ -38,13 +40,13 @@ export default function FamilyHome() {
   }
 
   return (
-    <FamilyDashboardLayout title="Family Dashboard">
+    <FamilyDashboardLayout title={t('family.dashboard')}>
       <div className="space-y-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Welcome to Your Family Dashboard</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('family.welcome')}</h2>
             <p className="text-muted-foreground">
-              Monitor and support your loved ones' care journey
+              {t('family.description')}
             </p>
           </div>
           <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading}>
@@ -55,7 +57,7 @@ export default function FamilyHome() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Connected Members</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.assignedMembers')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -64,7 +66,7 @@ export default function FamilyHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.connectedMembers || 0}</div>
-                  <p className="text-xs text-muted-foreground">Family members you care for</p>
+                  <p className="text-xs text-muted-foreground">{t('family.members')}</p>
                 </>
               )}
             </CardContent>
@@ -72,7 +74,7 @@ export default function FamilyHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('quickStats.activeAlerts')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -81,7 +83,7 @@ export default function FamilyHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.activeAlerts || 0}</div>
-                  <p className="text-xs text-muted-foreground">Requiring attention</p>
+                  <p className="text-xs text-muted-foreground">{t('alerts.priority')}</p>
                 </>
               )}
             </CardContent>
@@ -89,7 +91,7 @@ export default function FamilyHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Upcoming</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('schedule.appointments')}</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -98,7 +100,7 @@ export default function FamilyHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.upcomingAppointments || 0}</div>
-                  <p className="text-xs text-muted-foreground">Appointments scheduled</p>
+                  <p className="text-xs text-muted-foreground">{t('common.upcoming')}</p>
                 </>
               )}
             </CardContent>
@@ -106,7 +108,7 @@ export default function FamilyHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Messages</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('nurse.messages.title')}</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -115,7 +117,7 @@ export default function FamilyHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.unreadMessages || 0}</div>
-                  <p className="text-xs text-muted-foreground">Unread messages</p>
+                  <p className="text-xs text-muted-foreground">{t('nurse.messages.unread')}</p>
                 </>
               )}
             </CardContent>
@@ -125,33 +127,33 @@ export default function FamilyHome() {
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common family dashboard tasks</CardDescription>
+              <CardTitle>{t('nurse.memberDetail.quickActions')}</CardTitle>
+              <CardDescription>{t('family.dashboard')}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-2">
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/family/members')}>
                 <Users className="mr-2 h-4 w-4" />
-                View All Members
+                {t('actions.viewAll')} {t('family.members')}
               </Button>
               <Button variant="outline" className="justify-start">
                 <Calendar className="mr-2 h-4 w-4" />
-                Schedule Video Call
+                {t('schedule.appointments')}
               </Button>
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/care-team')}>
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Message Care Team
+                {t('careTeam.sendMessage')}
               </Button>
               <Button variant="outline" className="justify-start">
                 <FileText className="mr-2 h-4 w-4" />
-                View Care Reports
+                {t('actions.viewAll')} {t('common.reports')}
               </Button>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest updates from your care network</CardDescription>
+              <CardTitle>{t('member.recentActivity')}</CardTitle>
+              <CardDescription>{t('common.loading')}</CardDescription>
             </CardHeader>
             <CardContent>
               {showSkeleton ? (
@@ -162,7 +164,7 @@ export default function FamilyHome() {
               ) : (
                 <div className="space-y-4">
                   <div className="text-sm text-muted-foreground">
-                    No recent activity to display
+                    {t('common.noResults')}
                   </div>
                 </div>
               )}
@@ -172,30 +174,30 @@ export default function FamilyHome() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Care Team Communication</CardTitle>
-            <CardDescription>Connect with your care team members</CardDescription>
+            <CardTitle>{t('careTeam.title')}</CardTitle>
+            <CardDescription>{t('careTeam.contact')}</CardDescription>
           </CardHeader>
           <CardContent className="flex gap-4">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="outline">
                   <Video className="mr-2 h-4 w-4" />
-                  Schedule Video Call
+                  {t('nurse.callMember.videoCall')}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Schedule a video consultation with care team</p>
+                <p>{t('schedule.appointments')}</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="outline" onClick={() => navigate('/dashboard/care-team')}>
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Send Message
+                  {t('careTeam.sendMessage')}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Send a message to your care team</p>
+                <p>{t('careTeam.sendMessage')}</p>
               </TooltipContent>
             </Tooltip>
           </CardContent>

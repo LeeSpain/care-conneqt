@@ -7,10 +7,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Activity, Heart, MessageSquare, Shield, Calendar, Package } from 'lucide-react';
 import { formatDate } from '@/lib/intl';
+import { useTranslation } from 'react-i18next';
 
 export default function MemberHome() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation('dashboard');
   const [member, setMember] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [deviceCount, setDeviceCount] = useState(0);
@@ -48,7 +50,7 @@ export default function MemberHome() {
         }
       } catch (err) {
         console.error('Error fetching member data:', err);
-        setError('Failed to load dashboard data. Please refresh the page.');
+        setError(t('errors.loadFailed'));
       } finally {
         clearTimeout(timeoutId);
         setLoading(false);
@@ -57,14 +59,14 @@ export default function MemberHome() {
     };
 
     timeoutId = setTimeout(() => {
-      setError('Loading is taking longer than expected. Please refresh the page.');
+      setError(t('errors.somethingWrong'));
       setLoading(false);
     }, 10000);
 
     fetchMemberData();
 
     return () => clearTimeout(timeoutId);
-  }, [user?.id]);
+  }, [user?.id, t]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -74,15 +76,13 @@ export default function MemberHome() {
     return () => clearInterval(timer);
   }, []);
 
-  // Show content immediately with skeleton - no blocking
-
   if (error) {
     return (
-      <MemberDashboardLayout title="Member Dashboard">
+      <MemberDashboardLayout title={t('member.profile')}>
         <Card className="border-destructive">
           <CardContent className="pt-6">
             <p className="text-destructive mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()}>Refresh Page</Button>
+            <Button onClick={() => window.location.reload()}>{t('errors.refresh')}</Button>
           </CardContent>
         </Card>
       </MemberDashboardLayout>
@@ -94,43 +94,41 @@ export default function MemberHome() {
   const formattedTime = formatDate(currentDateTime, 'h:mm a', profile?.language || 'en');
 
   return (
-    <MemberDashboardLayout title="Member Dashboard">
+    <MemberDashboardLayout title={t('member.profile')}>
       <div className="space-y-6">
-        {/* Welcome Card */}
         <Card className="bg-gradient-to-r from-primary/10 to-primary/5">
           <CardContent className="pt-6">
-            <h2 className="text-2xl font-bold mb-2">Good day, {loading ? '...' : firstName}</h2>
+            <h2 className="text-2xl font-bold mb-2">{t('welcome')}, {loading ? '...' : firstName}</h2>
             <p className="text-muted-foreground">
-              {formattedDate} at {formattedTime}
+              {formattedDate} {t('common.at')} {formattedTime}
             </p>
             <p className="text-muted-foreground mt-1">
-              Your Care Conneqt team is here to support you 24/7
+              {t('member.healthSummary')}
             </p>
           </CardContent>
         </Card>
 
-        {/* Quick Stats */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Health Score</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('healthMonitoring.title')}</CardTitle>
               <Heart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Good</div>
-              <p className="text-xs text-muted-foreground">No alerts today</p>
+              <div className="text-2xl font-bold">{t('quickStats.good')}</div>
+              <p className="text-xs text-muted-foreground">{t('alerts.noAlerts')}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Devices</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('devices.title')}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{deviceCount}</div>
               <p className="text-xs text-muted-foreground">
-                {deviceCount === 0 ? 'Configure devices' : 'All systems active'}
+                {deviceCount === 0 ? t('devices.manage') : t('status.active')}
               </p>
             </CardContent>
           </Card>
@@ -141,29 +139,28 @@ export default function MemberHome() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Active</div>
-              <p className="text-xs text-muted-foreground">Ready to chat</p>
+              <div className="text-2xl font-bold">{t('status.active')}</div>
+              <p className="text-xs text-muted-foreground">{t('common.ready')}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Subscription</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('subscriptions.title')}</CardTitle>
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold capitalize">{member?.subscription_status || 'Active'}</div>
+              <div className="text-2xl font-bold capitalize">{member?.subscription_status || t('status.active')}</div>
               <p className="text-xs text-muted-foreground">
-                {member?.subscription_tier || 'Base Membership'}
+                {member?.subscription_tier || t('subscriptions.current')}
               </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Upcoming Appointments */}
         <Card>
           <CardHeader>
-            <CardTitle>Upcoming Appointments</CardTitle>
+            <CardTitle>{t('schedule.appointments')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -171,67 +168,65 @@ export default function MemberHome() {
                 <div className="flex items-center gap-4">
                   <Calendar className="h-8 w-8 text-primary" />
                   <div>
-                    <p className="font-medium">Video Check-in with Nurse Sarah</p>
-                    <p className="text-sm text-muted-foreground">Tomorrow at 10:00 AM</p>
+                    <p className="font-medium">{t('nurse.healthMonitoring.title')}</p>
+                    <p className="text-sm text-muted-foreground">{t('common.tomorrow')}</p>
                   </div>
                 </div>
-                <Button variant="outline" size="sm">View Details</Button>
+                <Button variant="outline" size="sm">{t('actions.viewDetails')}</Button>
               </div>
               <Button variant="ghost" className="w-full" onClick={() => navigate('/dashboard/member/schedule')}>
-                View All Appointments
+                {t('actions.viewAll')} {t('schedule.appointments')}
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {/* Recent Notifications */}
         <Card>
           <CardHeader>
-            <CardTitle>Recent Notifications</CardTitle>
+            <CardTitle>{t('common.notifications')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-start gap-4 p-4 border rounded-lg">
                 <Shield className="h-5 w-5 text-green-500 mt-0.5" />
                 <div className="flex-1">
-                  <p className="font-medium">Device Sync Complete</p>
-                  <p className="text-sm text-muted-foreground">All your devices are connected and monitoring</p>
-                  <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                  <p className="font-medium">{t('devices.title')} {t('status.completed')}</p>
+                  <p className="text-sm text-muted-foreground">{t('devices.online')}</p>
+                  <p className="text-xs text-muted-foreground mt-1">2 {t('common.hours')} {t('common.ago')}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4 p-4 border rounded-lg">
                 <Heart className="h-5 w-5 text-blue-500 mt-0.5" />
                 <div className="flex-1">
-                  <p className="font-medium">Health Metrics Updated</p>
-                  <p className="text-sm text-muted-foreground">Your daily health report is ready</p>
-                  <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
+                  <p className="font-medium">{t('healthMonitoring.title')} {t('labels.lastUpdated')}</p>
+                  <p className="text-sm text-muted-foreground">{t('common.ready')}</p>
+                  <p className="text-xs text-muted-foreground mt-1">5 {t('common.hours')} {t('common.ago')}</p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Connected Devices Summary */}
         <Card>
           <CardHeader>
-            <CardTitle>Connected Devices</CardTitle>
+            <CardTitle>{t('devices.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             {deviceCount > 0 ? (
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  You have {deviceCount} device{deviceCount !== 1 ? 's' : ''} actively monitoring your health
+                  {deviceCount} {t('devices.online')}
                 </p>
                 <Button variant="outline" className="w-full" onClick={() => navigate('/dashboard/member/devices')}>
-                  Manage Devices
+                  {t('devices.manage')}
                 </Button>
               </div>
             ) : (
               <div className="text-center py-8">
                 <Package className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground mb-4">No devices connected yet</p>
+                <p className="text-muted-foreground mb-4">{t('errors.noData')}</p>
                 <Button onClick={() => navigate('/dashboard/member/devices')}>
-                  Add Your First Device
+                  {t('actions.add')} {t('devices.title')}
                 </Button>
               </div>
             )}

@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 export default function Dashboard() {
   const { roles, loading, user } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation('dashboard');
 
   useEffect(() => {
     console.log('[Dashboard] useEffect triggered - loading:', loading, 'roles:', roles);
@@ -62,7 +64,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
-        <p className="text-muted-foreground">Loading dashboard...</p>
+        <p className="text-muted-foreground">{t('loading.dashboard')}</p>
       </div>
     );
   }
@@ -72,12 +74,12 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-2">Access Issue</h2>
+          <h2 className="text-2xl font-bold mb-2">{t('errors.accessDenied')}</h2>
           <p className="text-muted-foreground mb-4">
-            Your account doesn't have the necessary permissions. Please contact support.
+            {t('errors.noAccess')}
           </p>
           <Button onClick={() => navigate('/auth/login')} variant="outline">
-            Back to Login
+            {t('errors.backToLogin')}
           </Button>
         </div>
       </div>
