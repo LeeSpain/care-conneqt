@@ -21,23 +21,20 @@ i18n
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
 
-    // Preload all critical namespaces to prevent flickering
-    ns: ['common', 'dashboard', 'auth', 'home', 'devices', 'guide', 'nurses', 'personal-care', 'institutional-care'],
+    // Load only critical namespaces initially - others load on demand
+    ns: ['common', 'home'],
     defaultNS: 'common',
 
     detection: {
-      order: ['localStorage', 'querystring', 'navigator'],
+      order: ['querystring', 'localStorage'], // Removed 'navigator' to ensure Dutch default for first-time visitors
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
       lookupQuerystring: 'lng',
     },
 
     react: {
-      useSuspense: true, // Enable Suspense to wait for translations before rendering
+      useSuspense: false, // Don't block rendering - load translations asynchronously
     },
-
-    // Preload languages for faster switching
-    preload: ['nl', 'en', 'es'],
     
     // Load namespaces on demand for better performance
     load: 'languageOnly',
