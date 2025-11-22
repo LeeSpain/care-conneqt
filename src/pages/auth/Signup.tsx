@@ -12,7 +12,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Logo } from '@/components/Logo';
 
 export default function Signup() {
-  const { t } = useTranslation('auth');
+  const { t, i18n } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -55,6 +55,7 @@ export default function Signup() {
         data: {
           first_name: firstName,
           last_name: lastName,
+          language: i18n.language,
         },
       },
     });
