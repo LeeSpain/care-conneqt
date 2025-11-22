@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Watch, Pill, Phone, Wifi, Battery } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Device {
   id: string;
@@ -19,6 +20,8 @@ const deviceIcons = {
 };
 
 export const DeviceStatus = () => {
+  const { t } = useTranslation('dashboard');
+  
   const devices: Device[] = [
     {
       id: '1',
@@ -66,7 +69,7 @@ export const DeviceStatus = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Wifi className="h-5 w-5 text-primary" />
-          Connected Devices
+          {t('components.deviceStatus.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -86,10 +89,10 @@ export const DeviceStatus = () => {
                 <div className="flex items-center gap-2 mb-1">
                   <h4 className="text-sm font-semibold text-foreground">{device.name}</h4>
                   <Badge {...statusBadge}>
-                    {device.status}
+                    {t(`components.deviceStatus.${device.status}`)}
                   </Badge>
                 </div>
-                <p className="text-xs text-muted-foreground">Last sync: {device.lastSync}</p>
+                <p className="text-xs text-muted-foreground">{t('components.deviceStatus.lastSync')} {device.lastSync}</p>
               </div>
               <div className="flex items-center gap-1">
                 <Battery className={`h-4 w-4 ${getBatteryColor(device.battery)}`} />

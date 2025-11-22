@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Clock, Activity, Pill, Coffee, Moon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface TimelineEvent {
   id: string;
@@ -17,33 +18,35 @@ const eventIcons = {
 };
 
 export const ActivityTimeline = () => {
+  const { t } = useTranslation('dashboard');
+  
   const events: TimelineEvent[] = [
     {
       id: '1',
       type: 'medication',
-      title: 'Morning Medication',
+      title: t('components.activityTimeline.morningMedication'),
       time: '09:00 AM',
-      description: 'All 3 medications taken on time'
+      description: t('components.activityTimeline.allTaken')
     },
     {
       id: '2',
       type: 'activity',
-      title: 'Morning Walk',
+      title: t('components.activityTimeline.morningWalk'),
       time: '10:30 AM',
-      description: '1,234 steps, 15 minutes'
+      description: t('components.activityTimeline.walkDetails')
     },
     {
       id: '3',
       type: 'meal',
-      title: 'Lunch',
+      title: t('components.activityTimeline.lunch'),
       time: '12:30 PM'
     },
     {
       id: '4',
       type: 'activity',
-      title: 'Afternoon Activity',
+      title: t('components.activityTimeline.afternoonActivity'),
       time: '03:00 PM',
-      description: 'Light movement detected'
+      description: t('components.activityTimeline.lightMovement')
     }
   ];
 
@@ -52,7 +55,7 @@ export const ActivityTimeline = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Clock className="h-5 w-5 text-primary" />
-          Today's Activity
+          {t('components.activityTimeline.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>

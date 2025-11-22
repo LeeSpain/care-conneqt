@@ -9,10 +9,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Search, UserPlus, Heart, Activity } from "lucide-react";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from 'react-i18next';
 
 export default function Members() {
   const [searchQuery, setSearchQuery] = useState("");
   const [subscriptionFilter, setSubscriptionFilter] = useState<string>("all");
+  const { t } = useTranslation('dashboard');
 
   const { data: members, isLoading } = useQuery({
     queryKey: ["admin-members"],
@@ -63,18 +65,18 @@ export default function Members() {
   });
 
   return (
-    <AdminDashboardLayout title="Member Management">
+    <AdminDashboardLayout title={t('admin.members.title')}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Care Recipients</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('admin.members.pageTitle')}</h2>
             <p className="text-muted-foreground">
-              Manage members and their care plans
+              {t('admin.members.description')}
             </p>
           </div>
           <Button>
             <UserPlus className="h-4 w-4 mr-2" />
-            Add Member
+            {t('admin.members.addMember')}
           </Button>
         </div>
 
