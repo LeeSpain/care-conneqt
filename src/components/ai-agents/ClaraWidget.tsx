@@ -32,12 +32,7 @@ export const ClaraWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [agent, setAgent] = useState<AgentData | null>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: t('clara.greeting')
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
@@ -59,13 +54,17 @@ export const ClaraWidget = () => {
     fetchAgent();
   }, []);
 
-  // Update initial greeting when language changes
+  // Update initial greeting when language changes or translations load
   useEffect(() => {
-    setMessages([{
-      role: 'assistant',
-      content: t('clara.greeting')
-    }]);
-  }, [currentLanguage]);
+    const greeting = t('clara.greeting');
+    // Only update if translation is actually loaded (not showing the key)
+    if (greeting && !greeting.includes('clara.greeting')) {
+      setMessages([{
+        role: 'assistant',
+        content: greeting
+      }]);
+    }
+  }, [currentLanguage, t]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
