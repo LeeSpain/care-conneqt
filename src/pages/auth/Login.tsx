@@ -28,7 +28,13 @@ export default function Login() {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
 
-  // Removed redirect useEffect - now handled in handleLogin
+  useEffect(() => {
+    // Redirect authenticated users to dashboard after auth loads
+    if (!authLoading && user) {
+      console.log('[Login] User authenticated, redirecting to dashboard');
+      navigate('/dashboard', { replace: true });
+    }
+  }, [user, authLoading, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,16 +48,14 @@ export default function Login() {
 
       if (error) {
         toast.error(error.message);
+        setLoading(false);
       } else {
         toast.success(t('login.success'));
-        // Small delay to ensure UI updates before navigation
-        setTimeout(() => {
-          navigate('/dashboard', { replace: true });
-        }, 100);
+        // Don't navigate - let auth state change handle it
       }
     } catch (error) {
+      console.error('[Login] Unexpected error:', error);
       toast.error('An unexpected error occurred');
-    } finally {
       setLoading(false);
     }
   };
