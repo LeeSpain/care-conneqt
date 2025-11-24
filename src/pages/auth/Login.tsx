@@ -34,19 +34,25 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    setLoading(false);
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success(t('login.success'));
-      // Navigate will happen via auth state change
-      navigate('/dashboard', { replace: true });
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success(t('login.success'));
+        // Small delay to ensure UI updates before navigation
+        setTimeout(() => {
+          navigate('/dashboard', { replace: true });
+        }, 100);
+      }
+    } catch (error) {
+      toast.error('An unexpected error occurred');
+    } finally {
+      setLoading(false);
     }
   };
 
