@@ -40,18 +40,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchProfile = async (userId: string) => {
     console.log('[fetchProfile] START - userId:', userId);
+    
+    // Set a timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      console.error('[fetchProfile] TIMEOUT - forcing loading to false');
+      setLoading(false);
+      setRoles([]);
+    }, 10000); // 10 second timeout
+
     try {
-      // Parallelize profile and roles fetch for better performance
       console.log('[fetchProfile] Fetching profile and roles...');
       const [profileResult, rolesResult] = await Promise.all([
-        supabase.from('profiles').select('*').eq('id', userId).single(),
+        supabase.from('profiles').select('*').eq('id', userId).maybeSingle(),
         supabase.from('user_roles').select('role').eq('user_id', userId)
       ]);
+
+      clearTimeout(timeoutId);
 
       console.log('[fetchProfile] Profile result:', profileResult);
       console.log('[fetchProfile] Roles result:', rolesResult);
 
-      // Handle errors silently in production
       if (profileResult.error) {
         console.error('[fetchProfile] Profile fetch error:', profileResult.error);
       }
@@ -68,12 +76,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setRoles(userRoles);
       console.log('[fetchProfile] State updated - roles set to:', userRoles);
       
-      // Apply language preference immediately
+      // Apply language preference
       if (profileData?.language && profileData.language !== i18n.language) {
         i18n.changeLanguage(profileData.language);
         localStorage.setItem('i18nextLng', profileData.language);
       }
     } catch (error) {
+      clearTimeout(timeoutId);
       console.error('[fetchProfile] CATCH block - error:', error);
       setRoles([]);
     } finally {
