@@ -39,12 +39,13 @@ export default function Login() {
       password,
     });
 
+    setLoading(false);
+
     if (error) {
       toast.error(error.message);
-      setLoading(false);
     } else {
       toast.success(t('login.success'));
-      // Explicitly navigate after successful login
+      // Navigate will happen via auth state change
       navigate('/dashboard', { replace: true });
     }
   };
