@@ -47,11 +47,12 @@ export default function Login() {
 
     if (error) {
       toast.error(error.message);
+      setLoading(false);
     } else {
       toast.success(t('login.success'));
+      // Explicitly navigate after successful login
+      navigate('/dashboard', { replace: true });
     }
-    
-    setLoading(false);
   };
 
   return (
