@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [roles, setRoles] = useState<AppRole[]>([]);
   const [loading, setLoading] = useState(true);
+  const initialFetchDone = useRef(false);
 
   const fetchProfile = async (userId: string) => {
     console.log('[fetchProfile] START - userId:', userId);
@@ -101,7 +102,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let mounted = true;
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         console.log('[onAuthStateChange] Event:', event, 'User:', session?.user?.email);
         if (!mounted) return;
         
@@ -109,9 +110,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          console.log('[onAuthStateChange] Fetching profile for user:', session.user.id);
+          console.log('[onAuthStateChange] Deferring profile fetch for user:', session.user.id);
           setLoading(true);
-          await fetchProfile(session.user.id);
+          // Use setTimeout(0) to prevent Supabase deadlock
+          setTimeout(() => {
+            if (mounted) {
+              fetchProfile(session.user.id);
+            }
+          }, 0);
         } else {
           console.log('[onAuthStateChange] No user - clearing state');
           setProfile(null);
@@ -122,18 +128,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 
     // Get initial session and fetch profile immediately
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       console.log('[getSession] Initial session:', session?.user?.email);
       if (!mounted) return;
       
-      if (session?.user) {
+      if (session?.user && !initialFetchDone.current) {
         console.log('[getSession] Fetching profile for user:', session.user.id);
+        initialFetchDone.current = true;
         setSession(session);
         setUser(session.user);
         setLoading(true);
-        await fetchProfile(session.user.id);
+        fetchProfile(session.user.id);
       } else {
-        console.log('[getSession] No user found - setting loading false');
+        console.log('[getSession] No user found or already fetched - setting loading false');
         setLoading(false);
       }
     });
