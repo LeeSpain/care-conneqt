@@ -51,7 +51,13 @@ export default function Login() {
         setLoading(false);
       } else {
         toast.success(t('login.success'));
-        // Don't navigate - let auth state change handle it
+        setLoading(false);
+        // Fallback navigation in case useEffect doesn't trigger
+        setTimeout(() => {
+          if (window.location.pathname.includes('/auth/login')) {
+            navigate('/dashboard', { replace: true });
+          }
+        }, 3000);
       }
     } catch (error) {
       console.error('[Login] Unexpected error:', error);
