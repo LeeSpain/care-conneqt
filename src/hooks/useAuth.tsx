@@ -90,7 +90,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     let mounted = true;
-    const profileFetchedRef = { current: false };
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -100,14 +99,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        if (session?.user && !profileFetchedRef.current) {
+        if (session?.user) {
           console.log('[onAuthStateChange] Fetching profile for user:', session.user.id);
-          profileFetchedRef.current = true;
           setLoading(true);
           await fetchProfile(session.user.id);
-        } else if (!session?.user) {
+        } else {
           console.log('[onAuthStateChange] No user - clearing state');
-          profileFetchedRef.current = false;
           setProfile(null);
           setRoles([]);
           setLoading(false);
@@ -120,16 +117,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.log('[getSession] Initial session:', session?.user?.email);
       if (!mounted) return;
       
-      if (session?.user && !profileFetchedRef.current) {
+      if (session?.user) {
         console.log('[getSession] Fetching profile for user:', session.user.id);
-        profileFetchedRef.current = true;
         setSession(session);
         setUser(session.user);
         setLoading(true);
         await fetchProfile(session.user.id);
-      } else if (!session?.user) {
+      } else {
         console.log('[getSession] No user found - setting loading false');
-        profileFetchedRef.current = false;
         setLoading(false);
       }
     });

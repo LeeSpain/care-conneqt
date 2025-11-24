@@ -28,13 +28,7 @@ export default function Login() {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
 
-  useEffect(() => {
-    // Redirect authenticated users to dashboard
-    // Dashboard.tsx will handle role-based routing
-    if (user && !authLoading) {
-      navigate('/dashboard', { replace: true });
-    }
-  }, [user, authLoading, navigate]);
+  // Removed redirect useEffect - now handled in handleLogin
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
