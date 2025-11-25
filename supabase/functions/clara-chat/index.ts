@@ -389,7 +389,7 @@ When you create a checkout session, I will display the payment link to the user.
     // Store conversation
     const conversationData = [
       ...messages,
-      { role: 'assistant', content: assistantMessage }
+      { role: 'assistant', content: assistantContent }
     ];
 
     await supabase
@@ -415,7 +415,7 @@ When you create a checkout session, I will display the payment link to the user.
       });
 
     return new Response(JSON.stringify({ 
-      message: assistantMessage,
+      message: assistantContent,
       agent: 'Clara'
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
