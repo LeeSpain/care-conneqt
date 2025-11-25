@@ -3,64 +3,40 @@ import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer, Shield, Zap, Check } from 'lucide-react';
+import { Shield, Zap, Check, Activity } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { DeviceCard } from '@/components/devices/DeviceCard';
 import { Link } from 'react-router-dom';
 import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
-
-// Import device images
-import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
-import sosPendantImg from '@/assets/devices/sos-pendant.jpg';
-import vivagoDomiImg from '@/assets/devices/vivago-domi.jpg';
-import dosellDispenserImg from '@/assets/devices/dosell-dispenser.jpg';
-import calendarClockImg from '@/assets/devices/calendar-clock.jpg';
-import healthMonitorsImg from '@/assets/devices/health-monitors.jpg';
-import smartScaleImg from '@/assets/devices/smart-scale.jpg';
-import smartThermometerImg from '@/assets/devices/smart-thermometer.jpg';
+import { useProducts } from '@/hooks/useProducts';
+import { getProductImage } from '@/lib/productImages';
+import { getProductIcon } from '@/lib/productIcons';
 
 export default function Devices() {
   const { t } = useTranslation(['devices', 'home', 'common']);
-  
-  const deviceKeys = [
-    'vivagoWatch', 'sosPendant', 'vivagoDomi', 'dosellDispenser', 
-    'bbrainClock', 'healthMonitors', 'smartScale', 'smartThermometer'
-  ];
-  
-  const deviceIcons = [Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer];
-  const deviceImages = [
-    vivagoWatchImg, sosPendantImg, vivagoDomiImg, dosellDispenserImg,
-    calendarClockImg, healthMonitorsImg, smartScaleImg, smartThermometerImg
-  ];
-  const deviceColors = [
-    'text-secondary', 'text-coral', 'text-primary', 'text-lilac',
-    'text-secondary', 'text-coral', 'text-primary', 'text-lilac'
-  ];
-  const deviceGradients = [
-    'from-secondary/10 to-secondary/5', 'from-coral/10 to-coral/5',
-    'from-primary/10 to-primary/5', 'from-lilac/10 to-lilac/5',
-    'from-secondary/10 to-secondary/5', 'from-coral/10 to-coral/5',
-    'from-primary/10 to-primary/5', 'from-lilac/10 to-lilac/5'
-  ];
-  
-  const devices = deviceKeys.map((key, index) => {
-    const featuresData = t(`devices.${key}.features`, { returnObjects: true });
-    const specsData = t(`devices.${key}.specs`, { returnObjects: true });
-    
-    return {
-      icon: deviceIcons[index],
-      image: deviceImages[index],
-      name: t(`devices.${key}.name`),
-      tagline: t(`devices.${key}.tagline`),
-      description: t(`devices.${key}.description`),
-      price: t(`devices.${key}.price`),
-      features: Array.isArray(featuresData) ? featuresData : [],
-      specs: typeof specsData === 'object' && specsData !== null ? specsData as Record<string, string> : {},
-      color: deviceColors[index],
-      gradient: deviceGradients[index],
-      popular: index === 0 // Mark first device as popular
-    };
-  });
+  const { data: products, isLoading } = useProducts();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-muted-foreground">Loading devices...</p>
+      </div>
+    );
+  }
+
+  const devices = products?.map(product => ({
+    icon: getProductIcon(product.icon_name),
+    image: getProductImage(product.slug, product.image_url),
+    name: product.translation?.name || product.slug,
+    tagline: product.translation?.tagline || '',
+    description: product.translation?.description || '',
+    price: product.translation?.price_display || `€${product.monthly_price}/mo`,
+    features: product.translation?.features || [],
+    specs: product.translation?.specs || {},
+    color: product.color_class || 'text-primary',
+    gradient: product.gradient_class || 'from-primary/10 to-primary/5',
+    popular: product.is_popular,
+  })) || [];
 
   return (
     <div className="min-h-screen bg-background">

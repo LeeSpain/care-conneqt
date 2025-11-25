@@ -1,70 +1,27 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Watch, Radio, Home, Pill, Calendar, Activity, Scale, Thermometer } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { formatCurrency } from "@/lib/intl";
 import { Link } from "react-router-dom";
-
-// Import device images
-
-// Import device images
-import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
-import sosPendantImg from '@/assets/devices/sos-pendant.jpg';
-import vivagoDomiImg from '@/assets/devices/vivago-domi.jpg';
-import dosellDispenserImg from '@/assets/devices/dosell-dispenser.jpg';
-import calendarClockImg from '@/assets/devices/calendar-clock.jpg';
-import healthMonitorsImg from '@/assets/devices/health-monitors.jpg';
-import smartScaleImg from '@/assets/devices/smart-scale.jpg';
-import smartThermometerImg from '@/assets/devices/smart-thermometer.jpg';
+import { useProducts } from "@/hooks/useProducts";
+import { getProductImage } from "@/lib/productImages";
+import { getProductIcon } from "@/lib/productIcons";
 
 export const DevicesSection = () => {
-  const { t, i18n } = useTranslation('home');
-  
-  const deviceIcons = {
-    watch: Watch,
-    pendant: Radio,
-    domi: Home,
-    dispenser: Pill,
-    calendar: Calendar,
-    monitors: Activity,
-    scale: Scale,
-    thermometer: Thermometer
-  };
+  const { t } = useTranslation('home');
+  const { data: products, isLoading } = useProducts();
 
-  const deviceColors = {
-    watch: "text-secondary",
-    pendant: "text-coral",
-    domi: "text-primary",
-    dispenser: "text-lilac",
-    calendar: "text-secondary",
-    monitors: "text-coral",
-    scale: "text-primary",
-    thermometer: "text-lilac"
-  };
+  if (isLoading) {
+    return (
+      <section id="devices" className="py-20 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-muted-foreground">Loading devices...</p>
+        </div>
+      </section>
+    );
+  }
 
-  const deviceGradients = {
-    watch: "from-secondary/10 to-secondary/5",
-    pendant: "from-coral/10 to-coral/5",
-    domi: "from-primary/10 to-primary/5",
-    dispenser: "from-lilac/10 to-lilac/5",
-    calendar: "from-secondary/10 to-secondary/5",
-    monitors: "from-coral/10 to-coral/5",
-    scale: "from-primary/10 to-primary/5",
-    thermometer: "from-lilac/10 to-lilac/5"
-  };
-
-  const deviceImages = {
-    watch: vivagoWatchImg,
-    pendant: sosPendantImg,
-    domi: vivagoDomiImg,
-    dispenser: dosellDispenserImg,
-    calendar: calendarClockImg,
-    monitors: healthMonitorsImg,
-    scale: smartScaleImg,
-    thermometer: smartThermometerImg
-  };
-
-  const devices = ['watch', 'pendant', 'domi', 'dispenser', 'calendar', 'monitors', 'scale', 'thermometer'];
+  // Show first 8 products
+  const displayProducts = products?.slice(0, 8) || [];
 
   return (
     <section id="devices" className="py-20 bg-muted">
@@ -79,17 +36,15 @@ export const DevicesSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {devices.map((deviceKey) => {
-            const Icon = deviceIcons[deviceKey as keyof typeof deviceIcons];
-            const image = deviceImages[deviceKey as keyof typeof deviceImages];
-            const gradient = deviceGradients[deviceKey as keyof typeof deviceGradients];
+          {displayProducts.map((product) => {
+            const Icon = getProductIcon(product.icon_name);
             return (
-              <Card key={deviceKey} className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-secondary/50">
+              <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-secondary/50">
                 {/* Product Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
                   <img 
-                    src={image} 
-                    alt={t(`devices.items.${deviceKey}.name`)}
+                    src={getProductImage(product.slug, product.image_url)} 
+                    alt={product.translation?.name || product.slug}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -101,21 +56,21 @@ export const DevicesSection = () => {
 
                 <CardHeader className="pb-3">
                   <div className="flex items-start gap-3 mb-2">
-                    <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} w-fit`}>
-                      <Icon className={`h-5 w-5 ${deviceColors[deviceKey as keyof typeof deviceColors]}`} />
+                    <div className={`p-2 rounded-lg bg-gradient-to-br ${product.gradient_class} w-fit`}>
+                      <Icon className={`h-5 w-5 ${product.color_class}`} />
                     </div>
                     <CardTitle className="text-base font-['Poppins'] leading-tight flex-1">
-                      {t(`devices.items.${deviceKey}.name`)}
+                      {product.translation?.name}
                     </CardTitle>
                   </div>
                   <CardDescription className="text-xs min-h-[36px] leading-snug">
-                    {t(`devices.items.${deviceKey}.description`)}
+                    {product.translation?.tagline}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between">
                     <div className="text-lg font-bold text-primary">
-                      {t(`devices.items.${deviceKey}.price`)}
+                      {product.translation?.price_display || `€${product.monthly_price}/mo`}
                     </div>
                     <Button 
                       size="sm" 
