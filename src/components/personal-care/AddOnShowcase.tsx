@@ -138,7 +138,7 @@ export const AddOnShowcase = () => {
                 <div className="flex items-start gap-2">
                   <div className="h-2 w-2 rounded-full bg-secondary mt-1.5" />
                   <div className="text-left">
-                    <div className="font-semibold">12-Month Lease</div>
+                    <div className="font-semibold">24-Month Lease</div>
                     <div className="text-muted-foreground">No purchase required</div>
                   </div>
                 </div>
