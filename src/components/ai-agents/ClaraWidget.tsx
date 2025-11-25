@@ -14,10 +14,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { ClaraMessageRenderer } from './ClaraMessageRenderer';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  structuredData?: {
+    type: 'plans' | 'products' | 'quote';
+    data: any;
+  };
 }
 
 interface AgentData {
@@ -137,7 +142,8 @@ export const ClaraWidget = () => {
 
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.message
+        content: data.message,
+        structuredData: data.structuredData
       };
 
       setMessages(prev => [...prev, assistantMessage]);
@@ -225,7 +231,11 @@ export const ClaraWidget = () => {
                       : 'bg-secondary text-secondary-foreground'
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  {message.role === 'user' ? (
+                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  ) : (
+                    <ClaraMessageRenderer message={message} language={currentLanguage} />
+                  )}
                 </div>
               </div>
             ))}
@@ -297,7 +307,11 @@ export const ClaraWidget = () => {
                         : 'bg-secondary text-secondary-foreground'
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    {message.role === 'user' ? (
+                      <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    ) : (
+                      <ClaraMessageRenderer message={message} language={currentLanguage} />
+                    )}
                   </div>
                 </div>
               ))}

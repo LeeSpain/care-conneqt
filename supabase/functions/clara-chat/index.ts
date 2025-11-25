@@ -230,6 +230,7 @@ When you create a checkout session, I will display the payment link to the user.
       console.log('Tool call:', functionName, functionArgs);
 
       let toolResult;
+      let structuredData = null;
 
       switch (functionName) {
         case 'get_pricing_plans':
@@ -239,6 +240,7 @@ When you create a checkout session, I will display the payment link to the user.
             .eq('is_active', true)
             .order('sort_order');
           toolResult = plans;
+          structuredData = { type: 'plans', data: plans };
           break;
 
         case 'get_products':
@@ -248,6 +250,7 @@ When you create a checkout session, I will display the payment link to the user.
             .eq('is_active', true)
             .order('sort_order');
           toolResult = products;
+          structuredData = { type: 'products', data: products };
           break;
 
         case 'build_quote':
@@ -271,6 +274,7 @@ When you create a checkout session, I will display the payment link to the user.
           }
 
           toolResult = { plan, devices, totalMonthly: total };
+          structuredData = { type: 'quote', data: { plan, devices, totalMonthly: total } };
           break;
 
         case 'create_checkout':
@@ -369,7 +373,10 @@ When you create a checkout session, I will display the payment link to the user.
       }
 
       return new Response(
-        JSON.stringify({ message: finalMessage }),
+        JSON.stringify({ 
+          message: finalMessage,
+          structuredData: structuredData 
+        }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
