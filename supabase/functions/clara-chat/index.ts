@@ -81,6 +81,29 @@ serve(async (req) => {
       }
     }
 
+    // Add sales capabilities and lease terms
+    systemPrompt += `\n\nIMPORTANT SALES INFORMATION:
+- ALL devices come with a 24-MONTH LEASE (not 12 months)
+- No upfront purchase required - monthly subscription model
+- Free shipping, setup, and 24/7 technical support included
+- Device protection and automatic replacement included
+
+SALES CAPABILITIES - You have access to these powerful tools:
+1. get_pricing_plans - Retrieve all current plans with pricing
+2. get_products - Show available add-on devices
+3. build_quote - Calculate exact pricing for plan + device combinations
+4. create_checkout - Generate Stripe payment link to complete purchase (requires customer name and email)
+5. capture_lead - Save lead when customer wants to be contacted later
+
+SALES PROCESS:
+- Listen to customer needs and recommend appropriate plans
+- Use build_quote to show exact pricing when discussing options
+- When customer is ready to purchase: collect name and email, then use create_checkout
+- Always mention the 24-month lease period when discussing devices
+- If customer wants more info or isn't ready: use capture_lead
+
+When you create a checkout session, I will display the payment link to the user.`;
+
     // Add language instruction
     systemPrompt += `\n\nCRITICAL INSTRUCTION: You MUST respond in ${languageName}. The user's interface is in ${languageName}, so ALL your responses must be in ${languageName}. Do not use any other language under any circumstances. When discussing pricing, use appropriate currency symbols (€ for Spanish/Dutch, £ for English).`;
 
@@ -288,13 +311,66 @@ serve(async (req) => {
           break;
       }
 
-      // Return tool result to continue conversation
-      return new Response(
-        JSON.stringify({
-          message: `Tool executed: ${functionName}`,
-          toolResult,
-          requiresFollowUp: true,
+      // Continue conversation with tool result
+      const followUpMessages = [
+        ...messages,
+        assistantMessage,
+        {
+          role: 'tool',
+          tool_call_id: toolCall.id,
+          content: JSON.stringify(toolResult)
+        }
+      ];
+
+      const followUpResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${lovableApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: config.model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...followUpMessages
+          ],
+          temperature: parseFloat(config.temperature),
+          max_tokens: config.max_tokens,
         }),
+      });
+
+      const followUpData = await followUpResponse.json();
+      const finalMessage = followUpData.choices[0].message.content;
+
+      // Store conversation with tool execution
+      const conversationData = [
+        ...messages,
+        { role: 'assistant', content: finalMessage, tool_used: functionName }
+      ];
+
+      await supabase
+        .from('ai_agent_conversations')
+        .insert({
+          agent_id: agent.id,
+          user_id: null, // Will be set if authenticated
+          session_id: sessionId,
+          conversation_data: conversationData,
+        });
+
+      // Special handling for checkout - return payment link
+      if (functionName === 'create_checkout' && toolResult.checkoutUrl) {
+        return new Response(
+          JSON.stringify({
+            message: finalMessage,
+            checkoutUrl: toolResult.checkoutUrl,
+            orderId: toolResult.orderId,
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ message: finalMessage }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

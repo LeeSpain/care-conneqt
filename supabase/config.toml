@@ -8,3 +8,6 @@ verify_jwt = true
 
 [functions.clara-chat]
 verify_jwt = false
+
+[functions.clara-checkout]
+verify_jwt = false
