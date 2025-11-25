@@ -17,7 +17,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Languages } from "lucide-react";
 
 type ProductFormData = {
   slug: string;
@@ -118,6 +118,87 @@ export default function ProductForm() {
       sort_order: product.sort_order.toString(),
       translations: translationsMap,
     });
+  };
+
+  const translateContent = async (text: string, targetLang: string): Promise<string> => {
+    const response = await fetch("https://xuyokixtlmchqwibntep.supabase.co/functions/v1/ai-translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text,
+        targetLanguage: targetLang === "es" ? "Spanish" : "Dutch",
+      }),
+    });
+    
+    const data = await response.json();
+    return data.translation || text;
+  };
+
+  const autoTranslate = async () => {
+    try {
+      setLoading(true);
+      const enTrans = formData.translations.en;
+      
+      // Translate to Spanish
+      const [esName, esTagline, esDescription, esPriceDisplay] = await Promise.all([
+        translateContent(enTrans.name, "es"),
+        enTrans.tagline ? translateContent(enTrans.tagline, "es") : Promise.resolve(""),
+        enTrans.description ? translateContent(enTrans.description, "es") : Promise.resolve(""),
+        enTrans.price_display ? translateContent(enTrans.price_display, "es") : Promise.resolve(""),
+      ]);
+      
+      const esFeatures = enTrans.features
+        ? await Promise.all(
+            enTrans.features.split("\n").filter(f => f.trim()).map(f => translateContent(f, "es"))
+          ).then(features => features.join("\n"))
+        : "";
+      
+      // Translate to Dutch
+      const [nlName, nlTagline, nlDescription, nlPriceDisplay] = await Promise.all([
+        translateContent(enTrans.name, "nl"),
+        enTrans.tagline ? translateContent(enTrans.tagline, "nl") : Promise.resolve(""),
+        enTrans.description ? translateContent(enTrans.description, "nl") : Promise.resolve(""),
+        enTrans.price_display ? translateContent(enTrans.price_display, "nl") : Promise.resolve(""),
+      ]);
+      
+      const nlFeatures = enTrans.features
+        ? await Promise.all(
+            enTrans.features.split("\n").filter(f => f.trim()).map(f => translateContent(f, "nl"))
+          ).then(features => features.join("\n"))
+        : "";
+
+      setFormData(prev => ({
+        ...prev,
+        translations: {
+          ...prev.translations,
+          es: {
+            ...prev.translations.es,
+            name: esName,
+            tagline: esTagline,
+            description: esDescription,
+            price_display: esPriceDisplay,
+            features: esFeatures,
+          },
+          nl: {
+            ...prev.translations.nl,
+            name: nlName,
+            tagline: nlTagline,
+            description: nlDescription,
+            price_display: nlPriceDisplay,
+            features: nlFeatures,
+          },
+        },
+      }));
+
+      toast.success("Translations generated successfully");
+    } catch (error) {
+      console.error("Error translating:", error);
+      toast.error("Failed to generate translations");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -321,12 +402,23 @@ export default function ProductForm() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Translations</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle>Translations</CardTitle>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={autoTranslate}
+                disabled={!formData.translations.en.name || loading}
+              >
+                <Languages className="mr-2 h-4 w-4" />
+                Auto-Translate to ES & NL
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="en">
               <TabsList>
-                <TabsTrigger value="en">English</TabsTrigger>
+                <TabsTrigger value="en">English (Primary)</TabsTrigger>
                 <TabsTrigger value="es">Spanish</TabsTrigger>
                 <TabsTrigger value="nl">Dutch</TabsTrigger>
               </TabsList>
