@@ -76,6 +76,7 @@ const AIAgentsSettings = lazy(() => import("./pages/dashboard/settings/AIAgentsS
 const ClaraSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraSettings"));
 const InekeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/InekeSettings"));
 const Products = lazy(() => import("./pages/dashboard/admin/Products"));
+const ProductForm = lazy(() => import("./pages/dashboard/admin/ProductForm"));
 const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
 
 // Shared pages
@@ -495,6 +496,20 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Products />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/products/new" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ProductForm />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/products/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ProductForm />
                 </Suspense>
               </ProtectedRoute>
             } />
