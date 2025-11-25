@@ -131,12 +131,12 @@ When you create a checkout session, I will display the payment link to the user.
         type: "function",
         function: {
           name: "build_quote",
-          description: "Calculate total price for a plan with optional devices",
+          description: "Calculate total price for a plan with optional devices. Use plan slugs like 'base', 'independent', 'comprehensive' and device slugs like 'sos-pendant', 'vivago-watch', 'dosell-dispenser'.",
           parameters: {
             type: "object",
             properties: {
-              planId: { type: "string" },
-              deviceIds: { type: "array", items: { type: "string" } },
+              planId: { type: "string", description: "Plan slug (e.g. 'base', 'independent', 'comprehensive')" },
+              deviceIds: { type: "array", items: { type: "string" }, description: "Array of device slugs (e.g. ['sos-pendant', 'vivago-watch'])" },
             },
             required: ["planId"],
           },
@@ -146,12 +146,12 @@ When you create a checkout session, I will display the payment link to the user.
         type: "function",
         function: {
           name: "create_checkout",
-          description: "Create checkout session for purchase",
+          description: "Create checkout session for purchase. Use plan slugs like 'base', 'independent', 'comprehensive' and device slugs like 'sos-pendant', 'vivago-watch', 'dosell-dispenser'.",
           parameters: {
             type: "object",
             properties: {
-              planId: { type: "string" },
-              deviceIds: { type: "array", items: { type: "string" } },
+              planId: { type: "string", description: "Plan slug (e.g. 'base', 'independent', 'comprehensive')" },
+              deviceIds: { type: "array", items: { type: "string" }, description: "Array of device slugs (e.g. ['sos-pendant', 'vivago-watch'])" },
               customerName: { type: "string" },
               customerEmail: { type: "string" },
             },
@@ -246,7 +246,6 @@ When you create a checkout session, I will display the payment link to the user.
             .from('products')
             .select('*, product_translations(*)')
             .eq('is_active', true)
-            .eq('category', 'device')
             .order('sort_order');
           toolResult = products;
           break;
@@ -255,7 +254,7 @@ When you create a checkout session, I will display the payment link to the user.
           const { data: plan } = await supabase
             .from('pricing_plans')
             .select('*, plan_translations(*)')
-            .eq('id', functionArgs.planId)
+            .eq('slug', functionArgs.planId)
             .single();
           
           let total = plan?.monthly_price || 0;
@@ -265,7 +264,7 @@ When you create a checkout session, I will display the payment link to the user.
             const { data: selectedDevices } = await supabase
               .from('products')
               .select('*, product_translations(*)')
-              .in('id', functionArgs.deviceIds);
+              .in('slug', functionArgs.deviceIds);
             
             devices = selectedDevices || [];
             total += devices.reduce((sum: number, d: any) => sum + (d.monthly_price || 0), 0);

@@ -22,7 +22,7 @@ serve(async (req) => {
     const { data: plan, error: planError } = await supabase
       .from('pricing_plans')
       .select('*, plan_translations(*)')
-      .eq('id', planId)
+      .eq('slug', planId)
       .single()
 
     if (planError) throw planError
@@ -35,7 +35,7 @@ serve(async (req) => {
       const { data: productsData } = await supabase
         .from('products')
         .select('id, monthly_price')
-        .in('id', devices)
+        .in('slug', devices)
 
       if (productsData) {
         totalMonthly += productsData.reduce((sum, p) => sum + (p.monthly_price || 0), 0)
@@ -46,7 +46,7 @@ serve(async (req) => {
     const { data: order, error: orderError } = await supabase
       .from('orders')
       .insert({
-        plan_id: planId,
+        plan_id: plan.id,
         selected_devices: devices || [],
         total_monthly: totalMonthly,
         customer_email: customerEmail,
