@@ -79,6 +79,9 @@ const Products = lazy(() => import("./pages/dashboard/admin/Products"));
 const ProductForm = lazy(() => import("./pages/dashboard/admin/ProductForm"));
 const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
 const PricingPlanForm = lazy(() => import("./pages/dashboard/admin/PricingPlanForm"));
+const Integrations = lazy(() => import("./pages/dashboard/admin/Integrations"));
+const Sales = lazy(() => import("./pages/dashboard/admin/Sales"));
+const ClaraAnalytics = lazy(() => import("./pages/dashboard/admin/ClaraAnalytics"));
 
 // Shared pages
 const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
@@ -532,6 +535,27 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <PricingPlanForm />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/integrations" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Integrations />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/sales" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Sales />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/clara-analytics" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ClaraAnalytics />
                 </Suspense>
               </ProtectedRoute>
             } />

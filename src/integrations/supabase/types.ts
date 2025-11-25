@@ -1188,6 +1188,84 @@ export type Database = {
           },
         ]
       }
+      orders: {
+        Row: {
+          completed_at: string | null
+          conversation_id: string | null
+          created_at: string | null
+          created_by: string | null
+          customer_email: string | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: string
+          language: string | null
+          payment_status: string | null
+          plan_id: string | null
+          selected_devices: Json | null
+          session_id: string | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          total_monthly: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          language?: string | null
+          payment_status?: string | null
+          plan_id?: string | null
+          selected_devices?: Json | null
+          session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          total_monthly?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          conversation_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          language?: string | null
+          payment_status?: string | null
+          plan_id?: string | null
+          selected_devices?: Json | null
+          session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          total_monthly?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agent_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "pricing_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       plan_translations: {
         Row: {
           created_at: string | null
