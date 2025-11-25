@@ -86,6 +86,76 @@ serve(async (req) => {
 
     console.log('Calling Lovable AI for Clara...');
 
+    // Define tools Clara can use for sales
+    const tools = [
+      {
+        type: "function",
+        function: {
+          name: "get_pricing_plans",
+          description: "Get available pricing plans with details",
+          parameters: { type: "object", properties: {} },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "get_products",
+          description: "Get available add-on products/devices",
+          parameters: { type: "object", properties: {} },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "build_quote",
+          description: "Calculate total price for a plan with optional devices",
+          parameters: {
+            type: "object",
+            properties: {
+              planId: { type: "string" },
+              deviceIds: { type: "array", items: { type: "string" } },
+            },
+            required: ["planId"],
+          },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "create_checkout",
+          description: "Create checkout session for purchase",
+          parameters: {
+            type: "object",
+            properties: {
+              planId: { type: "string" },
+              deviceIds: { type: "array", items: { type: "string" } },
+              customerName: { type: "string" },
+              customerEmail: { type: "string" },
+            },
+            required: ["planId", "customerName", "customerEmail"],
+          },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "capture_lead",
+          description: "Save lead for follow-up",
+          parameters: {
+            type: "object",
+            properties: {
+              name: { type: "string" },
+              email: { type: "string" },
+              phone: { type: "string" },
+              interestType: { type: "string" },
+              message: { type: "string" },
+            },
+            required: ["name", "email", "interestType"],
+          },
+        },
+      },
+    ];
+
     // Call Lovable AI
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
@@ -101,6 +171,7 @@ serve(async (req) => {
         ],
         temperature: parseFloat(config.temperature),
         max_tokens: config.max_tokens,
+        tools: tools,
       }),
     });
 
@@ -125,7 +196,110 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    const assistantMessage = data.choices[0].message.content;
+    const assistantMessage = data.choices[0].message;
+
+    // Handle tool calls if present
+    if (assistantMessage.tool_calls && assistantMessage.tool_calls.length > 0) {
+      const toolCall = assistantMessage.tool_calls[0];
+      const functionName = toolCall.function.name;
+      const functionArgs = JSON.parse(toolCall.function.arguments);
+
+      console.log('Tool call:', functionName, functionArgs);
+
+      let toolResult;
+
+      switch (functionName) {
+        case 'get_pricing_plans':
+          const { data: plans } = await supabase
+            .from('pricing_plans')
+            .select('*, plan_translations(*)')
+            .eq('is_active', true)
+            .order('sort_order');
+          toolResult = plans;
+          break;
+
+        case 'get_products':
+          const { data: products } = await supabase
+            .from('products')
+            .select('*, product_translations(*)')
+            .eq('is_active', true)
+            .eq('category', 'device')
+            .order('sort_order');
+          toolResult = products;
+          break;
+
+        case 'build_quote':
+          const { data: plan } = await supabase
+            .from('pricing_plans')
+            .select('*, plan_translations(*)')
+            .eq('id', functionArgs.planId)
+            .single();
+          
+          let total = plan?.monthly_price || 0;
+          let devices: any[] = [];
+
+          if (functionArgs.deviceIds && functionArgs.deviceIds.length > 0) {
+            const { data: selectedDevices } = await supabase
+              .from('products')
+              .select('*, product_translations(*)')
+              .in('id', functionArgs.deviceIds);
+            
+            devices = selectedDevices || [];
+            total += devices.reduce((sum: number, d: any) => sum + (d.monthly_price || 0), 0);
+          }
+
+          toolResult = { plan, devices, totalMonthly: total };
+          break;
+
+        case 'create_checkout':
+          const checkoutResponse = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/clara-checkout`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${supabaseKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              planId: functionArgs.planId,
+              devices: functionArgs.deviceIds || [],
+              customerEmail: functionArgs.customerEmail,
+              customerName: functionArgs.customerName,
+              sessionId,
+              conversationId: null, // Will be set after saving conversation
+            }),
+          });
+          toolResult = await checkoutResponse.json();
+          break;
+
+        case 'capture_lead':
+          const { data: lead } = await supabase
+            .from('leads')
+            .insert({
+              name: functionArgs.name,
+              email: functionArgs.email,
+              phone: functionArgs.phone,
+              interest_type: functionArgs.interestType,
+              message: functionArgs.message,
+              source_page: context?.page || 'clara_chat',
+              status: 'new',
+            })
+            .select()
+            .single();
+          toolResult = { success: true, leadId: lead?.id };
+          break;
+      }
+
+      // Return tool result to continue conversation
+      return new Response(
+        JSON.stringify({
+          message: `Tool executed: ${functionName}`,
+          toolResult,
+          requiresFollowUp: true,
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const assistantContent = assistantMessage.content;
 
     // Get user ID if authenticated
     const authHeader = req.headers.get('authorization');

@@ -59,6 +59,14 @@ export function AdminSidebar() {
       ]
     },
     { 
+      title: "Sales & Revenue", 
+      icon: MessageSquare,
+      items: [
+        { title: "Clara Sales", url: "/dashboard/admin/sales" },
+        { title: "Clara Analytics", url: "/dashboard/admin/clara-analytics" },
+      ]
+    },
+    { 
       title: "Communications", 
       icon: Settings,
       items: [
@@ -67,6 +75,7 @@ export function AdminSidebar() {
       ]
     },
     { title: "System Settings", url: "/dashboard/admin/system-settings", icon: Settings },
+    { title: "Integrations", url: "/dashboard/admin/integrations", icon: Settings },
   ];
 
   const isActive = (path: string) => {
