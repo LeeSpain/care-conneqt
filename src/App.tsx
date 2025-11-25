@@ -78,6 +78,7 @@ const InekeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/In
 const Products = lazy(() => import("./pages/dashboard/admin/Products"));
 const ProductForm = lazy(() => import("./pages/dashboard/admin/ProductForm"));
 const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
+const PricingPlanForm = lazy(() => import("./pages/dashboard/admin/PricingPlanForm"));
 
 // Shared pages
 const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
@@ -517,6 +518,20 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <PricingPlans />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/pricing-plans/new" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <PricingPlanForm />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/pricing-plans/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <PricingPlanForm />
                 </Suspense>
               </ProtectedRoute>
             } />
