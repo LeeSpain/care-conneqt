@@ -95,7 +95,10 @@ export const ClaraWidget = () => {
         body: {
           messages: [...messages, userMessage],
           sessionId,
-          language: currentLanguage
+          language: currentLanguage,
+          context: {
+            page: window.location.pathname
+          }
         }
       });
 
@@ -109,6 +112,26 @@ export const ClaraWidget = () => {
         } else {
           throw new Error(data.error);
         }
+        return;
+      }
+
+      // Handle checkout URL if present
+      if (data.checkoutUrl) {
+        const assistantMessage: Message = {
+          role: 'assistant',
+          content: data.message
+        };
+        setMessages(prev => [...prev, assistantMessage]);
+        
+        // Show success toast with payment link
+        toast.success('Payment link ready!', {
+          description: 'Click below to complete your purchase',
+          action: {
+            label: 'Open Payment',
+            onClick: () => window.open(data.checkoutUrl, '_blank')
+          },
+          duration: 10000,
+        });
         return;
       }
 
