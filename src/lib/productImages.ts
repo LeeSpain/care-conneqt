@@ -12,10 +12,15 @@ const localImages: Record<string, string> = {
   'sos-pendant': sosPendantImg,
   'vivago-domi': vivagoDomiImg,
   'dosell-dispenser': dosellDispenserImg,
+  'medication-dispenser': dosellDispenserImg, // Alias for database slug
   'bbrain-calendar': bbrainCalendarImg,
   'health-monitors': healthMonitorsImg,
+  'blood-pressure': healthMonitorsImg, // Alias for database slug
+  'glucose-monitor': healthMonitorsImg, // Alias for database slug
   'smart-scale': smartScaleImg,
+  'weight-scale': smartScaleImg, // Alias for database slug
   'smart-thermometer': smartThermometerImg,
+  'thermometer': smartThermometerImg, // Alias for database slug
 };
 
 export const getProductImage = (slug: string, imageUrl: string | null): string => {
