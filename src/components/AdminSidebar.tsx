@@ -33,6 +33,14 @@ export function AdminSidebar() {
       ]
     },
     { title: "Facilities", url: "/dashboard/admin/facilities", icon: Building2 },
+    {
+      title: "Catalog",
+      icon: MessageSquare,
+      items: [
+        { title: "Products", url: "/dashboard/admin/products" },
+        { title: "Pricing Plans", url: "/dashboard/admin/pricing-plans" },
+      ]
+    },
     { 
       title: "AI Management", 
       icon: Bot,
