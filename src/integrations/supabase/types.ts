@@ -1188,6 +1188,47 @@ export type Database = {
           },
         ]
       }
+      plan_translations: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          features: Json | null
+          id: string
+          language: string
+          name: string
+          plan_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          language: string
+          name: string
+          plan_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          language?: string
+          name?: string
+          plan_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_translations_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "pricing_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       platform_announcements: {
         Row: {
           content: string
@@ -1237,6 +1278,146 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      pricing_plans: {
+        Row: {
+          created_at: string | null
+          devices_included: number | null
+          family_dashboards: number | null
+          id: string
+          is_active: boolean | null
+          is_popular: boolean | null
+          monthly_price: number
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          devices_included?: number | null
+          family_dashboards?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          monthly_price: number
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          devices_included?: number | null
+          family_dashboards?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_popular?: boolean | null
+          monthly_price?: number
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      product_translations: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          features: Json | null
+          id: string
+          language: string
+          name: string
+          price_display: string | null
+          product_id: string
+          specs: Json | null
+          tagline: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          language: string
+          name: string
+          price_display?: string | null
+          product_id: string
+          specs?: Json | null
+          tagline?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          language?: string
+          name?: string
+          price_display?: string | null
+          product_id?: string
+          specs?: Json | null
+          tagline?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_translations_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category: string
+          color_class: string | null
+          created_at: string | null
+          gradient_class: string | null
+          icon_name: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          is_base_device: boolean | null
+          is_popular: boolean | null
+          monthly_price: number | null
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          color_class?: string | null
+          created_at?: string | null
+          gradient_class?: string | null
+          icon_name?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_base_device?: boolean | null
+          is_popular?: boolean | null
+          monthly_price?: number | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          color_class?: string | null
+          created_at?: string | null
+          gradient_class?: string | null
+          icon_name?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_base_device?: boolean | null
+          is_popular?: boolean | null
+          monthly_price?: number | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
