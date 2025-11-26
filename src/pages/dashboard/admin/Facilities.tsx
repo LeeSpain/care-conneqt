@@ -165,7 +165,7 @@ export default function Facilities() {
               <Card 
                 key={facility.id} 
                 className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate(`/dashboard/admin/facilities/${facility.id}`)}
+                onClick={() => navigate(`/dashboard/admin/commercial/facilities/${facility.id}`)}
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">
