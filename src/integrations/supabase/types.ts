@@ -1095,6 +1095,145 @@ export type Database = {
           },
         ]
       }
+      institutional_registrations: {
+        Row: {
+          additional_notes: string | null
+          address_line1: string | null
+          address_line2: string | null
+          assigned_to: string | null
+          best_time_to_contact: string | null
+          budget_range: string | null
+          city: string | null
+          contact_email: string
+          contact_job_title: string | null
+          contact_name: string
+          contact_phone: string | null
+          converted_to_company_id: string | null
+          converted_to_facility_id: string | null
+          converted_to_insurance_id: string | null
+          country: string | null
+          created_at: string
+          current_systems: string | null
+          ehr_systems: string | null
+          employee_count: number | null
+          follow_up_date: string | null
+          gdpr_requirements: string | null
+          id: string
+          implementation_timeline: string | null
+          organization_name: string
+          organization_type: string
+          postal_code: string | null
+          preferred_agreement_length: string | null
+          preferred_contact_method: string | null
+          procurement_process: string | null
+          registration_number: string | null
+          resident_count: number | null
+          security_requirements: string | null
+          service_interests: string[] | null
+          status: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          additional_notes?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
+          assigned_to?: string | null
+          best_time_to_contact?: string | null
+          budget_range?: string | null
+          city?: string | null
+          contact_email: string
+          contact_job_title?: string | null
+          contact_name: string
+          contact_phone?: string | null
+          converted_to_company_id?: string | null
+          converted_to_facility_id?: string | null
+          converted_to_insurance_id?: string | null
+          country?: string | null
+          created_at?: string
+          current_systems?: string | null
+          ehr_systems?: string | null
+          employee_count?: number | null
+          follow_up_date?: string | null
+          gdpr_requirements?: string | null
+          id?: string
+          implementation_timeline?: string | null
+          organization_name: string
+          organization_type: string
+          postal_code?: string | null
+          preferred_agreement_length?: string | null
+          preferred_contact_method?: string | null
+          procurement_process?: string | null
+          registration_number?: string | null
+          resident_count?: number | null
+          security_requirements?: string | null
+          service_interests?: string[] | null
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          additional_notes?: string | null
+          address_line1?: string | null
+          address_line2?: string | null
+          assigned_to?: string | null
+          best_time_to_contact?: string | null
+          budget_range?: string | null
+          city?: string | null
+          contact_email?: string
+          contact_job_title?: string | null
+          contact_name?: string
+          contact_phone?: string | null
+          converted_to_company_id?: string | null
+          converted_to_facility_id?: string | null
+          converted_to_insurance_id?: string | null
+          country?: string | null
+          created_at?: string
+          current_systems?: string | null
+          ehr_systems?: string | null
+          employee_count?: number | null
+          follow_up_date?: string | null
+          gdpr_requirements?: string | null
+          id?: string
+          implementation_timeline?: string | null
+          organization_name?: string
+          organization_type?: string
+          postal_code?: string | null
+          preferred_agreement_length?: string | null
+          preferred_contact_method?: string | null
+          procurement_process?: string | null
+          registration_number?: string | null
+          resident_count?: number | null
+          security_requirements?: string | null
+          service_interests?: string[] | null
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "institutional_registrations_converted_to_company_id_fkey"
+            columns: ["converted_to_company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "institutional_registrations_converted_to_facility_id_fkey"
+            columns: ["converted_to_facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "institutional_registrations_converted_to_insurance_id_fkey"
+            columns: ["converted_to_insurance_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       insurance_companies: {
         Row: {
           address_line1: string | null

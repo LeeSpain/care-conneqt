@@ -5,7 +5,7 @@ import { ContractFlexibility } from '@/components/institutional-care/ContractFle
 import { VolumePricing } from '@/components/institutional-care/VolumePricing';
 import { ComplianceSection } from '@/components/institutional-care/ComplianceSection';
 import { IntegrationOptions } from '@/components/institutional-care/IntegrationOptions';
-import { ContactForm } from '@/components/institutional-care/ContactForm';
+import { InstitutionalRegistrationForm } from '@/components/institutional-care/InstitutionalRegistrationForm';
 import { InstitutionalFAQ } from '@/components/institutional-care/InstitutionalFAQ';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -22,7 +22,7 @@ export default function InstitutionalCare() {
       <VolumePricing />
       <IntegrationOptions />
       <ComplianceSection />
-      <ContactForm />
+      <InstitutionalRegistrationForm />
       <InstitutionalFAQ />
       <Footer />
       <ClaraWidget />
