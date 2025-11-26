@@ -60,6 +60,7 @@ const NurseTasks = lazy(() => import("./pages/dashboard/NurseTasks"));
 
 // Admin pages
 const AdminHome = lazy(() => import("./pages/dashboard/admin/AdminHome"));
+const Users = lazy(() => import("./pages/dashboard/admin/Users"));
 const Nurses = lazy(() => import("./pages/dashboard/admin/Nurses"));
 const Members = lazy(() => import("./pages/dashboard/admin/Members"));
 const FamilyCarers = lazy(() => import("./pages/dashboard/admin/FamilyCarers"));
@@ -388,6 +389,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <AdminHome />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/users" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Users />
                 </Suspense>
               </ProtectedRoute>
             } />
