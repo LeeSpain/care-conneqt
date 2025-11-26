@@ -7,10 +7,17 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Building2, Users, Bed, Settings, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { AdmitResidentDialog } from "@/components/admin/AdmitResidentDialog";
+import { AddFacilityStaffDialog } from "@/components/admin/AddFacilityStaffDialog";
+import { AddFacilityDialog } from "@/components/admin/AddFacilityDialog";
 
 export default function FacilityDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [admitResidentOpen, setAdmitResidentOpen] = useState(false);
+  const [addStaffOpen, setAddStaffOpen] = useState(false);
+  const [editFacilityOpen, setEditFacilityOpen] = useState(false);
 
   const { data: facility, isLoading } = useQuery({
     queryKey: ["facility", id],
@@ -89,9 +96,9 @@ export default function FacilityDetail() {
               {facility?.address_line1}, {facility?.city}, {facility?.postal_code}
             </p>
           </div>
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => setEditFacilityOpen(true)}>
             <Settings className="h-4 w-4 mr-2" />
-            Settings
+            Edit Facility
           </Button>
         </div>
 
@@ -166,7 +173,7 @@ export default function FacilityDetail() {
           <TabsContent value="residents" className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Current Residents</h3>
-              <Button>Add Resident</Button>
+              <Button onClick={() => setAdmitResidentOpen(true)}>Add Resident</Button>
             </div>
             {residents && residents.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2">
@@ -199,7 +206,7 @@ export default function FacilityDetail() {
           <TabsContent value="staff" className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Facility Staff</h3>
-              <Button>Add Staff Member</Button>
+              <Button onClick={() => setAddStaffOpen(true)}>Add Staff Member</Button>
             </div>
             {staff && staff.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2">
@@ -271,6 +278,24 @@ export default function FacilityDetail() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <AdmitResidentDialog
+        open={admitResidentOpen}
+        onOpenChange={setAdmitResidentOpen}
+        facilityId={id!}
+      />
+
+      <AddFacilityStaffDialog
+        open={addStaffOpen}
+        onOpenChange={setAddStaffOpen}
+        facilityId={id!}
+      />
+
+      <AddFacilityDialog
+        open={editFacilityOpen}
+        onOpenChange={setEditFacilityOpen}
+        facility={facility}
+      />
     </AdminDashboardLayout>
   );
 }

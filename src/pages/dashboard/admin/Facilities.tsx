@@ -3,15 +3,42 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useQuery } from "@tanstack/react-query";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Building2, Users, Bed, Plus } from "lucide-react";
+import { Search, Building2, Users, Bed, Plus, MoreVertical, Pencil, UserPlus, CreditCard, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AddFacilityDialog } from "@/components/admin/AddFacilityDialog";
+import { AddFacilityStaffDialog } from "@/components/admin/AddFacilityStaffDialog";
+import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function Facilities() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [editingFacility, setEditingFacility] = useState<any>(null);
+  const [addStaffDialogOpen, setAddStaffDialogOpen] = useState(false);
+  const [selectedFacilityId, setSelectedFacilityId] = useState<string>("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [facilityToDelete, setFacilityToDelete] = useState<any>(null);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: facilities, isLoading } = useQuery({
     queryKey: ["admin-facilities"],
@@ -57,6 +84,44 @@ export default function Facilities() {
     facility.city?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleEdit = (facility: any, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingFacility(facility);
+    setAddDialogOpen(true);
+  };
+
+  const handleAddStaff = (facilityId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedFacilityId(facilityId);
+    setAddStaffDialogOpen(true);
+  };
+
+  const handleDelete = (facility: any, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFacilityToDelete(facility);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!facilityToDelete) return;
+    
+    try {
+      const { error } = await supabase
+        .from("facilities")
+        .delete()
+        .eq("id", facilityToDelete.id);
+
+      if (error) throw error;
+      
+      queryClient.invalidateQueries({ queryKey: ["admin-facilities"] });
+      toast.success("Facility deleted successfully");
+      setDeleteDialogOpen(false);
+      setFacilityToDelete(null);
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete facility");
+    }
+  };
+
   return (
     <AdminDashboardLayout title="Facility Management">
       <div className="space-y-6">
@@ -67,7 +132,10 @@ export default function Facilities() {
               Manage care homes and assisted living facilities
             </p>
           </div>
-          <Button>
+          <Button onClick={() => {
+            setEditingFacility(null);
+            setAddDialogOpen(true);
+          }}>
             <Plus className="h-4 w-4 mr-2" />
             Add Facility
           </Button>
@@ -101,23 +169,54 @@ export default function Facilities() {
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-3 flex-1">
                       <div className="p-2 bg-primary/10 rounded-lg">
                         <Building2 className="h-5 w-5 text-primary" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <CardTitle className="text-lg">{facility.name}</CardTitle>
                         <CardDescription>
                           {facility.city}, {facility.country}
                         </CardDescription>
                       </div>
                     </div>
-                    <Badge variant={
-                      facility.subscription_status === "active" ? "default" :
-                      facility.subscription_status === "trial" ? "secondary" : "outline"
-                    }>
-                      {facility.subscription_status}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <Badge variant={
+                        facility.subscription_status === "active" ? "default" :
+                        facility.subscription_status === "trial" ? "secondary" : "outline"
+                      }>
+                        {facility.subscription_status}
+                      </Badge>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+                          <Button variant="ghost" size="icon">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={(e) => handleEdit(facility, e)}>
+                            <Pencil className="h-4 w-4 mr-2" />
+                            Edit Facility
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={(e) => handleAddStaff(facility.id, e)}>
+                            <UserPlus className="h-4 w-4 mr-2" />
+                            Add Staff
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <CreditCard className="h-4 w-4 mr-2" />
+                            Manage Subscription
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem 
+                            onClick={(e) => handleDelete(facility, e)}
+                            className="text-destructive"
+                          >
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Delete Facility
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -168,6 +267,38 @@ export default function Facilities() {
           </Card>
         )}
       </div>
+
+      <AddFacilityDialog
+        open={addDialogOpen}
+        onOpenChange={(open) => {
+          setAddDialogOpen(open);
+          if (!open) setEditingFacility(null);
+        }}
+        facility={editingFacility}
+      />
+
+      <AddFacilityStaffDialog
+        open={addStaffDialogOpen}
+        onOpenChange={setAddStaffDialogOpen}
+        facilityId={selectedFacilityId}
+      />
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Facility</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete {facilityToDelete?.name}? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminDashboardLayout>
   );
 }
