@@ -105,14 +105,14 @@ export default function PricingPlans() {
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Pricing Plans</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('pricingPlans.title')}</h2>
             <p className="text-muted-foreground">
-              Manage membership tiers and subscription packages
+              {t('pricingPlans.subtitle')}
             </p>
           </div>
           <Button onClick={() => navigate("/dashboard/admin/pricing-plans/new")} size="lg">
             <Plus className="h-4 w-4 mr-2" />
-            Add Plan
+            {t('pricingPlans.addPlan')}
           </Button>
         </div>
 
@@ -120,42 +120,42 @@ export default function PricingPlans() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Plans</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('common:totalPlans', { defaultValue: 'Total Plans' })}</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.total}</div>
-              <p className="text-xs text-muted-foreground">All pricing tiers</p>
+              <p className="text-xs text-muted-foreground">{t('common:allPricingTiers', { defaultValue: 'All pricing tiers' })}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Plans</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('pricingPlans.active')}</CardTitle>
               <Eye className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.active}</div>
-              <p className="text-xs text-muted-foreground">Currently available</p>
+              <p className="text-xs text-muted-foreground">{t('common:currentlyAvailable', { defaultValue: 'Currently available' })}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Popular Plans</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('pricingPlans.popular')}</CardTitle>
               <Star className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.popular}</div>
-              <p className="text-xs text-muted-foreground">Featured offerings</p>
+              <p className="text-xs text-muted-foreground">{t('common:featuredOfferings', { defaultValue: 'Featured offerings' })}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Price</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('common:avgPrice', { defaultValue: 'Avg. Price' })}</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">€{stats.avgPrice.toFixed(0)}</div>
-              <p className="text-xs text-muted-foreground">Per month</p>
+              <p className="text-xs text-muted-foreground">{t('pricingPlans.perMonth')}</p>
             </CardContent>
           </Card>
         </div>
@@ -167,7 +167,7 @@ export default function PricingPlans() {
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
-                  placeholder="Search plans..."
+                  placeholder={t('pricingPlans.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9"
@@ -176,22 +176,22 @@ export default function PricingPlans() {
               <div className="flex gap-2">
                 <Select value={statusFilter} onValueChange={(v: any) => setStatusFilter(v)}>
                   <SelectTrigger className="w-[140px]">
-                    <SelectValue placeholder="Status" />
+                    <SelectValue placeholder={t('common:status', { defaultValue: 'Status' })} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Status</SelectItem>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
+                    <SelectItem value="all">{t('pricingPlans.allPlans')}</SelectItem>
+                    <SelectItem value="active">{t('pricingPlans.active')}</SelectItem>
+                    <SelectItem value="inactive">{t('pricingPlans.inactive')}</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={popularFilter} onValueChange={(v: any) => setPopularFilter(v)}>
                   <SelectTrigger className="w-[140px]">
-                    <SelectValue placeholder="Type" />
+                    <SelectValue placeholder={t('common:type', { defaultValue: 'Type' })} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="popular">Popular</SelectItem>
-                    <SelectItem value="standard">Standard</SelectItem>
+                    <SelectItem value="all">{t('common:allTypes', { defaultValue: 'All Types' })}</SelectItem>
+                    <SelectItem value="popular">{t('pricingPlans.popular')}</SelectItem>
+                    <SelectItem value="standard">{t('common:standard', { defaultValue: 'Standard' })}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -201,18 +201,18 @@ export default function PricingPlans() {
             {isLoading ? (
               <div className="p-12 text-center">
                 <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent mb-4" />
-                <p className="text-muted-foreground">Loading plans...</p>
+                <p className="text-muted-foreground">{t('common:loading', { defaultValue: 'Loading...' })}</p>
               </div>
             ) : filteredPlans.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Plan Details</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead>Inclusions</TableHead>
-                    <TableHead>Languages</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>{t('common:planDetails', { defaultValue: 'Plan Details' })}</TableHead>
+                    <TableHead>{t('common:price', { defaultValue: 'Price' })}</TableHead>
+                    <TableHead>{t('common:inclusions', { defaultValue: 'Inclusions' })}</TableHead>
+                    <TableHead>{t('common:languages', { defaultValue: 'Languages' })}</TableHead>
+                    <TableHead>{t('common:status', { defaultValue: 'Status' })}</TableHead>
+                    <TableHead className="text-right">{t('common:actions', { defaultValue: 'Actions' })}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -233,12 +233,12 @@ export default function PricingPlans() {
                                 {plan.is_popular && (
                                   <Badge variant="secondary" className="gap-1">
                                     <Star className="h-3 w-3" />
-                                    Popular
+                                    {t('pricingPlans.popular')}
                                   </Badge>
                                 )}
                               </div>
                               <p className="text-sm text-muted-foreground line-clamp-1">
-                                {enTranslation?.description || "No description"}
+                                {enTranslation?.description || t('common:noDescription', { defaultValue: 'No description' })}
                               </p>
                               <code className="text-xs text-muted-foreground bg-muted px-1 py-0.5 rounded w-fit">
                                 {plan.slug}
@@ -248,20 +248,20 @@ export default function PricingPlans() {
                         </TableCell>
                         <TableCell>
                           <div className="font-semibold text-lg">€{plan.monthly_price}</div>
-                          <div className="text-xs text-muted-foreground">per month</div>
+                          <div className="text-xs text-muted-foreground">{t('pricingPlans.perMonth')}</div>
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1 text-sm">
                             <div className="flex items-center gap-1">
                               <Package className="h-3 w-3 text-muted-foreground" />
-                              <span>{plan.devices_included} devices</span>
+                              <span>{t('pricingPlans.devices', { count: plan.devices_included })}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <TrendingUp className="h-3 w-3 text-muted-foreground" />
                               <span>
                                 {plan.family_dashboards === -1
-                                  ? "Unlimited dashboards"
-                                  : `${plan.family_dashboards} dashboards`}
+                                  ? t('common:unlimitedDashboards', { defaultValue: 'Unlimited dashboards' })
+                                  : t('pricingPlans.dashboards', { count: plan.family_dashboards })}
                               </span>
                             </div>
                           </div>
@@ -283,12 +283,12 @@ export default function PricingPlans() {
                               {plan.is_active ? (
                                 <Badge variant="default" className="gap-1">
                                   <Eye className="h-3 w-3" />
-                                  Active
+                                  {t('pricingPlans.active')}
                                 </Badge>
                               ) : (
                                 <Badge variant="secondary" className="gap-1">
                                   <EyeOff className="h-3 w-3" />
-                                  Inactive
+                                  {t('pricingPlans.inactive')}
                                 </Badge>
                               )}
                             </span>
@@ -321,16 +321,16 @@ export default function PricingPlans() {
             ) : (
               <div className="p-12 text-center">
                 <Package className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <p className="text-lg font-medium mb-1">No plans found</p>
+                <p className="text-lg font-medium mb-1">{t('pricingPlans.noPlans')}</p>
                 <p className="text-sm text-muted-foreground mb-4">
                   {searchQuery || statusFilter !== "all" || popularFilter !== "all"
-                    ? "Try adjusting your filters"
-                    : "Get started by creating your first pricing plan"}
+                    ? t('common:tryAdjustingFilters', { defaultValue: 'Try adjusting your filters' })
+                    : t('common:getStartedCreatingPlan', { defaultValue: 'Get started by creating your first pricing plan' })}
                 </p>
                 {(!searchQuery && statusFilter === "all" && popularFilter === "all") && (
                   <Button onClick={() => navigate("/dashboard/admin/pricing-plans/new")}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Plan
+                    {t('pricingPlans.addPlan')}
                   </Button>
                 )}
               </div>
@@ -342,14 +342,14 @@ export default function PricingPlans() {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Pricing Plan</AlertDialogTitle>
+            <AlertDialogTitle>{t('pricingPlans.actions.delete')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this pricing plan? This action cannot be undone.
+              {t('common:deleteConfirm', { defaultValue: 'Are you sure you want to delete this? This action cannot be undone.' })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+            <AlertDialogCancel>{t('common:cancel', { defaultValue: 'Cancel' })}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>{t('common:delete', { defaultValue: 'Delete' })}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
