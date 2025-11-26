@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'nl',
+    fallbackLng: 'en',
     
     supportedLngs: ['en', 'es', 'nl'],
     debug: false,
