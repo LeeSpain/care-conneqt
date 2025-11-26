@@ -1,29 +1,47 @@
-import vivagoWatchImg from '@/assets/devices/vivago-watch.jpg';
-import sosPendantImg from '@/assets/devices/sos-pendant.jpg';
-import vivagoDomiImg from '@/assets/devices/vivago-domi.jpg';
-import dosellDispenserImg from '@/assets/devices/dosell-dispenser.jpg';
-import bbrainCalendarImg from '@/assets/devices/calendar-clock.jpg';
-import healthMonitorsImg from '@/assets/devices/health-monitors.jpg';
-import smartScaleImg from '@/assets/devices/smart-scale.jpg';
-import smartThermometerImg from '@/assets/devices/smart-thermometer.jpg';
-
-const localImages: Record<string, string> = {
-  'vivago-watch': vivagoWatchImg,
-  'sos-pendant': sosPendantImg,
-  'vivago-domi': vivagoDomiImg,
-  'dosell-dispenser': dosellDispenserImg,
-  'medication-dispenser': dosellDispenserImg, // Alias for database slug
-  'bbrain-calendar': bbrainCalendarImg,
-  'health-monitors': healthMonitorsImg,
-  'blood-pressure': healthMonitorsImg, // Alias for database slug
-  'glucose-monitor': healthMonitorsImg, // Alias for database slug
-  'smart-scale': smartScaleImg,
-  'weight-scale': smartScaleImg, // Alias for database slug
-  'smart-thermometer': smartThermometerImg,
-  'thermometer': smartThermometerImg, // Alias for database slug
+// Lazy loading map for device images - reduces initial bundle size
+const imageImporters: Record<string, () => Promise<{ default: string }>> = {
+  'vivago-watch': () => import('@/assets/devices/vivago-watch.jpg'),
+  'sos-pendant': () => import('@/assets/devices/sos-pendant.jpg'),
+  'vivago-domi': () => import('@/assets/devices/vivago-domi.jpg'),
+  'dosell-dispenser': () => import('@/assets/devices/dosell-dispenser.jpg'),
+  'medication-dispenser': () => import('@/assets/devices/dosell-dispenser.jpg'),
+  'bbrain-calendar': () => import('@/assets/devices/calendar-clock.jpg'),
+  'health-monitors': () => import('@/assets/devices/health-monitors.jpg'),
+  'blood-pressure': () => import('@/assets/devices/health-monitors.jpg'),
+  'glucose-monitor': () => import('@/assets/devices/health-monitors.jpg'),
+  'smart-scale': () => import('@/assets/devices/smart-scale.jpg'),
+  'weight-scale': () => import('@/assets/devices/smart-scale.jpg'),
+  'smart-thermometer': () => import('@/assets/devices/smart-thermometer.jpg'),
+  'thermometer': () => import('@/assets/devices/smart-thermometer.jpg'),
 };
 
-export const getProductImage = (slug: string, imageUrl: string | null): string => {
+// Cache for loaded images
+const imageCache: Record<string, string> = {};
+
+export const getProductImage = async (slug: string, imageUrl: string | null): Promise<string> => {
   if (imageUrl) return imageUrl;
-  return localImages[slug] || '/placeholder.svg';
+  
+  // Check cache first
+  if (imageCache[slug]) return imageCache[slug];
+  
+  // Load image dynamically
+  const importer = imageImporters[slug];
+  if (importer) {
+    try {
+      const module = await importer();
+      imageCache[slug] = module.default;
+      return module.default;
+    } catch (error) {
+      console.error(`Failed to load image for ${slug}:`, error);
+      return '/placeholder.svg';
+    }
+  }
+  
+  return '/placeholder.svg';
+};
+
+// Synchronous version for backwards compatibility (returns placeholder initially)
+export const getProductImageSync = (slug: string, imageUrl: string | null): string => {
+  if (imageUrl) return imageUrl;
+  return imageCache[slug] || '/placeholder.svg';
 };

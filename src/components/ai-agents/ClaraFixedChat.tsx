@@ -40,8 +40,10 @@ export const ClaraFixedChat = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const expandedScrollRef = useRef<HTMLDivElement>(null);
 
-  // Fetch agent data on mount
+  // Fetch agent data only when chat is opened (performance optimization)
   useEffect(() => {
+    if (!isOpen || agent) return; // Skip if not open or already fetched
+    
     const fetchAgent = async () => {
       const { data } = await supabase
         .from('ai_agents')
@@ -53,7 +55,7 @@ export const ClaraFixedChat = () => {
     };
     
     fetchAgent();
-  }, []);
+  }, [isOpen, agent]);
 
   // Update initial greeting when language changes or translations load
   useEffect(() => {

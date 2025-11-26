@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/intl";
 import { useTranslation } from "react-i18next";
 import { Check, Star } from "lucide-react";
-import { getProductImage } from "@/lib/productImages";
+import { getProductImageSync } from "@/lib/productImages";
 import type { Product } from "@/hooks/useProducts";
 
 interface DeviceSelectorProps {
@@ -20,7 +20,7 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       {devices.map((device) => {
               const isSelected = selectedDeviceIds.includes(device.id);
-              const imageUrl = getProductImage(device.slug, device.image_url);
+              const imageUrl = getProductImageSync(device.slug, device.image_url);
               const features = device.translation?.features || [];
               
               return (
