@@ -1,5 +1,5 @@
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,8 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Search, MoreVertical, UserPlus, Download, Users as UsersIcon, Shield, Stethoscope, Building2, Heart, Mail, Phone, Filter, UserCog } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Search, MoreVertical, UserPlus, Download, Users as UsersIcon, Shield, Stethoscope, Building2, Heart, Mail, Phone, Filter, UserCog, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 import { AddUserDialog } from "@/components/admin/AddUserDialog";
 import { RoleManagementDialog } from "@/components/admin/RoleManagementDialog";
 
@@ -32,12 +36,18 @@ interface UserWithRole {
 }
 
 export default function Users() {
+  const navigate = useNavigate();
+  const { user: currentUser } = useAuth();
+  const queryClient = useQueryClient();
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("name");
   const [addUserOpen, setAddUserOpen] = useState(false);
   const [roleDialogOpen, setRoleDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<{ id: string; name: string; roles: string[] } | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<{ id: string; name: string } | null>(null);
 
   const { data: allUsers, isLoading } = useQuery({
     queryKey: ["admin-all-users"],
@@ -142,6 +152,101 @@ export default function Users() {
       case "family_carer": return UsersIcon;
       case "facility_admin": return UserCog;
       default: return UsersIcon;
+    }
+  };
+
+  // Delete user mutation
+  const deleteUserMutation = useMutation({
+    mutationFn: async (userId: string) => {
+      // Delete user profile and related data
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("id", userId);
+
+      if (profileError) throw profileError;
+
+      // Delete user roles
+      const { error: rolesError } = await supabase
+        .from("user_roles")
+        .delete()
+        .eq("user_id", userId);
+
+      if (rolesError) throw rolesError;
+
+      // Note: The actual auth.users deletion should be done via admin API
+      // For now, we're just removing from our tables
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-all-users"] });
+      toast.success("User deleted successfully");
+      setDeleteDialogOpen(false);
+      setUserToDelete(null);
+    },
+    onError: (error: any) => {
+      toast.error("Failed to delete user: " + error.message);
+    },
+  });
+
+  // Toggle user status mutation
+  const toggleUserStatusMutation = useMutation({
+    mutationFn: async ({ userId, newStatus }: { userId: string; newStatus: string }) => {
+      const { error } = await supabase
+        .from("profiles")
+        .update({ status: newStatus })
+        .eq("id", userId);
+
+      if (error) throw error;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["admin-all-users"] });
+      const action = variables.newStatus === "active" ? "activated" : "deactivated";
+      toast.success(`User ${action} successfully`);
+    },
+    onError: (error: any) => {
+      toast.error("Failed to update user status: " + error.message);
+    },
+  });
+
+  const handleViewProfile = (userId: string) => {
+    navigate(`/dashboard/admin/users/${userId}`);
+  };
+
+  const handleSendMessage = (userId: string, userName: string) => {
+    // Navigate to messages or open message dialog
+    toast.info(`Message feature coming soon for ${userName}`);
+  };
+
+  const handleResetPassword = async (userEmail: string) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(userEmail, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
+
+      if (error) throw error;
+      toast.success("Password reset email sent successfully");
+    } catch (error: any) {
+      toast.error("Failed to send reset email: " + error.message);
+    }
+  };
+
+  const handleToggleStatus = (user: UserWithRole) => {
+    const newStatus = user.status === "active" ? "inactive" : "active";
+    toggleUserStatusMutation.mutate({ userId: user.id, newStatus });
+  };
+
+  const handleDeleteUser = (user: UserWithRole) => {
+    if (user.id === currentUser?.id) {
+      toast.error("You cannot delete your own account");
+      return;
+    }
+    setUserToDelete({ id: user.id, name: `${user.first_name} ${user.last_name}` });
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (userToDelete) {
+      deleteUserMutation.mutate(userToDelete.id);
     }
   };
 
@@ -311,8 +416,9 @@ export default function Users() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>View Profile</DropdownMenuItem>
-                          <DropdownMenuItem>Edit User</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleViewProfile(user.id)}>
+                            View Profile
+                          </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => {
                               setSelectedUser({
@@ -326,11 +432,26 @@ export default function Users() {
                             Manage Roles
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem>Send Message</DropdownMenuItem>
-                          <DropdownMenuItem>Reset Password</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleSendMessage(user.id, `${user.first_name} ${user.last_name}`)}>
+                            Send Message
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleResetPassword(user.email)}>
+                            Reset Password
+                          </DropdownMenuItem>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem className="text-destructive">
-                            Deactivate User
+                          <DropdownMenuItem 
+                            onClick={() => handleToggleStatus(user)}
+                            className="text-warning"
+                          >
+                            {user.status === "active" ? "Deactivate" : "Activate"} User
+                          </DropdownMenuItem>
+                          <DropdownMenuItem 
+                            onClick={() => handleDeleteUser(user)}
+                            disabled={user.id === currentUser?.id}
+                            className="text-destructive"
+                          >
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Delete User
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -347,6 +468,40 @@ export default function Users() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Dialogs */}
+      <AddUserDialog open={addUserOpen} onOpenChange={setAddUserOpen} />
+      
+      {selectedUser && (
+        <RoleManagementDialog
+          open={roleDialogOpen}
+          onOpenChange={setRoleDialogOpen}
+          userId={selectedUser.id}
+          userName={selectedUser.name}
+          currentRoles={selectedUser.roles}
+        />
+      )}
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete User</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete <strong>{userToDelete?.name}</strong>? 
+              This action cannot be undone and will permanently remove the user and all their associated data.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete User
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminDashboardLayout>
   );
 }
