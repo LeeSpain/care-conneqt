@@ -90,6 +90,7 @@ const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
 const PricingPlanForm = lazy(() => import("./pages/dashboard/admin/PricingPlanForm"));
 const Integrations = lazy(() => import("./pages/dashboard/admin/Integrations"));
 const Sales = lazy(() => import("./pages/dashboard/admin/Sales"));
+const InstitutionalRegistrations = lazy(() => import("./pages/dashboard/admin/InstitutionalRegistrations"));
 const ClaraAnalytics = lazy(() => import("./pages/dashboard/admin/ClaraAnalytics"));
 
 // Shared pages
@@ -618,6 +619,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Sales />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/institutional-registrations" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <InstitutionalRegistrations />
                 </Suspense>
               </ProtectedRoute>
             } />
