@@ -126,5 +126,12 @@
   "aiGuardian": {
     "greeting": "Hallo! Ik ben je AI Bewaker. Hoe voel je je vandaag? Ik ben hier om te helpen met gezondheidsvragen of gewoon om te chatten.",
     "title": "AI Bewaker"
+  },
+  "loading": {
+    "devices": "Apparaten laden...",
+    "pricingPlans": "Prijsplannen laden...",
+    "analytics": "Analytics laden...",
+    "functions": "Functies laden...",
+    "knowledgeBase": "Kennisbank laden..."
   }
 }

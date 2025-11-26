@@ -97,7 +97,7 @@ export const PricingWizard = () => {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading pricing options...</p>
+          <p className="text-muted-foreground">{t('customize.loadingOptions')}</p>
         </div>
       </div>
     );
@@ -209,7 +209,7 @@ export const PricingWizard = () => {
                   <CardContent>
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold mb-1">Family Dashboard Access</div>
+                        <div className="font-semibold mb-1">{t('customize.dashboardAccessLabel')}</div>
                         <div className="text-sm text-muted-foreground">
                           {t('customize.dashboardPrice')}
                         </div>
@@ -310,11 +310,11 @@ export const PricingWizard = () => {
                       {t('review.creditCard')}
                     </Badge>
                     <Badge variant="outline" className="text-xs">
-                      Secure Payment
+                      {t('review.securePayment')}
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Your card will be securely processed after order confirmation. All transactions are encrypted and PCI-compliant.
+                    {t('review.paymentDescription')}
                   </p>
                 </CardContent>
               </Card>

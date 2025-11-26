@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +12,7 @@ import { CheckCircle2, Package, Calendar, User, Mail, Phone, MapPin, Loader2 } f
 import { toast } from "sonner";
 
 export default function OrderConfirmation() {
+  const { t, i18n } = useTranslation('pricing');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const orderId = searchParams.get("id");
@@ -69,9 +71,9 @@ export default function OrderConfirmation() {
       <div className="min-h-screen">
         <Navigation />
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold mb-4">Order Not Found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('orderConfirmation.orderNotFound')}</h1>
           <Button onClick={() => navigate("/personal-care")}>
-            Return to Personal Care
+            {t('orderConfirmation.returnToPersonalCare')}
           </Button>
         </div>
         <Footer />
@@ -79,8 +81,9 @@ export default function OrderConfirmation() {
     );
   }
 
+  const currentLang = i18n.language.split('-')[0];
   const planTranslation = order.pricing_plans?.plan_translations?.find(
-    (t: any) => t.language === 'en'
+    (t: any) => t.language === currentLang
   ) || order.pricing_plans?.plan_translations?.[0];
 
   return (
@@ -95,13 +98,13 @@ export default function OrderConfirmation() {
               <CheckCircle2 className="h-10 w-10 text-emerald-green" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-              Order Confirmed!
+              {t('orderConfirmation.title')}
             </h1>
             <p className="text-lg text-muted-foreground">
-              Thank you for choosing Care Conneqt
+              {t('orderConfirmation.thankYou')}
             </p>
             <Badge variant="secondary" className="mt-2">
-              Order #{order.id.slice(0, 8).toUpperCase()}
+              {t('orderConfirmation.orderNumber')}{order.id.slice(0, 8).toUpperCase()}
             </Badge>
           </div>
 
@@ -110,33 +113,33 @@ export default function OrderConfirmation() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Package className="h-5 w-5" />
-                Order Details
+                {t('orderConfirmation.orderDetails')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Plan</p>
-                <p className="font-semibold">{planTranslation?.name || 'Care Package'}</p>
+                <p className="text-sm text-muted-foreground mb-1">{t('orderConfirmation.plan')}</p>
+                <p className="font-semibold">{planTranslation?.name || t('orderConfirmation.carePackage')}</p>
               </div>
 
               {order.selected_devices && Array.isArray(order.selected_devices) && order.selected_devices.length > 0 && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Additional Devices</p>
-                  <p className="font-semibold">{order.selected_devices.length} device(s)</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('orderConfirmation.additionalDevices')}</p>
+                  <p className="font-semibold">{order.selected_devices.length} {t('orderConfirmation.devices')}</p>
                 </div>
               )}
 
               <Separator />
 
               <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold">Monthly Total</span>
+                <span className="text-lg font-semibold">{t('orderConfirmation.monthlyTotal')}</span>
                 <span className="text-2xl font-bold text-primary">
                   €{order.total_monthly?.toFixed(2) || '0.00'}/mo
                 </span>
               </div>
 
               <div className="bg-muted/50 rounded-lg p-3 text-sm">
-                <p className="font-semibold mb-1">Payment Status</p>
+                <p className="font-semibold mb-1">{t('orderConfirmation.paymentStatus')}</p>
                 <Badge variant={order.payment_status === 'completed' ? 'default' : 'secondary'}>
                   {order.payment_status || 'pending'}
                 </Badge>
@@ -149,7 +152,7 @@ export default function OrderConfirmation() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5" />
-                Customer Information
+                {t('orderConfirmation.customerInfo')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -179,7 +182,7 @@ export default function OrderConfirmation() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5" />
-                What Happens Next
+                {t('orderConfirmation.nextSteps')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -189,9 +192,9 @@ export default function OrderConfirmation() {
                     1
                   </div>
                   <div>
-                    <p className="font-semibold">Confirmation Email</p>
+                    <p className="font-semibold">{t('orderConfirmation.step1Title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      You'll receive a detailed confirmation email within the next few minutes
+                      {t('orderConfirmation.step1Desc')}
                     </p>
                   </div>
                 </li>
@@ -200,9 +203,9 @@ export default function OrderConfirmation() {
                     2
                   </div>
                   <div>
-                    <p className="font-semibold">Welcome Call</p>
+                    <p className="font-semibold">{t('orderConfirmation.step2Title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Our care team will contact you within 24 hours to discuss your setup
+                      {t('orderConfirmation.step2Desc')}
                     </p>
                   </div>
                 </li>
@@ -211,9 +214,9 @@ export default function OrderConfirmation() {
                     3
                   </div>
                   <div>
-                    <p className="font-semibold">Device Delivery</p>
+                    <p className="font-semibold">{t('orderConfirmation.step3Title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Your devices will be shipped within 3-5 business days, pre-configured and ready to use
+                      {t('orderConfirmation.step3Desc')}
                     </p>
                   </div>
                 </li>
@@ -222,9 +225,9 @@ export default function OrderConfirmation() {
                     4
                   </div>
                   <div>
-                    <p className="font-semibold">Account Setup</p>
+                    <p className="font-semibold">{t('orderConfirmation.step4Title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      Create your account to access your dashboard and start monitoring care
+                      {t('orderConfirmation.step4Desc')}
                     </p>
                   </div>
                 </li>
@@ -239,7 +242,7 @@ export default function OrderConfirmation() {
               size="lg"
               onClick={() => navigate("/dashboard")}
             >
-              Go to Dashboard
+              {t('orderConfirmation.goToDashboard')}
             </Button>
             <Button 
               variant="outline" 
@@ -247,17 +250,17 @@ export default function OrderConfirmation() {
               size="lg"
               onClick={() => navigate("/personal-care")}
             >
-              Back to Personal Care
+              {t('orderConfirmation.backToPersonalCare')}
             </Button>
           </div>
 
           {/* Support Section */}
           <div className="mt-8 text-center text-sm text-muted-foreground">
-            <p>Need help? Contact us at{" "}
+            <p>{t('orderConfirmation.needHelp')}{" "}
               <a href="mailto:support@careconneqt.com" className="text-primary underline">
                 support@careconneqt.com
               </a>
-              {" "}or call{" "}
+              {" "}{t('orderConfirmation.orCall')}{" "}
               <a href="tel:+31201234567" className="text-primary underline">
                 +31 20 123 4567
               </a>

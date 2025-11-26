@@ -98,7 +98,7 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
                     {/* Price */}
                     <div className="flex items-center justify-between pt-3 border-t border-border/50">
                       <div className="flex items-baseline gap-1">
-                        <span className="text-xs text-muted-foreground">Add for</span>
+                        <span className="text-xs text-muted-foreground">{t('customize.addFor')}</span>
                         <span className="text-xl font-bold text-secondary">
                           +{formatCurrency(device.monthly_price || 0, 'EUR', i18n.language)}
                         </span>
@@ -106,7 +106,7 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
                       </div>
                       {isSelected && (
                         <Badge variant="secondary" className="bg-secondary/10 text-secondary border-0">
-                          Added
+                          {t('customize.added')}
                         </Badge>
                       )}
                     </div>

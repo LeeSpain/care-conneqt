@@ -7,14 +7,14 @@ import { getProductImageSync } from "@/lib/productImages";
 import { getProductIcon } from "@/lib/productIcons";
 
 export const DevicesSection = () => {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation(['home', 'common']);
   const { data: products, isLoading } = useProducts();
 
   if (isLoading) {
     return (
       <section id="devices" className="py-20 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-muted-foreground">Loading devices...</p>
+          <p className="text-center text-muted-foreground">{t('common:loading.devices')}</p>
         </div>
       </section>
     );

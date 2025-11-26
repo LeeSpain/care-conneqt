@@ -126,5 +126,12 @@
   "aiGuardian": {
     "greeting": "¡Hola! Soy tu Guardián IA. ¿Cómo te sientes hoy? Estoy aquí para ayudarte con cualquier pregunta de salud o simplemente charlar.",
     "title": "Guardián IA"
+  },
+  "loading": {
+    "devices": "Cargando dispositivos...",
+    "pricingPlans": "Cargando planes de precios...",
+    "analytics": "Cargando analíticas...",
+    "functions": "Cargando funciones...",
+    "knowledgeBase": "Cargando base de conocimientos..."
   }
 }
