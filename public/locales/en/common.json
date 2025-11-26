@@ -126,5 +126,12 @@
   "aiGuardian": {
     "greeting": "Hello! I'm your AI Guardian. How are you feeling today? I'm here to help with any health questions or just to chat.",
     "title": "AI Guardian"
+  },
+  "loading": {
+    "devices": "Loading devices...",
+    "pricingPlans": "Loading pricing plans...",
+    "analytics": "Loading analytics...",
+    "functions": "Loading functions...",
+    "knowledgeBase": "Loading knowledge base..."
   }
 }

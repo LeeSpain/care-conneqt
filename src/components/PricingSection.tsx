@@ -7,14 +7,14 @@ import { formatCurrency } from "@/lib/intl";
 import { usePricingPlans } from "@/hooks/usePricingPlans";
 
 export const PricingSection = () => {
-  const { t, i18n } = useTranslation('home');
+  const { t, i18n } = useTranslation(['home', 'common']);
   const { data: plans, isLoading } = usePricingPlans();
 
   if (isLoading) {
     return (
       <section id="pricing" className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-muted-foreground">Loading pricing plans...</p>
+          <p className="text-center text-muted-foreground">{t('common:loading.pricingPlans')}</p>
         </div>
       </section>
     );
