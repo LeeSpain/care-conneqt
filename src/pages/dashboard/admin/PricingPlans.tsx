@@ -10,6 +10,7 @@ import { useAllPricingPlans } from "@/hooks/usePricingPlans";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
   AlertDialog,
@@ -24,6 +25,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 
 export default function PricingPlans() {
+  const { t } = useTranslation('dashboard-admin');
   const { data: plans, isLoading, refetch } = useAllPricingPlans();
   const navigate = useNavigate();
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -37,10 +39,10 @@ export default function PricingPlans() {
     const { error } = await supabase.from("pricing_plans").delete().eq("id", deleteId);
 
     if (error) {
-      toast.error("Failed to delete pricing plan");
+      toast.error(t('toast.error.deleteFailed', { error: error.message }));
       console.error(error);
     } else {
-      toast.success("Pricing plan deleted successfully");
+      toast.success(t('toast.success.planDeleted'));
       refetch();
     }
     setDeleteId(null);
@@ -53,9 +55,9 @@ export default function PricingPlans() {
       .eq("id", planId);
 
     if (error) {
-      toast.error("Failed to update status");
+      toast.error(t('toast.error.updateFailed', { error: error.message }));
     } else {
-      toast.success(`Plan ${!currentStatus ? "activated" : "deactivated"}`);
+      toast.success(t(!currentStatus ? 'toast.success.planActivated' : 'toast.success.planDeactivated', { defaultValue: `Plan ${!currentStatus ? "activated" : "deactivated"}` }));
       refetch();
     }
   };
