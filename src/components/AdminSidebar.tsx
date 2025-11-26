@@ -147,9 +147,9 @@ export function AdminSidebar() {
                               key={subItem.url} 
                               asChild 
                               isActive={isActive(subItem.url)}
-                              className="text-sm !text-primary hover:!text-primary/80"
+                              className="text-sm !text-secondary hover:!text-secondary/80"
                             >
-                              <NavLink to={subItem.url} className="!text-primary hover:!text-primary/80">
+                              <NavLink to={subItem.url} className="!text-secondary hover:!text-secondary/80">
                                 {subItem.title}
                               </NavLink>
                             </SidebarMenuButton>
