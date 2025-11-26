@@ -144,19 +144,42 @@ export const PricingWizard = () => {
           {/* Step 2: Customize */}
           {currentStep === 2 && (
             <div className="space-y-6">
-              <div>
+              <div className="text-center mb-6">
                 <h2 className="text-3xl font-bold font-['Poppins'] mb-2">
                   {t('customize.title')}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground max-w-2xl mx-auto">
                   {t('customize.subtitle')}
                 </p>
               </div>
 
-              <Card>
+              {/* Promotional Banner */}
+              <div className="bg-gradient-to-r from-secondary/10 via-primary/10 to-secondary/10 rounded-xl p-6 mb-6 border border-secondary/20">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <Shield className="h-5 w-5 text-secondary" />
+                  <h3 className="text-lg font-bold text-foreground">
+                    Enhance Your Care Package
+                  </h3>
+                  <Shield className="h-5 w-5 text-secondary" />
+                </div>
+                <p className="text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+                  Add specialized monitoring devices to create a comprehensive care solution. Each device seamlessly integrates with your dashboard for complete peace of mind.
+                </p>
+              </div>
+
+              <Card className="border-2">
                 <CardHeader>
-                  <CardTitle>{t('customize.devicesTitle')}</CardTitle>
-                  <CardDescription>{t('customize.devicesSubtitle')}</CardDescription>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-xl">{t('customize.devicesTitle')}</CardTitle>
+                      <CardDescription className="text-base">{t('customize.devicesSubtitle')}</CardDescription>
+                    </div>
+                    {selectedDeviceIds.length > 0 && (
+                      <Badge variant="secondary" className="text-base px-4 py-1">
+                        {selectedDeviceIds.length} selected
+                      </Badge>
+                    )}
+                  </div>
                 </CardHeader>
                 <CardContent>
                   {deviceProducts && deviceProducts.length > 0 ? (
