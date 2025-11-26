@@ -48,8 +48,9 @@ export default function Staff() {
             .eq("nurse_id", nurse.user_id)
             .eq("status", "pending");
 
+          const profile = nurse.profiles || {};
           return {
-            ...nurse.profiles,
+            ...profile,
             assignmentCount: assignmentCount || 0,
             pendingTasks: taskCount || 0,
           };
