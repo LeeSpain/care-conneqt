@@ -131,12 +131,13 @@
       "planDeleted": "Plan de precios eliminado exitosamente",
       "facilityCreated": "Instalación creada exitosamente",
       "facilityUpdated": "Instalación actualizada exitosamente",
+      "facilityDeleted": "Instalación eliminada exitosamente",
       "saved": "Cambios guardados exitosamente"
     },
     "error": {
       "cannotDeleteSelf": "No puedes eliminar tu propia cuenta",
-      "deleteFailed": "Error al eliminar usuario: {{error}}",
-      "updateFailed": "Error al actualizar estado del usuario: {{error}}",
+      "deleteFailed": "Error al eliminar: {{error}}",
+      "updateFailed": "Error al actualizar: {{error}}",
       "resetFailed": "Error al enviar correo de restablecimiento: {{error}}",
       "loadFailed": "Error al cargar datos: {{error}}",
       "saveFailed": "Error al guardar cambios: {{error}}"

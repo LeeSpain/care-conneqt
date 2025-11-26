@@ -131,13 +131,14 @@
       "planDeleted": "Prijsplan succesvol verwijderd",
       "facilityCreated": "Faciliteit succesvol aangemaakt",
       "facilityUpdated": "Faciliteit succesvol bijgewerkt",
+      "facilityDeleted": "Faciliteit succesvol verwijderd",
       "saved": "Wijzigingen succesvol opgeslagen"
     },
     "error": {
       "cannotDeleteSelf": "U kunt uw eigen account niet verwijderen",
-      "deleteFailed": "Verwijderen van gebruiker mislukt: {{error}}",
-      "updateFailed": "Bijwerken van gebruikersstatus mislukt: {{error}}",
-      "resetFailed": "Verzenden van reset e-mail mislukt: {{error}}",
+      "deleteFailed": "Verwijderen mislukt: {{error}}",
+      "updateFailed": "Bijwerken mislukt: {{error}}",
+      "resetFailed": "Verzenden reset e-mail mislukt: {{error}}",
       "loadFailed": "Laden van gegevens mislukt: {{error}}",
       "saveFailed": "Opslaan van wijzigingen mislukt: {{error}}"
     },

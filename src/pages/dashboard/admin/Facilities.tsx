@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { AddFacilityDialog } from "@/components/admin/AddFacilityDialog";
 import { AddFacilityStaffDialog } from "@/components/admin/AddFacilityStaffDialog";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,6 +31,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function Facilities() {
+  const { t } = useTranslation('dashboard-admin');
   const [searchQuery, setSearchQuery] = useState("");
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [editingFacility, setEditingFacility] = useState<any>(null);
@@ -114,22 +116,22 @@ export default function Facilities() {
       if (error) throw error;
       
       queryClient.invalidateQueries({ queryKey: ["admin-facilities"] });
-      toast.success("Facility deleted successfully");
+      toast.success(t('toast.success.facilityDeleted'));
       setDeleteDialogOpen(false);
       setFacilityToDelete(null);
     } catch (error: any) {
-      toast.error(error.message || "Failed to delete facility");
+      toast.error(t('toast.error.deleteFailed', { error: error.message }));
     }
   };
 
   return (
-    <AdminDashboardLayout title="Facility Management">
+    <AdminDashboardLayout title={t('facilities.title')}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Care Facilities</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('facilities.title')}</h2>
             <p className="text-muted-foreground">
-              Manage care homes and assisted living facilities
+              {t('facilities.subtitle')}
             </p>
           </div>
           <Button onClick={() => {
@@ -137,14 +139,14 @@ export default function Facilities() {
             setAddDialogOpen(true);
           }}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Facility
+            {t('facilities.addFacility')}
           </Button>
         </div>
 
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search facilities..."
+            placeholder={t('facilities.searchPlaceholder')}
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -196,15 +198,15 @@ export default function Facilities() {
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem onClick={(e) => handleEdit(facility, e)}>
                             <Pencil className="h-4 w-4 mr-2" />
-                            Edit Facility
+                            {t('facilities.actions.editFacility')}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={(e) => handleAddStaff(facility.id, e)}>
                             <UserPlus className="h-4 w-4 mr-2" />
-                            Add Staff
+                            {t('facilities.actions.manageStaff')}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <CreditCard className="h-4 w-4 mr-2" />
-                            Manage Subscription
+                            {t('common:manageSubscription', { defaultValue: 'Manage Subscription' })}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
@@ -212,7 +214,7 @@ export default function Facilities() {
                             className="text-destructive"
                           >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete Facility
+                            {t('common:delete', { defaultValue: 'Delete' })}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -224,7 +226,7 @@ export default function Facilities() {
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Users className="h-3 w-3" />
-                        Residents:
+                        {t('common:residents', { defaultValue: 'Residents' })}:
                       </span>
                       <span className="font-medium">
                         {facility.residentCount} / {facility.bed_capacity}
@@ -233,12 +235,12 @@ export default function Facilities() {
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Bed className="h-3 w-3" />
-                        Occupancy:
+                        {t('common:occupancy', { defaultValue: 'Occupancy' })}:
                       </span>
                       <span className="font-medium">{facility.occupancyRate}%</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Staff:</span>
+                      <span className="text-muted-foreground">{t('common:staff', { defaultValue: 'Staff' })}:</span>
                       <span className="font-medium">{facility.staffCount}</span>
                     </div>
                     <div className="w-full bg-secondary rounded-full h-2 mt-2">
@@ -258,10 +260,13 @@ export default function Facilities() {
           <Card>
             <CardContent className="p-12 text-center">
               <Building2 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No facilities found</p>
-              <Button className="mt-4">
+              <p className="text-muted-foreground">{t('facilities.noFacilities')}</p>
+              <Button className="mt-4" onClick={() => {
+                setEditingFacility(null);
+                setAddDialogOpen(true);
+              }}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Your First Facility
+                {t('facilities.addFacility')}
               </Button>
             </CardContent>
           </Card>
@@ -286,15 +291,15 @@ export default function Facilities() {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Facility</AlertDialogTitle>
+            <AlertDialogTitle>{t('common:delete', { defaultValue: 'Delete' })} {t('common:facility', { defaultValue: 'Facility' })}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete {facilityToDelete?.name}? This action cannot be undone.
+              {t('common:deleteConfirm', { defaultValue: 'Are you sure you want to delete {{name}}? This action cannot be undone.' }).replace('{{name}}', facilityToDelete?.name || '')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('common:cancel', { defaultValue: 'Cancel' })}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground">
-              Delete
+              {t('common:delete', { defaultValue: 'Delete' })}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

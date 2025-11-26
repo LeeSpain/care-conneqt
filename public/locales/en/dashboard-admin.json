@@ -131,12 +131,13 @@
       "planDeleted": "Pricing plan deleted successfully",
       "facilityCreated": "Facility created successfully",
       "facilityUpdated": "Facility updated successfully",
+      "facilityDeleted": "Facility deleted successfully",
       "saved": "Changes saved successfully"
     },
     "error": {
       "cannotDeleteSelf": "You cannot delete your own account",
-      "deleteFailed": "Failed to delete user: {{error}}",
-      "updateFailed": "Failed to update user status: {{error}}",
+      "deleteFailed": "Failed to delete: {{error}}",
+      "updateFailed": "Failed to update: {{error}}",
       "resetFailed": "Failed to send reset email: {{error}}",
       "loadFailed": "Failed to load data: {{error}}",
       "saveFailed": "Failed to save changes: {{error}}"
