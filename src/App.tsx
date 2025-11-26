@@ -436,20 +436,30 @@ const App = () => (
                 </Suspense>
               </ProtectedRoute>
             } />
-            <Route path="/dashboard/admin/facilities" element={
+            <Route path="/dashboard/admin/commercial" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Navigate to="/dashboard/admin/commercial/facilities" replace />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/commercial/facilities" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Facilities />
                 </Suspense>
               </ProtectedRoute>
             } />
-            <Route path="/dashboard/admin/facilities/:id" element={
+            <Route path="/dashboard/admin/commercial/facilities/:id" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <FacilityDetail />
                 </Suspense>
               </ProtectedRoute>
             } />
+            {/* Redirect old facilities routes to new commercial paths */}
+            <Route path="/dashboard/admin/facilities" element={<Navigate to="/dashboard/admin/commercial/facilities" replace />} />
+            <Route path="/dashboard/admin/facilities/:id" element={<Navigate to="/dashboard/admin/commercial/facilities/:id" replace />} />
             <Route path="/dashboard/admin/analytics" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>

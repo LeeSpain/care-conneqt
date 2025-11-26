@@ -428,6 +428,75 @@ export type Database = {
         }
         Relationships: []
       }
+      care_companies: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          company_type: string | null
+          country: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          postal_code: string | null
+          registration_number: string | null
+          service_areas: Json | null
+          subscription_status:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_clients: number | null
+          total_staff: number | null
+          trial_ends_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          company_type?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+          postal_code?: string | null
+          registration_number?: string | null
+          service_areas?: Json | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_clients?: number | null
+          total_staff?: number | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          company_type?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          postal_code?: string | null
+          registration_number?: string | null
+          service_areas?: Json | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_clients?: number | null
+          total_staff?: number | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       care_messages: {
         Row: {
           created_at: string
@@ -541,6 +610,159 @@ export type Database = {
             columns: ["member_id"]
             isOneToOne: false
             referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_clients: {
+        Row: {
+          assigned_carers: Json | null
+          care_plan_id: string | null
+          company_id: string
+          created_at: string | null
+          end_date: string | null
+          id: string
+          member_id: string
+          service_type: string | null
+          start_date: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          assigned_carers?: Json | null
+          care_plan_id?: string | null
+          company_id: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          member_id: string
+          service_type?: string | null
+          start_date?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          assigned_carers?: Json | null
+          care_plan_id?: string | null
+          company_id?: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          member_id?: string
+          service_type?: string | null
+          start_date?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_clients_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_clients_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_staff: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          hired_at: string | null
+          id: string
+          is_company_admin: boolean | null
+          staff_role: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          hired_at?: string | null
+          id?: string
+          is_company_admin?: boolean | null
+          staff_role: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          hired_at?: string | null
+          id?: string
+          is_company_admin?: boolean | null
+          staff_role?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_staff_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      covered_members: {
+        Row: {
+          coverage_end: string | null
+          coverage_start: string | null
+          created_at: string | null
+          id: string
+          insurance_company_id: string
+          member_id: string
+          policy_id: string | null
+          policy_number: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          coverage_end?: string | null
+          coverage_start?: string | null
+          created_at?: string | null
+          id?: string
+          insurance_company_id: string
+          member_id: string
+          policy_id?: string | null
+          policy_number?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          coverage_end?: string | null
+          coverage_start?: string | null
+          created_at?: string | null
+          id?: string
+          insurance_company_id?: string
+          member_id?: string
+          policy_id?: string | null
+          policy_number?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "covered_members_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "covered_members_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "covered_members_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_policies"
             referencedColumns: ["id"]
           },
         ]
@@ -869,6 +1091,154 @@ export type Database = {
             columns: ["member_id"]
             isOneToOne: false
             referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_companies: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          country: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          insurance_type: string | null
+          name: string
+          phone: string | null
+          postal_code: string | null
+          registration_number: string | null
+          subscription_status:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_policies: number | null
+          trial_ends_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          insurance_type?: string | null
+          name: string
+          phone?: string | null
+          postal_code?: string | null
+          registration_number?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_policies?: number | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          insurance_type?: string | null
+          name?: string
+          phone?: string | null
+          postal_code?: string | null
+          registration_number?: string | null
+          subscription_status?:
+            | Database["public"]["Enums"]["subscription_status"]
+            | null
+          total_policies?: number | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      insurance_policies: {
+        Row: {
+          coverage_type: string | null
+          covered_services: Json | null
+          created_at: string | null
+          id: string
+          insurance_company_id: string
+          is_active: boolean | null
+          policy_name: string
+          premium_range: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          coverage_type?: string | null
+          covered_services?: Json | null
+          created_at?: string | null
+          id?: string
+          insurance_company_id: string
+          is_active?: boolean | null
+          policy_name: string
+          premium_range?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          coverage_type?: string | null
+          covered_services?: Json | null
+          created_at?: string | null
+          id?: string
+          insurance_company_id?: string
+          is_active?: boolean | null
+          policy_name?: string
+          premium_range?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_policies_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_staff: {
+        Row: {
+          created_at: string | null
+          hired_at: string | null
+          id: string
+          insurance_company_id: string
+          is_admin: boolean | null
+          staff_role: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          hired_at?: string | null
+          id?: string
+          insurance_company_id: string
+          is_admin?: boolean | null
+          staff_role: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          hired_at?: string | null
+          id?: string
+          insurance_company_id?: string
+          is_admin?: boolean | null
+          staff_role?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_staff_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
             referencedColumns: ["id"]
           },
         ]
@@ -1769,7 +2139,14 @@ export type Database = {
         | "in_progress"
         | "resolved"
         | "dismissed"
-      app_role: "admin" | "member" | "family_carer" | "nurse" | "facility_admin"
+      app_role:
+        | "admin"
+        | "member"
+        | "family_carer"
+        | "nurse"
+        | "facility_admin"
+        | "company_admin"
+        | "insurance_admin"
       consent_type:
         | "terms_of_service"
         | "privacy_policy"
@@ -1927,7 +2304,15 @@ export const Constants = {
         "resolved",
         "dismissed",
       ],
-      app_role: ["admin", "member", "family_carer", "nurse", "facility_admin"],
+      app_role: [
+        "admin",
+        "member",
+        "family_carer",
+        "nurse",
+        "facility_admin",
+        "company_admin",
+        "insurance_admin",
+      ],
       consent_type: [
         "terms_of_service",
         "privacy_policy",

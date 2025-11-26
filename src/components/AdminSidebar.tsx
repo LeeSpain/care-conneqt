@@ -1,4 +1,4 @@
-import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Stethoscope, Heart, Link as LinkIcon } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Briefcase, Building, Shield } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -40,7 +40,16 @@ export function AdminSidebar() {
           { title: "Assignments Hub", url: "/dashboard/admin/assignments" },
         ]
       },
-    { title: "Facilities", url: "/dashboard/admin/facilities", icon: Building2 },
+    {
+      title: "Commercial",
+      icon: Briefcase,
+      items: [
+        { title: "Overview", url: "/dashboard/admin/commercial" },
+        { title: "Care Facilities", url: "/dashboard/admin/commercial/facilities" },
+        { title: "Care Companies", url: "/dashboard/admin/commercial/companies" },
+        { title: "Insurance Companies", url: "/dashboard/admin/commercial/insurance" },
+      ]
+    },
     {
       title: "Catalog",
       icon: MessageSquare,
