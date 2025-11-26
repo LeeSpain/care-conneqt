@@ -10,12 +10,14 @@ import { Plus, Minus, Share2, Bookmark, Check, Info } from "lucide-react";
 import { packages, deviceOptions } from "@/data/pricing";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { CheckoutDialog } from "./CheckoutDialog";
 
 export const PackageCalculator = () => {
   const { t } = useTranslation('personal-care');
   const [selectedPackage, setSelectedPackage] = useState(packages[1].id);
   const [selectedDevices, setSelectedDevices] = useState<string[]>([]);
   const [additionalDashboards, setAdditionalDashboards] = useState(0);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
 
   const currentPackage = packages.find(p => p.id === selectedPackage)!;
   const basePrice = currentPackage.price;
@@ -80,8 +82,23 @@ export const PackageCalculator = () => {
     return acc;
   }, {} as Record<string, typeof deviceOptions>);
 
+  const selectedDeviceDetails = selectedDevices.map(deviceId => {
+    const device = deviceOptions.find(d => d.id === deviceId);
+    return device ? { id: device.id, name: device.name, price: device.price } : null;
+  }).filter(Boolean) as Array<{ id: string; name: string; price: number }>;
+
   return (
-    <div className="max-w-7xl mx-auto">
+    <>
+      <CheckoutDialog
+        open={checkoutOpen}
+        onOpenChange={setCheckoutOpen}
+        planId={currentPackage.id}
+        planName={currentPackage.name}
+        selectedDevices={selectedDeviceDetails}
+        additionalDashboards={additionalDashboards}
+        totalPrice={totalPrice}
+      />
+      <div className="max-w-7xl mx-auto">
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Main Configuration Panel */}
         <div className="lg:col-span-2 space-y-8">
@@ -392,8 +409,11 @@ export const PackageCalculator = () => {
                     </div>
                   </div>
                   
-                  <Button className="w-full h-12 text-base bg-secondary hover:bg-secondary/90" asChild>
-                    <a href="/auth/signup">{t('personal-care:calculator.getStarted')}</a>
+                  <Button 
+                    className="w-full h-12 text-base bg-secondary hover:bg-secondary/90"
+                    onClick={() => setCheckoutOpen(true)}
+                  >
+                    {t('personal-care:calculator.getStarted')}
                   </Button>
                   
                   <div className="mt-4 space-y-2">
@@ -432,6 +452,7 @@ export const PackageCalculator = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };

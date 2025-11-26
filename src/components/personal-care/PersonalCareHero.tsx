@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Shield, DollarSign } from "lucide-react";
+import { ArrowRight, Shield, DollarSign } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { formatNumber } from "@/lib/intl";
 import heroImage from "@/assets/personal-care-hero.jpg";
@@ -47,7 +47,7 @@ export const PersonalCareHero = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex justify-start">
               <Button 
                 size="lg" 
                 className="bg-secondary hover:bg-secondary/90 text-white font-semibold group"
@@ -57,14 +57,6 @@ export const PersonalCareHero = () => {
                   {t('hero.getStarted')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary/5"
-              >
-                <Phone className="mr-2 h-4 w-4" />
-                {t('hero.bookDemo')}
               </Button>
             </div>
 
