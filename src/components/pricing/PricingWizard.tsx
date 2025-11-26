@@ -305,9 +305,16 @@ export const PricingWizard = () => {
                   <CardTitle>{t('review.paymentMethod')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Badge variant="secondary">{t('review.invoiceMe')}</Badge>
-                  <p className="text-sm text-muted-foreground mt-2">
-                    You'll receive an invoice after order confirmation
+                  <div className="flex items-center gap-3 mb-3">
+                    <Badge variant="secondary" className="text-base">
+                      {t('review.creditCard')}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      Secure Payment
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Your card will be securely processed after order confirmation. All transactions are encrypted and PCI-compliant.
                   </p>
                 </CardContent>
               </Card>
