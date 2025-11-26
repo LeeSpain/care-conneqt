@@ -72,6 +72,7 @@ const CommercialOverview = lazy(() => import("./pages/dashboard/admin/commercial
 const CareCompanies = lazy(() => import("./pages/dashboard/admin/commercial/CareCompanies"));
 const CompanyDetail = lazy(() => import("./pages/dashboard/admin/commercial/CompanyDetail"));
 const InsuranceCompanies = lazy(() => import("./pages/dashboard/admin/commercial/InsuranceCompanies"));
+const InsuranceDetail = lazy(() => import("./pages/dashboard/admin/commercial/InsuranceDetail"));
 const PlatformAnalytics = lazy(() => import("./pages/dashboard/admin/PlatformAnalytics"));
 const AIAnalytics = lazy(() => import("./pages/dashboard/admin/AIAnalytics"));
 const Announcements = lazy(() => import("./pages/dashboard/admin/Announcements"));
@@ -479,6 +480,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <InsuranceCompanies />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/commercial/insurance/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <InsuranceDetail />
                 </Suspense>
               </ProtectedRoute>
             } />
