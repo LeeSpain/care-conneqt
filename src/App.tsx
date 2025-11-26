@@ -22,6 +22,7 @@ import Devices from "./pages/Devices";
 import OurNurses from "./pages/OurNurses";
 import Guide from "./pages/Guide";
 import Conneqtivity from "./pages/Conneqtivity";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 // Dashboard pages (lazy loaded)
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -139,6 +140,7 @@ const App = () => (
             <Route path="/our-nurses" element={<OurNurses />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/conneqtivity" element={<Conneqtivity />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
