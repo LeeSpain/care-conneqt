@@ -48,7 +48,7 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {categoryDevices.map((device) => {
               const isSelected = selectedDeviceIds.includes(device.id);
               const imageUrl = getProductImage(device.slug, device.image_url);
