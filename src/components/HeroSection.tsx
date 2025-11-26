@@ -48,7 +48,7 @@ export const HeroSection = () => {
                 className="bg-secondary hover:bg-secondary/90 text-white font-semibold group"
                 asChild
               >
-                <a href="/auth/signup">
+                <a href="/pricing">
                   {t('hero.benefits.getStarted', { defaultValue: 'Get Started' })}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>

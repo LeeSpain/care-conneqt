@@ -101,7 +101,7 @@ export function DeviceCard({
               className="w-full bg-secondary hover:bg-secondary/90" 
               asChild
             >
-              <Link to="/auth/signup">Add to Package</Link>
+              <Link to="/pricing">Add to Package</Link>
             </Button>
           </div>
         </CardContent>

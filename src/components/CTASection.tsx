@@ -27,7 +27,7 @@ export const CTASection = () => {
                   className="bg-white text-primary hover:bg-white/90 font-semibold group"
                   asChild
                 >
-                  <a href="/auth/signup">
+                  <a href="/pricing">
                     {t('cta.button')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>

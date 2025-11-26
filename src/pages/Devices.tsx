@@ -193,7 +193,7 @@ export default function Devices() {
                   <Link to="/personal-care">{t('common:buttons.learnMore')}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link to="/auth/signup">{t('common:buttons.getStarted')}</Link>
+                  <Link to="/pricing">{t('common:buttons.getStarted')}</Link>
                 </Button>
               </div>
             </CardContent>
