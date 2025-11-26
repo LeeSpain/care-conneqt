@@ -121,7 +121,7 @@ export function InstitutionalRegistrationForm() {
   };
 
   return (
-    <section id="registration-form" className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section id="contact-form" className="py-24 bg-gradient-to-b from-background to-muted/20">
       <div className="container max-w-4xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">{t('registration.title')}</h2>
