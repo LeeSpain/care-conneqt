@@ -131,12 +131,12 @@ export function AdminSidebar() {
                       open={openSections.includes(item.title)}
                       onOpenChange={() => toggleSection(item.title)}
                     >
-                      <CollapsibleTrigger className="flex items-center gap-3 w-full px-2 py-2 text-sm font-semibold text-foreground hover:bg-accent/50 rounded-md cursor-pointer transition-colors">
-                        <item.icon className="h-4 w-4 flex-shrink-0" />
+                      <CollapsibleTrigger className="flex items-center gap-3 w-full px-2 py-2 text-sm font-semibold !text-white hover:bg-accent/50 rounded-md cursor-pointer transition-colors">
+                        <item.icon className="h-4 w-4 flex-shrink-0 !text-white" />
                         {!isCollapsed && (
                           <>
-                            <span className="flex-1 text-left">{item.title}</span>
-                            <ChevronDown className={`h-4 w-4 transition-transform ${openSections.includes(item.title) ? 'rotate-180' : ''}`} />
+                            <span className="flex-1 text-left !text-white">{item.title}</span>
+                            <ChevronDown className={`h-4 w-4 !text-white transition-transform ${openSections.includes(item.title) ? 'rotate-180' : ''}`} />
                           </>
                         )}
                       </CollapsibleTrigger>
@@ -147,9 +147,9 @@ export function AdminSidebar() {
                               key={subItem.url} 
                               asChild 
                               isActive={isActive(subItem.url)}
-                              className="text-sm text-primary hover:text-primary/80"
+                              className="text-sm !text-primary hover:!text-primary/80"
                             >
-                              <NavLink to={subItem.url} className="text-primary">
+                              <NavLink to={subItem.url} className="!text-primary hover:!text-primary/80">
                                 {subItem.title}
                               </NavLink>
                             </SidebarMenuButton>
