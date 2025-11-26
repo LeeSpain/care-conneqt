@@ -10,20 +10,22 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-// Public pages (loaded immediately)
-import Index from "./pages/Index";
+// Public pages (lazy loaded for performance)
+const Index = lazy(() => import("./pages/Index"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Signup = lazy(() => import("./pages/auth/Signup"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const PersonalCare = lazy(() => import("./pages/PersonalCare"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const InstitutionalCare = lazy(() => import("./pages/InstitutionalCare"));
+const Devices = lazy(() => import("./pages/Devices"));
+const OurNurses = lazy(() => import("./pages/OurNurses"));
+const Guide = lazy(() => import("./pages/Guide"));
+const Conneqtivity = lazy(() => import("./pages/Conneqtivity"));
+const OrderConfirmation = lazy(() => import("./pages/OrderConfirmation"));
+
+// Keep NotFound eager (small and needed for 404s)
 import NotFound from "./pages/NotFound";
-import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import PersonalCare from "./pages/PersonalCare";
-import Pricing from "./pages/Pricing";
-import InstitutionalCare from "./pages/InstitutionalCare";
-import Devices from "./pages/Devices";
-import OurNurses from "./pages/OurNurses";
-import Guide from "./pages/Guide";
-import Conneqtivity from "./pages/Conneqtivity";
-import OrderConfirmation from "./pages/OrderConfirmation";
 
 // Dashboard pages (lazy loaded)
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -109,15 +111,15 @@ const PageLoader = () => (
   </div>
 );
 
-// Configure QueryClient for responsive data updates
+// Configure QueryClient with optimized settings for performance
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1 * 60 * 1000, // 1 minute for responsive updates
-      gcTime: 5 * 60 * 1000, // 5 minutes cache retention
+      staleTime: 2 * 60 * 1000, // 2 minutes - increased for better caching
+      gcTime: 10 * 60 * 1000, // 10 minutes - longer cache retention
       refetchOnWindowFocus: true, // Refetch when user returns to tab
-      refetchOnMount: true, // Refetch when component mounts
-      retry: 2, // Retry failed requests twice
+      refetchOnMount: 'always', // Changed from true for better control
+      retry: 1, // Reduced retries for faster error feedback
       retryDelay: 1000, // 1 second between retries
     },
   },
@@ -134,19 +136,19 @@ const App = () => (
             <BrowserRouter>
             <ScrollToTop />
             <Routes>
-            {/* Public routes - no lazy loading */}
-            <Route path="/" element={<Index />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/personal-care" element={<PersonalCare />} />
-            <Route path="/institutional-care" element={<InstitutionalCare />} />
-            <Route path="/devices" element={<Devices />} />
-            <Route path="/our-nurses" element={<OurNurses />} />
-            <Route path="/guide" element={<Guide />} />
-            <Route path="/conneqtivity" element={<Conneqtivity />} />
-            <Route path="/order-confirmation" element={<OrderConfirmation />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/signup" element={<Signup />} />
-            <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+            {/* Public routes - lazy loaded with suspense */}
+            <Route path="/" element={<Suspense fallback={<PageLoader />}><Index /></Suspense>} />
+            <Route path="/pricing" element={<Suspense fallback={<PageLoader />}><Pricing /></Suspense>} />
+            <Route path="/personal-care" element={<Suspense fallback={<PageLoader />}><PersonalCare /></Suspense>} />
+            <Route path="/institutional-care" element={<Suspense fallback={<PageLoader />}><InstitutionalCare /></Suspense>} />
+            <Route path="/devices" element={<Suspense fallback={<PageLoader />}><Devices /></Suspense>} />
+            <Route path="/our-nurses" element={<Suspense fallback={<PageLoader />}><OurNurses /></Suspense>} />
+            <Route path="/guide" element={<Suspense fallback={<PageLoader />}><Guide /></Suspense>} />
+            <Route path="/conneqtivity" element={<Suspense fallback={<PageLoader />}><Conneqtivity /></Suspense>} />
+            <Route path="/order-confirmation" element={<Suspense fallback={<PageLoader />}><OrderConfirmation /></Suspense>} />
+            <Route path="/auth/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
+            <Route path="/auth/signup" element={<Suspense fallback={<PageLoader />}><Signup /></Suspense>} />
+            <Route path="/auth/forgot-password" element={<Suspense fallback={<PageLoader />}><ForgotPassword /></Suspense>} />
             
             {/* Dashboard routes - lazy loaded with suspense */}
             <Route path="/onboarding" element={

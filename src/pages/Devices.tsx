@@ -9,7 +9,7 @@ import { DeviceCard } from '@/components/devices/DeviceCard';
 import { Link } from 'react-router-dom';
 import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
 import { useProducts } from '@/hooks/useProducts';
-import { getProductImage } from '@/lib/productImages';
+import { getProductImageSync } from '@/lib/productImages';
 import { getProductIcon } from '@/lib/productIcons';
 
 export default function Devices() {
@@ -26,7 +26,7 @@ export default function Devices() {
 
   const devices = products?.map(product => ({
     icon: getProductIcon(product.icon_name),
-    image: getProductImage(product.slug, product.image_url),
+    image: getProductImageSync(product.slug, product.image_url),
     name: product.translation?.name || product.slug,
     tagline: product.translation?.tagline || '',
     description: product.translation?.description || '',

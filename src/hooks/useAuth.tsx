@@ -38,15 +38,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [roles, setRoles] = useState<AppRole[]>([]);
   const [loading, setLoading] = useState(true);
   const initialFetchDone = useRef(false);
+  const fetchInProgress = useRef<string | null>(null); // Prevent duplicate fetches
 
   const fetchProfile = async (userId: string) => {
     console.log('[fetchProfile] START - userId:', userId);
+    
+    // Prevent duplicate concurrent fetches
+    if (fetchInProgress.current === userId) {
+      console.log('[fetchProfile] SKIP - already fetching for this user');
+      return;
+    }
+    
+    fetchInProgress.current = userId;
     
     // Set a timeout to prevent infinite loading
     const timeoutId = setTimeout(() => {
       console.error('[fetchProfile] TIMEOUT - forcing loading to false');
       setLoading(false);
       setRoles([]);
+      fetchInProgress.current = null;
     }, 10000); // 10 second timeout
 
     try {
@@ -89,6 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       console.log('[fetchProfile] FINALLY block - setting loading to false');
       setLoading(false);
+      fetchInProgress.current = null;
     }
   };
 
@@ -127,20 +138,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    // Get initial session and fetch profile immediately
+    // Get initial session - onAuthStateChange will handle the fetch
     supabase.auth.getSession().then(({ data: { session } }) => {
       console.log('[getSession] Initial session:', session?.user?.email);
       if (!mounted) return;
       
-      if (session?.user && !initialFetchDone.current) {
-        console.log('[getSession] Fetching profile for user:', session.user.id);
+      if (session?.user) {
+        console.log('[getSession] Session found - will be handled by onAuthStateChange');
         initialFetchDone.current = true;
-        setSession(session);
-        setUser(session.user);
-        setLoading(true);
-        fetchProfile(session.user.id);
       } else {
-        console.log('[getSession] No user found or already fetched - setting loading false');
+        console.log('[getSession] No user found - setting loading false');
         setLoading(false);
       }
     });

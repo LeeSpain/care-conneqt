@@ -85,6 +85,7 @@ export const HeroSection = () => {
               src={heroImage}
               alt={t('trust.enterprise.imageAlt')}
               className="relative rounded-3xl shadow-2xl w-full"
+              loading="lazy"
             />
           </div>
         </div>

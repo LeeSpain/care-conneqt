@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
-import { getProductImage } from "@/lib/productImages";
+import { getProductImageSync } from "@/lib/productImages";
 import { getProductIcon } from "@/lib/productIcons";
 
 export const DevicesSection = () => {
@@ -43,7 +43,7 @@ export const DevicesSection = () => {
                 {/* Product Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
                   <img 
-                    src={getProductImage(product.slug, product.image_url)} 
+                    src={getProductImageSync(product.slug, product.image_url)} 
                     alt={product.translation?.name || product.slug}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
