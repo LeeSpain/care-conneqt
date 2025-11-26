@@ -79,7 +79,8 @@ export function AdminSidebar() {
       title: "Sales & Revenue", 
       icon: MessageSquare,
       items: [
-        { title: "Clara Sales", url: "/dashboard/admin/sales" },
+        { title: "Personal Orders", url: "/dashboard/admin/sales" },
+        { title: "Institutional Registrations", url: "/dashboard/admin/institutional-registrations" },
         { title: "Clara Analytics", url: "/dashboard/admin/clara-analytics" },
       ]
     },
