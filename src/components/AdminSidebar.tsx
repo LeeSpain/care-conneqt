@@ -131,7 +131,7 @@ export function AdminSidebar() {
                       open={openSections.includes(item.title)}
                       onOpenChange={() => toggleSection(item.title)}
                     >
-                      <CollapsibleTrigger className="flex items-center gap-3 w-full px-2 py-2 text-sm font-medium text-muted-foreground hover:bg-accent/50 rounded-md cursor-pointer transition-colors">
+                      <CollapsibleTrigger className="flex items-center gap-3 w-full px-2 py-2 text-sm font-medium text-foreground hover:bg-accent/50 rounded-md cursor-pointer transition-colors">
                         <item.icon className="h-4 w-4 flex-shrink-0" />
                         {!isCollapsed && (
                           <>
@@ -147,7 +147,7 @@ export function AdminSidebar() {
                               key={subItem.url} 
                               asChild 
                               isActive={isActive(subItem.url)}
-                              className="text-sm"
+                              className="text-sm text-primary"
                             >
                               <NavLink to={subItem.url}>
                                 {subItem.title}
