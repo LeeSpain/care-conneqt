@@ -3,21 +3,49 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useQuery } from "@tanstack/react-query";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Building2, Users, Bed, Settings, AlertCircle } from "lucide-react";
+import { ArrowLeft, Building2, Users, Bed, Settings, AlertCircle, MoreVertical, Eye, DoorOpen, Trash2, UserCog } from "lucide-react";
 import { useState } from "react";
 import { AdmitResidentDialog } from "@/components/admin/AdmitResidentDialog";
 import { AddFacilityStaffDialog } from "@/components/admin/AddFacilityStaffDialog";
 import { AddFacilityDialog } from "@/components/admin/AddFacilityDialog";
+import { DischargeResidentDialog } from "@/components/admin/DischargeResidentDialog";
+import { ChangeRoomDialog } from "@/components/admin/ChangeRoomDialog";
+import { EditStaffRoleDialog } from "@/components/admin/EditStaffRoleDialog";
+import { toast } from "sonner";
 
 export default function FacilityDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [admitResidentOpen, setAdmitResidentOpen] = useState(false);
   const [addStaffOpen, setAddStaffOpen] = useState(false);
   const [editFacilityOpen, setEditFacilityOpen] = useState(false);
+  const [dischargeDialogOpen, setDischargeDialogOpen] = useState(false);
+  const [changeRoomDialogOpen, setChangeRoomDialogOpen] = useState(false);
+  const [editStaffRoleDialogOpen, setEditStaffRoleDialogOpen] = useState(false);
+  const [removeStaffDialogOpen, setRemoveStaffDialogOpen] = useState(false);
+  const [selectedResident, setSelectedResident] = useState<any>(null);
+  const [selectedStaff, setSelectedStaff] = useState<any>(null);
 
   const { data: facility, isLoading } = useQuery({
     queryKey: ["facility", id],
@@ -82,6 +110,26 @@ export default function FacilityDetail() {
   const occupancyRate = facility?.bed_capacity 
     ? Math.round(((residents?.length || 0) / facility.bed_capacity) * 100)
     : 0;
+
+  const handleRemoveStaff = async () => {
+    if (!selectedStaff) return;
+    
+    try {
+      const { error } = await supabase
+        .from("facility_staff")
+        .delete()
+        .eq("id", selectedStaff.id);
+
+      if (error) throw error;
+      
+      toast.success("Staff member removed from facility");
+      queryClient.invalidateQueries({ queryKey: ["facility-staff", id] });
+      setRemoveStaffDialogOpen(false);
+      setSelectedStaff(null);
+    } catch (error: any) {
+      toast.error(error.message || "Failed to remove staff member");
+    }
+  };
 
   return (
     <AdminDashboardLayout title={facility?.name || "Facility Details"}>
@@ -180,16 +228,48 @@ export default function FacilityDetail() {
                 {residents.map((resident: any) => (
                   <Card key={resident.id}>
                     <CardHeader>
-                      <CardTitle className="text-base">
-                        {resident.member?.profile?.first_name} {resident.member?.profile?.last_name}
-                      </CardTitle>
-                      <CardDescription>
-                        Room {resident.room_number} • Admitted {new Date(resident.admission_date).toLocaleDateString()}
-                      </CardDescription>
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <CardTitle className="text-base">
+                            {resident.member?.profile?.first_name} {resident.member?.profile?.last_name}
+                          </CardTitle>
+                          <CardDescription>
+                            Room {resident.room_number} • Admitted {new Date(resident.admission_date).toLocaleDateString()}
+                          </CardDescription>
+                        </div>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/members`)}>
+                              <Eye className="h-4 w-4 mr-2" />
+                              View Profile
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => {
+                              setSelectedResident(resident);
+                              setChangeRoomDialogOpen(true);
+                            }}>
+                              <Bed className="h-4 w-4 mr-2" />
+                              Change Room
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem 
+                              onClick={() => {
+                                setSelectedResident(resident);
+                                setDischargeDialogOpen(true);
+                              }}
+                              className="text-destructive"
+                            >
+                              <DoorOpen className="h-4 w-4 mr-2" />
+                              Discharge Resident
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </CardHeader>
-                    <CardContent>
-                      <Button variant="outline" size="sm">View Profile</Button>
-                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -213,13 +293,48 @@ export default function FacilityDetail() {
                 {staff.map((member: any) => (
                   <Card key={member.id}>
                     <CardHeader>
-                      <CardTitle className="text-base">
-                        {member.profile?.first_name} {member.profile?.last_name}
-                      </CardTitle>
-                      <CardDescription>
-                        {member.staff_role}
-                        {member.is_facility_admin && " • Administrator"}
-                      </CardDescription>
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <CardTitle className="text-base">
+                            {member.profile?.first_name} {member.profile?.last_name}
+                          </CardTitle>
+                          <CardDescription>
+                            {member.staff_role}
+                            {member.is_facility_admin && " • Administrator"}
+                          </CardDescription>
+                        </div>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <MoreVertical className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/staff`)}>
+                              <Eye className="h-4 w-4 mr-2" />
+                              View Profile
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => {
+                              setSelectedStaff(member);
+                              setEditStaffRoleDialogOpen(true);
+                            }}>
+                              <UserCog className="h-4 w-4 mr-2" />
+                              Edit Role
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem 
+                              onClick={() => {
+                                setSelectedStaff(member);
+                                setRemoveStaffDialogOpen(true);
+                              }}
+                              className="text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove from Facility
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-muted-foreground">
@@ -296,6 +411,44 @@ export default function FacilityDetail() {
         onOpenChange={setEditFacilityOpen}
         facility={facility}
       />
+
+      <DischargeResidentDialog
+        open={dischargeDialogOpen}
+        onOpenChange={setDischargeDialogOpen}
+        resident={selectedResident}
+        facilityId={id!}
+      />
+
+      <ChangeRoomDialog
+        open={changeRoomDialogOpen}
+        onOpenChange={setChangeRoomDialogOpen}
+        resident={selectedResident}
+        facilityId={id!}
+      />
+
+      <EditStaffRoleDialog
+        open={editStaffRoleDialogOpen}
+        onOpenChange={setEditStaffRoleDialogOpen}
+        staffMember={selectedStaff}
+        facilityId={id!}
+      />
+
+      <AlertDialog open={removeStaffDialogOpen} onOpenChange={setRemoveStaffDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove Staff Member</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to remove {selectedStaff?.profile?.first_name} {selectedStaff?.profile?.last_name} from this facility?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleRemoveStaff} className="bg-destructive text-destructive-foreground">
+              Remove
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminDashboardLayout>
   );
 }
