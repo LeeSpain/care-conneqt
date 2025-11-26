@@ -31,6 +31,7 @@ export function AdminSidebar() {
     { title: "Dashboard", url: "/dashboard/admin", icon: Home },
       {
         title: "People",
+        icon: Users,
         items: [
           { title: "All Users", url: "/dashboard/admin/users" },
           { title: "Staff", url: "/dashboard/admin/staff" },
