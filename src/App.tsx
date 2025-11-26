@@ -61,8 +61,10 @@ const NurseTasks = lazy(() => import("./pages/dashboard/NurseTasks"));
 // Admin pages
 const AdminHome = lazy(() => import("./pages/dashboard/admin/AdminHome"));
 const Users = lazy(() => import("./pages/dashboard/admin/Users"));
+const Staff = lazy(() => import("./pages/dashboard/admin/Staff"));
 const Nurses = lazy(() => import("./pages/dashboard/admin/Nurses"));
 const Members = lazy(() => import("./pages/dashboard/admin/Members"));
+const AssignmentsHub = lazy(() => import("./pages/dashboard/admin/AssignmentsHub"));
 const FamilyCarers = lazy(() => import("./pages/dashboard/admin/FamilyCarers"));
 const Facilities = lazy(() => import("./pages/dashboard/admin/Facilities"));
 const FacilityDetail = lazy(() => import("./pages/dashboard/admin/FacilityDetail"));
@@ -399,6 +401,13 @@ const App = () => (
                 </Suspense>
               </ProtectedRoute>
             } />
+            <Route path="/dashboard/admin/staff" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Staff />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             <Route path="/dashboard/admin/nurses" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
@@ -410,6 +419,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Members />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/assignments" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AssignmentsHub />
                 </Suspense>
               </ProtectedRoute>
             } />
