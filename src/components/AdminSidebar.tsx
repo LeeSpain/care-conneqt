@@ -1,5 +1,6 @@
-import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -13,12 +14,18 @@ import {
   SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Logo } from "@/components/Logo";
 
 export function AdminSidebar() {
   const location = useLocation();
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
+  const [openSections, setOpenSections] = useState<string[]>([]);
 
   const navigationItems = [
     { title: "Dashboard", url: "/dashboard/admin", icon: Home },
@@ -85,6 +92,23 @@ export function AdminSidebar() {
     return location.pathname.startsWith(path);
   };
 
+  useEffect(() => {
+    const activeSection = navigationItems.find(item => 
+      item.items?.some(sub => isActive(sub.url))
+    );
+    if (activeSection) {
+      setOpenSections(prev => [...new Set([...prev, activeSection.title])]);
+    }
+  }, [location.pathname]);
+
+  const toggleSection = (title: string) => {
+    setOpenSections(prev => 
+      prev.includes(title) 
+        ? prev.filter(t => t !== title)
+        : [...prev, title]
+    );
+  };
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-border px-4 py-3">
@@ -103,13 +127,21 @@ export function AdminSidebar() {
               {navigationItems.map((item: any) => (
                 <SidebarMenuItem key={item.title}>
                   {item.items ? (
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-3 px-2 py-2 text-sm font-medium text-muted-foreground">
-                        <item.icon className="h-4 w-4" />
-                        {!isCollapsed && <span>{item.title}</span>}
-                      </div>
+                    <Collapsible
+                      open={openSections.includes(item.title)}
+                      onOpenChange={() => toggleSection(item.title)}
+                    >
+                      <CollapsibleTrigger className="flex items-center gap-3 w-full px-2 py-2 text-sm font-medium text-muted-foreground hover:bg-accent/50 rounded-md cursor-pointer transition-colors">
+                        <item.icon className="h-4 w-4 flex-shrink-0" />
+                        {!isCollapsed && (
+                          <>
+                            <span className="flex-1 text-left">{item.title}</span>
+                            <ChevronDown className={`h-4 w-4 transition-transform ${openSections.includes(item.title) ? 'rotate-180' : ''}`} />
+                          </>
+                        )}
+                      </CollapsibleTrigger>
                       {!isCollapsed && (
-                        <div className="ml-6 space-y-1">
+                        <CollapsibleContent className="ml-6 space-y-1 mt-1">
                           {item.items.map((subItem: any) => (
                             <SidebarMenuButton 
                               key={subItem.url} 
@@ -122,9 +154,9 @@ export function AdminSidebar() {
                               </NavLink>
                             </SidebarMenuButton>
                           ))}
-                        </div>
+                        </CollapsibleContent>
                       )}
-                    </div>
+                    </Collapsible>
                   ) : (
                     <SidebarMenuButton asChild isActive={isActive(item.url)}>
                       <NavLink to={item.url} className="flex items-center gap-3">
