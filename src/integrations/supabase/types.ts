@@ -1504,10 +1504,13 @@ export type Database = {
           email: string
           first_name: string | null
           id: string
+          invitation_token: string | null
+          invited_at: string | null
           language: string | null
           last_name: string | null
           onboarding_completed: boolean | null
           phone: string | null
+          status: string | null
           timezone: string | null
           updated_at: string | null
         }
@@ -1517,10 +1520,13 @@ export type Database = {
           email: string
           first_name?: string | null
           id: string
+          invitation_token?: string | null
+          invited_at?: string | null
           language?: string | null
           last_name?: string | null
           onboarding_completed?: boolean | null
           phone?: string | null
+          status?: string | null
           timezone?: string | null
           updated_at?: string | null
         }
@@ -1530,10 +1536,13 @@ export type Database = {
           email?: string
           first_name?: string | null
           id?: string
+          invitation_token?: string | null
+          invited_at?: string | null
           language?: string | null
           last_name?: string | null
           onboarding_completed?: boolean | null
           phone?: string | null
+          status?: string | null
           timezone?: string | null
           updated_at?: string | null
         }

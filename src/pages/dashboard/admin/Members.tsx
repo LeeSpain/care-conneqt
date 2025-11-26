@@ -1,48 +1,26 @@
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Search,
-  UserPlus,
-  Heart,
-  Activity,
-  AlertCircle,
-  MoreVertical,
-  Eye,
-  Edit,
-  Mail,
-  Phone,
-  MapPin,
-  Download,
-  Filter,
-} from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Search, UserPlus, Users, TrendingUp, Activity, AlertCircle, ChevronDown, ChevronUp, Heart } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import { ConnectionsPanel } from "@/components/admin/ConnectionsPanel";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { MoreVertical, Eye, Edit, Mail, Phone, MapPin, Download, Filter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function Members() {
   const [searchQuery, setSearchQuery] = useState("");
   const [subscriptionFilter, setSubscriptionFilter] = useState<string>("all");
   const [careLevelFilter, setCareLevelFilter] = useState<string>("all");
+  const [expandedMembers, setExpandedMembers] = useState<Set<string>>(new Set());
   const { t } = useTranslation("dashboard");
 
   const { data: members, isLoading } = useQuery({
@@ -330,6 +308,38 @@ export default function Members() {
                         <Eye className="h-4 w-4 mr-2" />
                         View Full Profile
                       </Button>
+
+                      <Collapsible
+                        open={expandedMembers.has(member.id)}
+                        onOpenChange={(open) => {
+                          const newExpanded = new Set(expandedMembers);
+                          if (open) {
+                            newExpanded.add(member.id);
+                          } else {
+                            newExpanded.delete(member.id);
+                          }
+                          setExpandedMembers(newExpanded);
+                        }}
+                      >
+                        <CollapsibleTrigger asChild>
+                          <Button variant="ghost" size="sm" className="mt-2 w-full">
+                            {expandedMembers.has(member.id) ? (
+                              <>
+                                <ChevronUp className="h-4 w-4 mr-2" />
+                                Hide Connections
+                              </>
+                            ) : (
+                              <>
+                                <ChevronDown className="h-4 w-4 mr-2" />
+                                Show Connections
+                              </>
+                            )}
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="mt-4">
+                          <ConnectionsPanel memberId={member.id} />
+                        </CollapsibleContent>
+                      </Collapsible>
                     </div>
                   </CardContent>
                 </Card>

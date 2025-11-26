@@ -1,43 +1,17 @@
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Search,
-  UserPlus,
-  MoreVertical,
-  Mail,
-  Phone,
-  Shield,
-  Users as UsersIcon,
-  Activity,
-  Filter,
-  Download,
-  UserCog,
-  Stethoscope,
-  Heart,
-} from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Search, MoreVertical, UserPlus, Download, Users as UsersIcon, Shield, Stethoscope, Building2, Heart, Mail, Phone, Filter, UserCog } from "lucide-react";
 import { useState } from "react";
+import { AddUserDialog } from "@/components/admin/AddUserDialog";
+import { RoleManagementDialog } from "@/components/admin/RoleManagementDialog";
 
 interface UserWithRole {
   id: string;
@@ -61,6 +35,9 @@ export default function Users() {
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("name");
+  const [addUserOpen, setAddUserOpen] = useState(false);
+  const [roleDialogOpen, setRoleDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<{ id: string; name: string; roles: string[] } | null>(null);
 
   const { data: allUsers, isLoading } = useQuery({
     queryKey: ["admin-all-users"],
@@ -184,7 +161,7 @@ export default function Users() {
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
-            <Button>
+            <Button onClick={() => setAddUserOpen(true)}>
               <UserPlus className="h-4 w-4 mr-2" />
               Add User
             </Button>
@@ -336,7 +313,18 @@ export default function Users() {
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuItem>View Profile</DropdownMenuItem>
                           <DropdownMenuItem>Edit User</DropdownMenuItem>
-                          <DropdownMenuItem>Manage Roles</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setSelectedUser({
+                                id: user.id,
+                                name: `${user.first_name} ${user.last_name}`,
+                                roles: [user.role],
+                              });
+                              setRoleDialogOpen(true);
+                            }}
+                          >
+                            Manage Roles
+                          </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem>Send Message</DropdownMenuItem>
                           <DropdownMenuItem>Reset Password</DropdownMenuItem>

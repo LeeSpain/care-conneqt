@@ -1,4 +1,4 @@
-import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Stethoscope, Heart, Link as LinkIcon } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -29,16 +29,16 @@ export function AdminSidebar() {
 
   const navigationItems = [
     { title: "Dashboard", url: "/dashboard/admin", icon: Home },
-    { 
-      title: "People", 
-      icon: Users,
-      items: [
-        { title: "All Users", url: "/dashboard/admin/users" },
-        { title: "Nurses", url: "/dashboard/admin/nurses" },
-        { title: "Members", url: "/dashboard/admin/members" },
-        { title: "Family Carers", url: "/dashboard/admin/family-carers" },
-      ]
-    },
+      {
+        title: "People",
+        items: [
+          { title: "All Users", url: "/dashboard/admin/users" },
+          { title: "Staff", url: "/dashboard/admin/staff" },
+          { title: "Members", url: "/dashboard/admin/members" },
+          { title: "Family Carers", url: "/dashboard/admin/family-carers" },
+          { title: "Assignments Hub", url: "/dashboard/admin/assignments" },
+        ]
+      },
     { title: "Facilities", url: "/dashboard/admin/facilities", icon: Building2 },
     {
       title: "Catalog",
