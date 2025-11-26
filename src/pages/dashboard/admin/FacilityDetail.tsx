@@ -135,7 +135,7 @@ export default function FacilityDetail() {
     <AdminDashboardLayout title={facility?.name || "Facility Details"}>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard/admin/facilities")}>
+          <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard/admin/commercial/facilities")}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div className="flex-1">

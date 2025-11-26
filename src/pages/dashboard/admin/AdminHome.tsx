@@ -142,7 +142,7 @@ export default function AdminHome() {
               </Button>
               <Button 
                 variant="outline"
-                onClick={() => navigate('/dashboard/admin/facilities')}
+                onClick={() => navigate('/dashboard/admin/commercial/facilities')}
                 className="justify-start"
               >
                 {t('actions.add')} Facility

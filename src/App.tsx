@@ -68,6 +68,8 @@ const AssignmentsHub = lazy(() => import("./pages/dashboard/admin/AssignmentsHub
 const FamilyCarers = lazy(() => import("./pages/dashboard/admin/FamilyCarers"));
 const Facilities = lazy(() => import("./pages/dashboard/admin/Facilities"));
 const FacilityDetail = lazy(() => import("./pages/dashboard/admin/FacilityDetail"));
+const CommercialOverview = lazy(() => import("./pages/dashboard/admin/commercial/CommercialOverview"));
+const CareCompanies = lazy(() => import("./pages/dashboard/admin/commercial/CareCompanies"));
 const PlatformAnalytics = lazy(() => import("./pages/dashboard/admin/PlatformAnalytics"));
 const AIAnalytics = lazy(() => import("./pages/dashboard/admin/AIAnalytics"));
 const Announcements = lazy(() => import("./pages/dashboard/admin/Announcements"));
@@ -439,7 +441,7 @@ const App = () => (
             <Route path="/dashboard/admin/commercial" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
-                  <Navigate to="/dashboard/admin/commercial/facilities" replace />
+                  <CommercialOverview />
                 </Suspense>
               </ProtectedRoute>
             } />
@@ -454,6 +456,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <FacilityDetail />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/commercial/companies" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <CareCompanies />
                 </Suspense>
               </ProtectedRoute>
             } />
