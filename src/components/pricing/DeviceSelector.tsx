@@ -15,41 +15,10 @@ interface DeviceSelectorProps {
 
 export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceSelectorProps) => {
   const { t, i18n } = useTranslation('pricing');
-  
-  // Group devices by category
-  const devicesByCategory = devices.reduce((acc, device) => {
-    if (!acc[device.category]) {
-      acc[device.category] = [];
-    }
-    acc[device.category].push(device);
-    return acc;
-  }, {} as Record<string, Product[]>);
-
-  const getCategoryLabel = (category: string) => {
-    const categoryMap: Record<string, string> = {
-      'wearable': t('customize.deviceCategories.wearable'),
-      'emergency': t('customize.deviceCategories.emergency'),
-      'home-monitoring': t('customize.deviceCategories.homeMonitoring'),
-      'medication': t('customize.deviceCategories.medication'),
-      'cognitive': t('customize.deviceCategories.cognitive'),
-      'health': t('customize.deviceCategories.health'),
-    };
-    return categoryMap[category] || category;
-  };
 
   return (
-    <div className="space-y-8">
-      {Object.entries(devicesByCategory).map(([category, categoryDevices]) => (
-        <div key={category}>
-          <div className="flex items-center gap-3 mb-4">
-            <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">
-              {getCategoryLabel(category)}
-            </h4>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {categoryDevices.map((device) => {
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {devices.map((device) => {
               const isSelected = selectedDeviceIds.includes(device.id);
               const imageUrl = getProductImage(device.slug, device.image_url);
               const features = device.translation?.features || [];
@@ -145,9 +114,6 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
                 </div>
               );
             })}
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
