@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "title": "Kies Uw Perfect Zorgplan",
+    "subtitle": "Stel in slechts enkele stappen een persoonlijk zorgpakket samen",
+    "trustBadge": "Vertrouwd door 10.000+ gezinnen"
+  },
+  "steps": {
+    "plan": "Kies Plan",
+    "customize": "Aanpassen",
+    "account": "Account Aanmaken",
+    "review": "Controleren & Betalen",
+    "confirmation": "Bevestiging"
+  },
+  "planSelection": {
+    "title": "Stap 1: Kies Uw Basisplan",
+    "subtitle": "Alle plannen inclusief AI Guardian, 24/7 verpleegkundige ondersteuning en noodhulp",
+    "devicesIncluded": "{{count}} apparaat inbegrepen",
+    "devicesIncluded_plural": "{{count}} apparaten inbegrepen",
+    "dashboardsIncluded": "{{count}} familie dashboard",
+    "dashboardsIncluded_plural": "{{count}} familie dashboards",
+    "unlimitedDashboards": "Onbeperkt familie dashboards",
+    "memberOnly": "Alleen lid dashboard",
+    "perMonth": "/maand",
+    "selectPlan": "Selecteer Dit Plan",
+    "mostPopular": "Meest Populair",
+    "compareFeatures": "Vergelijk Alle Functies"
+  },
+  "customize": {
+    "title": "Stap 2: Pas Uw Pakket Aan",
+    "subtitle": "Voeg extra apparaten en familie dashboards toe",
+    "devicesTitle": "Extra Apparaten",
+    "devicesSubtitle": "Verbeter uw pakket met monitoringapparaten",
+    "dashboardsTitle": "Extra Familie Dashboards",
+    "dashboardsSubtitle": "Deel toegang met meer familieleden",
+    "dashboardPrice": "€2,99/maand per dashboard",
+    "unlimitedIncluded": "Onbeperkte dashboards inbegrepen",
+    "noDevicesSelected": "Geen extra apparaten geselecteerd",
+    "deviceCategories": {
+      "wearable": "Draagbare Apparaten",
+      "emergency": "Noodhulp",
+      "homeMonitoring": "Thuismonitoring",
+      "medication": "Medicatiebeheer",
+      "cognitive": "Cognitieve Ondersteuning",
+      "health": "Gezondheidsmonitoring"
+    }
+  },
+  "account": {
+    "title": "Stap 3: Maak Uw Account Aan",
+    "subtitle": "Stel uw beveiligde Care Conneqt account in",
+    "existingUser": "Heeft u al een account?",
+    "signIn": "Inloggen",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "email": "E-mailadres",
+    "phone": "Telefoonnummer",
+    "password": "Wachtwoord",
+    "confirmPassword": "Bevestig Wachtwoord",
+    "agreeToTerms": "Ik ga akkoord met de Algemene Voorwaarden en Privacybeleid",
+    "createAccount": "Account Aanmaken",
+    "passwordRequirements": "Minimaal 8 tekens met letters en cijfers"
+  },
+  "review": {
+    "title": "Stap 4: Controleer Uw Bestelling",
+    "subtitle": "Bevestig uw pakketdetails en rond uw bestelling af",
+    "orderSummary": "Bestelling Overzicht",
+    "basePlan": "Basisplan",
+    "additionalDevices": "Extra Apparaten",
+    "extraDashboards": "Extra Dashboards",
+    "subtotal": "Subtotaal",
+    "setupFee": "Eenmalige Installatiekosten",
+    "total": "Totaal Maandelijks",
+    "yourDetails": "Uw Gegevens",
+    "paymentMethod": "Betaalmethode",
+    "invoiceMe": "Factuur Mij",
+    "creditCard": "Creditcard",
+    "completeOrder": "Bestelling Afronden",
+    "secureCheckout": "Beveiligde Afrekening",
+    "moneyBackGuarantee": "30 dagen geld-terug-garantie"
+  },
+  "confirmation": {
+    "title": "Welkom bij Care Conneqt!",
+    "subtitle": "Uw bestelling is bevestigd",
+    "orderNumber": "Bestelnummer",
+    "nextSteps": "Wat Nu?",
+    "step1": "U ontvangt binnen enkele minuten een bevestigingsmail",
+    "step2": "Ons team neemt binnen 24 uur contact met u op voor de installatie",
+    "step3": "Apparaten worden binnen 3-5 werkdagen geleverd",
+    "step4": "We begeleiden u bij installatie en activering",
+    "goToDashboard": "Ga Naar Dashboard",
+    "downloadReceipt": "Download Ontvangstbewijs",
+    "contactSupport": "Contact Opnemen"
+  },
+  "orderSummary": {
+    "title": "Bestelling Overzicht",
+    "basePlan": "Basisplan",
+    "devices": "Apparaten",
+    "dashboards": "Dashboards",
+    "monthlyTotal": "Maandelijks Totaal",
+    "perMonth": "/maand"
+  },
+  "buttons": {
+    "continue": "Doorgaan",
+    "back": "Terug",
+    "save": "Configuratie Opslaan",
+    "share": "Delen"
+  },
+  "validation": {
+    "required": "Dit veld is verplicht",
+    "invalidEmail": "Voer een geldig e-mailadres in",
+    "passwordMismatch": "Wachtwoorden komen niet overeen",
+    "passwordTooShort": "Wachtwoord moet minimaal 8 tekens zijn",
+    "phoneInvalid": "Voer een geldig telefoonnummer in",
+    "acceptTerms": "U moet de algemene voorwaarden accepteren"
+  }
+}

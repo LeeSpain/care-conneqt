@@ -17,6 +17,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import PersonalCare from "./pages/PersonalCare";
+import Pricing from "./pages/Pricing";
 import InstitutionalCare from "./pages/InstitutionalCare";
 import Devices from "./pages/Devices";
 import OurNurses from "./pages/OurNurses";
@@ -135,6 +136,7 @@ const App = () => (
             <Routes>
             {/* Public routes - no lazy loading */}
             <Route path="/" element={<Index />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/personal-care" element={<PersonalCare />} />
             <Route path="/institutional-care" element={<InstitutionalCare />} />
             <Route path="/devices" element={<Devices />} />

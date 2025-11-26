@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "title": "Choose Your Perfect Care Plan",
+    "subtitle": "Build a personalized care package in just a few steps",
+    "trustBadge": "Trusted by 10,000+ families"
+  },
+  "steps": {
+    "plan": "Choose Plan",
+    "customize": "Customize",
+    "account": "Create Account",
+    "review": "Review & Pay",
+    "confirmation": "Confirmation"
+  },
+  "planSelection": {
+    "title": "Step 1: Choose Your Base Plan",
+    "subtitle": "All plans include AI Guardian, 24/7 nurse support, and emergency response",
+    "devicesIncluded": "{{count}} device included",
+    "devicesIncluded_plural": "{{count}} devices included",
+    "dashboardsIncluded": "{{count}} family dashboard",
+    "dashboardsIncluded_plural": "{{count}} family dashboards",
+    "unlimitedDashboards": "Unlimited family dashboards",
+    "memberOnly": "Member dashboard only",
+    "perMonth": "/month",
+    "selectPlan": "Select This Plan",
+    "mostPopular": "Most Popular",
+    "compareFeatures": "Compare All Features"
+  },
+  "customize": {
+    "title": "Step 2: Customize Your Package",
+    "subtitle": "Add extra devices and family dashboards to match your needs",
+    "devicesTitle": "Additional Devices",
+    "devicesSubtitle": "Enhance your package with monitoring devices",
+    "dashboardsTitle": "Extra Family Dashboards",
+    "dashboardsSubtitle": "Share access with more family members",
+    "dashboardPrice": "€2.99/month per dashboard",
+    "unlimitedIncluded": "Unlimited dashboards included",
+    "noDevicesSelected": "No additional devices selected",
+    "deviceCategories": {
+      "wearable": "Wearable Devices",
+      "emergency": "Emergency Response",
+      "homeMonitoring": "Home Monitoring",
+      "medication": "Medication Management",
+      "cognitive": "Cognitive Support",
+      "health": "Health Monitoring"
+    }
+  },
+  "account": {
+    "title": "Step 3: Create Your Account",
+    "subtitle": "Set up your secure Care Conneqt account",
+    "existingUser": "Already have an account?",
+    "signIn": "Sign In",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "agreeToTerms": "I agree to the Terms of Service and Privacy Policy",
+    "createAccount": "Create Account",
+    "passwordRequirements": "At least 8 characters with letters and numbers"
+  },
+  "review": {
+    "title": "Step 4: Review Your Order",
+    "subtitle": "Confirm your package details and complete your order",
+    "orderSummary": "Order Summary",
+    "basePlan": "Base Plan",
+    "additionalDevices": "Additional Devices",
+    "extraDashboards": "Extra Dashboards",
+    "subtotal": "Subtotal",
+    "setupFee": "One-time Setup Fee",
+    "total": "Total Monthly",
+    "yourDetails": "Your Details",
+    "paymentMethod": "Payment Method",
+    "invoiceMe": "Invoice Me",
+    "creditCard": "Credit Card",
+    "completeOrder": "Complete Order",
+    "secureCheckout": "Secure Checkout",
+    "moneyBackGuarantee": "30-day money-back guarantee"
+  },
+  "confirmation": {
+    "title": "Welcome to Care Conneqt!",
+    "subtitle": "Your order has been confirmed",
+    "orderNumber": "Order Number",
+    "nextSteps": "What Happens Next",
+    "step1": "You'll receive a confirmation email within minutes",
+    "step2": "Our team will contact you within 24 hours to schedule setup",
+    "step3": "Devices will be delivered within 3-5 business days",
+    "step4": "We'll guide you through setup and activation",
+    "goToDashboard": "Go to Dashboard",
+    "downloadReceipt": "Download Receipt",
+    "contactSupport": "Contact Support"
+  },
+  "orderSummary": {
+    "title": "Order Summary",
+    "basePlan": "Base Plan",
+    "devices": "Devices",
+    "dashboards": "Dashboards",
+    "monthlyTotal": "Monthly Total",
+    "perMonth": "/month"
+  },
+  "buttons": {
+    "continue": "Continue",
+    "back": "Back",
+    "save": "Save Configuration",
+    "share": "Share"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "phoneInvalid": "Please enter a valid phone number",
+    "acceptTerms": "You must accept the terms and conditions"
+  }
+}

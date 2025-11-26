@@ -79,6 +79,7 @@ export const PricingSection = () => {
                         ? 'bg-secondary hover:bg-secondary/90' 
                         : 'bg-primary hover:bg-primary/90'
                     }`}
+                    onClick={() => window.location.href = `/pricing?plan=${plan.id}`}
                   >
                     {t('common:buttons.getStarted')}
                   </Button>
