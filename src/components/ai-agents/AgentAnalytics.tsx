@@ -18,6 +18,7 @@ interface AgentAnalyticsProps {
 }
 
 export const AgentAnalytics = ({ agentId }: AgentAnalyticsProps) => {
+  const { t } = useTranslation('common');
   const [analytics, setAnalytics] = useState<Analytics[]>([]);
   const [loading, setLoading] = useState(true);
 
