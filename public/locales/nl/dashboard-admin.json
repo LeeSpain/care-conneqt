@@ -1,0 +1,148 @@
+{
+  "users": {
+    "title": "Gebruikersbeheer",
+    "subtitle": "Compleet overzicht van alle platformgebruikers in alle rollen",
+    "addUser": "Gebruiker Toevoegen",
+    "export": "Exporteren",
+    "totalUsers": "Totaal Gebruikers",
+    "admins": "Beheerders",
+    "nurses": "Verpleegkundigen",
+    "members": "Leden",
+    "familyCarers": "Familieverzorgers",
+    "searchPlaceholder": "Zoek op naam of e-mail...",
+    "filterByRole": "Filter op rol",
+    "allRoles": "Alle Rollen",
+    "administrators": "Beheerders",
+    "careMembers": "Zorgleden",
+    "facilityAdmins": "Faciliteit Beheerders",
+    "sortBy": "Sorteer op",
+    "nameAZ": "Naam (A-Z)",
+    "role": "Rol",
+    "dateAdded": "Datum Toegevoegd",
+    "noUsers": "Geen gebruikers gevonden die voldoen aan uw criteria",
+    "actions": {
+      "viewProfile": "Profiel Bekijken",
+      "manageRoles": "Rollen Beheren",
+      "sendMessage": "Bericht Verzenden",
+      "resetPassword": "Wachtwoord Resetten",
+      "activate": "Gebruiker Activeren",
+      "deactivate": "Gebruiker Deactiveren",
+      "delete": "Gebruiker Verwijderen"
+    },
+    "deleteDialog": {
+      "title": "Gebruiker Verwijderen",
+      "description": "Weet u zeker dat u <strong>{{name}}</strong> wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt en zal de gebruiker en alle bijbehorende gegevens permanent verwijderen.",
+      "cancel": "Annuleren",
+      "confirm": "Gebruiker Verwijderen"
+    }
+  },
+  "products": {
+    "title": "Producten",
+    "subtitle": "Beheer slimme huis- en gezondheidsmonitoringapparaten",
+    "addProduct": "Product Toevoegen",
+    "searchPlaceholder": "Zoek producten...",
+    "filterByCategory": "Filter op categorie",
+    "allCategories": "Alle Categorieën",
+    "smartHome": "Slim Huis",
+    "healthMonitoring": "Gezondheidsmonitoring",
+    "safetyDevices": "Veiligheidsapparaten",
+    "wearables": "Draagbare Apparaten",
+    "sortBy": "Sorteer op",
+    "nameAZ": "Naam (A-Z)",
+    "priceHighLow": "Prijs (Hoog-Laag)",
+    "priceLowHigh": "Prijs (Laag-Hoog)",
+    "newest": "Nieuwste Eerst",
+    "featured": "Uitgelicht",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "perMonth": "/maand",
+    "noProducts": "Geen producten gevonden",
+    "actions": {
+      "edit": "Product Bewerken",
+      "duplicate": "Dupliceren",
+      "toggleStatus": "Status Wijzigen",
+      "delete": "Product Verwijderen"
+    }
+  },
+  "pricingPlans": {
+    "title": "Prijsplannen",
+    "subtitle": "Beheer abonnementsniveaus en prijzen",
+    "addPlan": "Plan Toevoegen",
+    "searchPlaceholder": "Zoek plannen...",
+    "allPlans": "Alle Plannen",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "perMonth": "/maand",
+    "devices": "{{count}} apparaten",
+    "dashboards": "{{count}} dashboards",
+    "popular": "Populair",
+    "noPlans": "Geen prijsplannen gevonden",
+    "actions": {
+      "edit": "Plan Bewerken",
+      "duplicate": "Dupliceren",
+      "toggleStatus": "Status Wijzigen",
+      "delete": "Plan Verwijderen"
+    }
+  },
+  "facilities": {
+    "title": "Faciliteiten",
+    "subtitle": "Beheer zorgfaciliteiten en verpleeghuizen",
+    "addFacility": "Faciliteit Toevoegen",
+    "searchPlaceholder": "Zoek faciliteiten...",
+    "filterByType": "Filter op type",
+    "allTypes": "Alle Types",
+    "nursingHome": "Verpleeghuis",
+    "assistedLiving": "Begeleid Wonen",
+    "memoryLiving": "Geheugenzorg",
+    "independent": "Zelfstandig Wonen",
+    "filterByStatus": "Filter op status",
+    "allStatuses": "Alle Statussen",
+    "trial": "Proef",
+    "activeSubscription": "Actief",
+    "cancelledSubscription": "Geannuleerd",
+    "expiredSubscription": "Verlopen",
+    "totalFacilities": "Totaal Faciliteiten",
+    "totalResidents": "Totaal Bewoners",
+    "totalStaff": "Totaal Personeel",
+    "avgOccupancy": "Gem. Bezetting",
+    "residents": "{{count}} bewoners",
+    "staff": "{{count}} personeel",
+    "capacity": "{{current}}/{{total}} capaciteit",
+    "noFacilities": "Geen faciliteiten gevonden",
+    "actions": {
+      "viewDetails": "Details Bekijken",
+      "manageStaff": "Personeel Beheren",
+      "viewResidents": "Bewoners Bekijken",
+      "editFacility": "Faciliteit Bewerken",
+      "suspend": "Faciliteit Opschorten"
+    }
+  },
+  "toast": {
+    "success": {
+      "userDeleted": "Gebruiker succesvol verwijderd",
+      "userActivated": "Gebruiker succesvol geactiveerd",
+      "userDeactivated": "Gebruiker succesvol gedeactiveerd",
+      "passwordResetSent": "Wachtwoord reset e-mail succesvol verzonden",
+      "productCreated": "Product succesvol aangemaakt",
+      "productUpdated": "Product succesvol bijgewerkt",
+      "productDeleted": "Product succesvol verwijderd",
+      "planCreated": "Prijsplan succesvol aangemaakt",
+      "planUpdated": "Prijsplan succesvol bijgewerkt",
+      "planDeleted": "Prijsplan succesvol verwijderd",
+      "facilityCreated": "Faciliteit succesvol aangemaakt",
+      "facilityUpdated": "Faciliteit succesvol bijgewerkt",
+      "saved": "Wijzigingen succesvol opgeslagen"
+    },
+    "error": {
+      "cannotDeleteSelf": "U kunt uw eigen account niet verwijderen",
+      "deleteFailed": "Verwijderen van gebruiker mislukt: {{error}}",
+      "updateFailed": "Bijwerken van gebruikersstatus mislukt: {{error}}",
+      "resetFailed": "Verzenden van reset e-mail mislukt: {{error}}",
+      "loadFailed": "Laden van gegevens mislukt: {{error}}",
+      "saveFailed": "Opslaan van wijzigingen mislukt: {{error}}"
+    },
+    "info": {
+      "messagingComingSoon": "Berichtfunctie binnenkort beschikbaar voor {{name}}"
+    }
+  }
+}

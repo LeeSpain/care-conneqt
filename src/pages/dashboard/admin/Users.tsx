@@ -13,6 +13,7 @@ import { Search, MoreVertical, UserPlus, Download, Users as UsersIcon, Shield, S
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { AddUserDialog } from "@/components/admin/AddUserDialog";
 import { RoleManagementDialog } from "@/components/admin/RoleManagementDialog";
@@ -36,6 +37,7 @@ interface UserWithRole {
 }
 
 export default function Users() {
+  const { t } = useTranslation('dashboard-admin');
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
   const queryClient = useQueryClient();
@@ -179,12 +181,12 @@ export default function Users() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-all-users"] });
-      toast.success("User deleted successfully");
+      toast.success(t('toast.success.userDeleted'));
       setDeleteDialogOpen(false);
       setUserToDelete(null);
     },
     onError: (error: any) => {
-      toast.error("Failed to delete user: " + error.message);
+      toast.error(t('toast.error.deleteFailed', { error: error.message }));
     },
   });
 
@@ -200,11 +202,11 @@ export default function Users() {
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["admin-all-users"] });
-      const action = variables.newStatus === "active" ? "activated" : "deactivated";
-      toast.success(`User ${action} successfully`);
+      const key = variables.newStatus === "active" ? 'toast.success.userActivated' : 'toast.success.userDeactivated';
+      toast.success(t(key));
     },
     onError: (error: any) => {
-      toast.error("Failed to update user status: " + error.message);
+      toast.error(t('toast.error.updateFailed', { error: error.message }));
     },
   });
 
@@ -213,8 +215,7 @@ export default function Users() {
   };
 
   const handleSendMessage = (userId: string, userName: string) => {
-    // Navigate to messages or open message dialog
-    toast.info(`Message feature coming soon for ${userName}`);
+    toast.info(t('toast.info.messagingComingSoon', { name: userName }));
   };
 
   const handleResetPassword = async (userEmail: string) => {
@@ -224,9 +225,9 @@ export default function Users() {
       });
 
       if (error) throw error;
-      toast.success("Password reset email sent successfully");
+      toast.success(t('toast.success.passwordResetSent'));
     } catch (error: any) {
-      toast.error("Failed to send reset email: " + error.message);
+      toast.error(t('toast.error.resetFailed', { error: error.message }));
     }
   };
 
@@ -237,7 +238,7 @@ export default function Users() {
 
   const handleDeleteUser = (user: UserWithRole) => {
     if (user.id === currentUser?.id) {
-      toast.error("You cannot delete your own account");
+      toast.error(t('toast.error.cannotDeleteSelf'));
       return;
     }
     setUserToDelete({ id: user.id, name: `${user.first_name} ${user.last_name}` });
@@ -251,24 +252,24 @@ export default function Users() {
   };
 
   return (
-    <AdminDashboardLayout title="User Management">
+    <AdminDashboardLayout title={t('users.title')}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">All Users</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('users.title')}</h2>
             <p className="text-muted-foreground">
-              Comprehensive view of all platform users across all roles
+              {t('users.subtitle')}
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t('users.export')}
             </Button>
             <Button onClick={() => setAddUserOpen(true)}>
               <UserPlus className="h-4 w-4 mr-2" />
-              Add User
+              {t('users.addUser')}
             </Button>
           </div>
         </div>
@@ -277,7 +278,7 @@ export default function Users() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('users.totalUsers')}</CardTitle>
               <UsersIcon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -286,7 +287,7 @@ export default function Users() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Admins</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('users.admins')}</CardTitle>
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -295,7 +296,7 @@ export default function Users() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Nurses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('users.nurses')}</CardTitle>
               <Stethoscope className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -304,7 +305,7 @@ export default function Users() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Members</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('users.members')}</CardTitle>
               <Heart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -313,7 +314,7 @@ export default function Users() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Family Carers</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('users.familyCarers')}</CardTitle>
               <UsersIcon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -327,7 +328,7 @@ export default function Users() {
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search by name or email..."
+              placeholder={t('users.searchPlaceholder')}
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -336,25 +337,25 @@ export default function Users() {
           <Select value={roleFilter} onValueChange={setRoleFilter}>
             <SelectTrigger className="w-[180px]">
               <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Filter by role" />
+              <SelectValue placeholder={t('users.filterByRole')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Roles</SelectItem>
-              <SelectItem value="admin">Administrators</SelectItem>
-              <SelectItem value="nurse">Nurses</SelectItem>
-              <SelectItem value="member">Care Members</SelectItem>
-              <SelectItem value="family_carer">Family Carers</SelectItem>
-              <SelectItem value="facility_admin">Facility Admins</SelectItem>
+              <SelectItem value="all">{t('users.allRoles')}</SelectItem>
+              <SelectItem value="admin">{t('users.administrators')}</SelectItem>
+              <SelectItem value="nurse">{t('users.nurses')}</SelectItem>
+              <SelectItem value="member">{t('users.careMembers')}</SelectItem>
+              <SelectItem value="family_carer">{t('users.familyCarers')}</SelectItem>
+              <SelectItem value="facility_admin">{t('users.facilityAdmins')}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sort by" />
+              <SelectValue placeholder={t('users.sortBy')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">Name (A-Z)</SelectItem>
-              <SelectItem value="role">Role</SelectItem>
-              <SelectItem value="date">Date Added</SelectItem>
+              <SelectItem value="name">{t('users.nameAZ')}</SelectItem>
+              <SelectItem value="role">{t('users.role')}</SelectItem>
+              <SelectItem value="date">{t('users.dateAdded')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -415,9 +416,9 @@ export default function Users() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuLabel>{t('users.actions.title', { defaultValue: 'Actions' })}</DropdownMenuLabel>
                           <DropdownMenuItem onClick={() => handleViewProfile(user.id)}>
-                            View Profile
+                            {t('users.actions.viewProfile')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => {
@@ -429,21 +430,21 @@ export default function Users() {
                               setRoleDialogOpen(true);
                             }}
                           >
-                            Manage Roles
+                            {t('users.actions.manageRoles')}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem onClick={() => handleSendMessage(user.id, `${user.first_name} ${user.last_name}`)}>
-                            Send Message
+                            {t('users.actions.sendMessage')}
                           </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => handleResetPassword(user.email)}>
-                            Reset Password
+                            {t('users.actions.resetPassword')}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
                             onClick={() => handleToggleStatus(user)}
                             className="text-warning"
                           >
-                            {user.status === "active" ? "Deactivate" : "Activate"} User
+                            {user.status === "active" ? t('users.actions.deactivate') : t('users.actions.activate')}
                           </DropdownMenuItem>
                           <DropdownMenuItem 
                             onClick={() => handleDeleteUser(user)}
@@ -451,7 +452,7 @@ export default function Users() {
                             className="text-destructive"
                           >
                             <Trash2 className="h-4 w-4 mr-2" />
-                            Delete User
+                            {t('users.actions.delete')}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -461,7 +462,7 @@ export default function Users() {
               ) : (
                 <div className="p-12 text-center">
                   <UsersIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No users found matching your criteria</p>
+                  <p className="text-muted-foreground">{t('users.noUsers')}</p>
                 </div>
               )}
             </div>
@@ -485,19 +486,18 @@ export default function Users() {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete User</AlertDialogTitle>
+            <AlertDialogTitle>{t('users.deleteDialog.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete <strong>{userToDelete?.name}</strong>? 
-              This action cannot be undone and will permanently remove the user and all their associated data.
+              {t('users.deleteDialog.description', { name: userToDelete?.name }).replace(/<strong>/g, '').replace(/<\/strong>/g, userToDelete?.name || '')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('users.deleteDialog.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete User
+              {t('users.deleteDialog.confirm')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

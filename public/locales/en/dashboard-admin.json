@@ -1,0 +1,148 @@
+{
+  "users": {
+    "title": "User Management",
+    "subtitle": "Comprehensive view of all platform users across all roles",
+    "addUser": "Add User",
+    "export": "Export",
+    "totalUsers": "Total Users",
+    "admins": "Admins",
+    "nurses": "Nurses",
+    "members": "Members",
+    "familyCarers": "Family Carers",
+    "searchPlaceholder": "Search by name or email...",
+    "filterByRole": "Filter by role",
+    "allRoles": "All Roles",
+    "administrators": "Administrators",
+    "careMembers": "Care Members",
+    "facilityAdmins": "Facility Admins",
+    "sortBy": "Sort by",
+    "nameAZ": "Name (A-Z)",
+    "role": "Role",
+    "dateAdded": "Date Added",
+    "noUsers": "No users found matching your criteria",
+    "actions": {
+      "viewProfile": "View Profile",
+      "manageRoles": "Manage Roles",
+      "sendMessage": "Send Message",
+      "resetPassword": "Reset Password",
+      "activate": "Activate User",
+      "deactivate": "Deactivate User",
+      "delete": "Delete User"
+    },
+    "deleteDialog": {
+      "title": "Delete User",
+      "description": "Are you sure you want to delete <strong>{{name}}</strong>? This action cannot be undone and will permanently remove the user and all their associated data.",
+      "cancel": "Cancel",
+      "confirm": "Delete User"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "subtitle": "Manage smart home and health monitoring devices",
+    "addProduct": "Add Product",
+    "searchPlaceholder": "Search products...",
+    "filterByCategory": "Filter by category",
+    "allCategories": "All Categories",
+    "smartHome": "Smart Home",
+    "healthMonitoring": "Health Monitoring",
+    "safetyDevices": "Safety Devices",
+    "wearables": "Wearables",
+    "sortBy": "Sort by",
+    "nameAZ": "Name (A-Z)",
+    "priceHighLow": "Price (High-Low)",
+    "priceLowHigh": "Price (Low-High)",
+    "newest": "Newest First",
+    "featured": "Featured",
+    "active": "Active",
+    "inactive": "Inactive",
+    "perMonth": "/month",
+    "noProducts": "No products found",
+    "actions": {
+      "edit": "Edit Product",
+      "duplicate": "Duplicate",
+      "toggleStatus": "Toggle Status",
+      "delete": "Delete Product"
+    }
+  },
+  "pricingPlans": {
+    "title": "Pricing Plans",
+    "subtitle": "Manage subscription tiers and pricing",
+    "addPlan": "Add Plan",
+    "searchPlaceholder": "Search plans...",
+    "allPlans": "All Plans",
+    "active": "Active",
+    "inactive": "Inactive",
+    "perMonth": "/month",
+    "devices": "{{count}} devices",
+    "dashboards": "{{count}} dashboards",
+    "popular": "Popular",
+    "noPlans": "No pricing plans found",
+    "actions": {
+      "edit": "Edit Plan",
+      "duplicate": "Duplicate",
+      "toggleStatus": "Toggle Status",
+      "delete": "Delete Plan"
+    }
+  },
+  "facilities": {
+    "title": "Facilities",
+    "subtitle": "Manage care facilities and nursing homes",
+    "addFacility": "Add Facility",
+    "searchPlaceholder": "Search facilities...",
+    "filterByType": "Filter by type",
+    "allTypes": "All Types",
+    "nursingHome": "Nursing Home",
+    "assistedLiving": "Assisted Living",
+    "memoryLiving": "Memory Care",
+    "independent": "Independent Living",
+    "filterByStatus": "Filter by status",
+    "allStatuses": "All Statuses",
+    "trial": "Trial",
+    "activeSubscription": "Active",
+    "cancelledSubscription": "Cancelled",
+    "expiredSubscription": "Expired",
+    "totalFacilities": "Total Facilities",
+    "totalResidents": "Total Residents",
+    "totalStaff": "Total Staff",
+    "avgOccupancy": "Avg. Occupancy",
+    "residents": "{{count}} residents",
+    "staff": "{{count}} staff",
+    "capacity": "{{current}}/{{total}} capacity",
+    "noFacilities": "No facilities found",
+    "actions": {
+      "viewDetails": "View Details",
+      "manageStaff": "Manage Staff",
+      "viewResidents": "View Residents",
+      "editFacility": "Edit Facility",
+      "suspend": "Suspend Facility"
+    }
+  },
+  "toast": {
+    "success": {
+      "userDeleted": "User deleted successfully",
+      "userActivated": "User activated successfully",
+      "userDeactivated": "User deactivated successfully",
+      "passwordResetSent": "Password reset email sent successfully",
+      "productCreated": "Product created successfully",
+      "productUpdated": "Product updated successfully",
+      "productDeleted": "Product deleted successfully",
+      "planCreated": "Pricing plan created successfully",
+      "planUpdated": "Pricing plan updated successfully",
+      "planDeleted": "Pricing plan deleted successfully",
+      "facilityCreated": "Facility created successfully",
+      "facilityUpdated": "Facility updated successfully",
+      "saved": "Changes saved successfully"
+    },
+    "error": {
+      "cannotDeleteSelf": "You cannot delete your own account",
+      "deleteFailed": "Failed to delete user: {{error}}",
+      "updateFailed": "Failed to update user status: {{error}}",
+      "resetFailed": "Failed to send reset email: {{error}}",
+      "loadFailed": "Failed to load data: {{error}}",
+      "saveFailed": "Failed to save changes: {{error}}"
+    },
+    "info": {
+      "messagingComingSoon": "Message feature coming soon for {{name}}"
+    }
+  }
+}
