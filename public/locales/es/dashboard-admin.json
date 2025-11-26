@@ -1,0 +1,148 @@
+{
+  "users": {
+    "title": "Gestión de Usuarios",
+    "subtitle": "Vista completa de todos los usuarios de la plataforma en todos los roles",
+    "addUser": "Agregar Usuario",
+    "export": "Exportar",
+    "totalUsers": "Usuarios Totales",
+    "admins": "Administradores",
+    "nurses": "Enfermeros",
+    "members": "Miembros",
+    "familyCarers": "Cuidadores Familiares",
+    "searchPlaceholder": "Buscar por nombre o correo...",
+    "filterByRole": "Filtrar por rol",
+    "allRoles": "Todos los Roles",
+    "administrators": "Administradores",
+    "careMembers": "Miembros de Cuidado",
+    "facilityAdmins": "Administradores de Instalaciones",
+    "sortBy": "Ordenar por",
+    "nameAZ": "Nombre (A-Z)",
+    "role": "Rol",
+    "dateAdded": "Fecha de Agregado",
+    "noUsers": "No se encontraron usuarios que coincidan con sus criterios",
+    "actions": {
+      "viewProfile": "Ver Perfil",
+      "manageRoles": "Gestionar Roles",
+      "sendMessage": "Enviar Mensaje",
+      "resetPassword": "Restablecer Contraseña",
+      "activate": "Activar Usuario",
+      "deactivate": "Desactivar Usuario",
+      "delete": "Eliminar Usuario"
+    },
+    "deleteDialog": {
+      "title": "Eliminar Usuario",
+      "description": "¿Está seguro de que desea eliminar a <strong>{{name}}</strong>? Esta acción no se puede deshacer y eliminará permanentemente al usuario y todos sus datos asociados.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar Usuario"
+    }
+  },
+  "products": {
+    "title": "Productos",
+    "subtitle": "Gestionar dispositivos de hogar inteligente y monitoreo de salud",
+    "addProduct": "Agregar Producto",
+    "searchPlaceholder": "Buscar productos...",
+    "filterByCategory": "Filtrar por categoría",
+    "allCategories": "Todas las Categorías",
+    "smartHome": "Hogar Inteligente",
+    "healthMonitoring": "Monitoreo de Salud",
+    "safetyDevices": "Dispositivos de Seguridad",
+    "wearables": "Dispositivos Portátiles",
+    "sortBy": "Ordenar por",
+    "nameAZ": "Nombre (A-Z)",
+    "priceHighLow": "Precio (Alto-Bajo)",
+    "priceLowHigh": "Precio (Bajo-Alto)",
+    "newest": "Más Reciente",
+    "featured": "Destacado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "perMonth": "/mes",
+    "noProducts": "No se encontraron productos",
+    "actions": {
+      "edit": "Editar Producto",
+      "duplicate": "Duplicar",
+      "toggleStatus": "Cambiar Estado",
+      "delete": "Eliminar Producto"
+    }
+  },
+  "pricingPlans": {
+    "title": "Planes de Precios",
+    "subtitle": "Gestionar niveles de suscripción y precios",
+    "addPlan": "Agregar Plan",
+    "searchPlaceholder": "Buscar planes...",
+    "allPlans": "Todos los Planes",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "perMonth": "/mes",
+    "devices": "{{count}} dispositivos",
+    "dashboards": "{{count}} paneles",
+    "popular": "Popular",
+    "noPlans": "No se encontraron planes de precios",
+    "actions": {
+      "edit": "Editar Plan",
+      "duplicate": "Duplicar",
+      "toggleStatus": "Cambiar Estado",
+      "delete": "Eliminar Plan"
+    }
+  },
+  "facilities": {
+    "title": "Instalaciones",
+    "subtitle": "Gestionar instalaciones de cuidado y hogares de ancianos",
+    "addFacility": "Agregar Instalación",
+    "searchPlaceholder": "Buscar instalaciones...",
+    "filterByType": "Filtrar por tipo",
+    "allTypes": "Todos los Tipos",
+    "nursingHome": "Hogar de Ancianos",
+    "assistedLiving": "Vida Asistida",
+    "memoryLiving": "Cuidado de Memoria",
+    "independent": "Vida Independiente",
+    "filterByStatus": "Filtrar por estado",
+    "allStatuses": "Todos los Estados",
+    "trial": "Prueba",
+    "activeSubscription": "Activo",
+    "cancelledSubscription": "Cancelado",
+    "expiredSubscription": "Expirado",
+    "totalFacilities": "Instalaciones Totales",
+    "totalResidents": "Residentes Totales",
+    "totalStaff": "Personal Total",
+    "avgOccupancy": "Ocupación Promedio",
+    "residents": "{{count}} residentes",
+    "staff": "{{count}} personal",
+    "capacity": "{{current}}/{{total}} capacidad",
+    "noFacilities": "No se encontraron instalaciones",
+    "actions": {
+      "viewDetails": "Ver Detalles",
+      "manageStaff": "Gestionar Personal",
+      "viewResidents": "Ver Residentes",
+      "editFacility": "Editar Instalación",
+      "suspend": "Suspender Instalación"
+    }
+  },
+  "toast": {
+    "success": {
+      "userDeleted": "Usuario eliminado exitosamente",
+      "userActivated": "Usuario activado exitosamente",
+      "userDeactivated": "Usuario desactivado exitosamente",
+      "passwordResetSent": "Correo de restablecimiento de contraseña enviado exitosamente",
+      "productCreated": "Producto creado exitosamente",
+      "productUpdated": "Producto actualizado exitosamente",
+      "productDeleted": "Producto eliminado exitosamente",
+      "planCreated": "Plan de precios creado exitosamente",
+      "planUpdated": "Plan de precios actualizado exitosamente",
+      "planDeleted": "Plan de precios eliminado exitosamente",
+      "facilityCreated": "Instalación creada exitosamente",
+      "facilityUpdated": "Instalación actualizada exitosamente",
+      "saved": "Cambios guardados exitosamente"
+    },
+    "error": {
+      "cannotDeleteSelf": "No puedes eliminar tu propia cuenta",
+      "deleteFailed": "Error al eliminar usuario: {{error}}",
+      "updateFailed": "Error al actualizar estado del usuario: {{error}}",
+      "resetFailed": "Error al enviar correo de restablecimiento: {{error}}",
+      "loadFailed": "Error al cargar datos: {{error}}",
+      "saveFailed": "Error al guardar cambios: {{error}}"
+    },
+    "info": {
+      "messagingComingSoon": "Función de mensajería próximamente para {{name}}"
+    }
+  }
+}
