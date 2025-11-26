@@ -394,13 +394,94 @@
       }
     ]
   },
-  "contact": {
-    "title": "Get in Touch",
-    "subtitle": "Let's discuss your needs",
-    "name": "Name",
-    "email": "Email",
-    "company": "Company",
-    "message": "Message",
-    "submit": "Send Message"
+  "registration": {
+    "title": "Register Your Organization",
+    "subtitle": "Complete the form below and our team will contact you within 24 hours to discuss your requirements",
+    "success": "Registration submitted successfully! We'll contact you within 24 hours.",
+    "error": "Failed to submit registration. Please try again.",
+    "submitting": "Submitting...",
+    "submit": "Submit Registration",
+    "privacyNote": "By submitting this form, you agree to our privacy policy. We'll use your information to contact you about our services.",
+    "sections": {
+      "organization": "Organization Details",
+      "organizationDesc": "Tell us about your organization",
+      "contact": "Contact Person",
+      "contactDesc": "Who should we reach out to?",
+      "service": "Service Requirements",
+      "serviceDesc": "What are you looking for?",
+      "contract": "Contract Preferences",
+      "contractDesc": "Your procurement and budget considerations",
+      "compliance": "Compliance & Integration",
+      "complianceDesc": "Technical and regulatory requirements"
+    },
+    "fields": {
+      "organizationName": "Organization Name",
+      "organizationType": "Organization Type",
+      "registrationNumber": "Registration/Company Number",
+      "address": "Street Address",
+      "city": "City",
+      "postalCode": "Postal Code",
+      "website": "Website",
+      "contactName": "Contact Name",
+      "jobTitle": "Job Title",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "preferredContactMethod": "Preferred Contact Method",
+      "bestTimeToContact": "Best Time to Contact",
+      "residentCount": "Number of Residents",
+      "employeeCount": "Number of Employees",
+      "serviceInterests": "Service Interests",
+      "currentSystems": "Current Systems in Use",
+      "implementationTimeline": "Implementation Timeline",
+      "agreementLength": "Preferred Agreement Length",
+      "budgetRange": "Budget Range",
+      "procurementProcess": "Procurement Process Details",
+      "gdprRequirements": "GDPR Requirements",
+      "ehrSystems": "EHR/Care Systems",
+      "securityRequirements": "Security Requirements",
+      "additionalNotes": "Additional Notes"
+    },
+    "organizationTypes": {
+      "careHome": "Care Home/Facility",
+      "municipality": "Municipality/Social Care",
+      "insurance": "Insurance Company",
+      "corporate": "Corporate/Employer",
+      "careGroup": "Care Group/Multi-site"
+    },
+    "contactMethods": {
+      "email": "Email",
+      "phone": "Phone",
+      "either": "Either"
+    },
+    "serviceInterests": {
+      "monitoring": "24/7 Health Monitoring",
+      "ai_guardian": "AI Guardian Chat",
+      "nurse_support": "Professional Nurse Support",
+      "device_management": "Device Management",
+      "family_portal": "Family Portal",
+      "analytics": "Analytics & Reporting"
+    },
+    "timelines": {
+      "immediate": "Immediate (< 1 month)",
+      "oneToThree": "1-3 months",
+      "threeToSix": "3-6 months",
+      "sixToTwelve": "6-12 months"
+    },
+    "agreementLengths": {
+      "pilot": "Pilot (3-6 months)",
+      "twelve": "12 months",
+      "twentyFour": "24 months",
+      "thirtySix": "36+ months"
+    },
+    "placeholders": {
+      "bestTime": "e.g., Weekday mornings",
+      "currentSystems": "e.g., Person Centred Software, Care Vision",
+      "budgetRange": "e.g., €5,000-10,000/month",
+      "procurement": "Describe your procurement timeline and requirements",
+      "gdpr": "Any specific GDPR or data protection requirements",
+      "ehr": "e.g., SystemOne, EMIS, custom EHR",
+      "security": "Any specific security certifications or requirements",
+      "notes": "Anything else we should know about your requirements"
+    }
   }
 }
