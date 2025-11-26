@@ -44,7 +44,7 @@ const Guide = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button size="lg" asChild className="text-lg px-8">
-                  <Link to="/signup">
+                  <Link to="/pricing">
                     {t('buttons.getStarted')}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -686,7 +686,7 @@ const Guide = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                     <Button size="lg" asChild className="text-lg px-8 shadow-lg hover:shadow-xl transition-shadow">
-                      <Link to="/signup">
+                      <Link to="/pricing">
                         {t('common:buttons.getStarted')}
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>

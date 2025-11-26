@@ -288,7 +288,7 @@ export default function OurNurses() {
                   <a href="/personal-care">{t('common:buttons.learnMore')}</a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="/auth/signup">{t('common:buttons.getStarted')}</a>
+                  <a href="/pricing">{t('common:buttons.getStarted')}</a>
                 </Button>
               </div>
             </CardContent>

@@ -41,7 +41,7 @@ export const Navigation = () => {
               <a href="/auth/login">{t('nav.signIn')}</a>
             </Button>
             <Button size="sm" className="bg-secondary hover:bg-secondary/90" asChild>
-              <a href="/auth/signup">{t('nav.getStarted')}</a>
+              <a href="/pricing">{t('nav.getStarted')}</a>
             </Button>
           </div>
 
@@ -78,7 +78,7 @@ export const Navigation = () => {
                 <a href="/auth/login">{t('nav.signIn')}</a>
               </Button>
               <Button size="sm" className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
-                <a href="/auth/signup">{t('nav.getStarted')}</a>
+                <a href="/pricing">{t('nav.getStarted')}</a>
               </Button>
             </div>
           </div>

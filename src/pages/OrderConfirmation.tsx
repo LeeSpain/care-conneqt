@@ -237,9 +237,9 @@ export default function OrderConfirmation() {
             <Button 
               className="flex-1" 
               size="lg"
-              onClick={() => navigate("/auth/signup")}
+              onClick={() => navigate("/dashboard")}
             >
-              Create Your Account
+              Go to Dashboard
             </Button>
             <Button 
               variant="outline" 

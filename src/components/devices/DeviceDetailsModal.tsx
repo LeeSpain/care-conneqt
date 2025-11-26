@@ -108,7 +108,7 @@ export function DeviceDetailsModal({
           {/* Actions */}
           <div className="flex gap-3 pt-4">
             <Button className="flex-1 bg-secondary hover:bg-secondary/90" asChild>
-              <Link to="/auth/signup">Add to Package</Link>
+              <Link to="/pricing">Add to Package</Link>
             </Button>
             <Button variant="outline" className="flex-1" asChild>
               <Link to="/personal-care">View Plans</Link>
