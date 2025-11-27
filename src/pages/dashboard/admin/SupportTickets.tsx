@@ -6,8 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Ticket, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function SupportTickets() {
+  const { t } = useTranslation('dashboard-admin');
   const { data: tickets, isLoading } = useQuery({
     queryKey: ["support-tickets"],
     queryFn: async () => {
@@ -69,7 +71,7 @@ export default function SupportTickets() {
                   <Clock className="h-4 w-4" />
                   {new Date(ticket.created_at).toLocaleDateString()}
                 </div>
-                <Button variant="outline" size="sm">View Details</Button>
+                <Button variant="outline" size="sm">{t('supportTickets.viewDetails')}</Button>
               </div>
             </CardContent>
           </Card>
@@ -77,7 +79,7 @@ export default function SupportTickets() {
       ) : (
         <Card>
           <CardContent className="p-12 text-center">
-            <p className="text-muted-foreground">No tickets in this category</p>
+            <p className="text-muted-foreground">{t('supportTickets.noTickets')}</p>
           </CardContent>
         </Card>
       )}
@@ -85,51 +87,51 @@ export default function SupportTickets() {
   );
 
   return (
-    <AdminDashboardLayout title="Support Tickets">
+    <AdminDashboardLayout title={t('supportTickets.title')}>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Support Tickets</h2>
+          <h2 className="text-3xl font-bold tracking-tight">{t('supportTickets.title')}</h2>
           <p className="text-muted-foreground">
-            Manage user support requests and inquiries
+            {t('supportTickets.subtitle')}
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Open Tickets</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('supportTickets.openTickets')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{openTickets.length}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Awaiting response
+                {t('supportTickets.awaitingResponse')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('supportTickets.inProgress')}</CardTitle>
               <Clock className="h-4 w-4 text-warning" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{inProgressTickets.length}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Being addressed
+                {t('supportTickets.beingAddressed')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Resolved</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('supportTickets.resolved')}</CardTitle>
               <CheckCircle2 className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{resolvedTickets.length}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                All time
+                {t('supportTickets.allTime')}
               </p>
             </CardContent>
           </Card>
@@ -138,13 +140,13 @@ export default function SupportTickets() {
         <Tabs defaultValue="open" className="space-y-4">
           <TabsList>
             <TabsTrigger value="open">
-              Open ({openTickets.length})
+              {t('supportTickets.open')} ({openTickets.length})
             </TabsTrigger>
             <TabsTrigger value="in-progress">
-              In Progress ({inProgressTickets.length})
+              {t('supportTickets.inProgress')} ({inProgressTickets.length})
             </TabsTrigger>
             <TabsTrigger value="resolved">
-              Resolved ({resolvedTickets.length})
+              {t('supportTickets.resolved')} ({resolvedTickets.length})
             </TabsTrigger>
           </TabsList>
 
