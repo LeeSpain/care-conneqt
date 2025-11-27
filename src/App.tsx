@@ -95,6 +95,9 @@ const Integrations = lazy(() => import("./pages/dashboard/admin/Integrations"));
 const Sales = lazy(() => import("./pages/dashboard/admin/Sales"));
 const InstitutionalRegistrations = lazy(() => import("./pages/dashboard/admin/InstitutionalRegistrations"));
 const ClaraAnalytics = lazy(() => import("./pages/dashboard/admin/ClaraAnalytics"));
+const LeadsDashboard = lazy(() => import("./pages/dashboard/admin/LeadsDashboard"));
+const LeadsList = lazy(() => import("./pages/dashboard/admin/LeadsList"));
+const LeadDetail = lazy(() => import("./pages/dashboard/admin/LeadDetail"));
 
 // Shared pages
 const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
@@ -623,6 +626,27 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Sales />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/leads" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <LeadsDashboard />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/leads/list" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <LeadsList />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/leads/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <LeadDetail />
                 </Suspense>
               </ProtectedRoute>
             } />

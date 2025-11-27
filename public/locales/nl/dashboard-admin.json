@@ -343,5 +343,66 @@
       "edgeFunctions": "Edge Functies",
       "edgeFunctionsDesc": "Serverloze functies"
     }
+  },
+  "leads": {
+    "title": "Leadbeheer",
+    "dashboard": "Leads Dashboard",
+    "allLeads": "Alle Leads",
+    "addLead": "Lead Toevoegen",
+    "totalLeads": "Totaal Leads",
+    "newToday": "Nieuw Vandaag",
+    "qualified": "Gekwalificeerd",
+    "won": "Gewonnen",
+    "lost": "Verloren",
+    "conversionRate": "Conversieratio",
+    "status": {
+      "new": "Nieuw",
+      "contacted": "Gecontacteerd",
+      "qualified": "Gekwalificeerd",
+      "proposal": "Voorstel",
+      "won": "Gewonnen",
+      "lost": "Verloren"
+    },
+    "types": {
+      "personal": "Persoonlijk",
+      "facility": "Faciliteit",
+      "care_company": "Zorgbedrijf",
+      "insurance": "Verzekering",
+      "other": "Overig"
+    },
+    "activities": {
+      "call": "Telefoongesprek",
+      "email": "E-mail",
+      "meeting": "Vergadering",
+      "note": "Notitie",
+      "status_change": "Statuswijziging",
+      "task_completed": "Taak Voltooid"
+    },
+    "fields": {
+      "name": "Naam",
+      "email": "E-mail",
+      "phone": "Telefoon",
+      "organization": "Organisatie",
+      "type": "Type",
+      "status": "Status",
+      "source": "Bron",
+      "created": "Aangemaakt",
+      "estimatedValue": "Geschatte Waarde",
+      "message": "Bericht",
+      "notes": "Notities"
+    },
+    "actions": {
+      "viewDetails": "Details Bekijken",
+      "addActivity": "Activiteit Toevoegen",
+      "changeStatus": "Status Wijzigen",
+      "delete": "Verwijderen"
+    },
+    "messages": {
+      "noLeads": "Geen leads gevonden",
+      "leadCreated": "Lead succesvol aangemaakt",
+      "leadUpdated": "Lead succesvol bijgewerkt",
+      "leadDeleted": "Lead succesvol verwijderd",
+      "activityAdded": "Activiteit succesvol toegevoegd"
+    }
   }
 }

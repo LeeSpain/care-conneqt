@@ -1,4 +1,4 @@
-import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Briefcase, Building, Shield } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Briefcase, Building, Shield, TrendingUp } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -76,12 +76,14 @@ export function AdminSidebar() {
       ]
     },
     { 
-      title: "Sales & Revenue", 
-      icon: MessageSquare,
+      title: "Sales & Leads", 
+      icon: TrendingUp,
       items: [
-        { title: "Personal Orders", url: "/dashboard/admin/sales" },
-        { title: "Institutional Registrations", url: "/dashboard/admin/institutional-registrations" },
-        { title: "Clara Analytics", url: "/dashboard/admin/clara-analytics" },
+        { title: "Leads Dashboard", url: "/dashboard/admin/leads" },
+        { title: "All Leads", url: "/dashboard/admin/leads/list" },
+        { title: "Clara Sessions", url: "/dashboard/admin/clara-analytics" },
+        { title: "Orders", url: "/dashboard/admin/sales" },
+        { title: "Registrations", url: "/dashboard/admin/institutional-registrations" },
       ]
     },
     { 
