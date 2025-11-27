@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ import { toast } from "sonner";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 
 export default function InstitutionalRegistrations() {
+  const { t } = useTranslation('dashboard-admin');
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedRegistration, setSelectedRegistration] = useState<any>(null);
@@ -89,12 +91,12 @@ export default function InstitutionalRegistrations() {
   };
 
   return (
-    <AdminDashboardLayout title="Institutional Registrations">
+    <AdminDashboardLayout title={t('institutionalRegistrations.title')}>
       <div className="container mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Institutional Registrations</h1>
+          <h1 className="text-3xl font-bold">{t('institutionalRegistrations.title')}</h1>
           <p className="text-muted-foreground mt-2">
-            Manage enterprise inquiries from care homes, municipalities, and insurance companies
+            {t('institutionalRegistrations.subtitle')}
           </p>
         </div>
 
@@ -102,7 +104,7 @@ export default function InstitutionalRegistrations() {
         <div className="grid gap-6 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Total</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('institutionalRegistrations.total')}</CardTitle>
               <Building2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -112,7 +114,7 @@ export default function InstitutionalRegistrations() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">New</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('institutionalRegistrations.new')}</CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -122,7 +124,7 @@ export default function InstitutionalRegistrations() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Contacted</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('institutionalRegistrations.contacted')}</CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -132,7 +134,7 @@ export default function InstitutionalRegistrations() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Qualified</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('institutionalRegistrations.qualified')}</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -148,7 +150,7 @@ export default function InstitutionalRegistrations() {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search by organization or contact..."
+                  placeholder={t('institutionalRegistrations.searchPlaceholder')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -156,17 +158,17 @@ export default function InstitutionalRegistrations() {
               </div>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder="Filter by status" />
+                  <SelectValue placeholder={t('institutionalRegistrations.filterByStatus')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="contacted">Contacted</SelectItem>
-                  <SelectItem value="qualified">Qualified</SelectItem>
-                  <SelectItem value="proposal_sent">Proposal Sent</SelectItem>
-                  <SelectItem value="negotiating">Negotiating</SelectItem>
-                  <SelectItem value="closed_won">Closed Won</SelectItem>
-                  <SelectItem value="closed_lost">Closed Lost</SelectItem>
+                  <SelectItem value="all">{t('institutionalRegistrations.allStatus')}</SelectItem>
+                  <SelectItem value="new">{t('institutionalRegistrations.new')}</SelectItem>
+                  <SelectItem value="contacted">{t('institutionalRegistrations.contacted')}</SelectItem>
+                  <SelectItem value="qualified">{t('institutionalRegistrations.qualified')}</SelectItem>
+                  <SelectItem value="proposal_sent">{t('institutionalRegistrations.proposalSent')}</SelectItem>
+                  <SelectItem value="negotiating">{t('institutionalRegistrations.negotiating')}</SelectItem>
+                  <SelectItem value="closed_won">{t('institutionalRegistrations.closedWon')}</SelectItem>
+                  <SelectItem value="closed_lost">{t('institutionalRegistrations.closedLost')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -176,7 +178,7 @@ export default function InstitutionalRegistrations() {
         {/* Registrations Table */}
         <Card>
           <CardHeader>
-            <CardTitle>Registrations</CardTitle>
+            <CardTitle>{t('institutionalRegistrations.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -185,13 +187,13 @@ export default function InstitutionalRegistrations() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Organization</TableHead>
-                    <TableHead>Contact</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Residents</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead>{t('institutionalRegistrations.organization')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.contact')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.type')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.residents')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.status')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.date')}</TableHead>
+                    <TableHead>{t('institutionalRegistrations.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -231,7 +233,7 @@ export default function InstitutionalRegistrations() {
             ) : (
               <div className="text-center py-12">
                 <Building2 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <p className="text-muted-foreground">No registrations found</p>
+                <p className="text-muted-foreground">{t('institutionalRegistrations.noRegistrations')}</p>
               </div>
             )}
           </CardContent>
@@ -241,14 +243,14 @@ export default function InstitutionalRegistrations() {
         <Dialog open={!!selectedRegistration} onOpenChange={() => setSelectedRegistration(null)}>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Registration Details</DialogTitle>
+              <DialogTitle>{t('institutionalRegistrations.registrationDetails')}</DialogTitle>
             </DialogHeader>
             
             {selectedRegistration && (
               <div className="space-y-6">
                 {/* Status Update */}
                 <div>
-                  <Label>Status</Label>
+                  <Label>{t('institutionalRegistrations.status')}</Label>
                   <Select 
                     value={selectedRegistration.status} 
                     onValueChange={(value) => updateStatus(selectedRegistration.id, value)}
@@ -270,14 +272,14 @@ export default function InstitutionalRegistrations() {
 
                 {/* Organization Details */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Organization Details</h3>
+                  <h3 className="font-semibold text-lg">{t('institutionalRegistrations.organizationDetails')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-muted-foreground">Name</Label>
+                      <Label className="text-muted-foreground">{t('leads.fields.name')}</Label>
                       <p className="font-medium">{selectedRegistration.organization_name}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Type</Label>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.type')}</Label>
                       <p className="font-medium">{selectedRegistration.organization_type}</p>
                     </div>
                     <div>
@@ -307,10 +309,10 @@ export default function InstitutionalRegistrations() {
 
                 {/* Contact Details */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Contact Person</h3>
+                  <h3 className="font-semibold text-lg">{t('institutionalRegistrations.contactPerson')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-muted-foreground">Name</Label>
+                      <Label className="text-muted-foreground">{t('leads.fields.name')}</Label>
                       <p className="font-medium">{selectedRegistration.contact_name}</p>
                     </div>
                     <div>
@@ -318,11 +320,11 @@ export default function InstitutionalRegistrations() {
                       <p className="font-medium">{selectedRegistration.contact_job_title || 'N/A'}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Email</Label>
+                      <Label className="text-muted-foreground">{t('leads.fields.email')}</Label>
                       <p className="font-medium">{selectedRegistration.contact_email}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Phone</Label>
+                      <Label className="text-muted-foreground">{t('leads.fields.phone')}</Label>
                       <p className="font-medium">{selectedRegistration.contact_phone || 'N/A'}</p>
                     </div>
                   </div>
@@ -330,7 +332,7 @@ export default function InstitutionalRegistrations() {
 
                 {/* Service Requirements */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Service Requirements</h3>
+                  <h3 className="font-semibold text-lg">{t('institutionalRegistrations.serviceRequirements')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label className="text-muted-foreground">Residents/Employees</Label>
