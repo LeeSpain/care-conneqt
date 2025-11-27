@@ -10,8 +10,10 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { useState } from "react";
 import { AddLeadDialog } from "@/components/admin/AddLeadDialog";
+import { useTranslation } from "react-i18next";
 
 export default function LeadsDashboard() {
+  const { t } = useTranslation('dashboard-admin');
   const navigate = useNavigate();
   const { toast } = useToast();
   const { data: stats, isLoading: statsLoading, refetch: refetchStats } = useLeadStats();
@@ -20,7 +22,7 @@ export default function LeadsDashboard() {
 
   const handleRefresh = () => {
     refetchStats();
-    toast({ title: "Refreshed", description: "Lead statistics updated" });
+    toast({ title: t('toast.success.saved'), description: t('leads.messages.leadUpdated') });
   };
 
   const getStatusColor = (status: string) => {
@@ -36,24 +38,17 @@ export default function LeadsDashboard() {
   };
 
   const getTypeLabel = (type: string) => {
-    const labels: Record<string, string> = {
-      personal: "Personal",
-      facility: "Facility",
-      care_company: "Care Company",
-      insurance: "Insurance",
-      other: "Other",
-    };
-    return labels[type] || type;
+    return t(`leads.types.${type}`, { defaultValue: type });
   };
 
   return (
-    <AdminDashboardLayout title="Leads Dashboard">
+    <AdminDashboardLayout title={t('leads.dashboard')}>
       <div className="space-y-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Lead Management</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('leads.title')}</h2>
             <p className="text-muted-foreground">
-              Track and manage sales leads across all channels
+              {t('leads.dashboard')}
             </p>
           </div>
           <div className="flex gap-2">
@@ -62,7 +57,7 @@ export default function LeadsDashboard() {
             </Button>
             <Button onClick={() => setShowAddDialog(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              Add Lead
+              {t('leads.addLead')}
             </Button>
           </div>
         </div>
@@ -71,7 +66,7 @@ export default function LeadsDashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('leads.totalLeads')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -80,7 +75,7 @@ export default function LeadsDashboard() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.total_leads || 0}</div>
-                  <p className="text-xs text-muted-foreground">All time</p>
+                  <p className="text-xs text-muted-foreground">{t('supportTickets.allTime')}</p>
                 </>
               )}
             </CardContent>
@@ -88,7 +83,7 @@ export default function LeadsDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">New Today</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('leads.newToday')}</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -105,7 +100,7 @@ export default function LeadsDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Won</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('leads.won')}</CardTitle>
               <CheckCircle className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
@@ -114,7 +109,7 @@ export default function LeadsDashboard() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.by_status?.won || 0}</div>
-                  <p className="text-xs text-muted-foreground">Converted</p>
+                  <p className="text-xs text-muted-foreground">{t('sales.completed')}</p>
                 </>
               )}
             </CardContent>
@@ -122,7 +117,7 @@ export default function LeadsDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('leads.conversionRate')}</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -142,7 +137,7 @@ export default function LeadsDashboard() {
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Leads by Status</CardTitle>
+              <CardTitle>{t('leads.fields.status')}</CardTitle>
               <CardDescription>Current pipeline distribution</CardDescription>
             </CardHeader>
             <CardContent>
@@ -158,7 +153,7 @@ export default function LeadsDashboard() {
                     <div key={status} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(status)}`} />
-                        <span className="capitalize">{status}</span>
+                        <span className="capitalize">{t(`leads.status.${status}`, { defaultValue: status })}</span>
                       </div>
                       <Badge variant="secondary">{count}</Badge>
                     </div>
@@ -170,7 +165,7 @@ export default function LeadsDashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Leads by Type</CardTitle>
+              <CardTitle>{t('leads.fields.type')}</CardTitle>
               <CardDescription>Customer segmentation</CardDescription>
             </CardHeader>
             <CardContent>
@@ -202,7 +197,7 @@ export default function LeadsDashboard() {
               <CardDescription>Latest incoming prospects</CardDescription>
             </div>
             <Button variant="outline" onClick={() => navigate('/dashboard/admin/leads/list')}>
-              View All
+              {t('leads.allLeads')}
             </Button>
           </CardHeader>
           <CardContent>
@@ -225,7 +220,7 @@ export default function LeadsDashboard() {
                           {getTypeLabel(lead.lead_type || 'other')}
                         </Badge>
                         <Badge className={`text-xs ${getStatusColor(lead.status || 'new')}`}>
-                          {lead.status}
+                          {t(`leads.status.${lead.status}`, { defaultValue: lead.status })}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
@@ -235,7 +230,7 @@ export default function LeadsDashboard() {
                       </div>
                     </div>
                     <Button variant="ghost" size="sm">
-                      View
+                      {t('supportTickets.viewDetails')}
                     </Button>
                   </div>
                 ))}
@@ -243,9 +238,9 @@ export default function LeadsDashboard() {
             ) : (
               <div className="text-center py-8 text-muted-foreground">
                 <Users className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                <p>No leads yet</p>
+                <p>{t('leads.messages.noLeads')}</p>
                 <Button variant="link" onClick={() => setShowAddDialog(true)}>
-                  Add your first lead
+                  {t('leads.addLead')}
                 </Button>
               </div>
             )}

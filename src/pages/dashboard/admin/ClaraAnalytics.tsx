@@ -2,8 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, TrendingUp, DollarSign, Users } from "lucide-react";
+import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
+import { useTranslation } from "react-i18next";
 
 export default function ClaraAnalytics() {
+  const { t } = useTranslation('dashboard-admin');
   const { data: analytics } = useQuery({
     queryKey: ['clara-sales-analytics'],
     queryFn: async () => {
@@ -31,18 +34,19 @@ export default function ClaraAnalytics() {
   });
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Clara Analytics</h1>
-        <p className="text-muted-foreground mt-2">
-          Performance metrics for Clara AI sales agent
-        </p>
-      </div>
+    <AdminDashboardLayout title={t('claraAnalytics.title')}>
+      <div className="container mx-auto p-6 space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">{t('claraAnalytics.title')}</h1>
+          <p className="text-muted-foreground mt-2">
+            {t('claraAnalytics.subtitle')}
+          </p>
+        </div>
 
       <div className="grid gap-6 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Conversations</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('claraAnalytics.totalConversations')}</CardTitle>
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -52,7 +56,7 @@ export default function ClaraAnalytics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Orders Generated</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('claraAnalytics.ordersGenerated')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -62,7 +66,7 @@ export default function ClaraAnalytics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('claraAnalytics.conversionRate')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -72,7 +76,7 @@ export default function ClaraAnalytics() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Avg Order Value</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('claraAnalytics.avgOrderValue')}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -83,14 +87,15 @@ export default function ClaraAnalytics() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Coming Soon</CardTitle>
+          <CardTitle>{t('claraAnalytics.comingSoon')}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Advanced analytics including conversation flow analysis, common objections, best-performing scripts, and revenue attribution.
+            {t('claraAnalytics.comingSoonDesc')}
           </p>
         </CardContent>
       </Card>
     </div>
+    </AdminDashboardLayout>
   );
 }

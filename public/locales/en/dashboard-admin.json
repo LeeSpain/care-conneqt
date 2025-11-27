@@ -342,8 +342,44 @@
       "cloudStorageDesc": "File storage and media",
       "edgeFunctions": "Edge Functions",
       "edgeFunctionsDesc": "Serverless functions"
-      }
     }
+  },
+  "claraAnalytics": {
+    "title": "Clara Analytics",
+    "subtitle": "Performance metrics for Clara AI sales agent",
+    "totalConversations": "Total Conversations",
+    "ordersGenerated": "Orders Generated",
+    "conversionRate": "Conversion Rate",
+    "avgOrderValue": "Avg Order Value",
+    "comingSoon": "Coming Soon",
+    "comingSoonDesc": "Advanced analytics including conversation flow analysis, common objections, best-performing scripts, and revenue attribution."
+  },
+  "institutionalRegistrations": {
+    "title": "Institutional Registrations",
+    "subtitle": "Manage enterprise inquiries from care homes, municipalities, and insurance companies",
+    "total": "Total",
+    "new": "New",
+    "contacted": "Contacted",
+    "qualified": "Qualified",
+    "searchPlaceholder": "Search by organization or contact...",
+    "filterByStatus": "Filter by status",
+    "allStatus": "All Status",
+    "proposalSent": "Proposal Sent",
+    "negotiating": "Negotiating",
+    "closedWon": "Closed Won",
+    "closedLost": "Closed Lost",
+    "organization": "Organization",
+    "contact": "Contact",
+    "type": "Type",
+    "residents": "Residents",
+    "status": "Status",
+    "date": "Date",
+    "actions": "Actions",
+    "registrationDetails": "Registration Details",
+    "organizationDetails": "Organization Details",
+    "contactPerson": "Contact Person",
+    "serviceRequirements": "Service Requirements",
+    "noRegistrations": "No registrations found"
   },
   "leads": {
     "title": "Lead Management",

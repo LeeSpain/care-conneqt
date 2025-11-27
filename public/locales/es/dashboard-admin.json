@@ -342,8 +342,44 @@
       "cloudStorageDesc": "Almacenamiento de archivos y medios",
       "edgeFunctions": "Funciones Edge",
       "edgeFunctionsDesc": "Funciones sin servidor"
-      }
     }
+  },
+  "claraAnalytics": {
+    "title": "Analítica de Clara",
+    "subtitle": "Métricas de rendimiento del agente de ventas Clara AI",
+    "totalConversations": "Conversaciones Totales",
+    "ordersGenerated": "Pedidos Generados",
+    "conversionRate": "Tasa de Conversión",
+    "avgOrderValue": "Valor Promedio del Pedido",
+    "comingSoon": "Próximamente",
+    "comingSoonDesc": "Análisis avanzados que incluyen análisis de flujo de conversación, objeciones comunes, guiones de mejor rendimiento y atribución de ingresos."
+  },
+  "institutionalRegistrations": {
+    "title": "Registros Institucionales",
+    "subtitle": "Gestionar consultas empresariales de hogares de ancianos, municipios y compañías de seguros",
+    "total": "Total",
+    "new": "Nuevo",
+    "contacted": "Contactado",
+    "qualified": "Calificado",
+    "searchPlaceholder": "Buscar por organización o contacto...",
+    "filterByStatus": "Filtrar por estado",
+    "allStatus": "Todos los Estados",
+    "proposalSent": "Propuesta Enviada",
+    "negotiating": "Negociando",
+    "closedWon": "Cerrado Ganado",
+    "closedLost": "Cerrado Perdido",
+    "organization": "Organización",
+    "contact": "Contacto",
+    "type": "Tipo",
+    "residents": "Residentes",
+    "status": "Estado",
+    "date": "Fecha",
+    "actions": "Acciones",
+    "registrationDetails": "Detalles del Registro",
+    "organizationDetails": "Detalles de la Organización",
+    "contactPerson": "Persona de Contacto",
+    "serviceRequirements": "Requisitos del Servicio",
+    "noRegistrations": "No se encontraron registros"
   },
   "leads": {
     "title": "Gestión de Prospectos",

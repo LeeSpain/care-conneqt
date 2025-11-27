@@ -344,6 +344,43 @@
       "edgeFunctionsDesc": "Serverloze functies"
     }
   },
+  "claraAnalytics": {
+    "title": "Clara Analytics",
+    "subtitle": "Prestatiemetingen voor Clara AI verkoopagent",
+    "totalConversations": "Totaal Gesprekken",
+    "ordersGenerated": "Gegenereerde Bestellingen",
+    "conversionRate": "Conversieratio",
+    "avgOrderValue": "Gem. Bestelwaarde",
+    "comingSoon": "Binnenkort",
+    "comingSoonDesc": "Geavanceerde analyses inclusief gespreksstroomanalyse, veelvoorkomende bezwaren, best presterende scripts en omzetattributie."
+  },
+  "institutionalRegistrations": {
+    "title": "Institutionele Registraties",
+    "subtitle": "Beheer zakelijke aanvragen van verzorgingshuizen, gemeenten en verzekeraars",
+    "total": "Totaal",
+    "new": "Nieuw",
+    "contacted": "Gecontacteerd",
+    "qualified": "Gekwalificeerd",
+    "searchPlaceholder": "Zoek op organisatie of contact...",
+    "filterByStatus": "Filter op status",
+    "allStatus": "Alle Status",
+    "proposalSent": "Voorstel Verzonden",
+    "negotiating": "Onderhandelen",
+    "closedWon": "Gesloten Gewonnen",
+    "closedLost": "Gesloten Verloren",
+    "organization": "Organisatie",
+    "contact": "Contact",
+    "type": "Type",
+    "residents": "Bewoners",
+    "status": "Status",
+    "date": "Datum",
+    "actions": "Acties",
+    "registrationDetails": "Registratiedetails",
+    "organizationDetails": "Organisatiedetails",
+    "contactPerson": "Contactpersoon",
+    "serviceRequirements": "Servicevereisten",
+    "noRegistrations": "Geen registraties gevonden"
+  },
   "leads": {
     "title": "Leadbeheer",
     "dashboard": "Leads Dashboard",

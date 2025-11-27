@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DollarSign, TrendingUp, ShoppingCart, Clock, Eye } from "lucide-react";
+import { DollarSign, TrendingUp, ShoppingCart, Clock, Eye, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -16,6 +17,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Sales() {
   const { t } = useTranslation('dashboard-admin');
+  const navigate = useNavigate();
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   const { data: orders, isLoading, refetch } = useQuery({
@@ -26,7 +28,13 @@ export default function Sales() {
         .select(`
           *,
           pricing_plans(slug),
-          ai_agent_conversations(conversation_data)
+          ai_agent_conversations(conversation_data),
+          lead:lead_id (
+            id,
+            name,
+            email,
+            status
+          )
         `)
         .order('created_at', { ascending: false });
       
@@ -136,6 +144,7 @@ export default function Sales() {
                   <TableHead>{t('sales.plan')}</TableHead>
                   <TableHead>{t('sales.amount')}</TableHead>
                   <TableHead>{t('common:status')}</TableHead>
+                  <TableHead>Linked Lead</TableHead>
                   <TableHead>{t('sales.date')}</TableHead>
                   <TableHead>{t('common:actions')}</TableHead>
                 </TableRow>
@@ -154,6 +163,21 @@ export default function Sales() {
                     </TableCell>
                     <TableCell>€{order.total_monthly}/mo</TableCell>
                     <TableCell>{getStatusBadge(order.payment_status)}</TableCell>
+                    <TableCell>
+                      {order.lead ? (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="gap-2"
+                          onClick={() => navigate(`/dashboard/admin/leads/${order.lead.id}`)}
+                        >
+                          {order.lead.name}
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">—</span>
+                      )}
+                    </TableCell>
                     <TableCell>{format(new Date(order.created_at), 'MMM d, yyyy')}</TableCell>
                     <TableCell>
                       <Button 

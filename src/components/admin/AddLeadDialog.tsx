@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -51,6 +52,7 @@ interface AddLeadDialogProps {
 }
 
 export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const createMutation = useCreateLead();
   const [showOrgFields, setShowOrgFields] = useState(false);
 
@@ -95,7 +97,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add New Lead</DialogTitle>
+          <DialogTitle>{t('leads.addLead')}</DialogTitle>
           <DialogDescription>
             Manually create a new lead record
           </DialogDescription>
@@ -109,7 +111,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name *</FormLabel>
+                    <FormLabel>{t('leads.fields.name')} *</FormLabel>
                     <FormControl>
                       <Input placeholder="John Doe" {...field} />
                     </FormControl>
@@ -123,7 +125,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email *</FormLabel>
+                    <FormLabel>{t('leads.fields.email')} *</FormLabel>
                     <FormControl>
                       <Input type="email" placeholder="john@example.com" {...field} />
                     </FormControl>
@@ -137,7 +139,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone</FormLabel>
+                    <FormLabel>{t('leads.fields.phone')}</FormLabel>
                     <FormControl>
                       <Input placeholder="+31 6 1234 5678" {...field} />
                     </FormControl>
@@ -151,7 +153,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="lead_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lead Type</FormLabel>
+                    <FormLabel>{t('leads.fields.type')}</FormLabel>
                     <Select 
                       onValueChange={(value) => {
                         field.onChange(value);
@@ -165,11 +167,11 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="personal">Personal</SelectItem>
-                        <SelectItem value="facility">Facility</SelectItem>
-                        <SelectItem value="care_company">Care Company</SelectItem>
-                        <SelectItem value="insurance">Insurance</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="personal">{t('leads.types.personal')}</SelectItem>
+                        <SelectItem value="facility">{t('leads.types.facility')}</SelectItem>
+                        <SelectItem value="care_company">{t('leads.types.care_company')}</SelectItem>
+                        <SelectItem value="insurance">{t('leads.types.insurance')}</SelectItem>
+                        <SelectItem value="other">{t('leads.types.other')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -185,7 +187,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                   name="organization_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Organization Name</FormLabel>
+                      <FormLabel>{t('leads.fields.organization')}</FormLabel>
                       <FormControl>
                         <Input placeholder="Company name" {...field} />
                       </FormControl>
@@ -199,7 +201,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                   name="organization_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Organization Type</FormLabel>
+                      <FormLabel>{t('facilities.filterByType')}</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g., Care home, Insurance" {...field} />
                       </FormControl>
@@ -216,7 +218,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="estimated_value"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Estimated Value (€)</FormLabel>
+                    <FormLabel>{t('leads.fields.estimatedValue')} (€)</FormLabel>
                     <FormControl>
                       <Input type="number" step="0.01" placeholder="1000.00" {...field} />
                     </FormControl>
@@ -230,7 +232,7 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
                 name="source_page"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Source</FormLabel>
+                    <FormLabel>{t('leads.fields.source')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -254,38 +256,38 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
               />
             </div>
 
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select status" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="new">New</SelectItem>
-                      <SelectItem value="contacted">Contacted</SelectItem>
-                      <SelectItem value="qualified">Qualified</SelectItem>
-                      <SelectItem value="proposal">Proposal</SelectItem>
-                      <SelectItem value="won">Won</SelectItem>
-                      <SelectItem value="lost">Lost</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('leads.fields.status')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="new">{t('leads.status.new')}</SelectItem>
+                        <SelectItem value="contacted">{t('leads.status.contacted')}</SelectItem>
+                        <SelectItem value="qualified">{t('leads.status.qualified')}</SelectItem>
+                        <SelectItem value="proposal">{t('leads.status.proposal')}</SelectItem>
+                        <SelectItem value="won">{t('leads.status.won')}</SelectItem>
+                        <SelectItem value="lost">{t('leads.status.lost')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes / Message</FormLabel>
+                  <FormLabel>{t('leads.fields.notes')} / {t('leads.fields.message')}</FormLabel>
                   <FormControl>
                     <Textarea 
                       placeholder="Additional information about this lead..."
@@ -300,10 +302,10 @@ export function AddLeadDialog({ open, onOpenChange }: AddLeadDialogProps) {
 
             <div className="flex justify-end gap-2 pt-4">
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                {t('users.deleteDialog.cancel')}
               </Button>
               <Button type="submit" disabled={createMutation.isPending}>
-                {createMutation.isPending ? "Creating..." : "Create Lead"}
+                {createMutation.isPending ? "Creating..." : t('leads.addLead')}
               </Button>
             </div>
           </form>
