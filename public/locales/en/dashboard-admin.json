@@ -342,6 +342,68 @@
       "cloudStorageDesc": "File storage and media",
       "edgeFunctions": "Edge Functions",
       "edgeFunctionsDesc": "Serverless functions"
+      }
+    }
+  },
+  "leads": {
+    "title": "Lead Management",
+    "dashboard": "Leads Dashboard",
+    "allLeads": "All Leads",
+    "addLead": "Add Lead",
+    "totalLeads": "Total Leads",
+    "newToday": "New Today",
+    "qualified": "Qualified",
+    "won": "Won",
+    "lost": "Lost",
+    "conversionRate": "Conversion Rate",
+    "status": {
+      "new": "New",
+      "contacted": "Contacted",
+      "qualified": "Qualified",
+      "proposal": "Proposal",
+      "won": "Won",
+      "lost": "Lost"
+    },
+    "types": {
+      "personal": "Personal",
+      "facility": "Facility",
+      "care_company": "Care Company",
+      "insurance": "Insurance",
+      "other": "Other"
+    },
+    "activities": {
+      "call": "Call",
+      "email": "Email",
+      "meeting": "Meeting",
+      "note": "Note",
+      "status_change": "Status Change",
+      "task_completed": "Task Completed"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "organization": "Organization",
+      "type": "Type",
+      "status": "Status",
+      "source": "Source",
+      "created": "Created",
+      "estimatedValue": "Estimated Value",
+      "message": "Message",
+      "notes": "Notes"
+    },
+    "actions": {
+      "viewDetails": "View Details",
+      "addActivity": "Add Activity",
+      "changeStatus": "Change Status",
+      "delete": "Delete"
+    },
+    "messages": {
+      "noLeads": "No leads found",
+      "leadCreated": "Lead created successfully",
+      "leadUpdated": "Lead updated successfully",
+      "leadDeleted": "Lead deleted successfully",
+      "activityAdded": "Activity added successfully"
     }
   }
 }

@@ -342,6 +342,68 @@
       "cloudStorageDesc": "Almacenamiento de archivos y medios",
       "edgeFunctions": "Funciones Edge",
       "edgeFunctionsDesc": "Funciones sin servidor"
+      }
+    }
+  },
+  "leads": {
+    "title": "Gestión de Prospectos",
+    "dashboard": "Panel de Prospectos",
+    "allLeads": "Todos los Prospectos",
+    "addLead": "Añadir Prospecto",
+    "totalLeads": "Total de Prospectos",
+    "newToday": "Nuevos Hoy",
+    "qualified": "Calificados",
+    "won": "Ganados",
+    "lost": "Perdidos",
+    "conversionRate": "Tasa de Conversión",
+    "status": {
+      "new": "Nuevo",
+      "contacted": "Contactado",
+      "qualified": "Calificado",
+      "proposal": "Propuesta",
+      "won": "Ganado",
+      "lost": "Perdido"
+    },
+    "types": {
+      "personal": "Personal",
+      "facility": "Instalación",
+      "care_company": "Empresa de Cuidados",
+      "insurance": "Seguro",
+      "other": "Otro"
+    },
+    "activities": {
+      "call": "Llamada",
+      "email": "Correo",
+      "meeting": "Reunión",
+      "note": "Nota",
+      "status_change": "Cambio de Estado",
+      "task_completed": "Tarea Completada"
+    },
+    "fields": {
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "phone": "Teléfono",
+      "organization": "Organización",
+      "type": "Tipo",
+      "status": "Estado",
+      "source": "Fuente",
+      "created": "Creado",
+      "estimatedValue": "Valor Estimado",
+      "message": "Mensaje",
+      "notes": "Notas"
+    },
+    "actions": {
+      "viewDetails": "Ver Detalles",
+      "addActivity": "Añadir Actividad",
+      "changeStatus": "Cambiar Estado",
+      "delete": "Eliminar"
+    },
+    "messages": {
+      "noLeads": "No se encontraron prospectos",
+      "leadCreated": "Prospecto creado con éxito",
+      "leadUpdated": "Prospecto actualizado con éxito",
+      "leadDeleted": "Prospecto eliminado con éxito",
+      "activityAdded": "Actividad añadida con éxito"
     }
   }
 }
