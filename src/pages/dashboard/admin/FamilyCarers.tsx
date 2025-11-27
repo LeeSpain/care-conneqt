@@ -31,6 +31,7 @@ import { useState } from "react";
 
 export default function FamilyCarers() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation("dashboard-admin");
 
   const { data: carers, isLoading } = useQuery({
     queryKey: ["admin-family-carers"],
@@ -82,24 +83,24 @@ export default function FamilyCarers() {
   };
 
   return (
-    <AdminDashboardLayout title="Family Carer Management">
+    <AdminDashboardLayout title={t("familyCarers.title")}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Family Carers</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t("familyCarers.title")}</h2>
             <p className="text-muted-foreground">
-              Manage family members and their access permissions
+              {t("familyCarers.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t("familyCarers.export")}
             </Button>
             <Button>
               <UserPlus className="h-4 w-4 mr-2" />
-              Invite Carer
+              {t("familyCarers.inviteCarer")}
             </Button>
           </div>
         </div>
@@ -108,7 +109,7 @@ export default function FamilyCarers() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Carers</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("familyCarers.totalCarers")}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -117,7 +118,7 @@ export default function FamilyCarers() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Primary Contacts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("familyCarers.primaryContacts")}</CardTitle>
               <Heart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -126,7 +127,7 @@ export default function FamilyCarers() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Medical Access</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("familyCarers.medicalAccess")}</CardTitle>
               <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -135,7 +136,7 @@ export default function FamilyCarers() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Alert Enabled</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("familyCarers.alertEnabled")}</CardTitle>
               <Bell className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -148,7 +149,7 @@ export default function FamilyCarers() {
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search family carers..."
+            placeholder={t("familyCarers.searchPlaceholder")}
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -187,7 +188,7 @@ export default function FamilyCarers() {
                             </CardTitle>
                             {carer.is_primary_contact && (
                               <Badge variant="default" className="text-xs">
-                                Primary
+                                {t("familyCarers.primary")}
                               </Badge>
                             )}
                           </div>
@@ -201,23 +202,23 @@ export default function FamilyCarers() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuLabel>{t("familyCarers.actions.viewProfile").split(" ")[0]}</DropdownMenuLabel>
                           <DropdownMenuItem>
                             <Eye className="h-4 w-4 mr-2" />
-                            View Profile
+                            {t("familyCarers.actions.viewProfile")}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Edit className="h-4 w-4 mr-2" />
-                            Edit Permissions
+                            {t("familyCarers.actions.editPermissions")}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem>
                             <Mail className="h-4 w-4 mr-2" />
-                            Send Message
+                            {t("familyCarers.actions.sendMessage")}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Users className="h-4 w-4 mr-2" />
-                            View Members
+                            {t("familyCarers.actions.viewMembers")}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -228,14 +229,14 @@ export default function FamilyCarers() {
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Users className="h-3 w-3" />
-                          Relationship:
+                          {t("familyCarers.relationship")}:
                         </span>
                         <span className="font-medium capitalize">
                           {carer.relationship_to_member?.replace("_", " ")}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Connected Members:</span>
+                        <span className="text-muted-foreground">{t("familyCarers.connectedMembers")}:</span>
                         <span className="font-medium">{carer.connectedMembers}</span>
                       </div>
 
@@ -243,20 +244,20 @@ export default function FamilyCarers() {
                         {carer.can_view_medical && (
                           <Badge variant="secondary" className="text-xs">
                             <Shield className="h-3 w-3 mr-1" />
-                            Medical Access
+                            {t("familyCarers.medicalAccessBadge")}
                           </Badge>
                         )}
                         {carer.can_receive_alerts && (
                           <Badge variant="secondary" className="text-xs">
                             <Bell className="h-3 w-3 mr-1" />
-                            Alerts
+                            {t("familyCarers.alerts")}
                           </Badge>
                         )}
                       </div>
 
                       <Button variant="outline" className="w-full mt-2">
                         <Shield className="h-4 w-4 mr-2" />
-                        Manage Permissions
+                        {t("familyCarers.managePermissions")}
                       </Button>
                     </div>
                   </CardContent>
@@ -270,7 +271,7 @@ export default function FamilyCarers() {
           <Card>
             <CardContent className="p-12 text-center">
               <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No family carers found</p>
+              <p className="text-muted-foreground">{t("familyCarers.noCarers")}</p>
             </CardContent>
           </Card>
         )}

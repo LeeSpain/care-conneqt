@@ -42,7 +42,7 @@ import { useTranslation } from "react-i18next";
 export default function Nurses() {
   const [searchQuery, setSearchQuery] = useState("");
   const [workloadFilter, setWorkloadFilter] = useState<string>("all");
-  const { t } = useTranslation("dashboard");
+  const { t } = useTranslation("dashboard-admin");
 
   const { data: nurses, isLoading } = useQuery({
     queryKey: ["admin-nurses"],
@@ -114,24 +114,24 @@ export default function Nurses() {
   };
 
   return (
-    <AdminDashboardLayout title={t("admin.nurses.title")}>
+    <AdminDashboardLayout title={t("nurses.title")}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Nurses</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t("nurses.title")}</h2>
             <p className="text-muted-foreground">
-              Manage nursing staff and their member assignments
+              {t("nurses.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t("nurses.export")}
             </Button>
             <Button>
               <UserPlus className="h-4 w-4 mr-2" />
-              Add Nurse
+              {t("nurses.addNurse")}
             </Button>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function Nurses() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Nurses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("nurses.totalNurses")}</CardTitle>
               <Stethoscope className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -149,7 +149,7 @@ export default function Nurses() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Low Workload</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("nurses.lowWorkload")}</CardTitle>
               <CheckCircle2 className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
@@ -158,7 +158,7 @@ export default function Nurses() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Medium Workload</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("nurses.mediumWorkload")}</CardTitle>
               <Users className="h-4 w-4 text-warning" />
             </CardHeader>
             <CardContent>
@@ -167,7 +167,7 @@ export default function Nurses() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">High Workload</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("nurses.highWorkload")}</CardTitle>
               <Users className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
@@ -181,7 +181,7 @@ export default function Nurses() {
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t("admin.nurses.searchPlaceholder")}
+              placeholder={t("nurses.searchPlaceholder")}
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -190,13 +190,13 @@ export default function Nurses() {
           <Select value={workloadFilter} onValueChange={setWorkloadFilter}>
             <SelectTrigger className="w-[200px]">
               <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder={t("admin.nurses.workload")} />
+              <SelectValue placeholder={t("nurses.workload")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t("admin.nurses.allWorkloads")}</SelectItem>
-              <SelectItem value="low">{t("admin.nurses.low")}</SelectItem>
-              <SelectItem value="medium">{t("admin.nurses.medium")}</SelectItem>
-              <SelectItem value="high">{t("admin.nurses.high")}</SelectItem>
+              <SelectItem value="all">{t("nurses.allWorkloads")}</SelectItem>
+              <SelectItem value="low">{t("nurses.low")}</SelectItem>
+              <SelectItem value="medium">{t("nurses.medium")}</SelectItem>
+              <SelectItem value="high">{t("nurses.high")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -238,27 +238,27 @@ export default function Nurses() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuLabel>{t("nurses.actions.viewProfile").split(" ")[0]}</DropdownMenuLabel>
                         <DropdownMenuItem>
                           <Eye className="h-4 w-4 mr-2" />
-                          View Profile
+                          {t("nurses.actions.viewProfile")}
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Edit className="h-4 w-4 mr-2" />
-                          Edit Details
+                          {t("nurses.actions.editDetails")}
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                           <Mail className="h-4 w-4 mr-2" />
-                          Send Message
+                          {t("nurses.actions.sendMessage")}
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Users className="h-4 w-4 mr-2" />
-                          Manage Assignments
+                          {t("nurses.actions.manageAssignments")}
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <ClipboardList className="h-4 w-4 mr-2" />
-                          View Tasks
+                          {t("nurses.actions.viewTasks")}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -276,28 +276,28 @@ export default function Nurses() {
                       }
                       className="w-full justify-center"
                     >
-                      {nurse.workload.toUpperCase()} WORKLOAD
+                      {t("nurses.workloadBadge", { level: nurse.workload.toUpperCase() })}
                     </Badge>
 
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Users className="h-3 w-3" />
-                          {t("admin.nurses.assignedMembers")}:
+                          {t("nurses.assignedMembers")}:
                         </span>
                         <span className="font-medium">{nurse.assignedMembers}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <ClipboardList className="h-3 w-3" />
-                          Pending Tasks:
+                          {t("nurses.pendingTasks")}:
                         </span>
                         <span className="font-medium">{nurse.pendingTasks}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <CheckCircle2 className="h-3 w-3" />
-                          Completed:
+                          {t("nurses.completed")}:
                         </span>
                         <span className="font-medium">{nurse.completedTasks}</span>
                       </div>
@@ -305,7 +305,7 @@ export default function Nurses() {
                         <div className="flex justify-between">
                           <span className="text-muted-foreground flex items-center gap-1">
                             <Phone className="h-3 w-3" />
-                            {t("admin.nurses.phone")}:
+                            {t("nurses.phone")}:
                           </span>
                           <span className="font-medium text-xs">{nurse.phone}</span>
                         </div>
@@ -314,7 +314,7 @@ export default function Nurses() {
 
                     <Button variant="outline" className="w-full mt-2">
                       <Eye className="h-4 w-4 mr-2" />
-                      {t("admin.nurses.viewDetails")}
+                      {t("nurses.viewDetails")}
                     </Button>
                   </div>
                 </CardContent>
@@ -327,7 +327,7 @@ export default function Nurses() {
           <Card>
             <CardContent className="p-12 text-center">
               <Stethoscope className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">{t("admin.nurses.noNurses")}</p>
+              <p className="text-muted-foreground">{t("nurses.noNurses")}</p>
             </CardContent>
           </Card>
         )}
