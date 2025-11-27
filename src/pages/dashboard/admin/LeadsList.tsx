@@ -160,12 +160,12 @@ export default function LeadsList() {
                   className="pl-9"
                 />
               </div>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <Select value={statusFilter || "all"} onValueChange={(value) => setStatusFilter(value === "all" ? "" : value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Statuses</SelectItem>
+                  <SelectItem value="all">All Statuses</SelectItem>
                   <SelectItem value="new">New</SelectItem>
                   <SelectItem value="contacted">Contacted</SelectItem>
                   <SelectItem value="qualified">Qualified</SelectItem>
@@ -174,12 +174,12 @@ export default function LeadsList() {
                   <SelectItem value="lost">Lost</SelectItem>
                 </SelectContent>
               </Select>
-              <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <Select value={typeFilter || "all"} onValueChange={(value) => setTypeFilter(value === "all" ? "" : value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="All Types" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Types</SelectItem>
+                  <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="personal">Personal</SelectItem>
                   <SelectItem value="facility">Facility</SelectItem>
                   <SelectItem value="care_company">Care Company</SelectItem>
