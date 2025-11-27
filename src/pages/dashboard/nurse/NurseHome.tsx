@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { NurseDashboardLayout } from "@/components/NurseDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ export default function NurseHome() {
   const { user, profile } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('dashboard');
   const { data, isLoading, isError, error, refetch } = useNurseData(user?.id);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [inekeAssistantOpen, setInekeAssistantOpen] = useState(false);
@@ -43,8 +45,8 @@ export default function NurseHome() {
           console.log('[NurseHome] Task update received:', payload);
           refetch();
           toast({
-            title: "Update",
-            description: "Tasks have been updated",
+            title: t('nurse.home.update'),
+            description: t('nurse.home.tasksUpdated'),
           });
         }
       )
@@ -91,10 +93,10 @@ export default function NurseHome() {
       <NurseDashboardLayout title="Nurse Dashboard">
         <Card className="border-destructive">
           <CardContent className="pt-6">
-            <p className="text-destructive mb-4">{error?.message || "Failed to load dashboard data"}</p>
+            <p className="text-destructive mb-4">{error?.message || t('nurse.home.failedLoad')}</p>
             <Button onClick={handleRefresh}>
               <RefreshCw className="mr-2 h-4 w-4" />
-              Refresh Page
+              {t('nurse.home.refreshPage')}
             </Button>
           </CardContent>
         </Card>
@@ -139,7 +141,7 @@ export default function NurseHome() {
           <div className="flex justify-between items-start">
             <div>
               <h2 className="text-3xl font-bold tracking-tight">
-                Welcome back, {profile?.first_name || 'Nurse'}
+                {t('nurse.home.welcomeBack')}, {profile?.first_name || 'Nurse'}
               </h2>
               <p className="text-muted-foreground">
                 {formatDate(currentDateTime, 'EEEE, MMMM d, yyyy • HH:mm')}
@@ -165,18 +167,18 @@ export default function NurseHome() {
               </div>
               <div className="flex-1">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  Ineke Assistant
+                  {t('nurse.home.inekeAssistant')}
                   <Badge variant="secondary" className="bg-green-500/10 text-green-700 dark:text-green-400 text-xs">
                     <Bot className="h-3 w-3 mr-1" />
-                    Online
+                    {t('nurse.home.online')}
                   </Badge>
                 </CardTitle>
-                <CardDescription className="text-sm">Your AI nursing support companion</CardDescription>
+                <CardDescription className="text-sm">{t('nurse.home.aiNursingSupport')}</CardDescription>
               </div>
             </CardHeader>
             <CardContent className="relative z-10">
               <p className="text-sm text-muted-foreground mb-3">
-                Get instant help with care questions, task prioritization, and clinical guidance.
+                {t('nurse.home.instantHelp')}
               </p>
               <Button 
                 variant="outline" 
@@ -186,7 +188,7 @@ export default function NurseHome() {
                   setInekeAssistantOpen(true);
                 }}
               >
-                Start Conversation
+                {t('nurse.home.startConversation')}
               </Button>
             </CardContent>
           </Card>
@@ -195,7 +197,7 @@ export default function NurseHome() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Assigned Members</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('nurse.home.assignedMembers')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -204,7 +206,7 @@ export default function NurseHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats.assignedMembers}</div>
-                  <p className="text-xs text-muted-foreground">Under your care</p>
+                  <p className="text-xs text-muted-foreground">{t('nurse.home.underYourCare')}</p>
                 </>
               )}
             </CardContent>
@@ -212,7 +214,7 @@ export default function NurseHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Tasks</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('nurse.home.pendingTasks')}</CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -221,7 +223,7 @@ export default function NurseHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats.pendingTasks}</div>
-                  <p className="text-xs text-muted-foreground">To complete today</p>
+                  <p className="text-xs text-muted-foreground">{t('nurse.home.toCompleteToday')}</p>
                 </>
               )}
             </CardContent>
@@ -229,7 +231,7 @@ export default function NurseHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('nurse.home.activeAlerts')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -238,7 +240,7 @@ export default function NurseHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats.activeAlerts}</div>
-                  <p className="text-xs text-muted-foreground">Requiring attention</p>
+                  <p className="text-xs text-muted-foreground">{t('nurse.home.requiringAttention')}</p>
                 </>
               )}
             </CardContent>
@@ -246,7 +248,7 @@ export default function NurseHome() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Messages</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('nurse.home.messages')}</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -255,7 +257,7 @@ export default function NurseHome() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats.unreadMessages}</div>
-                  <p className="text-xs text-muted-foreground">Unread messages</p>
+                  <p className="text-xs text-muted-foreground">{t('nurse.home.unreadMessages')}</p>
                 </>
               )}
             </CardContent>
@@ -264,8 +266,8 @@ export default function NurseHome() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Tasks</CardTitle>
-            <CardDescription>Your most recent care tasks</CardDescription>
+            <CardTitle>{t('nurse.home.recentTasks')}</CardTitle>
+            <CardDescription>{t('nurse.home.mostRecentTasks')}</CardDescription>
           </CardHeader>
           <CardContent>
             {showSkeleton ? (
@@ -298,7 +300,7 @@ export default function NurseHome() {
                       </Badge>
                       {task.due_date && (
                         <span className="text-xs text-muted-foreground">
-                          Due: {formatDate(new Date(task.due_date), 'MMM d')}
+                          {t('nurse.home.dueDate')} {formatDate(new Date(task.due_date), 'MMM d')}
                         </span>
                       )}
                     </div>
@@ -307,7 +309,7 @@ export default function NurseHome() {
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
-                No recent tasks to display
+                {t('nurse.home.noRecentTasks')}
               </div>
             )}
           </CardContent>
@@ -316,29 +318,29 @@ export default function NurseHome() {
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common nursing tasks</CardDescription>
+              <CardTitle>{t('nurse.home.quickActions')}</CardTitle>
+              <CardDescription>{t('nurse.home.commonNursingTasks')}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-2">
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/nurse/members')}>
-                View All Members
+                {t('nurse.home.viewAllMembers')}
               </Button>
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/nurse/tasks')}>
-                Manage Tasks
+                {t('nurse.home.manageTasks')}
               </Button>
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/nurse/alerts')}>
-                View Alerts
+                {t('nurse.home.viewAlerts')}
               </Button>
               <Button variant="outline" className="justify-start" onClick={() => navigate('/dashboard/nurse/health')}>
-                Health Monitoring
+                {t('nurse.home.healthMonitoring')}
               </Button>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Today's Schedule</CardTitle>
-              <CardDescription>Upcoming activities</CardDescription>
+              <CardTitle>{t('nurse.home.todaySchedule')}</CardTitle>
+              <CardDescription>{t('nurse.home.upcomingActivities')}</CardDescription>
             </CardHeader>
             <CardContent>
               {showSkeleton ? (
@@ -348,7 +350,7 @@ export default function NurseHome() {
                 </div>
               ) : (
                 <div className="text-sm text-muted-foreground">
-                  No scheduled activities for today
+                  {t('nurse.home.noScheduledActivities')}
                 </div>
               )}
             </CardContent>
@@ -356,20 +358,20 @@ export default function NurseHome() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Quick Stats</CardTitle>
-              <CardDescription>Performance overview</CardDescription>
+              <CardTitle>{t('nurse.home.quickStats')}</CardTitle>
+              <CardDescription>{t('nurse.home.performanceOverview')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Tasks Completed Today:</span>
+                <span className="text-muted-foreground">{t('nurse.home.tasksCompletedToday')}</span>
                 <span className="font-medium">0</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Alerts Resolved:</span>
+                <span className="text-muted-foreground">{t('nurse.home.alertsResolved')}</span>
                 <span className="font-medium">0</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Messages Sent:</span>
+                <span className="text-muted-foreground">{t('nurse.home.messagesSent')}</span>
                 <span className="font-medium">0</span>
               </div>
             </CardContent>
