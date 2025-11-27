@@ -1382,44 +1382,146 @@ export type Database = {
           },
         ]
       }
+      lead_activities: {
+        Row: {
+          activity_type: string
+          created_at: string | null
+          created_by: string | null
+          description: string
+          id: string
+          lead_id: string
+          metadata: Json | null
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string | null
+          created_by?: string | null
+          description: string
+          id?: string
+          lead_id: string
+          metadata?: Json | null
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string | null
+          created_by?: string | null
+          description?: string
+          id?: string
+          lead_id?: string
+          metadata?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_activities_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
+          agreement_length: string | null
+          assigned_to: string | null
+          clara_conversation_id: string | null
+          converted_at: string | null
+          converted_to_facility_id: string | null
+          converted_to_member_id: string | null
           created_at: string | null
           email: string
+          estimated_value: number | null
           id: string
           interest_type: string
+          last_contacted_at: string | null
+          lead_type: string | null
           message: string | null
           name: string
+          next_follow_up: string | null
+          organization_name: string | null
+          organization_type: string | null
           phone: string | null
+          resident_count: string | null
           source_page: string | null
           status: string | null
+          tags: string[] | null
           updated_at: string | null
         }
         Insert: {
+          agreement_length?: string | null
+          assigned_to?: string | null
+          clara_conversation_id?: string | null
+          converted_at?: string | null
+          converted_to_facility_id?: string | null
+          converted_to_member_id?: string | null
           created_at?: string | null
           email: string
+          estimated_value?: number | null
           id?: string
           interest_type: string
+          last_contacted_at?: string | null
+          lead_type?: string | null
           message?: string | null
           name: string
+          next_follow_up?: string | null
+          organization_name?: string | null
+          organization_type?: string | null
           phone?: string | null
+          resident_count?: string | null
           source_page?: string | null
           status?: string | null
+          tags?: string[] | null
           updated_at?: string | null
         }
         Update: {
+          agreement_length?: string | null
+          assigned_to?: string | null
+          clara_conversation_id?: string | null
+          converted_at?: string | null
+          converted_to_facility_id?: string | null
+          converted_to_member_id?: string | null
           created_at?: string | null
           email?: string
+          estimated_value?: number | null
           id?: string
           interest_type?: string
+          last_contacted_at?: string | null
+          lead_type?: string | null
           message?: string | null
           name?: string
+          next_follow_up?: string | null
+          organization_name?: string | null
+          organization_type?: string | null
           phone?: string | null
+          resident_count?: string | null
           source_page?: string | null
           status?: string | null
+          tags?: string[] | null
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "leads_clara_conversation_id_fkey"
+            columns: ["clara_conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agent_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leads_converted_to_facility_id_fkey"
+            columns: ["converted_to_facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leads_converted_to_member_id_fkey"
+            columns: ["converted_to_member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       member_carers: {
         Row: {
@@ -1708,6 +1810,7 @@ export type Database = {
           customer_phone: string | null
           id: string
           language: string | null
+          lead_id: string | null
           payment_status: string | null
           plan_id: string | null
           selected_devices: Json | null
@@ -1728,6 +1831,7 @@ export type Database = {
           customer_phone?: string | null
           id?: string
           language?: string | null
+          lead_id?: string | null
           payment_status?: string | null
           plan_id?: string | null
           selected_devices?: Json | null
@@ -1748,6 +1852,7 @@ export type Database = {
           customer_phone?: string | null
           id?: string
           language?: string | null
+          lead_id?: string | null
           payment_status?: string | null
           plan_id?: string | null
           selected_devices?: Json | null
@@ -1764,6 +1869,13 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "ai_agent_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
             referencedColumns: ["id"]
           },
           {
