@@ -10,9 +10,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Search, UserPlus, MoreVertical, Stethoscope, Building2, Users, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Staff() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation("dashboard-admin");
 
   const { data: nurses, isLoading: nursesLoading } = useQuery({
     queryKey: ["staff-nurses"],
@@ -127,17 +129,17 @@ export default function Staff() {
     : 0;
 
   return (
-    <AdminDashboardLayout title="Staff Management">
+    <AdminDashboardLayout title={t("staff.title")}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">Staff Management</h2>
-            <p className="text-muted-foreground">Manage nurses and facility staff</p>
+            <h2 className="text-2xl font-bold">{t("staff.title")}</h2>
+            <p className="text-muted-foreground">{t("staff.subtitle")}</p>
           </div>
           <Button>
             <UserPlus className="h-4 w-4 mr-2" />
-            Add Staff Member
+            {t("staff.addStaff")}
           </Button>
         </div>
 
@@ -145,7 +147,7 @@ export default function Staff() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("staff.totalStaff")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -157,7 +159,7 @@ export default function Staff() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Nurses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("staff.nurses")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -169,7 +171,7 @@ export default function Staff() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Facility Staff</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("staff.facilityStaff")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -181,13 +183,13 @@ export default function Staff() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Workload</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("staff.avgWorkload")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
                 <span className="text-2xl font-bold">{avgWorkload}</span>
-                <span className="text-sm text-muted-foreground">members</span>
+                <span className="text-sm text-muted-foreground">{t("staff.members")}</span>
               </div>
             </CardContent>
           </Card>
@@ -197,7 +199,7 @@ export default function Staff() {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search staff..."
+            placeholder={t("staff.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-9"
@@ -207,9 +209,9 @@ export default function Staff() {
         {/* Tabs */}
         <Tabs defaultValue="all" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="all">All Staff ({totalStaff})</TabsTrigger>
-            <TabsTrigger value="nurses">Nurses ({totalNurses})</TabsTrigger>
-            <TabsTrigger value="facility">Facility Staff ({totalFacilityStaff})</TabsTrigger>
+            <TabsTrigger value="all">{t("staff.allStaff")} ({totalStaff})</TabsTrigger>
+            <TabsTrigger value="nurses">{t("staff.nurses")} ({totalNurses})</TabsTrigger>
+            <TabsTrigger value="facility">{t("staff.facilityStaff")} ({totalFacilityStaff})</TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="space-y-4">
@@ -229,7 +231,7 @@ export default function Staff() {
                         <p className="text-sm text-muted-foreground">{staff.email}</p>
                         <div className="flex items-center gap-2 mt-1">
                           <Badge variant={staff.type === "nurse" ? "default" : "secondary"}>
-                            {staff.type === "nurse" ? "Nurse" : staff.role}
+                            {staff.type === "nurse" ? t("staff.nurse") : staff.role}
                           </Badge>
                           {staff.facility && (
                             <span className="text-xs text-muted-foreground">{staff.facility}</span>
@@ -240,8 +242,8 @@ export default function Staff() {
                     <div className="flex items-center gap-4">
                       {staff.type === "nurse" && (
                         <div className="text-right">
-                          <p className="text-sm font-medium">{staff.assignmentCount} Members</p>
-                          <p className="text-xs text-muted-foreground">{staff.pendingTasks} pending tasks</p>
+                          <p className="text-sm font-medium">{t("staff.assignedMembers", { count: staff.assignmentCount })}</p>
+                          <p className="text-xs text-muted-foreground">{t("staff.pendingTasks", { count: staff.pendingTasks })}</p>
                         </div>
                       )}
                       <DropdownMenu>
@@ -251,14 +253,14 @@ export default function Staff() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Profile</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.viewProfile")}</DropdownMenuItem>
                           {staff.type === "nurse" && (
                             <>
-                              <DropdownMenuItem>View Assignments</DropdownMenuItem>
-                              <DropdownMenuItem>Assign Member</DropdownMenuItem>
+                              <DropdownMenuItem>{t("staff.actions.viewAssignments")}</DropdownMenuItem>
+                              <DropdownMenuItem>{t("staff.actions.assignMember")}</DropdownMenuItem>
                             </>
                           )}
-                          <DropdownMenuItem>Edit Details</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.editDetails")}</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
@@ -283,13 +285,13 @@ export default function Staff() {
                       <div>
                         <p className="font-medium">{nurse.first_name} {nurse.last_name}</p>
                         <p className="text-sm text-muted-foreground">{nurse.email}</p>
-                        <Badge className="mt-1">Nurse</Badge>
+                        <Badge className="mt-1">{t("staff.nurse")}</Badge>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       <div className="text-right">
-                        <p className="text-sm font-medium">{nurse.assignmentCount} Members</p>
-                        <p className="text-xs text-muted-foreground">{nurse.pendingTasks} pending tasks</p>
+                        <p className="text-sm font-medium">{t("staff.assignedMembers", { count: nurse.assignmentCount })}</p>
+                        <p className="text-xs text-muted-foreground">{t("staff.pendingTasks", { count: nurse.pendingTasks })}</p>
                       </div>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -298,10 +300,10 @@ export default function Staff() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Profile</DropdownMenuItem>
-                          <DropdownMenuItem>View Assignments</DropdownMenuItem>
-                          <DropdownMenuItem>Assign Member</DropdownMenuItem>
-                          <DropdownMenuItem>View Schedule</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.viewProfile")}</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.viewAssignments")}</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.assignMember")}</DropdownMenuItem>
+                          <DropdownMenuItem>{t("staff.actions.viewSchedule")}</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
@@ -331,7 +333,7 @@ export default function Staff() {
                         <div className="flex items-center gap-2 mt-1">
                           <Badge variant="secondary">{staff.staff_role}</Badge>
                           {staff.is_facility_admin && (
-                            <Badge variant="outline">Admin</Badge>
+                            <Badge variant="outline">{t("staff.admin")}</Badge>
                           )}
                           <span className="text-xs text-muted-foreground">{staff.facilities?.name}</span>
                         </div>
@@ -344,9 +346,9 @@ export default function Staff() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Change Facility</DropdownMenuItem>
-                        <DropdownMenuItem>Edit Role</DropdownMenuItem>
+                        <DropdownMenuItem>{t("staff.actions.viewProfile")}</DropdownMenuItem>
+                        <DropdownMenuItem>{t("staff.actions.changeFacility")}</DropdownMenuItem>
+                        <DropdownMenuItem>{t("staff.actions.editRole")}</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </CardContent>

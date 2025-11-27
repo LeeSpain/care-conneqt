@@ -21,7 +21,7 @@ export default function Members() {
   const [subscriptionFilter, setSubscriptionFilter] = useState<string>("all");
   const [careLevelFilter, setCareLevelFilter] = useState<string>("all");
   const [expandedMembers, setExpandedMembers] = useState<Set<string>>(new Set());
-  const { t } = useTranslation("dashboard");
+  const { t } = useTranslation("dashboard-admin");
 
   const { data: members, isLoading } = useQuery({
     queryKey: ["admin-members"],
@@ -85,24 +85,24 @@ export default function Members() {
   };
 
   return (
-    <AdminDashboardLayout title={t("admin.members.title")}>
+    <AdminDashboardLayout title={t("members.title")}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Care Members</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t("members.title")}</h2>
             <p className="text-muted-foreground">
-              Manage care recipients and monitor their health status
+              {t("members.subtitle")}
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t("members.export")}
             </Button>
             <Button>
               <UserPlus className="h-4 w-4 mr-2" />
-              Add Member
+              {t("members.addMember")}
             </Button>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function Members() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Members</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("members.totalMembers")}</CardTitle>
               <Heart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -120,7 +120,7 @@ export default function Members() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("members.active")}</CardTitle>
               <Activity className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
@@ -129,7 +129,7 @@ export default function Members() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Trial</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("members.trial")}</CardTitle>
               <Activity className="h-4 w-4 text-warning" />
             </CardHeader>
             <CardContent>
@@ -138,7 +138,7 @@ export default function Members() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">With Alerts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t("members.withAlerts")}</CardTitle>
               <AlertCircle className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
@@ -152,7 +152,7 @@ export default function Members() {
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search members..."
+              placeholder={t("members.searchPlaceholder")}
               className="pl-10"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -161,26 +161,26 @@ export default function Members() {
           <Select value={subscriptionFilter} onValueChange={setSubscriptionFilter}>
             <SelectTrigger className="w-[180px]">
               <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Subscription" />
+              <SelectValue placeholder={t("members.subscription")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Subscriptions</SelectItem>
-              <SelectItem value="trial">Trial</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
-              <SelectItem value="past_due">Past Due</SelectItem>
+              <SelectItem value="all">{t("members.allSubscriptions")}</SelectItem>
+              <SelectItem value="trial">{t("members.trial")}</SelectItem>
+              <SelectItem value="active">{t("members.active")}</SelectItem>
+              <SelectItem value="cancelled">{t("members.cancelled")}</SelectItem>
+              <SelectItem value="past_due">{t("members.pastDue")}</SelectItem>
             </SelectContent>
           </Select>
           <Select value={careLevelFilter} onValueChange={setCareLevelFilter}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Care Level" />
+              <SelectValue placeholder={t("members.careLevel")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Care Levels</SelectItem>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="high">High</SelectItem>
-              <SelectItem value="critical">Critical</SelectItem>
+              <SelectItem value="all">{t("members.allCareLevels")}</SelectItem>
+              <SelectItem value="low">{t("members.low")}</SelectItem>
+              <SelectItem value="medium">{t("members.medium")}</SelectItem>
+              <SelectItem value="high">{t("members.high")}</SelectItem>
+              <SelectItem value="critical">{t("members.critical")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -224,23 +224,23 @@ export default function Members() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuLabel>{t("members.actions.viewProfile").split(" ")[0]}</DropdownMenuLabel>
                           <DropdownMenuItem>
                             <Eye className="h-4 w-4 mr-2" />
-                            View Profile
+                            {t("members.actions.viewProfile")}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Edit className="h-4 w-4 mr-2" />
-                            Edit Details
+                            {t("members.actions.editDetails")}
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem>
                             <Mail className="h-4 w-4 mr-2" />
-                            Send Message
+                            {t("members.actions.sendMessage")}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
                             <Activity className="h-4 w-4 mr-2" />
-                            View Devices
+                            {t("members.actions.viewDevices")}
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -352,7 +352,7 @@ export default function Members() {
           <Card>
             <CardContent className="p-12 text-center">
               <Heart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No members found matching your criteria</p>
+              <p className="text-muted-foreground">{t("members.noMembers")}</p>
             </CardContent>
           </Card>
         )}
