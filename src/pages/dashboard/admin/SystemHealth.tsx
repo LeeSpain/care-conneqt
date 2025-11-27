@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 export default function SystemHealth() {
+  const { t } = useTranslation('dashboard-admin');
   const { toast } = useToast();
   const [lastChecked, setLastChecked] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -27,8 +29,8 @@ export default function SystemHealth() {
       if (error) {
         setDbStatus("degraded");
         toast({
-          title: "Database Warning",
-          description: "Database responding slowly or with errors",
+          title: t('systemHealth.databaseWarning'),
+          description: t('systemHealth.databaseError'),
           variant: "destructive",
         });
       } else {
@@ -48,31 +50,31 @@ export default function SystemHealth() {
 
   const services = [
     {
-      name: "Database",
+      name: t('systemHealth.services.database'),
       icon: Database,
       status: dbStatus,
-      description: "PostgreSQL via Lovable Cloud",
+      description: t('systemHealth.services.databaseDesc'),
       uptime: "99.9%",
     },
     {
-      name: "Authentication",
+      name: t('systemHealth.services.authentication'),
       icon: Zap,
       status: "healthy" as const,
-      description: "User authentication service",
+      description: t('systemHealth.services.authenticationDesc'),
       uptime: "99.9%",
     },
     {
-      name: "Cloud Storage",
+      name: t('systemHealth.services.cloudStorage'),
       icon: Cloud,
       status: "healthy" as const,
-      description: "File storage and media",
+      description: t('systemHealth.services.cloudStorageDesc'),
       uptime: "99.9%",
     },
     {
-      name: "Edge Functions",
+      name: t('systemHealth.services.edgeFunctions'),
       icon: Activity,
       status: "healthy" as const,
-      description: "Serverless functions",
+      description: t('systemHealth.services.edgeFunctionsDesc'),
       uptime: "99.9%",
     },
   ];
@@ -93,29 +95,29 @@ export default function SystemHealth() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "healthy":
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Operational</Badge>;
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">{t('systemHealth.operational')}</Badge>;
       case "degraded":
-        return <Badge variant="outline" className="border-yellow-500 text-yellow-700">Degraded</Badge>;
+        return <Badge variant="outline" className="border-yellow-500 text-yellow-700">{t('systemHealth.degraded')}</Badge>;
       case "checking":
-        return <Badge variant="outline">Checking...</Badge>;
+        return <Badge variant="outline">{t('systemHealth.checking')}</Badge>;
       default:
-        return <Badge variant="destructive">Down</Badge>;
+        return <Badge variant="destructive">{t('systemHealth.down')}</Badge>;
     }
   };
 
   return (
-    <AdminDashboardLayout title="System Health">
+    <AdminDashboardLayout title={t('systemHealth.title')}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">System Health Monitor</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('systemHealth.title')}</h2>
             <p className="text-muted-foreground">
-              Real-time status of all platform services
+              {t('systemHealth.subtitle')}
             </p>
           </div>
           <Button onClick={checkDatabaseHealth} disabled={isRefreshing} variant="outline">
             <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-            Refresh Status
+            {t('systemHealth.refreshStatus')}
           </Button>
         </div>
 
@@ -123,14 +125,14 @@ export default function SystemHealth() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Overall System Status</CardTitle>
+                <CardTitle>{t('systemHealth.overallStatus')}</CardTitle>
                 <CardDescription>
-                  Last checked: {lastChecked.toLocaleTimeString()}
+                  {t('systemHealth.lastChecked')}: {lastChecked.toLocaleTimeString()}
                 </CardDescription>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 text-green-500" />
-                <span className="text-lg font-semibold">All Systems Operational</span>
+                <span className="text-lg font-semibold">{t('systemHealth.allOperational')}</span>
               </div>
             </div>
           </CardHeader>
@@ -159,22 +161,22 @@ export default function SystemHealth() {
                     <div className={`h-2 w-2 rounded-full ${getStatusColor(service.status)}`} />
                     <span className="text-sm text-muted-foreground">
                       {service.status === "healthy" 
-                        ? "Running normally" 
+                        ? t('systemHealth.runningNormally')
                         : service.status === "checking"
-                        ? "Checking status..."
-                        : "Performance degraded"}
+                        ? t('systemHealth.checkingStatus')
+                        : t('systemHealth.performanceDegraded')}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Uptime (30d):</span>
+                    <span className="text-muted-foreground">{t('systemHealth.uptime')}:</span>
                     <span className="font-medium">{service.uptime}</span>
                   </div>
                   {service.status === "degraded" && (
                     <div className="flex items-start gap-2 p-3 bg-yellow-50 dark:bg-yellow-950 rounded-md">
                       <AlertTriangle className="h-4 w-4 text-yellow-600 mt-0.5" />
                       <div className="text-sm text-yellow-700 dark:text-yellow-300">
-                        <p className="font-medium">Performance Issues Detected</p>
-                        <p className="text-xs mt-1">Response times may be slower than normal</p>
+                        <p className="font-medium">{t('systemHealth.performanceIssues')}</p>
+                        <p className="text-xs mt-1">{t('systemHealth.slowResponse')}</p>
                       </div>
                     </div>
                   )}
@@ -186,25 +188,25 @@ export default function SystemHealth() {
 
         <Card>
           <CardHeader>
-            <CardTitle>System Metrics</CardTitle>
-            <CardDescription>Performance indicators over the last 24 hours</CardDescription>
+            <CardTitle>{t('systemHealth.systemMetrics')}</CardTitle>
+            <CardDescription>{t('systemHealth.metricsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-4">
               <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Avg Response Time</p>
+                <p className="text-sm text-muted-foreground">{t('systemHealth.avgResponseTime')}</p>
                 <p className="text-2xl font-bold">124ms</p>
               </div>
               <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">API Requests</p>
+                <p className="text-sm text-muted-foreground">{t('systemHealth.apiRequests')}</p>
                 <p className="text-2xl font-bold">1.2M</p>
               </div>
               <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Active Users</p>
+                <p className="text-sm text-muted-foreground">{t('systemHealth.activeUsers')}</p>
                 <p className="text-2xl font-bold">847</p>
               </div>
               <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">Error Rate</p>
+                <p className="text-sm text-muted-foreground">{t('systemHealth.errorRate')}</p>
                 <p className="text-2xl font-bold">0.03%</p>
               </div>
             </div>
@@ -213,13 +215,13 @@ export default function SystemHealth() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Incidents</CardTitle>
-            <CardDescription>Service disruptions and maintenance windows</CardDescription>
+            <CardTitle>{t('systemHealth.recentIncidents')}</CardTitle>
+            <CardDescription>{t('systemHealth.incidentsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-center py-8 text-muted-foreground">
               <CheckCircle2 className="mr-2 h-5 w-5 text-green-500" />
-              No incidents in the last 30 days
+              {t('systemHealth.noIncidents')}
             </div>
           </CardContent>
         </Card>

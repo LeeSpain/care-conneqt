@@ -12,8 +12,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
+import { useTranslation } from "react-i18next";
 
 export default function Sales() {
+  const { t } = useTranslation('dashboard-admin');
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   const { data: orders, isLoading, refetch } = useQuery({
@@ -56,11 +58,11 @@ export default function Sales() {
       .eq('id', id);
 
     if (error) {
-      toast.error('Failed to update order status');
+      toast.error(t('toast.error.updateFailed'));
       return;
     }
 
-    toast.success('Order status updated');
+    toast.success(t('toast.success.orderUpdated'));
     refetch();
     if (selectedOrder?.id === id) {
       setSelectedOrder({ ...selectedOrder, payment_status: newStatus });
@@ -68,19 +70,19 @@ export default function Sales() {
   };
 
   return (
-    <AdminDashboardLayout title="Personal Care Orders">
+    <AdminDashboardLayout title={t('sales.title')}>
       <div className="container mx-auto p-6 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Personal Care Orders</h1>
+          <h1 className="text-3xl font-bold">{t('sales.title')}</h1>
           <p className="text-muted-foreground mt-2">
-            Individual subscription orders from personal care flow
+            {t('sales.subtitle')}
           </p>
         </div>
 
       <div className="grid gap-6 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('sales.totalOrders')}</CardTitle>
             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -90,7 +92,7 @@ export default function Sales() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('sales.totalRevenue')}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -100,7 +102,7 @@ export default function Sales() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Completed</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('sales.completed')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -110,7 +112,7 @@ export default function Sales() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Pending</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('sales.pending')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -121,21 +123,21 @@ export default function Sales() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
+          <CardTitle>{t('sales.recentOrders')}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <p className="text-muted-foreground">Loading orders...</p>
+            <p className="text-muted-foreground">{t('common:loading.default')}</p>
           ) : orders && orders.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Customer</TableHead>
-                  <TableHead>Plan</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead>{t('sales.customer')}</TableHead>
+                  <TableHead>{t('sales.plan')}</TableHead>
+                  <TableHead>{t('sales.amount')}</TableHead>
+                  <TableHead>{t('common:status')}</TableHead>
+                  <TableHead>{t('sales.date')}</TableHead>
+                  <TableHead>{t('common:actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -143,12 +145,12 @@ export default function Sales() {
                   <TableRow key={order.id}>
                     <TableCell>
                       <div>
-                        <p className="font-medium">{order.customer_name || 'Anonymous'}</p>
+                        <p className="font-medium">{order.customer_name || t('sales.anonymous')}</p>
                         <p className="text-sm text-muted-foreground">{order.customer_email}</p>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline">{order.pricing_plans?.slug || 'N/A'}</Badge>
+                      <Badge variant="outline">{order.pricing_plans?.slug || t('common:na')}</Badge>
                     </TableCell>
                     <TableCell>€{order.total_monthly}/mo</TableCell>
                     <TableCell>{getStatusBadge(order.payment_status)}</TableCell>
@@ -169,7 +171,7 @@ export default function Sales() {
           ) : (
             <div className="text-center py-12">
               <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">No orders yet</p>
+              <p className="text-muted-foreground">{t('sales.noOrders')}</p>
             </div>
           )}
         </CardContent>
@@ -179,14 +181,14 @@ export default function Sales() {
         <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
-              <DialogTitle>Order Details</DialogTitle>
+              <DialogTitle>{t('sales.orderDetails')}</DialogTitle>
             </DialogHeader>
             
             {selectedOrder && (
               <div className="space-y-6">
                 {/* Status Update */}
                 <div>
-                  <Label>Payment Status</Label>
+                  <Label>{t('sales.paymentStatus')}</Label>
                   <Select 
                     value={selectedOrder.payment_status} 
                     onValueChange={(value) => updateOrderStatus(selectedOrder.id, value)}
@@ -195,53 +197,53 @@ export default function Sales() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
-                      <SelectItem value="failed">Failed</SelectItem>
+                      <SelectItem value="pending">{t('sales.pending')}</SelectItem>
+                      <SelectItem value="completed">{t('sales.completed')}</SelectItem>
+                      <SelectItem value="failed">{t('sales.failed')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 {/* Customer Details */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Customer Information</h3>
+                  <h3 className="font-semibold text-lg">{t('sales.customerInformation')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-muted-foreground">Name</Label>
-                      <p className="font-medium">{selectedOrder.customer_name || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('sales.name')}</Label>
+                      <p className="font-medium">{selectedOrder.customer_name || t('common:na')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Email</Label>
+                      <Label className="text-muted-foreground">{t('sales.email')}</Label>
                       <p className="font-medium">{selectedOrder.customer_email}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Phone</Label>
-                      <p className="font-medium">{selectedOrder.customer_phone || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('sales.phone')}</Label>
+                      <p className="font-medium">{selectedOrder.customer_phone || t('common:na')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Language</Label>
-                      <p className="font-medium">{selectedOrder.language?.toUpperCase() || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('sales.language')}</Label>
+                      <p className="font-medium">{selectedOrder.language?.toUpperCase() || t('common:na')}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Order Details */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-lg">Order Details</h3>
+                  <h3 className="font-semibold text-lg">{t('sales.orderDetails')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-muted-foreground">Plan</Label>
-                      <p className="font-medium">{selectedOrder.pricing_plans?.slug || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('sales.plan')}</Label>
+                      <p className="font-medium">{selectedOrder.pricing_plans?.slug || t('common:na')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Monthly Total</Label>
+                      <Label className="text-muted-foreground">{t('sales.monthlyTotal')}</Label>
                       <p className="font-medium text-lg">€{selectedOrder.total_monthly}/mo</p>
                     </div>
                   </div>
                   
                   {selectedOrder.selected_devices && (
                     <div>
-                      <Label className="text-muted-foreground">Selected Devices</Label>
+                      <Label className="text-muted-foreground">{t('sales.selectedDevices')}</Label>
                       <div className="mt-2 space-y-1">
                         {Object.entries(selectedOrder.selected_devices).map(([device, quantity]: [string, any]) => (
                           quantity > 0 && (
@@ -257,13 +259,13 @@ export default function Sales() {
 
                 {/* Metadata */}
                 <div className="border-t pt-4 text-sm text-muted-foreground">
-                  <p>Order ID: {selectedOrder.id}</p>
-                  <p>Created: {format(new Date(selectedOrder.created_at), 'PPpp')}</p>
+                  <p>{t('sales.orderId')}: {selectedOrder.id}</p>
+                  <p>{t('sales.created')}: {format(new Date(selectedOrder.created_at), 'PPpp')}</p>
                   {selectedOrder.completed_at && (
-                    <p>Completed: {format(new Date(selectedOrder.completed_at), 'PPpp')}</p>
+                    <p>{t('sales.completed')}: {format(new Date(selectedOrder.completed_at), 'PPpp')}</p>
                   )}
                   {selectedOrder.stripe_session_id && (
-                    <p>Stripe Session: {selectedOrder.stripe_session_id}</p>
+                    <p>{t('sales.stripeSession')}: {selectedOrder.stripe_session_id}</p>
                   )}
                 </div>
               </div>
