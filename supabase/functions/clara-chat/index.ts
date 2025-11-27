@@ -307,22 +307,29 @@ When you create a checkout session, I will display the payment link to the user.
               message: functionArgs.message,
               source_page: context?.page || 'clara_chat',
               status: 'new',
+              lead_type: 'personal',
             })
             .select()
             .single();
           
           if (leadError) {
             console.error('Error creating lead:', leadError);
+            toolResult = { success: false, error: leadError.message };
           } else if (lead) {
-            // Link conversation to lead
+            // Create initial activity for the lead
             await supabase
-              .from('ai_agent_conversations')
-              .update({ user_id: null }) // Lead is not yet a user
-              .eq('session_id', sessionId)
-              .is('user_id', null);
+              .from('lead_activities')
+              .insert({
+                lead_id: lead.id,
+                activity_type: 'note',
+                description: `Lead captured via Clara AI chat from ${context?.page || 'website'}`,
+                metadata: { source: 'clara_ai', session_id: sessionId },
+              });
+            
+            toolResult = { success: true, leadId: lead.id };
+          } else {
+            toolResult = { success: false, error: 'Failed to create lead' };
           }
-          
-          toolResult = { success: true, leadId: lead?.id };
           break;
       }
 
@@ -363,11 +370,20 @@ When you create a checkout session, I will display the payment link to the user.
         { role: 'assistant', content: finalMessage, tool_used: functionName }
       ];
 
+      // Get user ID if authenticated
+      const authHeader = req.headers.get('authorization');
+      let userId = null;
+      if (authHeader) {
+        const token = authHeader.replace('Bearer ', '');
+        const { data: { user } } = await supabase.auth.getUser(token);
+        userId = user?.id || null;
+      }
+
       const { data: conversation } = await supabase
         .from('ai_agent_conversations')
         .insert({
           agent_id: agent.id,
-          user_id: null, // Will be set if authenticated
+          user_id: userId,
           session_id: sessionId,
           conversation_data: conversationData,
         })
@@ -375,7 +391,7 @@ When you create a checkout session, I will display the payment link to the user.
         .single();
 
       // If lead was created, link conversation to it
-      if (functionName === 'capture_lead' && toolResult.leadId && conversation) {
+      if (functionName === 'capture_lead' && toolResult?.success && toolResult.leadId && conversation) {
         await supabase
           .from('leads')
           .update({ clara_conversation_id: conversation.id })

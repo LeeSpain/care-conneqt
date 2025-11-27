@@ -88,7 +88,7 @@ export function InstitutionalRegistrationForm() {
         formData.organization_type === 'insurance' ? 'insurance' : 
         formData.organization_type === 'care_group' ? 'care_company' : 'other';
 
-      await supabase
+      const { data: leadData } = await supabase
         .from('leads')
         .insert({
           name: formData.contact_name,
@@ -104,7 +104,23 @@ export function InstitutionalRegistrationForm() {
           message: formData.additional_notes,
           source_page: '/institutional-care',
           status: 'new',
+        })
+        .select('id')
+        .single();
+      
+      // Log initial activity for the lead
+      if (leadData?.id) {
+        await supabase.from('lead_activities').insert({
+          lead_id: leadData.id,
+          activity_type: 'note',
+          description: `New ${formData.organization_type} lead from institutional registration form`,
+          metadata: {
+            resident_count: formData.resident_count,
+            service_interests: formData.service_interests,
+            preferred_contact: formData.preferred_contact_method,
+          },
         });
+      }
 
       toast.success(t('registration.success'));
       // Reset form
