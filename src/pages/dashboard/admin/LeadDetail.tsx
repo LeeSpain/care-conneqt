@@ -197,7 +197,7 @@ export default function LeadDetail() {
                   )}
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>Created {format(new Date(lead.created_at || ''), 'MMM d, yyyy')}</span>
+                    <span>Created {lead.created_at ? format(new Date(lead.created_at), 'MMM d, yyyy') : 'Unknown'}</span>
                   </div>
                 </div>
                 {lead.message && (
@@ -270,7 +270,7 @@ export default function LeadDetail() {
                               {activity.activity_type}
                             </Badge>
                             <span className="text-xs text-muted-foreground">
-                              {format(new Date(activity.created_at), 'MMM d, yyyy HH:mm')}
+                              {activity.created_at ? format(new Date(activity.created_at), 'MMM d, yyyy HH:mm') : 'Unknown'}
                             </span>
                           </div>
                           <p className="text-sm">{activity.description}</p>

@@ -56,33 +56,67 @@ serve(async (req) => {
       leadId = existingLead.id
       
       // Update lead status to won and add conversion data
+      const updateData: any = {
+        status: 'won',
+        converted_at: new Date().toISOString(),
+      }
+      
+      // Only add conversation_id if it exists
+      if (conversationId) {
+        updateData.clara_conversation_id = conversationId
+      }
+      
       await supabase
         .from('leads')
-        .update({
-          status: 'won',
-          converted_at: new Date().toISOString(),
-          clara_conversation_id: conversationId,
-        })
+        .update(updateData)
         .eq('id', leadId)
+      
+      // Log conversion activity
+      await supabase
+        .from('lead_activities')
+        .insert({
+          lead_id: leadId,
+          activity_type: 'note',
+          description: `Lead converted to customer via Clara AI - purchased ${plan.slug} plan`,
+          metadata: { plan_slug: plan.slug, devices: devices || [] },
+        })
     } else {
       // Create new lead
+      const insertData: any = {
+        name: customerName,
+        email: customerEmail,
+        interest_type: 'personal_care',
+        lead_type: 'personal',
+        source_page: 'clara_chat',
+        status: 'won',
+        converted_at: new Date().toISOString(),
+        message: `Customer purchased via Clara AI - ${plan.slug} plan`,
+      }
+      
+      // Only add conversation_id if it exists
+      if (conversationId) {
+        insertData.clara_conversation_id = conversationId
+      }
+      
       const { data: newLead } = await supabase
         .from('leads')
-        .insert({
-          name: customerName,
-          email: customerEmail,
-          interest_type: 'personal_care',
-          lead_type: 'personal',
-          source_page: 'clara_chat',
-          status: 'won',
-          converted_at: new Date().toISOString(),
-          clara_conversation_id: conversationId,
-          message: `Customer purchased via Clara AI - ${plan.slug} plan`,
-        })
+        .insert(insertData)
         .select('id')
         .single()
       
       leadId = newLead?.id
+      
+      // Log initial activity
+      if (leadId) {
+        await supabase
+          .from('lead_activities')
+          .insert({
+            lead_id: leadId,
+            activity_type: 'note',
+            description: `New lead created and converted via Clara AI - purchased ${plan.slug} plan`,
+            metadata: { plan_slug: plan.slug, devices: devices || [] },
+          })
+      }
     }
 
     // Create order record with lead link
