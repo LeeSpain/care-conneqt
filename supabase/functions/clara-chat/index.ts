@@ -297,7 +297,7 @@ When you create a checkout session, I will display the payment link to the user.
           break;
 
         case 'capture_lead':
-          const { data: lead } = await supabase
+          const { data: lead, error: leadError } = await supabase
             .from('leads')
             .insert({
               name: functionArgs.name,
@@ -310,6 +310,18 @@ When you create a checkout session, I will display the payment link to the user.
             })
             .select()
             .single();
+          
+          if (leadError) {
+            console.error('Error creating lead:', leadError);
+          } else if (lead) {
+            // Link conversation to lead
+            await supabase
+              .from('ai_agent_conversations')
+              .update({ user_id: null }) // Lead is not yet a user
+              .eq('session_id', sessionId)
+              .is('user_id', null);
+          }
+          
           toolResult = { success: true, leadId: lead?.id };
           break;
       }
@@ -351,14 +363,24 @@ When you create a checkout session, I will display the payment link to the user.
         { role: 'assistant', content: finalMessage, tool_used: functionName }
       ];
 
-      await supabase
+      const { data: conversation } = await supabase
         .from('ai_agent_conversations')
         .insert({
           agent_id: agent.id,
           user_id: null, // Will be set if authenticated
           session_id: sessionId,
           conversation_data: conversationData,
-        });
+        })
+        .select('id')
+        .single();
+
+      // If lead was created, link conversation to it
+      if (functionName === 'capture_lead' && toolResult.leadId && conversation) {
+        await supabase
+          .from('leads')
+          .update({ clara_conversation_id: conversation.id })
+          .eq('id', toolResult.leadId);
+      }
 
       // Special handling for checkout - return payment link
       if (functionName === 'create_checkout' && toolResult.checkoutUrl) {
