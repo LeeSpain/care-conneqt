@@ -6,10 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { useLead, useUpdateLead, useAddLeadActivity, useDeleteLead } from "@/hooks/useLeads";
-import { ArrowLeft, Mail, Phone, Building, Calendar, Tag, Trash2, Save } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Building, Calendar, Tag, Trash2, Save, UserCircle } from "lucide-react";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
   SelectContent,
@@ -40,6 +41,38 @@ export default function LeadDetail() {
   const [activityType, setActivityType] = useState<string>("note");
   const [activityText, setActivityText] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [adminUsers, setAdminUsers] = useState<Array<{ id: string; name: string }>>([]);
+
+  // Fetch admin users for assignment
+  useEffect(() => {
+    const fetchAdminUsers = async () => {
+      // Get admin user IDs
+      const { data: adminRoles } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', 'admin');
+      
+      if (adminRoles && adminRoles.length > 0) {
+        const adminIds = adminRoles.map(r => r.user_id);
+        
+        // Get profiles for admin users
+        const { data: profiles } = await supabase
+          .from('profiles')
+          .select('id, first_name, last_name, email')
+          .in('id', adminIds);
+        
+        if (profiles) {
+          const users = profiles.map(profile => ({
+            id: profile.id,
+            name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || profile.email || 'Unknown'
+          }));
+          setAdminUsers(users);
+        }
+      }
+    };
+    
+    fetchAdminUsers();
+  }, []);
 
   if (isLoading) {
     return (
@@ -273,6 +306,48 @@ export default function LeadDetail() {
                     <SelectItem value="proposal">Proposal</SelectItem>
                     <SelectItem value="won">Won</SelectItem>
                     <SelectItem value="lost">Lost</SelectItem>
+                  </SelectContent>
+                </Select>
+              </CardContent>
+            </Card>
+
+            {/* Assignment Card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <UserCircle className="h-4 w-4" />
+                  Assigned To
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Select 
+                  value={lead.assigned_to || 'unassigned'} 
+                  onValueChange={async (value) => {
+                    const assignedTo = value === 'unassigned' ? null : value;
+                    await updateMutation.mutateAsync({ id: lead.id, assigned_to: assignedTo });
+                    
+                    if (assignedTo) {
+                      const assignedUser = adminUsers.find(u => u.id === assignedTo);
+                      await addActivityMutation.mutateAsync({
+                        lead_id: lead.id,
+                        activity_type: 'note',
+                        description: `Lead assigned to ${assignedUser?.name || 'admin'}`,
+                      });
+                    }
+                    
+                    toast({ title: "Assignment updated" });
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Unassigned" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="unassigned">Unassigned</SelectItem>
+                    {adminUsers.map(user => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </CardContent>

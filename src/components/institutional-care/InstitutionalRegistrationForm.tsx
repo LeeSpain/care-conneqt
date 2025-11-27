@@ -71,6 +71,7 @@ export function InstitutionalRegistrationForm() {
     setIsSubmitting(true);
 
     try {
+      // Save to institutional_registrations table
       const { error } = await supabase
         .from('institutional_registrations')
         .insert([{
@@ -80,6 +81,30 @@ export function InstitutionalRegistrationForm() {
         }]);
 
       if (error) throw error;
+
+      // Also create a lead for tracking in lead management system
+      const leadType = 
+        formData.organization_type === 'care_home' ? 'facility' : 
+        formData.organization_type === 'insurance' ? 'insurance' : 
+        formData.organization_type === 'care_group' ? 'care_company' : 'other';
+
+      await supabase
+        .from('leads')
+        .insert({
+          name: formData.contact_name,
+          email: formData.contact_email,
+          phone: formData.contact_phone,
+          interest_type: 'institutional',
+          lead_type: leadType,
+          organization_name: formData.organization_name,
+          organization_type: formData.organization_type,
+          resident_count: formData.resident_count,
+          agreement_length: formData.preferred_agreement_length,
+          estimated_value: formData.budget_range ? parseFloat(formData.budget_range.split('-')[0]) : null,
+          message: formData.additional_notes,
+          source_page: '/institutional-care',
+          status: 'new',
+        });
 
       toast.success(t('registration.success'));
       // Reset form

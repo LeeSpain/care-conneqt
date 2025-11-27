@@ -42,7 +42,50 @@ serve(async (req) => {
       }
     }
 
-    // Create order record
+    // Find or create lead for this customer
+    let leadId = null
+    
+    // Check if lead exists with this email
+    const { data: existingLead } = await supabase
+      .from('leads')
+      .select('id')
+      .eq('email', customerEmail)
+      .maybeSingle()
+    
+    if (existingLead) {
+      leadId = existingLead.id
+      
+      // Update lead status to won and add conversion data
+      await supabase
+        .from('leads')
+        .update({
+          status: 'won',
+          converted_at: new Date().toISOString(),
+          clara_conversation_id: conversationId,
+        })
+        .eq('id', leadId)
+    } else {
+      // Create new lead
+      const { data: newLead } = await supabase
+        .from('leads')
+        .insert({
+          name: customerName,
+          email: customerEmail,
+          interest_type: 'personal_care',
+          lead_type: 'personal',
+          source_page: 'clara_chat',
+          status: 'won',
+          converted_at: new Date().toISOString(),
+          clara_conversation_id: conversationId,
+          message: `Customer purchased via Clara AI - ${plan.slug} plan`,
+        })
+        .select('id')
+        .single()
+      
+      leadId = newLead?.id
+    }
+
+    // Create order record with lead link
     const { data: order, error: orderError } = await supabase
       .from('orders')
       .insert({
@@ -55,11 +98,20 @@ serve(async (req) => {
         conversation_id: conversationId,
         payment_status: 'pending',
         created_by: 'clara',
+        lead_id: leadId,
       })
       .select()
       .single()
 
     if (orderError) throw orderError
+    
+    // If lead was created/updated, link order to it
+    if (leadId) {
+      await supabase
+        .from('leads')
+        .update({ converted_to_member_id: null }) // Will be set when member account is created
+        .eq('id', leadId)
+    }
 
     // Check if Stripe is configured
     const stripeKey = Deno.env.get('STRIPE_SECRET_KEY')

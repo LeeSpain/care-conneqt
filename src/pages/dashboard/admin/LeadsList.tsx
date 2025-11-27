@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useLeads, useDeleteLead, type Lead } from "@/hooks/useLeads";
-import { Search, Plus, Filter, Download, MoreVertical, Eye, Edit, Trash } from "lucide-react";
+import { useLeads, useDeleteLead, useUpdateLead, type Lead } from "@/hooks/useLeads";
+import { Search, Plus, Filter, Download, MoreVertical, Eye, Edit, Trash, UserCircle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { AddLeadDialog } from "@/components/admin/AddLeadDialog";
+import { supabase } from "@/integrations/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -43,6 +44,8 @@ export default function LeadsList() {
   const [typeFilter, setTypeFilter] = useState<string>("");
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [deleteLeadId, setDeleteLeadId] = useState<string | null>(null);
+  const [adminUsers, setAdminUsers] = useState<Array<{ id: string; name: string }>>([]);
+  const [assigningLeadId, setAssigningLeadId] = useState<string | null>(null);
 
   const { data: leads, isLoading } = useLeads({
     search,
@@ -51,11 +54,55 @@ export default function LeadsList() {
   });
 
   const deleteMutation = useDeleteLead();
+  const updateMutation = useUpdateLead();
+
+  // Fetch admin users
+  useEffect(() => {
+    const fetchAdminUsers = async () => {
+      const { data: adminRoles } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', 'admin');
+      
+      if (adminRoles && adminRoles.length > 0) {
+        const adminIds = adminRoles.map(r => r.user_id);
+        
+        const { data: profiles } = await supabase
+          .from('profiles')
+          .select('id, first_name, last_name, email')
+          .in('id', adminIds);
+        
+        if (profiles) {
+          const users = profiles.map(profile => ({
+            id: profile.id,
+            name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || profile.email || 'Unknown'
+          }));
+          setAdminUsers(users);
+        }
+      }
+    };
+    
+    fetchAdminUsers();
+  }, []);
 
   const handleDelete = async () => {
     if (!deleteLeadId) return;
     await deleteMutation.mutateAsync(deleteLeadId);
     setDeleteLeadId(null);
+  };
+
+  const handleAssign = async (leadId: string, userId: string | null) => {
+    await updateMutation.mutateAsync({ 
+      id: leadId, 
+      assigned_to: userId 
+    });
+    toast({ title: "Lead assignment updated" });
+  };
+
+  const getAssignedUserName = (userId: string | null) => {
+    if (!userId) return "Unassigned";
+    const user = adminUsers.find(u => u.id === userId);
+    return user?.name || "Unknown";
   };
 
   const getStatusColor = (status: string) => {
@@ -158,12 +205,13 @@ export default function LeadsList() {
             ) : leads && leads.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="border-b">
+                   <thead className="border-b">
                     <tr className="text-left text-sm">
                       <th className="p-4 font-medium">Name</th>
                       <th className="p-4 font-medium">Organization</th>
                       <th className="p-4 font-medium">Type</th>
                       <th className="p-4 font-medium">Status</th>
+                      <th className="p-4 font-medium">Assigned To</th>
                       <th className="p-4 font-medium">Source</th>
                       <th className="p-4 font-medium">Created</th>
                       <th className="p-4 font-medium">Actions</th>
@@ -196,6 +244,9 @@ export default function LeadsList() {
                           </Badge>
                         </td>
                         <td className="p-4 text-sm">
+                          {getAssignedUserName(lead.assigned_to)}
+                        </td>
+                        <td className="p-4 text-sm">
                           {lead.source_page?.replace('/','') || '-'}
                         </td>
                         <td className="p-4 text-sm">
@@ -212,6 +263,10 @@ export default function LeadsList() {
                               <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/leads/${lead.id}`)}>
                                 <Eye className="mr-2 h-4 w-4" />
                                 View Details
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => setAssigningLeadId(lead.id)}>
+                                <UserCircle className="mr-2 h-4 w-4" />
+                                Assign
                               </DropdownMenuItem>
                               <DropdownMenuItem onClick={() => setDeleteLeadId(lead.id)}>
                                 <Trash className="mr-2 h-4 w-4" />
@@ -239,6 +294,44 @@ export default function LeadsList() {
 
       <AddLeadDialog open={showAddDialog} onOpenChange={setShowAddDialog} />
 
+      {/* Assign Dialog */}
+      <AlertDialog open={!!assigningLeadId} onOpenChange={(open) => !open && setAssigningLeadId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Assign Lead</AlertDialogTitle>
+            <AlertDialogDescription>
+              Select an admin user to assign this lead to.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <Select 
+              onValueChange={async (value) => {
+                if (assigningLeadId) {
+                  await handleAssign(assigningLeadId, value === 'unassigned' ? null : value);
+                  setAssigningLeadId(null);
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select user" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="unassigned">Unassigned</SelectItem>
+                {adminUsers.map(user => (
+                  <SelectItem key={user.id} value={user.id}>
+                    {user.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Delete Dialog */}
       <AlertDialog open={!!deleteLeadId} onOpenChange={(open) => !open && setDeleteLeadId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
