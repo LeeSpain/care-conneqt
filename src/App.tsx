@@ -90,6 +90,10 @@ const UserManagement = lazy(() => import("./pages/dashboard/settings/UserManagem
 const AIAgentsSettings = lazy(() => import("./pages/dashboard/settings/AIAgentsSettings"));
 const ClaraSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraSettings"));
 const InekeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/InekeSettings"));
+const ClaraMemberSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraMemberSettings"));
+const ClaraFamilySettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraFamilySettings"));
+const IsabellaSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/IsabellaSettings"));
+const LeeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/LeeSettings"));
 const Products = lazy(() => import("./pages/dashboard/admin/Products"));
 const ProductForm = lazy(() => import("./pages/dashboard/admin/ProductForm"));
 const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
@@ -602,6 +606,34 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <InekeSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/clara-member" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ClaraMemberSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/clara-family" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ClaraFamilySettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/isabella" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <IsabellaSettings />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/ai-agents/lee" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <LeeSettings />
                 </Suspense>
               </ProtectedRoute>
             } />

@@ -22,12 +22,14 @@ interface KnowledgeEntry {
   is_active: boolean;
 }
 
+type AgentType = 'customer_service' | 'nurse_support' | 'member_guardian' | 'family_support' | 'facility_assistant' | 'super_admin_ai';
+
 interface KnowledgeBaseManagerProps {
   agentId: string;
-  agentType: 'customer_service' | 'nurse_support';
+  agentType?: AgentType;
 }
 
-const CATEGORIES = {
+const CATEGORIES: Record<AgentType, string[]> = {
   customer_service: [
     'Product Information',
     'Pricing & Packages',
@@ -45,10 +47,42 @@ const CATEGORIES = {
     'Health Issues',
     'Documentation',
     'Compliance'
+  ],
+  member_guardian: [
+    'Daily Check-ins',
+    'Wellness Tips',
+    'Medication Reminders',
+    'Emergency Contacts',
+    'Device Help',
+    'General Support'
+  ],
+  family_support: [
+    'Care Updates',
+    'Health Explanations',
+    'Platform Help',
+    'Emergency Procedures',
+    'Communication Tips',
+    'Support Resources'
+  ],
+  facility_assistant: [
+    'Staff Management',
+    'Resident Care',
+    'Compliance',
+    'Operations',
+    'Reporting',
+    'Emergency Protocols'
+  ],
+  super_admin_ai: [
+    'System Operations',
+    'Analytics',
+    'Agent Management',
+    'Platform Policies',
+    'Integration Help',
+    'Troubleshooting'
   ]
 };
 
-export const KnowledgeBaseManager = ({ agentId, agentType }: KnowledgeBaseManagerProps) => {
+export const KnowledgeBaseManager = ({ agentId, agentType = 'customer_service' }: KnowledgeBaseManagerProps) => {
   const [entries, setEntries] = useState<KnowledgeEntry[]>([]);
   const [filteredEntries, setFilteredEntries] = useState<KnowledgeEntry[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
