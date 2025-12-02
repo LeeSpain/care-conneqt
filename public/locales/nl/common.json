@@ -128,6 +128,18 @@
     "typing": "Ineke is aan het typen...",
     "placeholder": "Vraag me wat je wilt..."
   },
+  "claraMember": {
+    "greeting": "Hallo! Ik ben Clara, je persoonlijke zorgmetgezel. Hoe kan ik je vandaag helpen?"
+  },
+  "claraFamily": {
+    "greeting": "Hallo! Ik ben Clara, hier om je verbonden te houden met de zorg voor je dierbare. Wat wil je weten?"
+  },
+  "isabella": {
+    "greeting": "Hallo! Ik ben Isabella, je faciliteitbeheer assistent. Hoe kan ik helpen met de operaties vandaag?"
+  },
+  "lee": {
+    "greeting": "Groeten. Ik ben LEE The Brain, meester AI-orkestrator. Ik heb volledige systeemtoegang en kan inzichten op directieniveau bieden. Hoe kan ik u helpen?"
+  },
   "aiGuardian": {
     "greeting": "Hallo! Ik ben je AI Bewaker. Hoe voel je je vandaag? Ik ben hier om te helpen met gezondheidsvragen of gewoon om te chatten.",
     "title": "AI Bewaker"

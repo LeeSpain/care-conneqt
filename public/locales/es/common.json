@@ -128,6 +128,18 @@
     "typing": "Ineke está escribiendo...",
     "placeholder": "Pregúntame lo que quieras..."
   },
+  "claraMember": {
+    "greeting": "¡Hola! Soy Clara, tu compañera de cuidado personal. ¿Cómo puedo ayudarte hoy?"
+  },
+  "claraFamily": {
+    "greeting": "¡Hola! Soy Clara, aquí para ayudarte a mantenerte conectado con el cuidado de tu ser querido. ¿Qué te gustaría saber?"
+  },
+  "isabella": {
+    "greeting": "¡Hola! Soy Isabella, tu asistente de gestión de instalaciones. ¿Cómo puedo ayudarte con las operaciones hoy?"
+  },
+  "lee": {
+    "greeting": "Saludos. Soy LEE El Cerebro, orquestador maestro de IA. Tengo acceso completo al sistema y puedo proporcionar información a nivel ejecutivo. ¿Cómo puedo ayudarte?"
+  },
   "aiGuardian": {
     "greeting": "¡Hola! Soy tu Guardián IA. ¿Cómo te sientes hoy? Estoy aquí para ayudarte con cualquier pregunta de salud o simplemente charlar.",
     "title": "Guardián IA"
