@@ -6,11 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { useLead, useUpdateLead, useAddLeadActivity, useDeleteLead } from "@/hooks/useLeads";
-import { ArrowLeft, Mail, Phone, Building, Calendar, Tag, Trash2, Save, UserCircle } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Building, Calendar, Trash2, Save, UserCircle } from "lucide-react";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -30,6 +31,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function LeadDetail() {
+  const { t } = useTranslation('dashboard-admin');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -43,10 +45,8 @@ export default function LeadDetail() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [adminUsers, setAdminUsers] = useState<Array<{ id: string; name: string }>>([]);
 
-  // Fetch admin users for assignment
   useEffect(() => {
     const fetchAdminUsers = async () => {
-      // Get admin user IDs
       const { data: adminRoles } = await supabase
         .from('user_roles')
         .select('user_id')
@@ -55,7 +55,6 @@ export default function LeadDetail() {
       if (adminRoles && adminRoles.length > 0) {
         const adminIds = adminRoles.map(r => r.user_id);
         
-        // Get profiles for admin users
         const { data: profiles } = await supabase
           .from('profiles')
           .select('id, first_name, last_name, email')
@@ -76,7 +75,7 @@ export default function LeadDetail() {
 
   if (isLoading) {
     return (
-      <AdminDashboardLayout title="Lead Details">
+      <AdminDashboardLayout title={t('leads.detail.title')}>
         <div className="space-y-6">
           <Skeleton className="h-12 w-full" />
           <div className="grid md:grid-cols-3 gap-6">
@@ -96,12 +95,12 @@ export default function LeadDetail() {
 
   if (!data) {
     return (
-      <AdminDashboardLayout title="Lead Not Found">
+      <AdminDashboardLayout title={t('leads.detail.notFound')}>
         <Card>
           <CardContent className="pt-6 text-center">
-            <p className="text-muted-foreground mb-4">Lead not found</p>
+            <p className="text-muted-foreground mb-4">{t('leads.detail.notFound')}</p>
             <Button onClick={() => navigate('/dashboard/admin/leads/list')}>
-              Back to Leads
+              {t('leads.detail.backToLeads')}
             </Button>
           </CardContent>
         </Card>
@@ -129,7 +128,7 @@ export default function LeadDetail() {
       description: activityText,
     });
     setActivityText("");
-    toast({ title: "Activity added" });
+    toast({ title: t('leads.detail.activityAdded') });
   };
 
   const handleDelete = async () => {
@@ -137,22 +136,9 @@ export default function LeadDetail() {
     navigate('/dashboard/admin/leads/list');
   };
 
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      new: "bg-blue-500",
-      contacted: "bg-yellow-500",
-      qualified: "bg-purple-500",
-      proposal: "bg-orange-500",
-      won: "bg-green-500",
-      lost: "bg-red-500",
-    };
-    return colors[status] || "bg-gray-500";
-  };
-
   return (
-    <AdminDashboardLayout title="Lead Details">
+    <AdminDashboardLayout title={t('leads.detail.title')}>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/admin/leads/list')}>
@@ -165,17 +151,15 @@ export default function LeadDetail() {
           </div>
           <Button variant="destructive" onClick={() => setShowDeleteDialog(true)}>
             <Trash2 className="mr-2 h-4 w-4" />
-            Delete Lead
+            {t('leads.detail.deleteLead')}
           </Button>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Main Content */}
           <div className="md:col-span-2 space-y-6">
-            {/* Lead Info */}
             <Card>
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>{t('leads.detail.contactInfo')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
@@ -197,27 +181,25 @@ export default function LeadDetail() {
                   )}
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>Created {lead.created_at ? format(new Date(lead.created_at), 'MMM d, yyyy') : 'Unknown'}</span>
+                    <span>{t('leads.detail.created')} {lead.created_at ? format(new Date(lead.created_at), 'MMM d, yyyy') : 'Unknown'}</span>
                   </div>
                 </div>
                 {lead.message && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-muted-foreground mb-2">Initial Message:</p>
+                    <p className="text-sm text-muted-foreground mb-2">{t('leads.detail.initialMessage')}:</p>
                     <p>{lead.message}</p>
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            {/* Activity Timeline */}
             <Card>
               <CardHeader>
-                <CardTitle>Activity Timeline</CardTitle>
-                <CardDescription>Track all interactions with this lead</CardDescription>
+                <CardTitle>{t('leads.detail.activityTimeline')}</CardTitle>
+                <CardDescription>{t('leads.detail.activityDescription')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {/* Add Activity Form */}
                   <div className="border rounded-lg p-4 space-y-3">
                     <div className="flex gap-2">
                       <Button
@@ -225,42 +207,41 @@ export default function LeadDetail() {
                         variant={activityType === "call" ? "default" : "outline"}
                         onClick={() => setActivityType("call")}
                       >
-                        Call
+                        {t('leads.activities.call')}
                       </Button>
                       <Button
                         size="sm"
                         variant={activityType === "email" ? "default" : "outline"}
                         onClick={() => setActivityType("email")}
                       >
-                        Email
+                        {t('leads.activities.email')}
                       </Button>
                       <Button
                         size="sm"
                         variant={activityType === "meeting" ? "default" : "outline"}
                         onClick={() => setActivityType("meeting")}
                       >
-                        Meeting
+                        {t('leads.activities.meeting')}
                       </Button>
                       <Button
                         size="sm"
                         variant={activityType === "note" ? "default" : "outline"}
                         onClick={() => setActivityType("note")}
                       >
-                        Note
+                        {t('leads.activities.note')}
                       </Button>
                     </div>
                     <Textarea
-                      placeholder="Add activity details..."
+                      placeholder={t('leads.detail.addActivityPlaceholder')}
                       value={activityText}
                       onChange={(e) => setActivityText(e.target.value)}
                     />
                     <Button onClick={handleAddActivity} disabled={!activityText.trim()}>
                       <Save className="mr-2 h-4 w-4" />
-                      Add Activity
+                      {t('leads.detail.addActivity')}
                     </Button>
                   </div>
 
-                  {/* Activities List */}
                   <div className="space-y-3">
                     {activities && activities.length > 0 ? (
                       activities.map((activity) => (
@@ -278,7 +259,7 @@ export default function LeadDetail() {
                       ))
                     ) : (
                       <p className="text-sm text-muted-foreground text-center py-8">
-                        No activities yet
+                        {t('leads.detail.noActivities')}
                       </p>
                     )}
                   </div>
@@ -287,12 +268,10 @@ export default function LeadDetail() {
             </Card>
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-6">
-            {/* Status Card */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Status</CardTitle>
+                <CardTitle className="text-base">{t('leads.detail.status')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Select value={lead.status || 'new'} onValueChange={handleStatusChange}>
@@ -300,23 +279,22 @@ export default function LeadDetail() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="new">New</SelectItem>
-                    <SelectItem value="contacted">Contacted</SelectItem>
-                    <SelectItem value="qualified">Qualified</SelectItem>
-                    <SelectItem value="proposal">Proposal</SelectItem>
-                    <SelectItem value="won">Won</SelectItem>
-                    <SelectItem value="lost">Lost</SelectItem>
+                    <SelectItem value="new">{t('leads.status.new')}</SelectItem>
+                    <SelectItem value="contacted">{t('leads.status.contacted')}</SelectItem>
+                    <SelectItem value="qualified">{t('leads.status.qualified')}</SelectItem>
+                    <SelectItem value="proposal">{t('leads.status.proposal')}</SelectItem>
+                    <SelectItem value="won">{t('leads.status.won')}</SelectItem>
+                    <SelectItem value="lost">{t('leads.status.lost')}</SelectItem>
                   </SelectContent>
                 </Select>
               </CardContent>
             </Card>
 
-            {/* Assignment Card */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <UserCircle className="h-4 w-4" />
-                  Assigned To
+                  {t('leads.detail.assignedTo')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -335,14 +313,14 @@ export default function LeadDetail() {
                       });
                     }
                     
-                    toast({ title: "Assignment updated" });
+                    toast({ title: t('leads.detail.assignmentUpdated') });
                   }}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Unassigned" />
+                    <SelectValue placeholder={t('leads.detail.unassigned')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="unassigned">Unassigned</SelectItem>
+                    <SelectItem value="unassigned">{t('leads.detail.unassigned')}</SelectItem>
                     {adminUsers.map(user => (
                       <SelectItem key={user.id} value={user.id}>
                         {user.name}
@@ -353,25 +331,24 @@ export default function LeadDetail() {
               </CardContent>
             </Card>
 
-            {/* Lead Details */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Lead Details</CardTitle>
+                <CardTitle className="text-base">{t('leads.detail.leadDetails')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div>
-                  <p className="text-sm text-muted-foreground">Type</p>
+                  <p className="text-sm text-muted-foreground">{t('leads.detail.type')}</p>
                   <Badge variant="outline">{lead.lead_type || 'personal'}</Badge>
                 </div>
                 {lead.source_page && (
                   <div>
-                    <p className="text-sm text-muted-foreground">Source</p>
+                    <p className="text-sm text-muted-foreground">{t('leads.detail.source')}</p>
                     <p className="text-sm">{lead.source_page}</p>
                   </div>
                 )}
                 {lead.estimated_value && (
                   <div>
-                    <p className="text-sm text-muted-foreground">Estimated Value</p>
+                    <p className="text-sm text-muted-foreground">{t('leads.detail.estimatedValue')}</p>
                     <p className="text-sm font-medium">€{lead.estimated_value.toLocaleString()}</p>
                   </div>
                 )}
@@ -384,14 +361,14 @@ export default function LeadDetail() {
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Lead?</AlertDialogTitle>
+            <AlertDialogTitle>{t('leads.detail.deleteTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the lead and all associated activities.
+              {t('leads.detail.deleteDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+            <AlertDialogCancel>{t('leads.detail.cancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>{t('leads.detail.delete')}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

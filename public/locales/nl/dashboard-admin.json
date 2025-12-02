@@ -744,6 +744,33 @@
       "leadUpdated": "Lead succesvol bijgewerkt",
       "leadDeleted": "Lead succesvol verwijderd",
       "activityAdded": "Activiteit succesvol toegevoegd"
+    },
+    "detail": {
+      "title": "Lead Details",
+      "notFound": "Lead niet gevonden",
+      "backToLeads": "Terug naar Leads",
+      "deleteLead": "Lead Verwijderen",
+      "contactInfo": "Contactinformatie",
+      "initialMessage": "Initieel Bericht",
+      "activityTimeline": "Activiteitentijdlijn",
+      "activityDescription": "Volg alle interacties met deze lead",
+      "addActivityPlaceholder": "Voeg activiteitdetails toe...",
+      "addActivity": "Activiteit Toevoegen",
+      "noActivities": "Nog geen activiteiten",
+      "status": "Status",
+      "assignedTo": "Toegewezen aan",
+      "unassigned": "Niet Toegewezen",
+      "leadDetails": "Lead Details",
+      "type": "Type",
+      "source": "Bron",
+      "estimatedValue": "Geschatte Waarde",
+      "created": "Aangemaakt",
+      "deleteTitle": "Lead Verwijderen?",
+      "deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. Dit verwijdert de lead en alle bijbehorende activiteiten permanent.",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "activityAdded": "Activiteit toegevoegd",
+      "assignmentUpdated": "Toewijzing bijgewerkt"
     }
   },
   "commercial": {

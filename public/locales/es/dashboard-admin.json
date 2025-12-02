@@ -744,6 +744,33 @@
       "leadUpdated": "Prospecto actualizado con éxito",
       "leadDeleted": "Prospecto eliminado con éxito",
       "activityAdded": "Actividad añadida con éxito"
+    },
+    "detail": {
+      "title": "Detalles del Prospecto",
+      "notFound": "Prospecto no encontrado",
+      "backToLeads": "Volver a Prospectos",
+      "deleteLead": "Eliminar Prospecto",
+      "contactInfo": "Información de Contacto",
+      "initialMessage": "Mensaje Inicial",
+      "activityTimeline": "Cronología de Actividades",
+      "activityDescription": "Seguimiento de todas las interacciones con este prospecto",
+      "addActivityPlaceholder": "Agregar detalles de la actividad...",
+      "addActivity": "Agregar Actividad",
+      "noActivities": "Sin actividades aún",
+      "status": "Estado",
+      "assignedTo": "Asignado a",
+      "unassigned": "Sin Asignar",
+      "leadDetails": "Detalles del Prospecto",
+      "type": "Tipo",
+      "source": "Fuente",
+      "estimatedValue": "Valor Estimado",
+      "created": "Creado",
+      "deleteTitle": "¿Eliminar Prospecto?",
+      "deleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente el prospecto y todas las actividades asociadas.",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "activityAdded": "Actividad añadida",
+      "assignmentUpdated": "Asignación actualizada"
     }
   },
   "commercial": {

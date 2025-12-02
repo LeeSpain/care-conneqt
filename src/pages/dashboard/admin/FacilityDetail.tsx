@@ -101,7 +101,7 @@ export default function FacilityDetail() {
 
   if (isLoading) {
     return (
-      <AdminDashboardLayout title="Loading...">
+      <AdminDashboardLayout title={t('facilityDetail.loading')}>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
@@ -124,12 +124,12 @@ export default function FacilityDetail() {
 
       if (error) throw error;
       
-      toast.success("Staff member removed from facility");
+      toast.success(t('facilityDetail.staffRemoved'));
       queryClient.invalidateQueries({ queryKey: ["facility-staff", id] });
       setRemoveStaffDialogOpen(false);
       setSelectedStaff(null);
     } catch (error: any) {
-      toast.error(error.message || "Failed to remove staff member");
+      toast.error(error.message || t('facilityDetail.removeStaffFailed'));
     }
   };
 
@@ -148,27 +148,27 @@ export default function FacilityDetail() {
           </div>
           <Button variant="outline" onClick={() => setEditFacilityOpen(true)}>
             <Settings className="h-4 w-4 mr-2" />
-            Edit Facility
+            {t('facilityDetail.editFacility')}
           </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Residents</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('facilityDetail.residents')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{residents?.length || 0}</div>
               <p className="text-xs text-muted-foreground">
-                of {facility?.bed_capacity} beds
+                {t('facilityDetail.ofBeds', { count: facility?.bed_capacity })}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Occupancy</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('facilityDetail.occupancy')}</CardTitle>
               <Bed className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -184,20 +184,20 @@ export default function FacilityDetail() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Staff</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('facilityDetail.staff')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{staff?.length || 0}</div>
               <p className="text-xs text-muted-foreground">
-                Team members
+                {t('facilityDetail.teamMembers')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Status</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('facilityDetail.status')}</CardTitle>
               <Building2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -215,15 +215,15 @@ export default function FacilityDetail() {
 
         <Tabs defaultValue="residents" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="residents">Residents</TabsTrigger>
-            <TabsTrigger value="staff">Staff</TabsTrigger>
-            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="residents">{t('facilityDetail.tabs.residents')}</TabsTrigger>
+            <TabsTrigger value="staff">{t('facilityDetail.tabs.staff')}</TabsTrigger>
+            <TabsTrigger value="details">{t('facilityDetail.tabs.details')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="residents" className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Current Residents</h3>
-              <Button onClick={() => setAdmitResidentOpen(true)}>Add Resident</Button>
+              <h3 className="text-lg font-semibold">{t('facilityDetail.currentResidents')}</h3>
+              <Button onClick={() => setAdmitResidentOpen(true)}>{t('facilityDetail.addResident')}</Button>
             </div>
             {residents && residents.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2">
@@ -236,7 +236,7 @@ export default function FacilityDetail() {
                             {resident.member?.profile?.first_name} {resident.member?.profile?.last_name}
                           </CardTitle>
                           <CardDescription>
-                            Room {resident.room_number} • Admitted {new Date(resident.admission_date).toLocaleDateString()}
+                            {t('facilityDetail.room')} {resident.room_number} • {t('facilityDetail.admitted')} {new Date(resident.admission_date).toLocaleDateString()}
                           </CardDescription>
                         </div>
                         <DropdownMenu>
@@ -248,14 +248,14 @@ export default function FacilityDetail() {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/members`)}>
                               <Eye className="h-4 w-4 mr-2" />
-                              View Profile
+                              {t('facilityDetail.viewProfile')}
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => {
                               setSelectedResident(resident);
                               setChangeRoomDialogOpen(true);
                             }}>
                               <Bed className="h-4 w-4 mr-2" />
-                              Change Room
+                              {t('facilityDetail.changeRoom')}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem 
@@ -266,7 +266,7 @@ export default function FacilityDetail() {
                               className="text-destructive"
                             >
                               <DoorOpen className="h-4 w-4 mr-2" />
-                              Discharge Resident
+                              {t('facilityDetail.dischargeResident')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -279,7 +279,7 @@ export default function FacilityDetail() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No residents currently in this facility</p>
+                  <p className="text-muted-foreground">{t('facilityDetail.noResidents')}</p>
                 </CardContent>
               </Card>
             )}
@@ -287,8 +287,8 @@ export default function FacilityDetail() {
 
           <TabsContent value="staff" className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Facility Staff</h3>
-              <Button onClick={() => setAddStaffOpen(true)}>Add Staff Member</Button>
+              <h3 className="text-lg font-semibold">{t('facilityDetail.facilityStaff')}</h3>
+              <Button onClick={() => setAddStaffOpen(true)}>{t('facilityDetail.addStaffMember')}</Button>
             </div>
             {staff && staff.length > 0 ? (
               <div className="grid gap-4 md:grid-cols-2">
@@ -302,7 +302,7 @@ export default function FacilityDetail() {
                           </CardTitle>
                           <CardDescription>
                             {member.staff_role}
-                            {member.is_facility_admin && " • Administrator"}
+                            {member.is_facility_admin && ` • ${t('facilityDetail.administrator')}`}
                           </CardDescription>
                         </div>
                         <DropdownMenu>
@@ -314,14 +314,14 @@ export default function FacilityDetail() {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/staff`)}>
                               <Eye className="h-4 w-4 mr-2" />
-                              View Profile
+                              {t('facilityDetail.viewProfile')}
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => {
                               setSelectedStaff(member);
                               setEditStaffRoleDialogOpen(true);
                             }}>
                               <UserCog className="h-4 w-4 mr-2" />
-                              Edit Role
+                              {t('facilityDetail.editRole')}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem 
@@ -332,7 +332,7 @@ export default function FacilityDetail() {
                               className="text-destructive"
                             >
                               <Trash2 className="h-4 w-4 mr-2" />
-                              Remove from Facility
+                              {t('facilityDetail.removeFromFacility')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -350,7 +350,7 @@ export default function FacilityDetail() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <p className="text-muted-foreground">No staff members assigned</p>
+                  <p className="text-muted-foreground">{t('facilityDetail.noStaff')}</p>
                 </CardContent>
               </Card>
             )}
@@ -359,34 +359,34 @@ export default function FacilityDetail() {
           <TabsContent value="details" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Facility Information</CardTitle>
+                <CardTitle>{t('facilityDetail.facilityInformation')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">License Number</p>
-                    <p className="text-sm">{facility?.license_number || "N/A"}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.licenseNumber')}</p>
+                    <p className="text-sm">{facility?.license_number || t('facilityDetail.na')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Facility Type</p>
-                    <p className="text-sm">{facility?.facility_type || "N/A"}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.facilityType')}</p>
+                    <p className="text-sm">{facility?.facility_type || t('facilityDetail.na')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Bed Capacity</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.bedCapacity')}</p>
                     <p className="text-sm">{facility?.bed_capacity}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Contact Email</p>
-                    <p className="text-sm">{facility?.email || "N/A"}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.contactEmail')}</p>
+                    <p className="text-sm">{facility?.email || t('facilityDetail.na')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Phone</p>
-                    <p className="text-sm">{facility?.phone || "N/A"}</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.phone')}</p>
+                    <p className="text-sm">{facility?.phone || t('facilityDetail.na')}</p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Created</p>
+                    <p className="text-sm font-medium text-muted-foreground">{t('facilityDetail.created')}</p>
                     <p className="text-sm">
-                      {facility?.created_at ? new Date(facility.created_at).toLocaleDateString() : "N/A"}
+                      {facility?.created_at ? new Date(facility.created_at).toLocaleDateString() : t('facilityDetail.na')}
                     </p>
                   </div>
                 </div>
@@ -438,15 +438,15 @@ export default function FacilityDetail() {
       <AlertDialog open={removeStaffDialogOpen} onOpenChange={setRemoveStaffDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remove Staff Member</AlertDialogTitle>
+            <AlertDialogTitle>{t('facilityDetail.removeStaffTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to remove {selectedStaff?.profile?.first_name} {selectedStaff?.profile?.last_name} from this facility?
+              {t('facilityDetail.removeStaffDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('facilityDetail.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={handleRemoveStaff} className="bg-destructive text-destructive-foreground">
-              Remove
+              {t('facilityDetail.remove')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

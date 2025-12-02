@@ -744,6 +744,33 @@
       "leadUpdated": "Lead updated successfully",
       "leadDeleted": "Lead deleted successfully",
       "activityAdded": "Activity added successfully"
+    },
+    "detail": {
+      "title": "Lead Details",
+      "notFound": "Lead not found",
+      "backToLeads": "Back to Leads",
+      "deleteLead": "Delete Lead",
+      "contactInfo": "Contact Information",
+      "initialMessage": "Initial Message",
+      "activityTimeline": "Activity Timeline",
+      "activityDescription": "Track all interactions with this lead",
+      "addActivityPlaceholder": "Add activity details...",
+      "addActivity": "Add Activity",
+      "noActivities": "No activities yet",
+      "status": "Status",
+      "assignedTo": "Assigned To",
+      "unassigned": "Unassigned",
+      "leadDetails": "Lead Details",
+      "type": "Type",
+      "source": "Source",
+      "estimatedValue": "Estimated Value",
+      "created": "Created",
+      "deleteTitle": "Delete Lead?",
+      "deleteDescription": "This action cannot be undone. This will permanently delete the lead and all associated activities.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "activityAdded": "Activity added",
+      "assignmentUpdated": "Assignment updated"
     }
   },
   "commercial": {
