@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   name: z.string().min(1, "Facility name is required"),
@@ -55,6 +56,7 @@ interface AddFacilityDialogProps {
 }
 
 export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityDialogProps) => {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   const isEdit = !!facility;
@@ -95,14 +97,14 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
           .eq("id", facility.id);
 
         if (error) throw error;
-        toast.success("Facility updated successfully!");
+        toast.success(t('dialogs.addFacility.updateSuccess'));
       } else {
         const { error } = await supabase
           .from("facilities")
           .insert(facilityData as any);
 
         if (error) throw error;
-        toast.success("Facility created successfully!");
+        toast.success(t('dialogs.addFacility.createSuccess'));
       }
 
       queryClient.invalidateQueries({ queryKey: ["admin-facilities"] });
@@ -111,7 +113,7 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
       onOpenChange(false);
     } catch (error: any) {
       console.error("Error saving facility:", error);
-      toast.error(error.message || "Failed to save facility");
+      toast.error(error.message || t('dialogs.addFacility.createError'));
     } finally {
       setIsLoading(false);
     }
@@ -121,9 +123,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Facility" : "Add New Facility"}</DialogTitle>
+          <DialogTitle>{isEdit ? t('dialogs.addFacility.editTitle') : t('dialogs.addFacility.title')}</DialogTitle>
           <DialogDescription>
-            {isEdit ? "Update facility information" : "Create a new care facility"}
+            {isEdit ? t('dialogs.addFacility.editDescription') : t('dialogs.addFacility.description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -135,9 +137,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Facility Name</FormLabel>
+                    <FormLabel>{t('dialogs.addFacility.facilityName')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Sunshine Care Home" />
+                      <Input {...field} placeholder={t('dialogs.addFacility.facilityNamePlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -149,19 +151,19 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="facility_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Facility Type</FormLabel>
+                    <FormLabel>{t('dialogs.addFacility.facilityType')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select type" />
+                          <SelectValue placeholder={t('dialogs.addFacility.selectType')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="care_home">Care Home</SelectItem>
-                        <SelectItem value="nursing_home">Nursing Home</SelectItem>
-                        <SelectItem value="assisted_living">Assisted Living</SelectItem>
-                        <SelectItem value="residential_care">Residential Care</SelectItem>
-                        <SelectItem value="memory_care">Memory Care</SelectItem>
+                        <SelectItem value="care_home">{t('dialogs.addFacility.types.careHome')}</SelectItem>
+                        <SelectItem value="nursing_home">{t('dialogs.addFacility.types.nursingHome')}</SelectItem>
+                        <SelectItem value="assisted_living">{t('dialogs.addFacility.types.assistedLiving')}</SelectItem>
+                        <SelectItem value="residential_care">{t('dialogs.addFacility.types.residentialCare')}</SelectItem>
+                        <SelectItem value="memory_care">{t('dialogs.addFacility.types.memoryCare')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -176,9 +178,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="license_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>License Number (Optional)</FormLabel>
+                    <FormLabel>{t('dialogs.addFacility.licenseNumber')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="LIC-123456" />
+                      <Input {...field} placeholder={t('dialogs.addFacility.licenseNumberPlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -190,7 +192,7 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="bed_capacity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bed Capacity</FormLabel>
+                    <FormLabel>{t('dialogs.addFacility.bedCapacity')}</FormLabel>
                     <FormControl>
                       <Input type="number" {...field} min="1" />
                     </FormControl>
@@ -205,9 +207,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
               name="address_line1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address Line 1</FormLabel>
+                  <FormLabel>{t('dialogs.addFacility.addressLine1')}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="123 Main Street" />
+                    <Input {...field} placeholder={t('dialogs.addFacility.addressLine1Placeholder')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -219,9 +221,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
               name="address_line2"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address Line 2 (Optional)</FormLabel>
+                  <FormLabel>{t('dialogs.addFacility.addressLine2')}</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Apartment, suite, etc." />
+                    <Input {...field} placeholder={t('dialogs.addFacility.addressLine2Placeholder')} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -234,9 +236,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>City</FormLabel>
+                    <FormLabel>{t('dialogs.common.city')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="London" />
+                      <Input {...field} placeholder={t('dialogs.addFacility.cityPlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -248,9 +250,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="postal_code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Postal Code</FormLabel>
+                    <FormLabel>{t('dialogs.common.postalCode')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="SW1A 1AA" />
+                      <Input {...field} placeholder={t('dialogs.addFacility.postalCodePlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -262,7 +264,7 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Country</FormLabel>
+                    <FormLabel>{t('dialogs.common.country')}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -270,10 +272,10 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="GB">United Kingdom</SelectItem>
-                        <SelectItem value="IE">Ireland</SelectItem>
-                        <SelectItem value="US">United States</SelectItem>
-                        <SelectItem value="NL">Netherlands</SelectItem>
+                        <SelectItem value="GB">{t('dialogs.addFacility.countries.gb')}</SelectItem>
+                        <SelectItem value="IE">{t('dialogs.addFacility.countries.ie')}</SelectItem>
+                        <SelectItem value="US">{t('dialogs.addFacility.countries.us')}</SelectItem>
+                        <SelectItem value="NL">{t('dialogs.addFacility.countries.nl')}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -288,9 +290,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email (Optional)</FormLabel>
+                    <FormLabel>{t('dialogs.common.emailOptional')}</FormLabel>
                     <FormControl>
-                      <Input type="email" {...field} placeholder="info@facility.com" />
+                      <Input type="email" {...field} placeholder={t('dialogs.addFacility.emailPlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -302,9 +304,9 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone (Optional)</FormLabel>
+                    <FormLabel>{t('dialogs.common.phoneOptional')}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="+44 20 1234 5678" />
+                      <Input {...field} placeholder={t('dialogs.addFacility.phonePlaceholder')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -317,7 +319,7 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
               name="subscription_status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Subscription Status</FormLabel>
+                  <FormLabel>{t('dialogs.common.subscriptionStatus')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
@@ -325,11 +327,11 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="trial">Trial</SelectItem>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="past_due">Past Due</SelectItem>
-                      <SelectItem value="cancelled">Cancelled</SelectItem>
-                      <SelectItem value="incomplete">Incomplete</SelectItem>
+                      <SelectItem value="trial">{t('dialogs.addFacility.status.trial')}</SelectItem>
+                      <SelectItem value="active">{t('dialogs.addFacility.status.active')}</SelectItem>
+                      <SelectItem value="past_due">{t('dialogs.addFacility.status.pastDue')}</SelectItem>
+                      <SelectItem value="cancelled">{t('dialogs.addFacility.status.cancelled')}</SelectItem>
+                      <SelectItem value="incomplete">{t('dialogs.addFacility.status.incomplete')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -344,11 +346,11 @@ export const AddFacilityDialog = ({ open, onOpenChange, facility }: AddFacilityD
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                {t('dialogs.common.cancel')}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isEdit ? "Update Facility" : "Create Facility"}
+                {isEdit ? t('dialogs.addFacility.updateFacility') : t('dialogs.addFacility.createFacility')}
               </Button>
             </div>
           </form>

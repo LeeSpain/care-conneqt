@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import { KnowledgeBaseManager } from '@/components/ai-agents/KnowledgeBaseManager';
 import { FunctionManager } from '@/components/ai-agents/FunctionManager';
 import { AgentAnalytics } from '@/components/ai-agents/AgentAnalytics';
+import { useTranslation } from 'react-i18next';
 
 interface AgentData {
   id: string;
@@ -52,6 +53,7 @@ export function AgentSettingsPage({
   gradientClass,
   specificSettings
 }: AgentSettingsPageProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [agent, setAgent] = useState<AgentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -93,7 +95,7 @@ export function AgentSettingsPage({
       });
     } catch (error) {
       console.error('Error fetching agent:', error);
-      toast.error('Failed to load agent configuration');
+      toast.error(t('aiAgents.settings.loadError'));
     } finally {
       setLoading(false);
       fetchInProgress.current = false;
@@ -115,10 +117,10 @@ export function AgentSettingsPage({
         .eq('id', agent.id);
 
       if (error) throw error;
-      toast.success('General settings saved');
+      toast.success(t('aiAgents.settings.generalSaved'));
     } catch (error) {
       console.error('Error saving settings:', error);
-      toast.error('Failed to save settings');
+      toast.error(t('aiAgents.settings.saveFailed'));
     } finally {
       setSaving(false);
     }
@@ -141,10 +143,10 @@ export function AgentSettingsPage({
         .eq('agent_id', agent.id);
 
       if (error) throw error;
-      toast.success('Configuration saved');
+      toast.success(t('aiAgents.settings.configSaved'));
     } catch (error) {
       console.error('Error saving configuration:', error);
-      toast.error('Failed to save configuration');
+      toast.error(t('aiAgents.settings.saveFailed'));
     } finally {
       setSaving(false);
     }
@@ -155,12 +157,12 @@ export function AgentSettingsPage({
     const file = e.target.files[0];
 
     if (file.size > 2 * 1024 * 1024) {
-      toast.error('File size must be less than 2MB');
+      toast.error(t('aiAgents.settings.fileSizeError'));
       return;
     }
 
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      toast.error('Only JPG, PNG, and WebP formats are allowed');
+      toast.error(t('aiAgents.settings.fileFormatError'));
       return;
     }
 
@@ -188,10 +190,10 @@ export function AgentSettingsPage({
       if (updateError) throw updateError;
 
       setAgent({ ...agent, avatar_url: publicUrl });
-      toast.success('Avatar uploaded successfully');
+      toast.success(t('aiAgents.settings.avatarUploaded'));
     } catch (error) {
       console.error('Error uploading avatar:', error);
-      toast.error('Failed to upload avatar');
+      toast.error(t('aiAgents.settings.avatarUploadFailed'));
     } finally {
       setUploading(false);
     }
@@ -219,10 +221,10 @@ export function AgentSettingsPage({
       if (updateError) throw updateError;
 
       setAgent({ ...agent, avatar_url: null });
-      toast.success('Avatar removed successfully');
+      toast.success(t('aiAgents.settings.avatarRemoved'));
     } catch (error) {
       console.error('Error removing avatar:', error);
-      toast.error('Failed to remove avatar');
+      toast.error(t('aiAgents.settings.avatarRemoveFailed'));
     } finally {
       setUploading(false);
     }
@@ -241,7 +243,7 @@ export function AgentSettingsPage({
   if (!agent) {
     return (
       <AdminDashboardLayout title={title}>
-        <div className="text-center py-8">Agent not found</div>
+        <div className="text-center py-8">{t('aiAgents.agentNotFound')}</div>
       </AdminDashboardLayout>
     );
   }
@@ -275,19 +277,19 @@ export function AgentSettingsPage({
         {/* Tabs */}
         <Tabs defaultValue="general" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="prompt">System Prompt</TabsTrigger>
-            <TabsTrigger value="personality">Personality</TabsTrigger>
-            <TabsTrigger value="knowledge">Knowledge Base</TabsTrigger>
-            <TabsTrigger value="functions">Functions</TabsTrigger>
+            <TabsTrigger value="general">{t('aiAgents.settings.general')}</TabsTrigger>
+            <TabsTrigger value="prompt">{t('aiAgents.settings.systemPrompt')}</TabsTrigger>
+            <TabsTrigger value="personality">{t('aiAgents.settings.personality')}</TabsTrigger>
+            <TabsTrigger value="knowledge">{t('aiAgents.settings.knowledgeBase')}</TabsTrigger>
+            <TabsTrigger value="functions">{t('aiAgents.settings.functions')}</TabsTrigger>
           </TabsList>
 
           {/* General Settings */}
           <TabsContent value="general">
             <Card>
               <CardHeader>
-                <CardTitle>General Settings</CardTitle>
-                <CardDescription>Basic agent information and status</CardDescription>
+                <CardTitle>{t('aiAgents.settings.generalSettings')}</CardTitle>
+                <CardDescription>{t('aiAgents.settings.generalDescription')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Avatar Section */}
@@ -304,9 +306,9 @@ export function AgentSettingsPage({
 
                   <div className="flex-1 space-y-3">
                     <div>
-                      <Label className="text-base font-semibold">Agent Avatar</Label>
+                      <Label className="text-base font-semibold">{t('aiAgents.settings.agentAvatar')}</Label>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Upload a profile picture (max 2MB, JPG/PNG/WebP)
+                        {t('aiAgents.settings.avatarDescription')}
                       </p>
                     </div>
 
@@ -324,7 +326,7 @@ export function AgentSettingsPage({
                         disabled={uploading}
                       >
                         <Upload className="h-4 w-4 mr-2" />
-                        {uploading ? 'Uploading...' : 'Upload Avatar'}
+                        {uploading ? t('aiAgents.settings.uploading') : t('aiAgents.settings.uploadAvatar')}
                       </Button>
 
                       {agent.avatar_url && (
@@ -334,7 +336,7 @@ export function AgentSettingsPage({
                           disabled={uploading}
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Remove
+                          {t('aiAgents.settings.remove')}
                         </Button>
                       )}
                     </div>
@@ -342,7 +344,7 @@ export function AgentSettingsPage({
                 </div>
 
                 <div>
-                  <Label htmlFor="display_name">Display Name</Label>
+                  <Label htmlFor="display_name">{t('aiAgents.settings.displayName')}</Label>
                   <Input
                     id="display_name"
                     value={agent.display_name}
@@ -351,7 +353,7 @@ export function AgentSettingsPage({
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t('aiAgents.settings.description')}</Label>
                   <Textarea
                     id="description"
                     value={agent.description || ''}
@@ -361,7 +363,7 @@ export function AgentSettingsPage({
                 </div>
 
                 <div>
-                  <Label htmlFor="status">Status</Label>
+                  <Label htmlFor="status">{t('aiAgents.settings.status')}</Label>
                   <Select
                     value={agent.status}
                     onValueChange={(value) => setAgent({ ...agent, status: value })}
@@ -370,9 +372,9 @@ export function AgentSettingsPage({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="inactive">Inactive</SelectItem>
-                      <SelectItem value="training">Training</SelectItem>
+                      <SelectItem value="active">{t('aiAgents.settings.statusActive')}</SelectItem>
+                      <SelectItem value="inactive">{t('aiAgents.settings.statusInactive')}</SelectItem>
+                      <SelectItem value="training">{t('aiAgents.settings.statusTraining')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -380,7 +382,7 @@ export function AgentSettingsPage({
                 {specificSettings}
 
                 <Button onClick={saveGeneralSettings} disabled={saving}>
-                  {saving ? 'Saving...' : 'Save Changes'}
+                  {saving ? t('aiAgents.settings.saving') : t('aiAgents.settings.saveChanges')}
                 </Button>
               </CardContent>
             </Card>
@@ -390,12 +392,12 @@ export function AgentSettingsPage({
           <TabsContent value="prompt">
             <Card>
               <CardHeader>
-                <CardTitle>System Prompt</CardTitle>
-                <CardDescription>Define how this agent behaves and responds</CardDescription>
+                <CardTitle>{t('aiAgents.settings.systemPromptTitle')}</CardTitle>
+                <CardDescription>{t('aiAgents.settings.systemPromptDescription')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="system_prompt">System Prompt</Label>
+                  <Label htmlFor="system_prompt">{t('aiAgents.settings.systemPrompt')}</Label>
                   <Textarea
                     id="system_prompt"
                     value={agent.config.system_prompt}
@@ -407,12 +409,12 @@ export function AgentSettingsPage({
                     className="font-mono text-sm"
                   />
                   <p className="text-xs text-muted-foreground mt-2">
-                    This is the core instruction that defines the agent's personality, knowledge, and behavior.
+                    {t('aiAgents.settings.systemPromptHelp')}
                   </p>
                 </div>
 
                 <Button onClick={saveConfiguration} disabled={saving}>
-                  {saving ? 'Saving...' : 'Save System Prompt'}
+                  {saving ? t('aiAgents.settings.saving') : t('aiAgents.settings.saveSystemPrompt')}
                 </Button>
               </CardContent>
             </Card>
@@ -422,12 +424,12 @@ export function AgentSettingsPage({
           <TabsContent value="personality">
             <Card>
               <CardHeader>
-                <CardTitle>Personality & AI Configuration</CardTitle>
-                <CardDescription>Fine-tune the agent's behavior and responses</CardDescription>
+                <CardTitle>{t('aiAgents.settings.personalityTitle')}</CardTitle>
+                <CardDescription>{t('aiAgents.settings.personalityDescription')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <Label htmlFor="model">AI Model</Label>
+                  <Label htmlFor="model">{t('aiAgents.settings.aiModel')}</Label>
                   <Select
                     value={agent.config.model}
                     onValueChange={(value) => setAgent({
@@ -439,15 +441,15 @@ export function AgentSettingsPage({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="google/gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</SelectItem>
-                      <SelectItem value="google/gemini-2.5-pro">Gemini 2.5 Pro (Best Quality)</SelectItem>
-                      <SelectItem value="google/gemini-2.5-flash-lite">Gemini 2.5 Flash Lite (Fastest)</SelectItem>
+                      <SelectItem value="google/gemini-2.5-flash">{t('aiAgents.settings.modelFlash')}</SelectItem>
+                      <SelectItem value="google/gemini-2.5-pro">{t('aiAgents.settings.modelPro')}</SelectItem>
+                      <SelectItem value="google/gemini-2.5-flash-lite">{t('aiAgents.settings.modelLite')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
-                  <Label htmlFor="response_style">Response Style</Label>
+                  <Label htmlFor="response_style">{t('aiAgents.settings.responseStyle')}</Label>
                   <Select
                     value={agent.config.response_style}
                     onValueChange={(value) => setAgent({
@@ -459,20 +461,20 @@ export function AgentSettingsPage({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="friendly">Friendly & Conversational</SelectItem>
-                      <SelectItem value="supportive">Supportive & Reassuring</SelectItem>
-                      <SelectItem value="professional">Professional</SelectItem>
-                      <SelectItem value="executive">Executive Summary</SelectItem>
-                      <SelectItem value="concise">Concise & Direct</SelectItem>
-                      <SelectItem value="detailed">Detailed & Thorough</SelectItem>
+                      <SelectItem value="friendly">{t('aiAgents.settings.styleFriendly')}</SelectItem>
+                      <SelectItem value="supportive">{t('aiAgents.settings.styleSupportive')}</SelectItem>
+                      <SelectItem value="professional">{t('aiAgents.settings.styleProfessional')}</SelectItem>
+                      <SelectItem value="executive">{t('aiAgents.settings.styleExecutive')}</SelectItem>
+                      <SelectItem value="concise">{t('aiAgents.settings.styleConcise')}</SelectItem>
+                      <SelectItem value="detailed">{t('aiAgents.settings.styleDetailed')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
                   <Label htmlFor="temperature">
-                    Temperature: {agent.config.temperature}
-                    <span className="text-xs text-muted-foreground ml-2">(0 = focused, 1 = creative)</span>
+                    {t('aiAgents.settings.temperature')}: {agent.config.temperature}
+                    <span className="text-xs text-muted-foreground ml-2">{t('aiAgents.settings.temperatureHelp')}</span>
                   </Label>
                   <Input
                     id="temperature"
@@ -490,7 +492,7 @@ export function AgentSettingsPage({
                 </div>
 
                 <div>
-                  <Label htmlFor="max_tokens">Max Response Length (tokens)</Label>
+                  <Label htmlFor="max_tokens">{t('aiAgents.settings.maxTokens')}</Label>
                   <Input
                     id="max_tokens"
                     type="number"
@@ -503,7 +505,7 @@ export function AgentSettingsPage({
                 </div>
 
                 <Button onClick={saveConfiguration} disabled={saving}>
-                  {saving ? 'Saving...' : 'Save Configuration'}
+                  {saving ? t('aiAgents.settings.saving') : t('aiAgents.settings.saveConfig')}
                 </Button>
               </CardContent>
             </Card>

@@ -750,16 +750,27 @@
       "temperature": "Temperature",
       "temperatureHelp": "(0 = focused, 1 = creative)",
       "maxResponseLength": "Max Response Length (tokens)",
+      "maxTokens": "Max Response Length (tokens)",
       "savePersonality": "Save Personality",
+      "saveConfig": "Save Configuration",
       "generalSettingsSaved": "General settings saved",
+      "generalSaved": "General settings saved",
       "configurationSaved": "Configuration saved",
+      "configSaved": "Configuration saved",
+      "loadError": "Failed to load agent configuration",
       "avatarUploaded": "Avatar uploaded successfully",
       "avatarRemoved": "Avatar removed successfully",
+      "avatarUploadFailed": "Failed to upload avatar",
+      "avatarRemoveFailed": "Failed to remove avatar",
       "failedToSave": "Failed to save settings",
+      "saveFailed": "Failed to save settings",
       "failedToUpload": "Failed to upload avatar",
       "failedToRemove": "Failed to remove avatar",
       "fileSizeError": "File size must be less than 2MB",
-      "fileFormatError": "Only JPG, PNG, and WebP formats are allowed"
+      "fileFormatError": "Only JPG, PNG, and WebP formats are allowed",
+      "modelFlash": "Gemini 2.5 Flash (Recommended)",
+      "modelPro": "Gemini 2.5 Pro (Best Quality)",
+      "modelLite": "Gemini 2.5 Flash Lite (Fastest)"
     }
   },
   "dialogs": {
@@ -779,7 +790,13 @@
       "selectUser": "Select User",
       "selectMember": "Select Member",
       "selectPlaceholder": "Select...",
-      "fillRequired": "Please fill in all required fields"
+      "fillRequired": "Please fill in all required fields",
+      "city": "City",
+      "postalCode": "Postal Code",
+      "country": "Country",
+      "emailOptional": "Email (Optional)",
+      "phoneOptional": "Phone (Optional)",
+      "subscriptionStatus": "Subscription Status"
     },
     "addCareCompany": {
       "title": "Add Care Company",
