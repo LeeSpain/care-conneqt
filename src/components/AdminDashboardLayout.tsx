@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/AdminSidebar";
 import { Button } from "@/components/ui/button";
 import { Bell } from "lucide-react";
+import { LeeChat } from "@/components/ai-agents/LeeChat";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -73,6 +74,7 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
             {children}
           </div>
         </main>
+        <LeeChat />
       </div>
     </SidebarProvider>
   );
