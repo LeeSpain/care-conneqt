@@ -750,16 +750,27 @@
       "temperature": "Temperatura",
       "temperatureHelp": "(0 = enfocado, 1 = creativo)",
       "maxResponseLength": "Longitud Máxima de Respuesta (tokens)",
+      "maxTokens": "Longitud Máxima de Respuesta (tokens)",
       "savePersonality": "Guardar Personalidad",
+      "saveConfig": "Guardar Configuración",
       "generalSettingsSaved": "Configuración general guardada",
+      "generalSaved": "Configuración general guardada",
       "configurationSaved": "Configuración guardada",
+      "configSaved": "Configuración guardada",
+      "loadError": "Error al cargar la configuración del agente",
       "avatarUploaded": "Avatar subido exitosamente",
       "avatarRemoved": "Avatar eliminado exitosamente",
+      "avatarUploadFailed": "Error al subir avatar",
+      "avatarRemoveFailed": "Error al eliminar avatar",
       "failedToSave": "Error al guardar configuración",
+      "saveFailed": "Error al guardar configuración",
       "failedToUpload": "Error al subir avatar",
       "failedToRemove": "Error al eliminar avatar",
       "fileSizeError": "El archivo debe ser menor a 2MB",
-      "fileFormatError": "Solo se permiten formatos JPG, PNG y WebP"
+      "fileFormatError": "Solo se permiten formatos JPG, PNG y WebP",
+      "modelFlash": "Gemini 2.5 Flash (Recomendado)",
+      "modelPro": "Gemini 2.5 Pro (Mejor Calidad)",
+      "modelLite": "Gemini 2.5 Flash Lite (Más Rápido)"
     }
   },
   "dialogs": {
@@ -779,7 +790,13 @@
       "selectUser": "Seleccionar Usuario",
       "selectMember": "Seleccionar Miembro",
       "selectPlaceholder": "Seleccionar...",
-      "fillRequired": "Por favor complete todos los campos requeridos"
+      "fillRequired": "Por favor complete todos los campos requeridos",
+      "city": "Ciudad",
+      "postalCode": "Código Postal",
+      "country": "País",
+      "emailOptional": "Email (Opcional)",
+      "phoneOptional": "Teléfono (Opcional)",
+      "subscriptionStatus": "Estado de Suscripción"
     },
     "addCareCompany": {
       "title": "Añadir Empresa de Cuidados",

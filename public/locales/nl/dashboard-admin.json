@@ -750,16 +750,27 @@
       "temperature": "Temperatuur",
       "temperatureHelp": "(0 = gefocust, 1 = creatief)",
       "maxResponseLength": "Max Reactielengte (tokens)",
+      "maxTokens": "Max Reactielengte (tokens)",
       "savePersonality": "Persoonlijkheid Opslaan",
+      "saveConfig": "Configuratie Opslaan",
       "generalSettingsSaved": "Algemene instellingen opgeslagen",
+      "generalSaved": "Algemene instellingen opgeslagen",
       "configurationSaved": "Configuratie opgeslagen",
+      "configSaved": "Configuratie opgeslagen",
+      "loadError": "Kan agentconfiguratie niet laden",
       "avatarUploaded": "Avatar succesvol geüpload",
       "avatarRemoved": "Avatar succesvol verwijderd",
+      "avatarUploadFailed": "Kan avatar niet uploaden",
+      "avatarRemoveFailed": "Kan avatar niet verwijderen",
       "failedToSave": "Kan instellingen niet opslaan",
+      "saveFailed": "Kan instellingen niet opslaan",
       "failedToUpload": "Kan avatar niet uploaden",
       "failedToRemove": "Kan avatar niet verwijderen",
       "fileSizeError": "Bestand moet kleiner zijn dan 2MB",
-      "fileFormatError": "Alleen JPG, PNG en WebP formaten zijn toegestaan"
+      "fileFormatError": "Alleen JPG, PNG en WebP formaten zijn toegestaan",
+      "modelFlash": "Gemini 2.5 Flash (Aanbevolen)",
+      "modelPro": "Gemini 2.5 Pro (Beste Kwaliteit)",
+      "modelLite": "Gemini 2.5 Flash Lite (Snelste)"
     }
   },
   "dialogs": {
@@ -779,7 +790,13 @@
       "selectUser": "Selecteer Gebruiker",
       "selectMember": "Selecteer Lid",
       "selectPlaceholder": "Selecteer...",
-      "fillRequired": "Vul alle verplichte velden in"
+      "fillRequired": "Vul alle verplichte velden in",
+      "city": "Stad",
+      "postalCode": "Postcode",
+      "country": "Land",
+      "emailOptional": "E-mail (Optioneel)",
+      "phoneOptional": "Telefoon (Optioneel)",
+      "subscriptionStatus": "Abonnementsstatus"
     },
     "addCareCompany": {
       "title": "Zorgbedrijf Toevoegen",
