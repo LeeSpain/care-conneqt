@@ -135,27 +135,27 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                 <SheetTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="h-10 px-4 gap-2.5 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border-amber-200 dark:border-amber-800 hover:from-amber-100 hover:to-orange-100 dark:hover:from-amber-950/50 dark:hover:to-orange-950/50 transition-all"
+                    className="h-10 px-4 gap-2.5 bg-gradient-to-r from-secondary/10 to-secondary/5 dark:from-secondary/20 dark:to-secondary/10 border-secondary/30 dark:border-secondary/40 hover:from-secondary/20 hover:to-secondary/10 dark:hover:from-secondary/30 dark:hover:to-secondary/20 transition-all"
                   >
                     <div className="relative">
-                      <Avatar className="h-6 w-6 ring-1 ring-amber-300 dark:ring-amber-700">
+                      <Avatar className="h-6 w-6 ring-1 ring-secondary/50 dark:ring-secondary/60">
                         <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
-                        <AvatarFallback className="bg-gradient-to-br from-amber-500 to-orange-500 text-white text-xs">
+                        <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xs">
                           <Brain className="h-3 w-3" />
                         </AvatarFallback>
                       </Avatar>
-                      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-green-500 rounded-full border border-white dark:border-gray-900" />
+                      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-success rounded-full border border-white dark:border-gray-900" />
                     </div>
-                    <span className="font-medium text-sm text-amber-900 dark:text-amber-100">Lee "The Brain"</span>
-                    <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                    <span className="font-medium text-sm text-secondary-foreground dark:text-secondary">Lee "The Brain"</span>
+                    <Sparkles className="h-3.5 w-3.5 text-secondary" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent className="w-[400px] sm:w-[450px] flex flex-col p-0">
-                  <SheetHeader className="px-4 py-3 border-b bg-gradient-to-r from-amber-500 to-orange-500">
+                  <SheetHeader className="px-4 py-3 border-b bg-gradient-to-r from-secondary to-primary">
                     <div className="flex items-center gap-3">
                       <Avatar className="h-10 w-10 ring-2 ring-white/30">
                         <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
-                        <AvatarFallback className="bg-amber-700 text-white">
+                        <AvatarFallback className="bg-primary text-white">
                           <Brain className="h-5 w-5" />
                         </AvatarFallback>
                       </Avatar>
@@ -183,9 +183,9 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                         <div className="flex justify-start">
                           <div className="bg-muted rounded-lg px-3 py-2">
                             <div className="flex gap-1">
-                              <span className="h-2 w-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                              <span className="h-2 w-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                              <span className="h-2 w-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                              <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                              <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                              <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                             </div>
                           </div>
                         </div>
@@ -202,7 +202,7 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                         disabled={isLoading}
                         className="flex-1"
                       />
-                      <Button type="submit" size="icon" disabled={isLoading || !input.trim()} className="bg-amber-500 hover:bg-amber-600">
+                      <Button type="submit" size="icon" disabled={isLoading || !input.trim()} className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                         <Send className="h-4 w-4" />
                       </Button>
                     </form>
