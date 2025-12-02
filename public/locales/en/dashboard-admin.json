@@ -1059,5 +1059,62 @@
       "success": "Roles updated successfully",
       "error": "Failed to update roles"
     }
+  },
+  "aiAgents": {
+    "title": "AI Agents",
+    "subtitle": "Configure and monitor AI assistants",
+    "configure": "Configure",
+    "analytics": "Analytics",
+    "enable": "Enable",
+    "disable": "Disable",
+    "addAgent": "Add Agent",
+    "today": "today",
+    "rating": "rating",
+    "notFound": "Agent not found",
+    "sections": {
+      "salesSupport": "Sales & Support",
+      "memberFamily": "Member & Family",
+      "clinicalSupport": "Clinical Support",
+      "managementAdmin": "Management & Admin"
+    },
+    "badges": {
+      "publicFacing": "Public Facing",
+      "personalCompanions": "Personal Companions",
+      "nurseDashboard": "Nurse Dashboard",
+      "adminTools": "Admin Tools"
+    },
+    "settings": {
+      "general": "General",
+      "systemPrompt": "System Prompt",
+      "personality": "Personality",
+      "knowledgeBase": "Knowledge Base",
+      "functions": "Functions",
+      "avatar": "Agent Avatar",
+      "avatarHint": "Upload a profile picture (max 2MB, JPG/PNG/WebP)",
+      "uploadAvatar": "Upload Avatar",
+      "uploading": "Uploading...",
+      "remove": "Remove",
+      "displayName": "Display Name",
+      "description": "Description",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "training": "Training",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes",
+      "aiModel": "AI Model",
+      "responseStyle": "Response Style",
+      "temperature": "Temperature",
+      "maxTokens": "Max Response Length (tokens)",
+      "styles": {
+        "friendly": "Friendly & Conversational",
+        "supportive": "Supportive & Reassuring",
+        "professional": "Professional",
+        "executive": "Executive Summary",
+        "concise": "Concise & Direct",
+        "detailed": "Detailed & Thorough"
+      }
+    },
+    "reference": "Agent Reference"
   }
 }

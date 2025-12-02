@@ -29,7 +29,9 @@
     "familyMembers": "Familieleden",
     "residents": "Bewoners",
     "staff": "Personeel",
-    "reports": "Rapporten"
+    "reports": "Rapporten",
+    "careManagement": "Zorgbeheer",
+    "myCare": "Mijn Zorg"
   },
   "footer": {
     "tagline": "Verbonden Gezondheid. Menselijke Zorg.",
@@ -138,7 +140,10 @@
     "greeting": "Hallo! Ik ben Isabella, je faciliteitbeheer assistent. Hoe kan ik helpen met de operaties vandaag?"
   },
   "lee": {
-    "greeting": "Groeten. Ik ben LEE The Brain, meester AI-orkestrator. Ik heb volledige systeemtoegang en kan inzichten op directieniveau bieden. Hoe kan ik u helpen?"
+    "greeting": "Groeten. Ik ben Lee \"The Brain\", meester AI-orkestrator. Ik heb volledige systeemtoegang en kan inzichten op directieniveau bieden. Hoe kan ik u helpen?",
+    "subtitle": "Meester AI-orkestrator • Volledige Toegang",
+    "thinking": "Lee is aan het denken...",
+    "placeholder": "Vraag Lee alles over het systeem..."
   },
   "aiGuardian": {
     "greeting": "Hallo! Ik ben je AI Bewaker. Hoe voel je je vandaag? Ik ben hier om te helpen met gezondheidsvragen of gewoon om te chatten.",

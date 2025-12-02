@@ -214,12 +214,12 @@ export function LeeChat() {
           className="h-12 px-4 rounded-full shadow-2xl bg-gradient-to-r from-amber-600 via-orange-500 to-amber-500 hover:from-amber-700 hover:via-orange-600 hover:to-amber-600 text-white font-semibold flex items-center gap-3 border border-amber-400/30 transition-all hover:scale-105 select-none"
         >
           <Avatar className="h-8 w-8 ring-2 ring-white/30">
-            <AvatarImage src={avatarSrc} alt="LEE The Brain" className="object-cover" />
+            <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
             <AvatarFallback className="bg-amber-700">
               <Brain className="h-4 w-4 text-white" />
             </AvatarFallback>
           </Avatar>
-          <span className="hidden sm:inline text-sm">LEE The Brain</span>
+          <span className="hidden sm:inline text-sm">Lee "The Brain"</span>
         </Button>
       </div>
     );
@@ -245,14 +245,14 @@ export function LeeChat() {
         <div className="flex items-center gap-3">
           <GripVertical className="h-4 w-4 text-white/60" />
           <Avatar className="h-10 w-10 ring-2 ring-white/40 shadow-lg">
-            <AvatarImage src={avatarSrc} alt="LEE The Brain" className="object-cover" />
+            <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
             <AvatarFallback className="bg-amber-700">
               <Brain className="h-5 w-5 text-white" />
             </AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="font-bold text-white text-sm tracking-wide">LEE The Brain</h3>
-            <p className="text-xs text-white/80">Master AI Orchestrator • Full Access</p>
+            <h3 className="font-bold text-white text-sm tracking-wide">Lee "The Brain"</h3>
+            <p className="text-xs text-white/80">{t('lee.subtitle', 'Master AI Orchestrator • Full Access')}</p>
           </div>
         </div>
         <div className="flex gap-1">
@@ -305,7 +305,7 @@ export function LeeChat() {
                   <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
-                      <span className="text-sm text-muted-foreground">LEE is thinking...</span>
+                      <span className="text-sm text-muted-foreground">{t('lee.thinking', 'Lee is thinking...')}</span>
                     </div>
                   </div>
                 </div>
@@ -320,7 +320,7 @@ export function LeeChat() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-                placeholder="Ask LEE anything about the system..."
+                placeholder={t('lee.placeholder', 'Ask Lee anything about the system...')}
                 disabled={isLoading}
                 className="flex-1 text-sm bg-background border-amber-500/20 focus-visible:ring-amber-500/50"
               />

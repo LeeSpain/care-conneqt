@@ -56,7 +56,7 @@ export function NurseSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/60">
-            {!isCollapsed && "Care Management"}
+            {!isCollapsed && t('sidebar.careManagement', 'Care Management')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
