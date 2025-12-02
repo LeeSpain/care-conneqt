@@ -32,8 +32,10 @@ import { DischargeResidentDialog } from "@/components/admin/DischargeResidentDia
 import { ChangeRoomDialog } from "@/components/admin/ChangeRoomDialog";
 import { EditStaffRoleDialog } from "@/components/admin/EditStaffRoleDialog";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export default function FacilityDetail() {
+  const { t } = useTranslation('dashboard-admin');
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();

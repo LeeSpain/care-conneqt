@@ -1,45 +1,48 @@
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 
 export default function Analytics() {
+  const { t } = useTranslation('dashboard-admin');
+
   return (
-    <AdminDashboardLayout title="Analytics">
+    <AdminDashboardLayout title={t('analytics.title')}>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">System Analytics</h2>
+          <h2 className="text-3xl font-bold tracking-tight">{t('analytics.title')}</h2>
           <p className="text-muted-foreground">
-            Comprehensive insights and reporting
+            {t('analytics.subtitle')}
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle>User Growth</CardTitle>
-              <CardDescription>User registration trends</CardDescription>
+              <CardTitle>{t('analytics.userGrowth')}</CardTitle>
+              <CardDescription>{t('analytics.userGrowthDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Analytics dashboard coming soon</p>
+              <p className="text-sm text-muted-foreground">{t('analytics.comingSoon')}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Engagement Metrics</CardTitle>
-              <CardDescription>User activity and engagement</CardDescription>
+              <CardTitle>{t('analytics.engagement')}</CardTitle>
+              <CardDescription>{t('analytics.engagementDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Analytics dashboard coming soon</p>
+              <p className="text-sm text-muted-foreground">{t('analytics.comingSoon')}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>System Performance</CardTitle>
-              <CardDescription>Platform health metrics</CardDescription>
+              <CardTitle>{t('analytics.performance')}</CardTitle>
+              <CardDescription>{t('analytics.performanceDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Analytics dashboard coming soon</p>
+              <p className="text-sm text-muted-foreground">{t('analytics.comingSoon')}</p>
             </CardContent>
           </Card>
         </div>
