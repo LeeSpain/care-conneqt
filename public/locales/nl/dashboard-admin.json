@@ -921,6 +921,45 @@
       "modelFlash": "Gemini 2.5 Flash (Aanbevolen)",
       "modelPro": "Gemini 2.5 Pro (Beste Kwaliteit)",
       "modelLite": "Gemini 2.5 Flash Lite (Snelste)"
+    },
+    "agents": {
+      "clara": {
+        "title": "Clara Configuratie",
+        "subtitle": "Klantenservice AI Assistent",
+        "settingsTitle": "Verkoop Instellingen",
+        "settingsDescription": "Clara behandelt klantvragen, prijsvragen en begeleidt bezoekers door het aankoopproces op de openbare website."
+      },
+      "claraMember": {
+        "title": "Clara (Lid) Configuratie",
+        "subtitle": "Persoonlijke Companion AI voor Leden",
+        "settingsTitle": "Lid-Specifieke Instellingen",
+        "settingsDescription": "Clara (Lid) biedt dagelijkse check-ins, welzijnsondersteuning en medicatieherinneringen. Medische vragen worden automatisch doorgestuurd naar Ineke voor klinische beoordeling."
+      },
+      "claraFamily": {
+        "title": "Clara (Familie) Configuratie",
+        "subtitle": "Ondersteunings AI voor Familieverzorgers",
+        "settingsTitle": "Familie Ondersteuning Instellingen",
+        "settingsDescription": "Clara (Familie) helpt familieverzorgers de zorg van hun geliefde te begrijpen, legt gezondheidsmetingen uit en biedt geruststelling. Klinische zorgen worden doorgestuurd naar Ineke voor professionele begeleiding."
+      },
+      "ineke": {
+        "title": "Ineke Configuratie",
+        "subtitle": "Verpleegkundige Ondersteuning AI Assistent",
+        "settingsTitle": "Verpleegkundige-Specifieke Instellingen",
+        "settingsDescription": "Ineke heeft toegang tot ledengegevens, gezondheidsmetingen, taken en waarschuwingen binnen het verpleegkundig dashboard. Alle toegang wordt gelogd en is beperkt tot alleen toegewezen leden."
+      },
+      "isabella": {
+        "title": "Isabella Configuratie",
+        "subtitle": "Faciliteitsbeheer AI Assistent",
+        "settingsTitle": "Faciliteitsbeheer Instellingen",
+        "settingsDescription": "Isabella helpt faciliteit- en bedrijfsbeheerders met personeelsbeheer, bewonerstoezicht, nalevingsrapportage en operationele efficiëntie. Beschikbaar voor facility_admin, company_admin en insurance_admin rollen."
+      },
+      "lee": {
+        "title": "Lee \"Het Brein\" Configuratie",
+        "subtitle": "Meester AI Orkestrator",
+        "settingsTitle": "Super Admin Instellingen",
+        "settingsDescription": "Lee \"Het Brein\" is de meester AI orkestrator met volledige systeemtoegang. Lee kan alle andere agenten raadplegen, systeemanalyses openen en inzichten op directieniveau bieden. Beperkt tot alleen admin gebruikers.",
+        "warning": "⚠️ Lee heeft verhoogde machtigingen en kan alle gegevens op het platform benaderen. Configureer met zorg en zorg ervoor dat audit logging is ingeschakeld."
+      }
     }
   },
   "dialogs": {
@@ -1298,215 +1337,6 @@
       "delete": "Verwijderen",
       "activityAdded": "Activiteit toegevoegd",
       "assignmentUpdated": "Toewijzing bijgewerkt"
-    }
-  },
-  "dialogs": {
-    "common": {
-      "cancel": "Annuleren",
-      "save": "Opslaan",
-      "create": "Maken",
-      "add": "Toevoegen",
-      "update": "Bijwerken",
-      "delete": "Verwijderen",
-      "close": "Sluiten",
-      "confirm": "Bevestigen",
-      "loading": "Laden...",
-      "saving": "Opslaan...",
-      "creating": "Maken...",
-      "required": "Verplicht"
-    },
-    "addUser": {
-      "title": "Nieuwe Gebruiker Toevoegen",
-      "description": "Maak een nieuw gebruikersaccount aan en wijs rollen toe",
-      "email": "E-mailadres",
-      "emailPlaceholder": "gebruiker@voorbeeld.nl",
-      "firstName": "Voornaam",
-      "lastName": "Achternaam",
-      "phone": "Telefoonnummer",
-      "phonePlaceholder": "+31 6 12345678",
-      "selectRoles": "Selecteer Rollen",
-      "sendInvitation": "Uitnodigingsmail verzenden",
-      "roles": {
-        "admin": "Beheerder",
-        "adminDesc": "Volledige systeemtoegang",
-        "nurse": "Verpleegkundige",
-        "nurseDesc": "Zorgverlening en ledenbeheer",
-        "facilityAdmin": "Faciliteitsbeheerder",
-        "facilityAdminDesc": "Faciliteitsbeheer",
-        "familyCarer": "Familiezorger",
-        "familyCarerDesc": "Familietoegang",
-        "member": "Zorglid",
-        "memberDesc": "Zorgontvanger"
-      },
-      "success": "Gebruiker succesvol aangemaakt",
-      "error": "Aanmaken gebruiker mislukt"
-    },
-    "addLead": {
-      "title": "Nieuwe Lead Toevoegen",
-      "editTitle": "Lead Bewerken",
-      "description": "Maak een nieuwe verkoop lead aan",
-      "name": "Contactnaam",
-      "email": "E-mailadres",
-      "phone": "Telefoonnummer",
-      "organization": "Organisatie",
-      "organizationType": "Organisatietype",
-      "interestType": "Interessetype",
-      "source": "Leadbron",
-      "message": "Bericht/Notities",
-      "success": "Lead succesvol aangemaakt",
-      "updateSuccess": "Lead succesvol bijgewerkt",
-      "error": "Opslaan lead mislukt"
-    },
-    "addFacility": {
-      "title": "Nieuwe Faciliteit Toevoegen",
-      "editTitle": "Faciliteit Bewerken",
-      "description": "Registreer een nieuwe zorgfaciliteit",
-      "name": "Faciliteitnaam",
-      "type": "Faciliteittype",
-      "licenseNumber": "Licentienummer",
-      "bedCapacity": "Beddencapaciteit",
-      "email": "E-mail",
-      "phone": "Telefoon",
-      "address": "Adres",
-      "city": "Stad",
-      "postalCode": "Postcode",
-      "country": "Land",
-      "success": "Faciliteit succesvol aangemaakt",
-      "updateSuccess": "Faciliteit succesvol bijgewerkt",
-      "error": "Opslaan faciliteit mislukt"
-    },
-    "addFacilityStaff": {
-      "title": "Personeelslid Toevoegen",
-      "description": "Wijs een gebruiker toe aan deze faciliteit",
-      "selectUser": "Selecteer Gebruiker",
-      "role": "Personeelsrol",
-      "isAdmin": "Faciliteitsbeheerder",
-      "success": "Personeelslid succesvol toegevoegd",
-      "error": "Toevoegen personeelslid mislukt"
-    },
-    "admitResident": {
-      "title": "Bewoner Opnemen",
-      "description": "Neem een lid op als bewoner in deze faciliteit",
-      "selectMember": "Selecteer Lid",
-      "roomNumber": "Kamernummer",
-      "admissionDate": "Opnamedatum",
-      "success": "Bewoner succesvol opgenomen",
-      "error": "Opnemen bewoner mislukt"
-    },
-    "dischargeResident": {
-      "title": "Bewoner Ontslaan",
-      "description": "Weet u zeker dat u deze bewoner uit de faciliteit wilt ontslaan?",
-      "dischargeDate": "Ontslagdatum",
-      "success": "Bewoner succesvol ontslagen",
-      "error": "Ontslaan bewoner mislukt"
-    },
-    "changeRoom": {
-      "title": "Kamer Wijzigen",
-      "description": "Werk de kamertoewijzing bij voor deze bewoner",
-      "currentRoom": "Huidige Kamer",
-      "newRoom": "Nieuw Kamernummer",
-      "success": "Kamer succesvol gewijzigd",
-      "error": "Wijzigen kamer mislukt"
-    },
-    "editStaffRole": {
-      "title": "Personeelsrol Bewerken",
-      "description": "Werk de rol en rechten bij voor dit personeelslid",
-      "role": "Personeelsrol",
-      "isAdmin": "Faciliteitsbeheerder",
-      "success": "Rol succesvol bijgewerkt",
-      "error": "Bijwerken rol mislukt"
-    },
-    "addCareCompany": {
-      "title": "Zorgbedrijf Toevoegen",
-      "editTitle": "Zorgbedrijf Bewerken",
-      "description": "Registreer een nieuw zorgbedrijf",
-      "name": "Bedrijfsnaam",
-      "type": "Bedrijfstype",
-      "registrationNumber": "Registratienummer",
-      "email": "E-mail",
-      "phone": "Telefoon",
-      "address": "Adres",
-      "city": "Stad",
-      "postalCode": "Postcode",
-      "country": "Land",
-      "success": "Bedrijf succesvol aangemaakt",
-      "updateSuccess": "Bedrijf succesvol bijgewerkt",
-      "error": "Opslaan bedrijf mislukt"
-    },
-    "addCompanyStaff": {
-      "title": "Personeelslid Toevoegen",
-      "description": "Wijs een gebruiker toe aan dit bedrijf",
-      "selectUser": "Selecteer Gebruiker",
-      "role": "Personeelsrol",
-      "isAdmin": "Bedrijfsbeheerder",
-      "success": "Personeelslid succesvol toegevoegd",
-      "error": "Toevoegen personeelslid mislukt"
-    },
-    "addCompanyClient": {
-      "title": "Klant Toevoegen",
-      "description": "Wijs een zorglid toe als klant",
-      "selectMember": "Selecteer Lid",
-      "serviceType": "Servicetype",
-      "startDate": "Startdatum",
-      "success": "Klant succesvol toegevoegd",
-      "error": "Toevoegen klant mislukt"
-    },
-    "addInsuranceCompany": {
-      "title": "Verzekeringsmaatschappij Toevoegen",
-      "editTitle": "Verzekeringsmaatschappij Bewerken",
-      "description": "Registreer een nieuwe verzekeringsmaatschappij",
-      "name": "Maatschappijnaam",
-      "type": "Verzekeringstype",
-      "registrationNumber": "Registratienummer",
-      "email": "E-mail",
-      "phone": "Telefoon",
-      "address": "Adres",
-      "city": "Stad",
-      "postalCode": "Postcode",
-      "country": "Land",
-      "success": "Maatschappij succesvol aangemaakt",
-      "updateSuccess": "Maatschappij succesvol bijgewerkt",
-      "error": "Opslaan maatschappij mislukt"
-    },
-    "addInsurancePolicy": {
-      "title": "Polis Toevoegen",
-      "editTitle": "Polis Bewerken",
-      "description": "Maak een nieuwe verzekeringspolis aan",
-      "policyName": "Polisnaam",
-      "coverageType": "Dekkingstype",
-      "premiumRange": "Premiebereik",
-      "isActive": "Actief",
-      "success": "Polis succesvol aangemaakt",
-      "updateSuccess": "Polis succesvol bijgewerkt",
-      "error": "Opslaan polis mislukt"
-    },
-    "addInsuranceStaff": {
-      "title": "Personeelslid Toevoegen",
-      "description": "Wijs een gebruiker toe aan deze verzekeringsmaatschappij",
-      "selectUser": "Selecteer Gebruiker",
-      "role": "Personeelsrol",
-      "isAdmin": "Maatschappijbeheerder",
-      "success": "Personeelslid succesvol toegevoegd",
-      "error": "Toevoegen personeelslid mislukt"
-    },
-    "addCoveredMember": {
-      "title": "Verzekerd Lid Toevoegen",
-      "description": "Voeg een lid toe dat door deze verzekering wordt gedekt",
-      "selectMember": "Selecteer Lid",
-      "selectPolicy": "Selecteer Polis",
-      "policyNumber": "Polisnummer",
-      "coverageStart": "Dekking Start",
-      "coverageEnd": "Dekking Einde",
-      "success": "Verzekerd lid succesvol toegevoegd",
-      "error": "Toevoegen verzekerd lid mislukt"
-    },
-    "roleManagement": {
-      "title": "Rollen Beheren",
-      "description": "Werk gebruikersrollen en rechten bij",
-      "currentRoles": "Huidige Rollen",
-      "availableRoles": "Beschikbare Rollen",
-      "success": "Rollen succesvol bijgewerkt",
-      "error": "Bijwerken rollen mislukt"
     }
   }
 }

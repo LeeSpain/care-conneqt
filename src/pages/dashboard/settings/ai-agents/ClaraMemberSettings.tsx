@@ -1,21 +1,23 @@
 import { Users } from 'lucide-react';
 import { AgentSettingsPage } from '@/components/ai-agents/AgentSettingsPage';
+import { useTranslation } from 'react-i18next';
 
 export default function ClaraMemberSettings() {
+  const { t } = useTranslation('dashboard-admin');
+  
   return (
     <AgentSettingsPage
       agentName="clara-member"
-      title="Clara (Member) Configuration"
-      subtitle="Personal Companion AI for Members"
+      title={t('aiAgents.agents.claraMember.title')}
+      subtitle={t('aiAgents.agents.claraMember.subtitle')}
       icon={Users}
-      iconColorClass="text-purple-500"
-      gradientClass="bg-gradient-to-br from-purple-500/20 to-violet-500/20"
+      iconColorClass="text-violet-500"
+      gradientClass="bg-gradient-to-br from-violet-500/20 to-purple-500/20"
       specificSettings={
         <div className="pt-4 border-t">
-          <h4 className="font-semibold mb-2">Member-Specific Settings</h4>
+          <h4 className="font-semibold mb-2">{t('aiAgents.agents.claraMember.settingsTitle')}</h4>
           <p className="text-sm text-muted-foreground">
-            Clara (Member) provides daily check-ins, wellness support, and medication reminders.
-            Medical questions are automatically handed off to Ineke for clinical review.
+            {t('aiAgents.agents.claraMember.settingsDescription')}
           </p>
         </div>
       }
