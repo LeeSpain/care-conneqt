@@ -1,4 +1,4 @@
-import { Home, Users, Settings, Bot, BarChart3, MessageSquare, ChevronDown, Briefcase, TrendingUp } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, MessageSquare, ChevronDown, Briefcase, TrendingUp, Mail } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -90,8 +90,9 @@ export function AdminSidebar() {
     },
     { 
       title: t('sidebar.communications'), 
-      icon: Settings,
+      icon: Mail,
       items: [
+        { title: t('sidebar.messages'), url: "/dashboard/admin/messages" },
         { title: t('sidebar.announcements'), url: "/dashboard/admin/announcements" },
         { title: t('sidebar.supportTickets'), url: "/dashboard/admin/support" },
       ]

@@ -34,6 +34,7 @@ const MemberOnboarding = lazy(() => import("./pages/onboarding/MemberOnboarding"
 // Member pages
 const MemberHome = lazy(() => import("./pages/dashboard/member/MemberHome"));
 const MemberSettings = lazy(() => import("./pages/dashboard/member/MemberSettings"));
+const MemberMessages = lazy(() => import("./pages/dashboard/member/MemberMessages"));
 const DeviceManagement = lazy(() => import("./pages/dashboard/DeviceManagement"));
 const FamilyInvitations = lazy(() => import("./pages/dashboard/FamilyInvitations"));
 const SchedulePage = lazy(() => import("./pages/dashboard/SchedulePage"));
@@ -44,6 +45,7 @@ const SubscriptionsPage = lazy(() => import("./pages/dashboard/SubscriptionsPage
 const FamilyHome = lazy(() => import("./pages/dashboard/family/FamilyHome"));
 const FamilySettings = lazy(() => import("./pages/dashboard/family/FamilySettings"));
 const FamilyMembers = lazy(() => import("./pages/dashboard/family/FamilyMembers"));
+const FamilyMessages = lazy(() => import("./pages/dashboard/family/FamilyMessages"));
 
 // Facility Admin pages
 const FacilityHome = lazy(() => import("./pages/dashboard/facility/FacilityHome"));
@@ -51,6 +53,7 @@ const FacilitySettings = lazy(() => import("./pages/dashboard/facility/FacilityS
 const FacilityResidents = lazy(() => import("./pages/dashboard/facility/FacilityResidents"));
 const FacilityStaff = lazy(() => import("./pages/dashboard/facility/FacilityStaff"));
 const FacilityReports = lazy(() => import("./pages/dashboard/facility/FacilityReports"));
+const FacilityMessages = lazy(() => import("./pages/dashboard/facility/FacilityMessages"));
 
 // Nurse pages
 const NurseHome = lazy(() => import("./pages/dashboard/nurse/NurseHome"));
@@ -98,6 +101,7 @@ const ClaraAnalytics = lazy(() => import("./pages/dashboard/admin/ClaraAnalytics
 const LeadsDashboard = lazy(() => import("./pages/dashboard/admin/LeadsDashboard"));
 const LeadsList = lazy(() => import("./pages/dashboard/admin/LeadsList"));
 const LeadDetail = lazy(() => import("./pages/dashboard/admin/LeadDetail"));
+const AdminMessages = lazy(() => import("./pages/dashboard/admin/AdminMessages"));
 
 // Shared pages
 const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
@@ -233,6 +237,13 @@ const App = () => (
                 </Suspense>
               </ProtectedRoute>
             } />
+            <Route path="/dashboard/member/messages" element={
+              <ProtectedRoute requiredRole="member">
+                <Suspense fallback={<PageLoader />}>
+                  <MemberMessages />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Nurse routes */}
             <Route path="/dashboard/nurse" element={
@@ -349,6 +360,13 @@ const App = () => (
                 </Suspense>
               </ProtectedRoute>
             } />
+            <Route path="/dashboard/family/messages" element={
+              <ProtectedRoute requiredRole="family_carer">
+                <Suspense fallback={<PageLoader />}>
+                  <FamilyMessages />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             
             {/* Facility Admin routes */}
             <Route path="/dashboard/facility" element={
@@ -397,6 +415,13 @@ const App = () => (
               <ProtectedRoute requiredRole="facility_admin">
                 <Suspense fallback={<PageLoader />}>
                   <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/facility/messages" element={
+              <ProtectedRoute requiredRole="facility_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FacilityMessages />
                 </Suspense>
               </ProtectedRoute>
             } />
@@ -528,6 +553,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <Announcements />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/messages" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <AdminMessages />
                 </Suspense>
               </ProtectedRoute>
             } />

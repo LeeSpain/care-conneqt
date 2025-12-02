@@ -1,0 +1,18 @@
+import { useTranslation } from 'react-i18next';
+import { MemberDashboardLayout } from '@/components/MemberDashboardLayout';
+import { MessagingLayout } from '@/components/messaging/MessagingLayout';
+
+export default function MemberMessages() {
+  const { t } = useTranslation('messaging');
+
+  return (
+    <MemberDashboardLayout title={t('title', 'Messages')}>
+      <div className="h-[calc(100vh-8rem)]">
+        <MessagingLayout 
+          allowedRoles={['nurse', 'family_carer', 'admin']}
+          contextType="member"
+        />
+      </div>
+    </MemberDashboardLayout>
+  );
+}

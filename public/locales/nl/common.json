@@ -25,7 +25,11 @@
     "healthMonitoring": "Gezondheidsmonitoring",
     "deviceManagement": "Apparaatbeheer",
     "invitations": "Uitnodigingen",
-    "aiChat": "AI Chat"
+    "aiChat": "AI Chat",
+    "familyMembers": "Familieleden",
+    "residents": "Bewoners",
+    "staff": "Personeel",
+    "reports": "Rapporten"
   },
   "footer": {
     "tagline": "Verbonden Gezondheid. Menselijke Zorg.",
