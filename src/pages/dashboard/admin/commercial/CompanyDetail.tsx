@@ -106,9 +106,9 @@ export default function CompanyDetail() {
       .eq("id", removingStaffId);
 
     if (error) {
-      toast.error("Failed to remove staff member");
+      toast.error(t('companyDetail.removeStaffFailed'));
     } else {
-      toast.success("Staff member removed successfully");
+      toast.success(t('companyDetail.staffRemoved'));
       queryClient.invalidateQueries({ queryKey: ["company-staff", id] });
       queryClient.invalidateQueries({ queryKey: ["care-company", id] });
     }
@@ -124,9 +124,9 @@ export default function CompanyDetail() {
       .eq("id", removingClientId);
 
     if (error) {
-      toast.error("Failed to remove client");
+      toast.error(t('companyDetail.removeClientFailed'));
     } else {
-      toast.success("Client removed successfully");
+      toast.success(t('companyDetail.clientRemoved'));
       queryClient.invalidateQueries({ queryKey: ["company-clients", id] });
       queryClient.invalidateQueries({ queryKey: ["care-company", id] });
     }
@@ -135,7 +135,7 @@ export default function CompanyDetail() {
 
   if (isLoading) {
     return (
-      <AdminDashboardLayout title="Loading...">
+      <AdminDashboardLayout title={t('companyDetail.loading')}>
         <Skeleton className="h-64 w-full" />
       </AdminDashboardLayout>
     );
@@ -143,11 +143,11 @@ export default function CompanyDetail() {
 
   if (!company) {
     return (
-      <AdminDashboardLayout title="Not Found">
+      <AdminDashboardLayout title={t('companyDetail.notFound')}>
         <div className="text-center py-12">
-          <h2 className="text-2xl font-bold">Company not found</h2>
+          <h2 className="text-2xl font-bold">{t('companyDetail.notFound')}</h2>
           <Button onClick={() => navigate("/dashboard/admin/commercial/companies")} className="mt-4">
-            Back to Companies
+            {t('companyDetail.backToCompanies')}
           </Button>
         </div>
       </AdminDashboardLayout>
@@ -170,15 +170,14 @@ export default function CompanyDetail() {
           </div>
           <Button variant="outline" onClick={() => setEditCompanyOpen(true)}>
             <Edit className="h-4 w-4 mr-2" />
-            Edit Company
+            {t('companyDetail.editCompany')}
           </Button>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Clients</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('companyDetail.totalClients')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -187,7 +186,7 @@ export default function CompanyDetail() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Staff</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('companyDetail.totalStaff')}</CardTitle>
               <UserPlus className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -196,7 +195,7 @@ export default function CompanyDetail() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Company Type</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('companyDetail.companyType')}</CardTitle>
               <Building2 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -205,7 +204,7 @@ export default function CompanyDetail() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Status</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('companyDetail.status')}</CardTitle>
             </CardHeader>
             <CardContent>
               <Badge variant={company.subscription_status === "active" ? "default" : "secondary"}>
@@ -215,22 +214,20 @@ export default function CompanyDetail() {
           </Card>
         </div>
 
-        {/* Tabs */}
         <Tabs defaultValue="clients" className="w-full">
           <TabsList>
-            <TabsTrigger value="clients">Clients</TabsTrigger>
-            <TabsTrigger value="staff">Staff</TabsTrigger>
-            <TabsTrigger value="services">Services</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+            <TabsTrigger value="clients">{t('companyDetail.tabs.clients')}</TabsTrigger>
+            <TabsTrigger value="staff">{t('companyDetail.tabs.staff')}</TabsTrigger>
+            <TabsTrigger value="services">{t('companyDetail.tabs.services')}</TabsTrigger>
+            <TabsTrigger value="settings">{t('companyDetail.tabs.settings')}</TabsTrigger>
           </TabsList>
 
-          {/* Clients Tab */}
           <TabsContent value="clients" className="space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">Clients</h3>
+              <h3 className="text-lg font-semibold">{t('companyDetail.clients')}</h3>
               <Button onClick={() => setAddClientOpen(true)}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Client
+                {t('companyDetail.addClient')}
               </Button>
             </div>
             {clientsLoading ? (
@@ -250,7 +247,7 @@ export default function CompanyDetail() {
                           <p className="text-sm text-muted-foreground">{client.service_type}</p>
                           {client.start_date && (
                             <p className="text-xs text-muted-foreground mt-1">
-                              Started: {new Date(client.start_date).toLocaleDateString()}
+                              {t('companyDetail.started')}: {new Date(client.start_date).toLocaleDateString()}
                             </p>
                           )}
                         </div>
@@ -263,7 +260,7 @@ export default function CompanyDetail() {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => setRemovingClientId(client.id)} className="text-destructive">
                               <Trash2 className="h-4 w-4 mr-2" />
-                              Remove Client
+                              {t('companyDetail.removeClient')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -275,23 +272,22 @@ export default function CompanyDetail() {
             ) : (
               <Card>
                 <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">No clients assigned yet</p>
+                  <p className="text-muted-foreground">{t('companyDetail.noClients')}</p>
                   <Button onClick={() => setAddClientOpen(true)} className="mt-4" variant="outline">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add First Client
+                    {t('companyDetail.addFirstClient')}
                   </Button>
                 </CardContent>
               </Card>
             )}
           </TabsContent>
 
-          {/* Staff Tab */}
           <TabsContent value="staff" className="space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">Staff Members</h3>
+              <h3 className="text-lg font-semibold">{t('companyDetail.staffMembers')}</h3>
               <Button onClick={() => setAddStaffOpen(true)}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Staff
+                {t('companyDetail.addStaff')}
               </Button>
             </div>
             {staffLoading ? (
@@ -310,7 +306,7 @@ export default function CompanyDetail() {
                           </h4>
                           <p className="text-sm text-muted-foreground">{member.staff_role}</p>
                           {member.is_company_admin && (
-                            <Badge variant="secondary" className="mt-1">Admin</Badge>
+                            <Badge variant="secondary" className="mt-1">{t('companyDetail.admin')}</Badge>
                           )}
                         </div>
                         <DropdownMenu>
@@ -322,7 +318,7 @@ export default function CompanyDetail() {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={() => setRemovingStaffId(member.id)} className="text-destructive">
                               <Trash2 className="h-4 w-4 mr-2" />
-                              Remove Staff
+                              {t('companyDetail.removeStaff')}
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -334,43 +330,41 @@ export default function CompanyDetail() {
             ) : (
               <Card>
                 <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">No staff members yet</p>
+                  <p className="text-muted-foreground">{t('companyDetail.noStaff')}</p>
                   <Button onClick={() => setAddStaffOpen(true)} className="mt-4" variant="outline">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add First Staff Member
+                    {t('companyDetail.addFirstStaff')}
                   </Button>
                 </CardContent>
               </Card>
             )}
           </TabsContent>
 
-          {/* Services Tab */}
           <TabsContent value="services">
             <Card>
               <CardHeader>
-                <CardTitle>Service Areas</CardTitle>
+                <CardTitle>{t('companyDetail.serviceAreas')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Service area configuration coming soon</p>
+                <p className="text-muted-foreground">{t('companyDetail.serviceAreaConfig')}</p>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Settings Tab */}
           <TabsContent value="settings">
             <Card>
               <CardHeader>
-                <CardTitle>Company Settings</CardTitle>
+                <CardTitle>{t('companyDetail.companySettings')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2">Contact Information</h4>
-                  <p className="text-sm">Email: {company.email || "Not provided"}</p>
-                  <p className="text-sm">Phone: {company.phone || "Not provided"}</p>
+                  <h4 className="font-semibold mb-2">{t('companyDetail.contactInfo')}</h4>
+                  <p className="text-sm">{t('companyDetail.email')}: {company.email || t('companyDetail.notProvided')}</p>
+                  <p className="text-sm">{t('companyDetail.phone')}: {company.phone || t('companyDetail.notProvided')}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Registration</h4>
-                  <p className="text-sm">Number: {company.registration_number || "Not provided"}</p>
+                  <h4 className="font-semibold mb-2">{t('companyDetail.registration')}</h4>
+                  <p className="text-sm">{t('companyDetail.registrationNumber')}: {company.registration_number || t('companyDetail.notProvided')}</p>
                 </div>
               </CardContent>
             </Card>
@@ -378,7 +372,6 @@ export default function CompanyDetail() {
         </Tabs>
       </div>
 
-      {/* Dialogs */}
       <AddCompanyStaffDialog
         open={addStaffOpen}
         onOpenChange={setAddStaffOpen}
@@ -395,37 +388,35 @@ export default function CompanyDetail() {
         company={company}
       />
 
-      {/* Remove Staff Dialog */}
       <AlertDialog open={!!removingStaffId} onOpenChange={() => setRemovingStaffId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remove Staff Member</AlertDialogTitle>
+            <AlertDialogTitle>{t('companyDetail.removeStaffTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to remove this staff member from the company?
+              {t('companyDetail.removeStaffDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('companyDetail.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmRemoveStaff} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Remove
+              {t('companyDetail.remove')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Remove Client Dialog */}
       <AlertDialog open={!!removingClientId} onOpenChange={() => setRemovingClientId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Remove Client</AlertDialogTitle>
+            <AlertDialogTitle>{t('companyDetail.removeClientTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to remove this client from the company? This will not delete the member, only the relationship.
+              {t('companyDetail.removeClientDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('companyDetail.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmRemoveClient} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Remove
+              {t('companyDetail.remove')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
