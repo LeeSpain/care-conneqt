@@ -921,6 +921,45 @@
       "modelFlash": "Gemini 2.5 Flash (Recomendado)",
       "modelPro": "Gemini 2.5 Pro (Mejor Calidad)",
       "modelLite": "Gemini 2.5 Flash Lite (Más Rápido)"
+    },
+    "agents": {
+      "clara": {
+        "title": "Configuración de Clara",
+        "subtitle": "Asistente IA de Atención al Cliente",
+        "settingsTitle": "Configuración de Ventas",
+        "settingsDescription": "Clara maneja consultas de clientes, preguntas sobre precios y guía a los visitantes a través del proceso de compra en el sitio web público."
+      },
+      "claraMember": {
+        "title": "Configuración de Clara (Miembro)",
+        "subtitle": "Compañera IA Personal para Miembros",
+        "settingsTitle": "Configuración Específica para Miembros",
+        "settingsDescription": "Clara (Miembro) proporciona chequeos diarios, apoyo de bienestar y recordatorios de medicación. Las preguntas médicas se transfieren automáticamente a Ineke para revisión clínica."
+      },
+      "claraFamily": {
+        "title": "Configuración de Clara (Familia)",
+        "subtitle": "IA de Apoyo para Cuidadores Familiares",
+        "settingsTitle": "Configuración de Apoyo Familiar",
+        "settingsDescription": "Clara (Familia) ayuda a los cuidadores familiares a entender el cuidado de su ser querido, explica métricas de salud y proporciona tranquilidad. Las preocupaciones clínicas se transfieren a Ineke para orientación profesional."
+      },
+      "ineke": {
+        "title": "Configuración de Ineke",
+        "subtitle": "Asistente IA de Apoyo a Enfermeras",
+        "settingsTitle": "Configuración Específica para Enfermeras",
+        "settingsDescription": "Ineke tiene acceso a datos de miembros, métricas de salud, tareas y alertas dentro del panel de enfermería. Todo el acceso se registra y está restringido solo a miembros asignados."
+      },
+      "isabella": {
+        "title": "Configuración de Isabella",
+        "subtitle": "Asistente IA de Gestión de Instalaciones",
+        "settingsTitle": "Configuración de Gestión de Instalaciones",
+        "settingsDescription": "Isabella ayuda a los administradores de instalaciones y empresas con la gestión de personal, supervisión de residentes, informes de cumplimiento y eficiencia operativa. Disponible para roles de facility_admin, company_admin e insurance_admin."
+      },
+      "lee": {
+        "title": "Configuración de Lee \"El Cerebro\"",
+        "subtitle": "Orquestador Maestro de IA",
+        "settingsTitle": "Configuración de Super Admin",
+        "settingsDescription": "Lee \"El Cerebro\" es el orquestador maestro de IA con acceso completo al sistema. Lee puede consultar a todos los demás agentes, acceder a análisis del sistema y proporcionar información de nivel ejecutivo. Restringido solo a usuarios admin.",
+        "warning": "⚠️ Lee tiene permisos elevados y puede acceder a todos los datos de la plataforma. Configure con cuidado y asegúrese de que el registro de auditoría esté habilitado."
+      }
     }
   },
   "dialogs": {
@@ -1298,215 +1337,6 @@
       "delete": "Eliminar",
       "activityAdded": "Actividad añadida",
       "assignmentUpdated": "Asignación actualizada"
-    }
-  },
-  "dialogs": {
-    "common": {
-      "cancel": "Cancelar",
-      "save": "Guardar",
-      "create": "Crear",
-      "add": "Agregar",
-      "update": "Actualizar",
-      "delete": "Eliminar",
-      "close": "Cerrar",
-      "confirm": "Confirmar",
-      "loading": "Cargando...",
-      "saving": "Guardando...",
-      "creating": "Creando...",
-      "required": "Requerido"
-    },
-    "addUser": {
-      "title": "Agregar Nuevo Usuario",
-      "description": "Crear una nueva cuenta de usuario y asignar roles",
-      "email": "Correo Electrónico",
-      "emailPlaceholder": "usuario@ejemplo.com",
-      "firstName": "Nombre",
-      "lastName": "Apellido",
-      "phone": "Teléfono",
-      "phonePlaceholder": "+34 6 12345678",
-      "selectRoles": "Seleccionar Roles",
-      "sendInvitation": "Enviar correo de invitación",
-      "roles": {
-        "admin": "Administrador",
-        "adminDesc": "Acceso completo al sistema",
-        "nurse": "Enfermero",
-        "nurseDesc": "Atención y gestión de miembros",
-        "facilityAdmin": "Admin de Centro",
-        "facilityAdminDesc": "Gestión del centro",
-        "familyCarer": "Cuidador Familiar",
-        "familyCarerDesc": "Acceso familiar",
-        "member": "Miembro de Cuidado",
-        "memberDesc": "Receptor de cuidado"
-      },
-      "success": "Usuario creado exitosamente",
-      "error": "Error al crear usuario"
-    },
-    "addLead": {
-      "title": "Agregar Nuevo Lead",
-      "editTitle": "Editar Lead",
-      "description": "Crear un nuevo lead de ventas",
-      "name": "Nombre de Contacto",
-      "email": "Correo Electrónico",
-      "phone": "Teléfono",
-      "organization": "Organización",
-      "organizationType": "Tipo de Organización",
-      "interestType": "Tipo de Interés",
-      "source": "Fuente del Lead",
-      "message": "Mensaje/Notas",
-      "success": "Lead creado exitosamente",
-      "updateSuccess": "Lead actualizado exitosamente",
-      "error": "Error al guardar lead"
-    },
-    "addFacility": {
-      "title": "Agregar Nuevo Centro",
-      "editTitle": "Editar Centro",
-      "description": "Registrar un nuevo centro de cuidado",
-      "name": "Nombre del Centro",
-      "type": "Tipo de Centro",
-      "licenseNumber": "Número de Licencia",
-      "bedCapacity": "Capacidad de Camas",
-      "email": "Correo",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "city": "Ciudad",
-      "postalCode": "Código Postal",
-      "country": "País",
-      "success": "Centro creado exitosamente",
-      "updateSuccess": "Centro actualizado exitosamente",
-      "error": "Error al guardar centro"
-    },
-    "addFacilityStaff": {
-      "title": "Agregar Personal",
-      "description": "Asignar un usuario a este centro",
-      "selectUser": "Seleccionar Usuario",
-      "role": "Rol del Personal",
-      "isAdmin": "Administrador del Centro",
-      "success": "Personal agregado exitosamente",
-      "error": "Error al agregar personal"
-    },
-    "admitResident": {
-      "title": "Admitir Residente",
-      "description": "Admitir un miembro como residente en este centro",
-      "selectMember": "Seleccionar Miembro",
-      "roomNumber": "Número de Habitación",
-      "admissionDate": "Fecha de Admisión",
-      "success": "Residente admitido exitosamente",
-      "error": "Error al admitir residente"
-    },
-    "dischargeResident": {
-      "title": "Dar de Alta",
-      "description": "¿Está seguro de que desea dar de alta a este residente del centro?",
-      "dischargeDate": "Fecha de Alta",
-      "success": "Residente dado de alta exitosamente",
-      "error": "Error al dar de alta"
-    },
-    "changeRoom": {
-      "title": "Cambiar Habitación",
-      "description": "Actualizar la asignación de habitación para este residente",
-      "currentRoom": "Habitación Actual",
-      "newRoom": "Nueva Habitación",
-      "success": "Habitación cambiada exitosamente",
-      "error": "Error al cambiar habitación"
-    },
-    "editStaffRole": {
-      "title": "Editar Rol del Personal",
-      "description": "Actualizar el rol y permisos de este miembro del personal",
-      "role": "Rol del Personal",
-      "isAdmin": "Administrador del Centro",
-      "success": "Rol actualizado exitosamente",
-      "error": "Error al actualizar rol"
-    },
-    "addCareCompany": {
-      "title": "Agregar Empresa de Cuidado",
-      "editTitle": "Editar Empresa de Cuidado",
-      "description": "Registrar una nueva empresa de cuidado",
-      "name": "Nombre de la Empresa",
-      "type": "Tipo de Empresa",
-      "registrationNumber": "Número de Registro",
-      "email": "Correo",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "city": "Ciudad",
-      "postalCode": "Código Postal",
-      "country": "País",
-      "success": "Empresa creada exitosamente",
-      "updateSuccess": "Empresa actualizada exitosamente",
-      "error": "Error al guardar empresa"
-    },
-    "addCompanyStaff": {
-      "title": "Agregar Personal",
-      "description": "Asignar un usuario a esta empresa",
-      "selectUser": "Seleccionar Usuario",
-      "role": "Rol del Personal",
-      "isAdmin": "Administrador de Empresa",
-      "success": "Personal agregado exitosamente",
-      "error": "Error al agregar personal"
-    },
-    "addCompanyClient": {
-      "title": "Agregar Cliente",
-      "description": "Asignar un miembro de cuidado como cliente",
-      "selectMember": "Seleccionar Miembro",
-      "serviceType": "Tipo de Servicio",
-      "startDate": "Fecha de Inicio",
-      "success": "Cliente agregado exitosamente",
-      "error": "Error al agregar cliente"
-    },
-    "addInsuranceCompany": {
-      "title": "Agregar Compañía de Seguros",
-      "editTitle": "Editar Compañía de Seguros",
-      "description": "Registrar una nueva compañía de seguros",
-      "name": "Nombre de la Compañía",
-      "type": "Tipo de Seguro",
-      "registrationNumber": "Número de Registro",
-      "email": "Correo",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "city": "Ciudad",
-      "postalCode": "Código Postal",
-      "country": "País",
-      "success": "Compañía creada exitosamente",
-      "updateSuccess": "Compañía actualizada exitosamente",
-      "error": "Error al guardar compañía"
-    },
-    "addInsurancePolicy": {
-      "title": "Agregar Póliza",
-      "editTitle": "Editar Póliza",
-      "description": "Crear una nueva póliza de seguro",
-      "policyName": "Nombre de la Póliza",
-      "coverageType": "Tipo de Cobertura",
-      "premiumRange": "Rango de Prima",
-      "isActive": "Activa",
-      "success": "Póliza creada exitosamente",
-      "updateSuccess": "Póliza actualizada exitosamente",
-      "error": "Error al guardar póliza"
-    },
-    "addInsuranceStaff": {
-      "title": "Agregar Personal",
-      "description": "Asignar un usuario a esta compañía de seguros",
-      "selectUser": "Seleccionar Usuario",
-      "role": "Rol del Personal",
-      "isAdmin": "Administrador de Compañía",
-      "success": "Personal agregado exitosamente",
-      "error": "Error al agregar personal"
-    },
-    "addCoveredMember": {
-      "title": "Agregar Miembro Cubierto",
-      "description": "Agregar un miembro cubierto por este seguro",
-      "selectMember": "Seleccionar Miembro",
-      "selectPolicy": "Seleccionar Póliza",
-      "policyNumber": "Número de Póliza",
-      "coverageStart": "Inicio de Cobertura",
-      "coverageEnd": "Fin de Cobertura",
-      "success": "Miembro cubierto agregado exitosamente",
-      "error": "Error al agregar miembro cubierto"
-    },
-    "roleManagement": {
-      "title": "Gestionar Roles",
-      "description": "Actualizar roles y permisos del usuario",
-      "currentRoles": "Roles Actuales",
-      "availableRoles": "Roles Disponibles",
-      "success": "Roles actualizados exitosamente",
-      "error": "Error al actualizar roles"
     }
   }
 }

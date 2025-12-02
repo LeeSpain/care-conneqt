@@ -1,26 +1,27 @@
 import { Brain } from 'lucide-react';
 import { AgentSettingsPage } from '@/components/ai-agents/AgentSettingsPage';
+import { useTranslation } from 'react-i18next';
 
 export default function LeeSettings() {
+  const { t } = useTranslation('dashboard-admin');
+  
   return (
     <AgentSettingsPage
       agentName="lee-the-brain"
-      title='Lee "The Brain" Configuration'
-      subtitle="Master AI Orchestrator"
+      title={t('aiAgents.agents.lee.title')}
+      subtitle={t('aiAgents.agents.lee.subtitle')}
       icon={Brain}
       iconColorClass="text-amber-500"
       gradientClass="bg-gradient-to-br from-amber-500/20 to-orange-500/20"
       specificSettings={
         <div className="pt-4 border-t space-y-3">
-          <h4 className="font-semibold">Super Admin Settings</h4>
+          <h4 className="font-semibold">{t('aiAgents.agents.lee.settingsTitle')}</h4>
           <p className="text-sm text-muted-foreground">
-            Lee "The Brain" is the master AI orchestrator with full system access. Lee can query all other agents,
-            access system analytics, and provide executive-level insights. Restricted to admin users only.
+            {t('aiAgents.agents.lee.settingsDescription')}
           </p>
           <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
             <p className="text-xs text-amber-600 dark:text-amber-400">
-              ⚠️ Lee has elevated permissions and can access all data across the platform.
-              Configure with care and ensure proper audit logging is enabled.
+              {t('aiAgents.agents.lee.warning')}
             </p>
           </div>
         </div>

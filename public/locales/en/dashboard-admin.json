@@ -921,6 +921,45 @@
       "modelFlash": "Gemini 2.5 Flash (Recommended)",
       "modelPro": "Gemini 2.5 Pro (Best Quality)",
       "modelLite": "Gemini 2.5 Flash Lite (Fastest)"
+    },
+    "agents": {
+      "clara": {
+        "title": "Clara Configuration",
+        "subtitle": "Customer Service AI Assistant",
+        "settingsTitle": "Sales Settings",
+        "settingsDescription": "Clara handles customer inquiries, pricing questions, and guides visitors through the purchase process on the public website."
+      },
+      "claraMember": {
+        "title": "Clara (Member) Configuration",
+        "subtitle": "Personal Companion AI for Members",
+        "settingsTitle": "Member-Specific Settings",
+        "settingsDescription": "Clara (Member) provides daily check-ins, wellness support, and medication reminders. Medical questions are automatically handed off to Ineke for clinical review."
+      },
+      "claraFamily": {
+        "title": "Clara (Family) Configuration",
+        "subtitle": "Support AI for Family Carers",
+        "settingsTitle": "Family Support Settings",
+        "settingsDescription": "Clara (Family) helps family carers understand their loved one's care, explains health metrics, and provides reassurance. Clinical concerns are handed off to Ineke for professional guidance."
+      },
+      "ineke": {
+        "title": "Ineke Configuration",
+        "subtitle": "Nurse Support AI Assistant",
+        "settingsTitle": "Nurse-Specific Settings",
+        "settingsDescription": "Ineke has access to member data, health metrics, tasks, and alerts within the nurse dashboard. All access is logged and restricted to assigned members only."
+      },
+      "isabella": {
+        "title": "Isabella Configuration",
+        "subtitle": "Facility Management AI Assistant",
+        "settingsTitle": "Facility Management Settings",
+        "settingsDescription": "Isabella assists facility and company administrators with staff management, resident oversight, compliance reporting, and operational efficiency. Available to facility_admin, company_admin, and insurance_admin roles."
+      },
+      "lee": {
+        "title": "Lee \"The Brain\" Configuration",
+        "subtitle": "Master AI Orchestrator",
+        "settingsTitle": "Super Admin Settings",
+        "settingsDescription": "Lee \"The Brain\" is the master AI orchestrator with full system access. Lee can query all other agents, access system analytics, and provide executive-level insights. Restricted to admin users only.",
+        "warning": "⚠️ Lee has elevated permissions and can access all data across the platform. Configure with care and ensure proper audit logging is enabled."
+      }
     }
   },
   "dialogs": {
@@ -1298,215 +1337,6 @@
       "delete": "Delete",
       "activityAdded": "Activity added",
       "assignmentUpdated": "Assignment updated"
-    }
-  },
-  "dialogs": {
-    "common": {
-      "cancel": "Cancel",
-      "save": "Save",
-      "create": "Create",
-      "add": "Add",
-      "update": "Update",
-      "delete": "Delete",
-      "close": "Close",
-      "confirm": "Confirm",
-      "loading": "Loading...",
-      "saving": "Saving...",
-      "creating": "Creating...",
-      "required": "Required"
-    },
-    "addUser": {
-      "title": "Add New User",
-      "description": "Create a new user account and assign roles",
-      "email": "Email Address",
-      "emailPlaceholder": "user@example.com",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "phone": "Phone Number",
-      "phonePlaceholder": "+31 6 12345678",
-      "selectRoles": "Select Roles",
-      "sendInvitation": "Send invitation email",
-      "roles": {
-        "admin": "Administrator",
-        "adminDesc": "Full system access",
-        "nurse": "Nurse",
-        "nurseDesc": "Care delivery and member management",
-        "facilityAdmin": "Facility Admin",
-        "facilityAdminDesc": "Facility management",
-        "familyCarer": "Family Carer",
-        "familyCarerDesc": "Family member access",
-        "member": "Care Member",
-        "memberDesc": "Care recipient"
-      },
-      "success": "User created successfully",
-      "error": "Failed to create user"
-    },
-    "addLead": {
-      "title": "Add New Lead",
-      "editTitle": "Edit Lead",
-      "description": "Create a new sales lead",
-      "name": "Contact Name",
-      "email": "Email Address",
-      "phone": "Phone Number",
-      "organization": "Organization",
-      "organizationType": "Organization Type",
-      "interestType": "Interest Type",
-      "source": "Lead Source",
-      "message": "Message/Notes",
-      "success": "Lead created successfully",
-      "updateSuccess": "Lead updated successfully",
-      "error": "Failed to save lead"
-    },
-    "addFacility": {
-      "title": "Add New Facility",
-      "editTitle": "Edit Facility",
-      "description": "Register a new care facility",
-      "name": "Facility Name",
-      "type": "Facility Type",
-      "licenseNumber": "License Number",
-      "bedCapacity": "Bed Capacity",
-      "email": "Email",
-      "phone": "Phone",
-      "address": "Address",
-      "city": "City",
-      "postalCode": "Postal Code",
-      "country": "Country",
-      "success": "Facility created successfully",
-      "updateSuccess": "Facility updated successfully",
-      "error": "Failed to save facility"
-    },
-    "addFacilityStaff": {
-      "title": "Add Staff Member",
-      "description": "Assign a user to this facility",
-      "selectUser": "Select User",
-      "role": "Staff Role",
-      "isAdmin": "Facility Administrator",
-      "success": "Staff member added successfully",
-      "error": "Failed to add staff member"
-    },
-    "admitResident": {
-      "title": "Admit Resident",
-      "description": "Admit a member as a resident to this facility",
-      "selectMember": "Select Member",
-      "roomNumber": "Room Number",
-      "admissionDate": "Admission Date",
-      "success": "Resident admitted successfully",
-      "error": "Failed to admit resident"
-    },
-    "dischargeResident": {
-      "title": "Discharge Resident",
-      "description": "Are you sure you want to discharge this resident from the facility?",
-      "dischargeDate": "Discharge Date",
-      "success": "Resident discharged successfully",
-      "error": "Failed to discharge resident"
-    },
-    "changeRoom": {
-      "title": "Change Room",
-      "description": "Update the room assignment for this resident",
-      "currentRoom": "Current Room",
-      "newRoom": "New Room Number",
-      "success": "Room changed successfully",
-      "error": "Failed to change room"
-    },
-    "editStaffRole": {
-      "title": "Edit Staff Role",
-      "description": "Update the role and permissions for this staff member",
-      "role": "Staff Role",
-      "isAdmin": "Facility Administrator",
-      "success": "Role updated successfully",
-      "error": "Failed to update role"
-    },
-    "addCareCompany": {
-      "title": "Add Care Company",
-      "editTitle": "Edit Care Company",
-      "description": "Register a new care company",
-      "name": "Company Name",
-      "type": "Company Type",
-      "registrationNumber": "Registration Number",
-      "email": "Email",
-      "phone": "Phone",
-      "address": "Address",
-      "city": "City",
-      "postalCode": "Postal Code",
-      "country": "Country",
-      "success": "Company created successfully",
-      "updateSuccess": "Company updated successfully",
-      "error": "Failed to save company"
-    },
-    "addCompanyStaff": {
-      "title": "Add Staff Member",
-      "description": "Assign a user to this company",
-      "selectUser": "Select User",
-      "role": "Staff Role",
-      "isAdmin": "Company Administrator",
-      "success": "Staff member added successfully",
-      "error": "Failed to add staff member"
-    },
-    "addCompanyClient": {
-      "title": "Add Client",
-      "description": "Assign a care member as a client",
-      "selectMember": "Select Member",
-      "serviceType": "Service Type",
-      "startDate": "Start Date",
-      "success": "Client added successfully",
-      "error": "Failed to add client"
-    },
-    "addInsuranceCompany": {
-      "title": "Add Insurance Company",
-      "editTitle": "Edit Insurance Company",
-      "description": "Register a new insurance company",
-      "name": "Company Name",
-      "type": "Insurance Type",
-      "registrationNumber": "Registration Number",
-      "email": "Email",
-      "phone": "Phone",
-      "address": "Address",
-      "city": "City",
-      "postalCode": "Postal Code",
-      "country": "Country",
-      "success": "Company created successfully",
-      "updateSuccess": "Company updated successfully",
-      "error": "Failed to save company"
-    },
-    "addInsurancePolicy": {
-      "title": "Add Policy",
-      "editTitle": "Edit Policy",
-      "description": "Create a new insurance policy",
-      "policyName": "Policy Name",
-      "coverageType": "Coverage Type",
-      "premiumRange": "Premium Range",
-      "isActive": "Active",
-      "success": "Policy created successfully",
-      "updateSuccess": "Policy updated successfully",
-      "error": "Failed to save policy"
-    },
-    "addInsuranceStaff": {
-      "title": "Add Staff Member",
-      "description": "Assign a user to this insurance company",
-      "selectUser": "Select User",
-      "role": "Staff Role",
-      "isAdmin": "Company Administrator",
-      "success": "Staff member added successfully",
-      "error": "Failed to add staff member"
-    },
-    "addCoveredMember": {
-      "title": "Add Covered Member",
-      "description": "Add a member covered by this insurance",
-      "selectMember": "Select Member",
-      "selectPolicy": "Select Policy",
-      "policyNumber": "Policy Number",
-      "coverageStart": "Coverage Start",
-      "coverageEnd": "Coverage End",
-      "success": "Covered member added successfully",
-      "error": "Failed to add covered member"
-    },
-    "roleManagement": {
-      "title": "Manage Roles",
-      "description": "Update user roles and permissions",
-      "currentRoles": "Current Roles",
-      "availableRoles": "Available Roles",
-      "success": "Roles updated successfully",
-      "error": "Failed to update roles"
     }
   }
 }
