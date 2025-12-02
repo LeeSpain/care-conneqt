@@ -7,8 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Users, Stethoscope, Building2, Link2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function AssignmentsHub() {
+  const { t } = useTranslation('dashboard-admin');
+
   const { data: nurseAssignments } = useQuery({
     queryKey: ["nurse-assignments-overview"],
     queryFn: async () => {
@@ -105,24 +108,23 @@ export default function AssignmentsHub() {
   });
 
   return (
-    <AdminDashboardLayout title="Assignments Hub">
+    <AdminDashboardLayout title={t('assignmentsHub.title')}>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">Assignments Hub</h2>
-            <p className="text-muted-foreground">Central management for all relationships and connections</p>
+            <h2 className="text-2xl font-bold">{t('assignmentsHub.title')}</h2>
+            <p className="text-muted-foreground">{t('assignmentsHub.subtitle')}</p>
           </div>
           <Button>
             <Link2 className="h-4 w-4 mr-2" />
-            Create Assignment
+            {t('assignmentsHub.createAssignment')}
           </Button>
         </div>
 
-        {/* Stats Overview */}
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Nurse Assignments</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('assignmentsHub.nurseAssignments')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -134,7 +136,7 @@ export default function AssignmentsHub() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Family Connections</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('assignmentsHub.familyConnections')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -146,7 +148,7 @@ export default function AssignmentsHub() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Facility Placements</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('assignmentsHub.facilityPlacements')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -159,16 +161,16 @@ export default function AssignmentsHub() {
 
         <Tabs defaultValue="nurses" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="nurses">Nurse Assignments</TabsTrigger>
-            <TabsTrigger value="carers">Family Connections</TabsTrigger>
-            <TabsTrigger value="facilities">Facility Placements</TabsTrigger>
+            <TabsTrigger value="nurses">{t('assignmentsHub.tabs.nurseAssignments')}</TabsTrigger>
+            <TabsTrigger value="carers">{t('assignmentsHub.tabs.familyConnections')}</TabsTrigger>
+            <TabsTrigger value="facilities">{t('assignmentsHub.tabs.facilityPlacements')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="nurses" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Nurse-Member Assignments</CardTitle>
-                <CardDescription>Overview of all nurse assignments</CardDescription>
+                <CardTitle>{t('assignmentsHub.nurseMemberAssignments')}</CardTitle>
+                <CardDescription>{t('assignmentsHub.overviewNurseAssignments')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -186,7 +188,7 @@ export default function AssignmentsHub() {
                           <p className="font-medium">
                             {assignment.nurse?.first_name} {assignment.nurse?.last_name}
                           </p>
-                          <p className="text-sm text-muted-foreground">Nurse</p>
+                          <p className="text-sm text-muted-foreground">{t('assignmentsHub.nurse')}</p>
                         </div>
                       </div>
 
@@ -207,15 +209,15 @@ export default function AssignmentsHub() {
                             {assignment.member?.user?.first_name} {assignment.member?.user?.last_name}
                           </p>
                           <div className="flex items-center gap-2">
-                            <p className="text-sm text-muted-foreground">Member</p>
+                            <p className="text-sm text-muted-foreground">{t('assignmentsHub.member')}</p>
                             {assignment.is_primary && (
-                              <Badge variant="secondary" className="text-xs">Primary</Badge>
+                              <Badge variant="secondary" className="text-xs">{t('assignmentsHub.primary')}</Badge>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <Button variant="ghost" size="sm">Reassign</Button>
+                      <Button variant="ghost" size="sm">{t('assignmentsHub.reassign')}</Button>
                     </div>
                   ))}
                 </div>
@@ -226,8 +228,8 @@ export default function AssignmentsHub() {
           <TabsContent value="carers" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Family Carer Connections</CardTitle>
-                <CardDescription>Overview of family member relationships</CardDescription>
+                <CardTitle>{t('assignmentsHub.familyCarerConnections')}</CardTitle>
+                <CardDescription>{t('assignmentsHub.overviewFamilyRelationships')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -267,11 +269,11 @@ export default function AssignmentsHub() {
                           <p className="font-medium">
                             {connection.member?.user?.first_name} {connection.member?.user?.last_name}
                           </p>
-                          <p className="text-sm text-muted-foreground">Care Member</p>
+                          <p className="text-sm text-muted-foreground">{t('assignmentsHub.careMember')}</p>
                         </div>
                       </div>
 
-                      <Button variant="ghost" size="sm">Manage</Button>
+                      <Button variant="ghost" size="sm">{t('assignmentsHub.manage')}</Button>
                     </div>
                   ))}
                 </div>
@@ -282,8 +284,8 @@ export default function AssignmentsHub() {
           <TabsContent value="facilities" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Facility Resident Placements</CardTitle>
-                <CardDescription>Overview of residential care placements</CardDescription>
+                <CardTitle>{t('assignmentsHub.facilityResidentPlacements')}</CardTitle>
+                <CardDescription>{t('assignmentsHub.overviewResidentialPlacements')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -301,7 +303,7 @@ export default function AssignmentsHub() {
                           <p className="font-medium">
                             {placement.member?.user?.first_name} {placement.member?.user?.last_name}
                           </p>
-                          <p className="text-sm text-muted-foreground">Resident</p>
+                          <p className="text-sm text-muted-foreground">{t('assignmentsHub.resident')}</p>
                         </div>
                       </div>
 
@@ -314,12 +316,12 @@ export default function AssignmentsHub() {
                         <div className="flex items-center gap-2">
                           <p className="text-sm text-muted-foreground">{placement.facility?.facility_type}</p>
                           {placement.room_number && (
-                            <Badge variant="outline" className="text-xs">Room {placement.room_number}</Badge>
+                            <Badge variant="outline" className="text-xs">{t('assignmentsHub.room')} {placement.room_number}</Badge>
                           )}
                         </div>
                       </div>
 
-                      <Button variant="ghost" size="sm">Transfer</Button>
+                      <Button variant="ghost" size="sm">{t('assignmentsHub.transfer')}</Button>
                     </div>
                   ))}
                 </div>

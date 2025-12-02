@@ -1,6 +1,7 @@
-import { Home, Users, Settings, Bot, BarChart3, Building2, MessageSquare, ChevronDown, Briefcase, Building, Shield, TrendingUp } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, MessageSquare, ChevronDown, Briefcase, TrendingUp } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Sidebar,
   SidebarContent,
@@ -24,78 +25,79 @@ import { Logo } from "@/components/Logo";
 export function AdminSidebar() {
   const location = useLocation();
   const { state } = useSidebar();
+  const { t } = useTranslation('dashboard-admin');
   const isCollapsed = state === "collapsed";
   const [openSections, setOpenSections] = useState<string[]>([]);
 
   const navigationItems = [
-    { title: "Dashboard", url: "/dashboard/admin", icon: Home },
-      {
-        title: "People",
-        icon: Users,
-        items: [
-          { title: "All Users", url: "/dashboard/admin/users" },
-          { title: "Staff", url: "/dashboard/admin/staff" },
-          { title: "Members", url: "/dashboard/admin/members" },
-          { title: "Family Carers", url: "/dashboard/admin/family-carers" },
-          { title: "Assignments Hub", url: "/dashboard/admin/assignments" },
-        ]
-      },
+    { title: t('sidebar.dashboard'), url: "/dashboard/admin", icon: Home },
     {
-      title: "Commercial",
+      title: t('sidebar.people'),
+      icon: Users,
+      items: [
+        { title: t('sidebar.allUsers'), url: "/dashboard/admin/users" },
+        { title: t('sidebar.staff'), url: "/dashboard/admin/staff" },
+        { title: t('sidebar.members'), url: "/dashboard/admin/members" },
+        { title: t('sidebar.familyCarers'), url: "/dashboard/admin/family-carers" },
+        { title: t('sidebar.assignmentsHub'), url: "/dashboard/admin/assignments" },
+      ]
+    },
+    {
+      title: t('sidebar.commercial'),
       icon: Briefcase,
       items: [
-        { title: "Overview", url: "/dashboard/admin/commercial" },
-        { title: "Care Facilities", url: "/dashboard/admin/commercial/facilities" },
-        { title: "Care Companies", url: "/dashboard/admin/commercial/companies" },
-        { title: "Insurance Companies", url: "/dashboard/admin/commercial/insurance" },
+        { title: t('sidebar.overview'), url: "/dashboard/admin/commercial" },
+        { title: t('sidebar.careFacilities'), url: "/dashboard/admin/commercial/facilities" },
+        { title: t('sidebar.careCompanies'), url: "/dashboard/admin/commercial/companies" },
+        { title: t('sidebar.insuranceCompanies'), url: "/dashboard/admin/commercial/insurance" },
       ]
     },
     {
-      title: "Catalog",
+      title: t('sidebar.catalog'),
       icon: MessageSquare,
       items: [
-        { title: "Products", url: "/dashboard/admin/products" },
-        { title: "Pricing Plans", url: "/dashboard/admin/pricing-plans" },
+        { title: t('sidebar.products'), url: "/dashboard/admin/products" },
+        { title: t('sidebar.pricingPlans'), url: "/dashboard/admin/pricing-plans" },
       ]
     },
     { 
-      title: "AI Management", 
+      title: t('sidebar.aiManagement'), 
       icon: Bot,
       items: [
-        { title: "AI Agents", url: "/dashboard/admin/ai-agents" },
-        { title: "AI Analytics", url: "/dashboard/admin/ai-analytics" },
-        { title: "AI Guardian Chat", url: "/dashboard/admin/ai-chat" },
+        { title: t('sidebar.aiAgents'), url: "/dashboard/admin/ai-agents" },
+        { title: t('sidebar.aiAnalytics'), url: "/dashboard/admin/ai-analytics" },
+        { title: t('sidebar.aiGuardianChat'), url: "/dashboard/admin/ai-chat" },
       ]
     },
     { 
-      title: "Analytics & Reports", 
+      title: t('sidebar.analyticsReports'), 
       icon: BarChart3,
       items: [
-        { title: "Platform Analytics", url: "/dashboard/admin/analytics" },
-        { title: "System Health", url: "/dashboard/admin/system-health" },
+        { title: t('sidebar.platformAnalytics'), url: "/dashboard/admin/analytics" },
+        { title: t('sidebar.systemHealth'), url: "/dashboard/admin/system-health" },
       ]
     },
     { 
-      title: "Sales & Leads", 
+      title: t('sidebar.salesLeads'), 
       icon: TrendingUp,
       items: [
-        { title: "Leads Dashboard", url: "/dashboard/admin/leads" },
-        { title: "All Leads", url: "/dashboard/admin/leads/list" },
-        { title: "Clara Sessions", url: "/dashboard/admin/clara-analytics" },
-        { title: "Orders", url: "/dashboard/admin/sales" },
-        { title: "Registrations", url: "/dashboard/admin/institutional-registrations" },
+        { title: t('sidebar.leadsDashboard'), url: "/dashboard/admin/leads" },
+        { title: t('sidebar.allLeads'), url: "/dashboard/admin/leads/list" },
+        { title: t('sidebar.claraSessions'), url: "/dashboard/admin/clara-analytics" },
+        { title: t('sidebar.orders'), url: "/dashboard/admin/sales" },
+        { title: t('sidebar.registrations'), url: "/dashboard/admin/institutional-registrations" },
       ]
     },
     { 
-      title: "Communications", 
+      title: t('sidebar.communications'), 
       icon: Settings,
       items: [
-        { title: "Announcements", url: "/dashboard/admin/announcements" },
-        { title: "Support Tickets", url: "/dashboard/admin/support" },
+        { title: t('sidebar.announcements'), url: "/dashboard/admin/announcements" },
+        { title: t('sidebar.supportTickets'), url: "/dashboard/admin/support" },
       ]
     },
-    { title: "System Settings", url: "/dashboard/admin/system-settings", icon: Settings },
-    { title: "Integrations", url: "/dashboard/admin/integrations", icon: Settings },
+    { title: t('sidebar.systemSettings'), url: "/dashboard/admin/system-settings", icon: Settings },
+    { title: t('sidebar.integrations'), url: "/dashboard/admin/integrations", icon: Settings },
   ];
 
   const isActive = (path: string) => {
@@ -128,13 +130,13 @@ export function AdminSidebar() {
         <div className="flex items-center gap-2">
           <Logo size={isCollapsed ? "sm" : "md"} />
           {!isCollapsed && (
-            <span className="font-semibold text-lg">Admin Panel</span>
+            <span className="font-semibold text-lg">{t('sidebar.adminPanel')}</span>
           )}
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Management</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('sidebar.management')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item: any) => (
@@ -187,7 +189,7 @@ export function AdminSidebar() {
       <SidebarFooter className="border-t border-border p-4">
         {!isCollapsed && (
           <p className="text-xs text-muted-foreground">
-            © 2024 CareConneqt
+            © 2025 CareConneqt
           </p>
         )}
       </SidebarFooter>
