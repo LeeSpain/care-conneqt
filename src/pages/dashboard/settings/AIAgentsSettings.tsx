@@ -185,65 +185,67 @@ export default function AIAgentsSettings() {
     const agentStats = stats[agent.id];
 
     return (
-      <Card className={`border transition-all ${config.borderHover}`}>
+      <Card className={`border transition-all ${config.borderHover} overflow-hidden`}>
         <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            {/* Icon */}
-            <div className={`p-2 rounded-lg bg-gradient-to-br ${config.bgGradient} shrink-0`}>
-              <Icon className={`h-5 w-5 ${config.iconColor}`} />
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-3">
+            <div className={`p-2.5 rounded-lg bg-gradient-to-br ${config.bgGradient} shrink-0`}>
+              <Icon className={`h-4 w-4 ${config.iconColor}`} />
             </div>
-
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-sm truncate">{agent.display_name}</h3>
                 <Badge 
                   variant={agent.status === 'active' ? 'default' : 'secondary'}
-                  className="text-[10px] px-1.5 py-0 h-4"
+                  className="text-[10px] px-1.5 py-0 h-4 shrink-0"
                 >
                   {agent.status}
                 </Badge>
               </div>
-              <p className="text-xs text-muted-foreground line-clamp-1 mb-2">
-                {agent.description}
-              </p>
-
-              {/* Stats Row */}
-              <div className="flex items-center gap-3 text-xs mb-3">
-                <div className="flex items-center gap-1">
-                  <span className="text-muted-foreground">Today:</span>
-                  <span className="font-medium">{agentStats?.conversations_today || 0}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-muted-foreground">Rating:</span>
-                  <span className="font-medium">{(agentStats?.satisfaction_rate || 0).toFixed(1)}</span>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-1.5">
-                <Button asChild size="sm" className="h-7 text-xs flex-1">
-                  <Link to={config.settingsPath}>
-                    <Settings className="h-3 w-3 mr-1" />
-                    Configure
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="sm" className="h-7 text-xs flex-1">
-                  <Link to={`${config.settingsPath}/analytics`}>
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    Analytics
-                  </Link>
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-7 text-xs px-2"
-                  onClick={() => toggleAgentStatus(agent.id, agent.status)}
-                >
-                  {agent.status === 'active' ? 'Disable' : 'Enable'}
-                </Button>
-              </div>
             </div>
+          </div>
+
+          {/* Description */}
+          <p className="text-xs text-muted-foreground line-clamp-2 mb-3 min-h-[2rem]">
+            {agent.description}
+          </p>
+
+          {/* Stats */}
+          <div className="flex items-center gap-4 text-xs mb-3 py-2 px-3 rounded-md bg-muted/50">
+            <div className="flex items-center gap-1.5">
+              <MessageSquare className="h-3 w-3 text-muted-foreground" />
+              <span className="font-medium">{agentStats?.conversations_today || 0}</span>
+              <span className="text-muted-foreground">today</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <TrendingUp className="h-3 w-3 text-muted-foreground" />
+              <span className="font-medium">{(agentStats?.satisfaction_rate || 0).toFixed(1)}</span>
+              <span className="text-muted-foreground">rating</span>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-2">
+            <Button asChild size="sm" className="h-8 text-xs flex-1">
+              <Link to={config.settingsPath}>
+                <Settings className="h-3.5 w-3.5 mr-1.5" />
+                Configure
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="sm" className="h-8 text-xs flex-1">
+              <Link to={`${config.settingsPath}/analytics`}>
+                <TrendingUp className="h-3.5 w-3.5 mr-1.5" />
+                Analytics
+              </Link>
+            </Button>
+            <Button 
+              variant={agent.status === 'active' ? 'ghost' : 'secondary'}
+              size="sm" 
+              className="h-8 text-xs px-3 shrink-0"
+              onClick={() => toggleAgentStatus(agent.id, agent.status)}
+            >
+              {agent.status === 'active' ? 'Disable' : 'Enable'}
+            </Button>
           </div>
         </CardContent>
       </Card>
