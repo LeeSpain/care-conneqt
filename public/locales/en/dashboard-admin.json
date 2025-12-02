@@ -66,6 +66,25 @@
       "operational": "All Systems Operational"
     }
   },
+  "commercial": {
+    "title": "Commercial Overview",
+    "addFacility": "Add Facility",
+    "addCompany": "Add Company",
+    "addInsurance": "Add Insurance",
+    "careFacilities": "Care Facilities",
+    "careCompanies": "Care Companies",
+    "insuranceCompanies": "Insurance Companies",
+    "active": "Active",
+    "trial": "Trial",
+    "totalClients": "Total Clients",
+    "coveredMembers": "Covered Members",
+    "revenueSummary": "Revenue Summary",
+    "facilitiesRevenue": "Facilities Revenue",
+    "companiesRevenue": "Companies Revenue",
+    "insuranceRevenue": "Insurance Revenue",
+    "recentActivity": "Recent Activity",
+    "noRecentActivity": "No recent activity to display"
+  },
   "analytics": {
     "title": "System Analytics",
     "subtitle": "Comprehensive insights and reporting",
