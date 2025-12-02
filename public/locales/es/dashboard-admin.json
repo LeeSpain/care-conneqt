@@ -66,6 +66,25 @@
       "operational": "Todos los Sistemas Operativos"
     }
   },
+  "commercial": {
+    "title": "Resumen Comercial",
+    "addFacility": "Añadir Centro",
+    "addCompany": "Añadir Empresa",
+    "addInsurance": "Añadir Aseguradora",
+    "careFacilities": "Centros de Cuidado",
+    "careCompanies": "Empresas de Cuidado",
+    "insuranceCompanies": "Compañías de Seguros",
+    "active": "Activo",
+    "trial": "Prueba",
+    "totalClients": "Total Clientes",
+    "coveredMembers": "Miembros Cubiertos",
+    "revenueSummary": "Resumen de Ingresos",
+    "facilitiesRevenue": "Ingresos Centros",
+    "companiesRevenue": "Ingresos Empresas",
+    "insuranceRevenue": "Ingresos Seguros",
+    "recentActivity": "Actividad Reciente",
+    "noRecentActivity": "Sin actividad reciente que mostrar"
+  },
   "analytics": {
     "title": "Análisis del Sistema",
     "subtitle": "Información completa e informes",

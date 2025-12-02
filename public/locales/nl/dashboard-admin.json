@@ -66,6 +66,25 @@
       "operational": "Alle Systemen Operationeel"
     }
   },
+  "commercial": {
+    "title": "Commercieel Overzicht",
+    "addFacility": "Faciliteit Toevoegen",
+    "addCompany": "Bedrijf Toevoegen",
+    "addInsurance": "Verzekeraar Toevoegen",
+    "careFacilities": "Zorgfaciliteiten",
+    "careCompanies": "Zorgbedrijven",
+    "insuranceCompanies": "Verzekeringsmaatschappijen",
+    "active": "Actief",
+    "trial": "Proef",
+    "totalClients": "Totaal Klanten",
+    "coveredMembers": "Gedekte Leden",
+    "revenueSummary": "Omzet Overzicht",
+    "facilitiesRevenue": "Faciliteiten Omzet",
+    "companiesRevenue": "Bedrijven Omzet",
+    "insuranceRevenue": "Verzekeringen Omzet",
+    "recentActivity": "Recente Activiteit",
+    "noRecentActivity": "Geen recente activiteit om weer te geven"
+  },
   "analytics": {
     "title": "Systeem Analytics",
     "subtitle": "Uitgebreide inzichten en rapportages",
