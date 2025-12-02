@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -28,6 +29,7 @@ import { AddInsurancePolicyDialog } from "@/components/admin/AddInsurancePolicyD
 import { AddCoveredMemberDialog } from "@/components/admin/AddCoveredMemberDialog";
 
 export default function InsuranceDetail() {
+  const { t } = useTranslation('dashboard-admin');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
