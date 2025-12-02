@@ -8,10 +8,25 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-
 export default function CommercialOverview() {
   const navigate = useNavigate();
-  const { t } = useTranslation('dashboard-admin');
+  const { t, ready } = useTranslation('dashboard-admin');
+
+  // Wait for translations to be ready
+  if (!ready) {
+    return (
+      <AdminDashboardLayout title="">
+        <div className="space-y-6">
+          <Skeleton className="h-10 w-64" />
+          <div className="grid gap-6 md:grid-cols-3">
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+            <Skeleton className="h-40" />
+          </div>
+        </div>
+      </AdminDashboardLayout>
+    );
+  }
 
   const { data: facilitiesStats, isLoading: facilitiesLoading } = useQuery({
     queryKey: ["facilities-stats"],
