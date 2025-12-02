@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface RoleManagementDialogProps {
   open: boolean;
@@ -22,14 +23,6 @@ interface RoleManagementDialogProps {
   currentRoles: string[];
 }
 
-const roleOptions = [
-  { value: "admin", label: "Administrator", description: "Full system access" },
-  { value: "nurse", label: "Nurse", description: "Care delivery and member management" },
-  { value: "facility_admin", label: "Facility Admin", description: "Facility management" },
-  { value: "family_carer", label: "Family Carer", description: "Family member access" },
-  { value: "member", label: "Care Member", description: "Care recipient" },
-];
-
 export const RoleManagementDialog = ({
   open,
   onOpenChange,
@@ -37,14 +30,22 @@ export const RoleManagementDialog = ({
   userName,
   currentRoles,
 }: RoleManagementDialogProps) => {
+  const { t } = useTranslation('dashboard-admin');
   const [selectedRoles, setSelectedRoles] = useState<string[]>(currentRoles);
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
+  const roleOptions = [
+    { value: "admin", label: t('dialogs.addUser.roleOptions.admin'), description: t('dialogs.addUser.roleOptions.adminDesc') },
+    { value: "nurse", label: t('dialogs.addUser.roleOptions.nurse'), description: t('dialogs.addUser.roleOptions.nurseDesc') },
+    { value: "facility_admin", label: t('dialogs.addUser.roleOptions.facilityAdmin'), description: t('dialogs.addUser.roleOptions.facilityAdminDesc') },
+    { value: "family_carer", label: t('dialogs.addUser.roleOptions.familyCarer'), description: t('dialogs.addUser.roleOptions.familyCarerDesc') },
+    { value: "member", label: t('dialogs.addUser.roleOptions.member'), description: t('dialogs.addUser.roleOptions.memberDesc') },
+  ];
+
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      // Remove all current roles
       const { error: deleteError } = await supabase
         .from("user_roles")
         .delete()
@@ -52,7 +53,6 @@ export const RoleManagementDialog = ({
 
       if (deleteError) throw deleteError;
 
-      // Add new roles
       if (selectedRoles.length > 0) {
         const roleInserts = selectedRoles.map((role) => ({
           user_id: userId,
@@ -66,12 +66,12 @@ export const RoleManagementDialog = ({
         if (insertError) throw insertError;
       }
 
-      toast.success("Roles updated successfully");
+      toast.success(t('dialogs.roleManagement.updateSuccess'));
       queryClient.invalidateQueries({ queryKey: ["admin-users"] });
       onOpenChange(false);
     } catch (error: any) {
       console.error("Error updating roles:", error);
-      toast.error(error.message || "Failed to update roles");
+      toast.error(error.message || t('dialogs.roleManagement.updateError'));
     } finally {
       setIsLoading(false);
     }
@@ -81,9 +81,9 @@ export const RoleManagementDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Manage Roles for {userName}</DialogTitle>
+          <DialogTitle>{t('dialogs.roleManagement.title')} {userName}</DialogTitle>
           <DialogDescription>
-            Select the roles you want to assign to this user
+            {t('dialogs.roleManagement.description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -117,11 +117,11 @@ export const RoleManagementDialog = ({
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
           >
-            Cancel
+            {t('dialogs.common.cancel')}
           </Button>
           <Button onClick={handleSave} disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Save Changes
+            {t('dialogs.roleManagement.saveChanges')}
           </Button>
         </div>
       </DialogContent>

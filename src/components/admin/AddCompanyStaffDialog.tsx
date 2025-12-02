@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 interface AddCompanyStaffDialogProps {
   open: boolean;
@@ -35,6 +36,7 @@ export function AddCompanyStaffDialog({
   onOpenChange,
   companyId,
 }: AddCompanyStaffDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [staffRole, setStaffRole] = useState("");
@@ -59,8 +61,8 @@ export function AddCompanyStaffDialog({
     e.preventDefault();
     if (!selectedUserId || !staffRole) {
       toast({
-        title: "Error",
-        description: "Please fill in all required fields",
+        title: t('dialogs.common.error'),
+        description: t('dialogs.common.fillRequired'),
         variant: "destructive",
       });
       return;
@@ -80,7 +82,6 @@ export function AddCompanyStaffDialog({
 
       if (error) throw error;
 
-      // Update total_staff count
       const { data: currentStaff } = await supabase
         .from("company_staff")
         .select("id")
@@ -92,8 +93,8 @@ export function AddCompanyStaffDialog({
         .eq("id", companyId);
 
       toast({
-        title: "Success",
-        description: "Staff member added successfully",
+        title: t('dialogs.common.success'),
+        description: t('dialogs.addCompanyStaff.createSuccess'),
       });
 
       queryClient.invalidateQueries({ queryKey: ["company-staff", companyId] });
@@ -106,8 +107,8 @@ export function AddCompanyStaffDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to add staff member",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addCompanyStaff.createError'),
         variant: "destructive",
       });
     } finally {
@@ -119,17 +120,17 @@ export function AddCompanyStaffDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Staff Member</DialogTitle>
+          <DialogTitle>{t('dialogs.addCompanyStaff.title')}</DialogTitle>
           <DialogDescription>
-            Add a staff member to this care company
+            {t('dialogs.addCompanyStaff.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="user">Select User *</Label>
+            <Label htmlFor="user">{t('dialogs.addCompanyStaff.selectUser')} *</Label>
             <Select value={selectedUserId} onValueChange={setSelectedUserId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a user" />
+                <SelectValue placeholder={t('dialogs.addCompanyStaff.selectUserPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {users?.map((user) => (
@@ -142,12 +143,12 @@ export function AddCompanyStaffDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="staff_role">Staff Role *</Label>
+            <Label htmlFor="staff_role">{t('dialogs.addCompanyStaff.staffRole')} *</Label>
             <Input
               id="staff_role"
               value={staffRole}
               onChange={(e) => setStaffRole(e.target.value)}
-              placeholder="e.g., Care Coordinator, Manager"
+              placeholder={t('dialogs.addCompanyStaff.staffRolePlaceholder')}
               required
             />
           </div>
@@ -159,17 +160,17 @@ export function AddCompanyStaffDialog({
               onCheckedChange={(checked) => setIsCompanyAdmin(checked as boolean)}
             />
             <Label htmlFor="is_company_admin" className="text-sm font-normal">
-              Company Administrator
+              {t('dialogs.addCompanyStaff.companyAdmin')}
             </Label>
           </div>
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Add Staff
+              {t('dialogs.addCompanyStaff.addStaff')}
             </Button>
           </DialogFooter>
         </form>

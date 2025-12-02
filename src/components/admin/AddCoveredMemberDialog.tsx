@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddCoveredMemberDialogProps {
   open: boolean;
@@ -33,6 +34,7 @@ export function AddCoveredMemberDialog({
   onOpenChange,
   companyId,
 }: AddCoveredMemberDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMemberId, setSelectedMemberId] = useState("");
   const [selectedPolicyId, setSelectedPolicyId] = useState("");
@@ -86,8 +88,8 @@ export function AddCoveredMemberDialog({
     e.preventDefault();
     if (!selectedMemberId) {
       toast({
-        title: "Error",
-        description: "Please select a member",
+        title: t('dialogs.common.error'),
+        description: t('dialogs.addCoveredMember.selectMemberRequired'),
         variant: "destructive",
       });
       return;
@@ -110,8 +112,8 @@ export function AddCoveredMemberDialog({
       if (error) throw error;
 
       toast({
-        title: "Success",
-        description: "Covered member added successfully",
+        title: t('dialogs.common.success'),
+        description: t('dialogs.addCoveredMember.createSuccess'),
       });
 
       queryClient.invalidateQueries({ queryKey: ["covered-members", companyId] });
@@ -126,8 +128,8 @@ export function AddCoveredMemberDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to add covered member",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addCoveredMember.createError'),
         variant: "destructive",
       });
     } finally {
@@ -139,17 +141,17 @@ export function AddCoveredMemberDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Covered Member</DialogTitle>
+          <DialogTitle>{t('dialogs.addCoveredMember.title')}</DialogTitle>
           <DialogDescription>
-            Add a member to be covered by an insurance policy
+            {t('dialogs.addCoveredMember.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="member">Select Member *</Label>
+            <Label htmlFor="member">{t('dialogs.addCompanyClient.selectMember')} *</Label>
             <Select value={selectedMemberId} onValueChange={setSelectedMemberId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a member" />
+                <SelectValue placeholder={t('dialogs.addCompanyClient.selectMemberPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {members?.map((member) => (
@@ -162,10 +164,10 @@ export function AddCoveredMemberDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="policy">Insurance Policy</Label>
+            <Label htmlFor="policy">{t('dialogs.addCoveredMember.insurancePolicy')}</Label>
             <Select value={selectedPolicyId} onValueChange={setSelectedPolicyId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a policy (optional)" />
+                <SelectValue placeholder={t('dialogs.addCoveredMember.selectPolicyPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {policies?.map((policy) => (
@@ -178,18 +180,18 @@ export function AddCoveredMemberDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="policy_number">Policy Number</Label>
+            <Label htmlFor="policy_number">{t('dialogs.addCoveredMember.policyNumber')}</Label>
             <Input
               id="policy_number"
               value={policyNumber}
               onChange={(e) => setPolicyNumber(e.target.value)}
-              placeholder="e.g., POL-2024-001"
+              placeholder={t('dialogs.addCoveredMember.policyNumberPlaceholder')}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="coverage_start">Coverage Start</Label>
+              <Label htmlFor="coverage_start">{t('dialogs.addCoveredMember.coverageStart')}</Label>
               <Input
                 id="coverage_start"
                 type="date"
@@ -198,7 +200,7 @@ export function AddCoveredMemberDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="coverage_end">Coverage End</Label>
+              <Label htmlFor="coverage_end">{t('dialogs.addCoveredMember.coverageEnd')}</Label>
               <Input
                 id="coverage_end"
                 type="date"
@@ -210,11 +212,11 @@ export function AddCoveredMemberDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Add Covered Member
+              {t('dialogs.addCoveredMember.addCoveredMember')}
             </Button>
           </DialogFooter>
         </form>
