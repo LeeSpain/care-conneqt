@@ -113,6 +113,10 @@ export default function AIAgentsSettings() {
 
   const clara = agents.find(a => a.name === 'clara');
   const ineke = agents.find(a => a.name === 'ineke');
+  const claraMember = agents.find(a => a.name === 'clara-member');
+  const claraFamily = agents.find(a => a.name === 'clara-family');
+  const isabella = agents.find(a => a.name === 'isabella');
+  const lee = agents.find(a => a.name === 'lee-the-brain');
 
   return (
     <AdminDashboardLayout title="AI Agents">
@@ -263,6 +267,82 @@ export default function AIAgentsSettings() {
           </Card>
         )}
 
+        {/* New Agents Section */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {claraMember && (
+            <Card className="border hover:border-purple-500/50 transition-all">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-purple-500/20">
+                    <MessageSquare className="h-5 w-5 text-purple-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Clara (Member)</CardTitle>
+                    <CardDescription className="text-xs">Personal companion for members</CardDescription>
+                  </div>
+                  <Badge variant={claraMember.status === 'active' ? 'default' : 'secondary'} className="ml-auto">
+                    {claraMember.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+            </Card>
+          )}
+          {claraFamily && (
+            <Card className="border hover:border-purple-500/50 transition-all">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-purple-500/20">
+                    <Users className="h-5 w-5 text-purple-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Clara (Family)</CardTitle>
+                    <CardDescription className="text-xs">Support for family carers</CardDescription>
+                  </div>
+                  <Badge variant={claraFamily.status === 'active' ? 'default' : 'secondary'} className="ml-auto">
+                    {claraFamily.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+            </Card>
+          )}
+          {isabella && (
+            <Card className="border hover:border-blue-500/50 transition-all">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-blue-500/20">
+                    <Bot className="h-5 w-5 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Isabella</CardTitle>
+                    <CardDescription className="text-xs">Facility management assistant</CardDescription>
+                  </div>
+                  <Badge variant={isabella.status === 'active' ? 'default' : 'secondary'} className="ml-auto">
+                    {isabella.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+            </Card>
+          )}
+          {lee && (
+            <Card className="border hover:border-amber-500/50 transition-all border-amber-500/20">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-amber-500/20">
+                    <Bot className="h-5 w-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">LEE The Brain</CardTitle>
+                    <CardDescription className="text-xs">Master AI with full system access</CardDescription>
+                  </div>
+                  <Badge variant={lee.status === 'active' ? 'default' : 'secondary'} className="ml-auto">
+                    {lee.status}
+                  </Badge>
+                </div>
+              </CardHeader>
+            </Card>
+          )}
+        </div>
+
         {/* Help Card */}
         <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
           <CardHeader>
@@ -272,17 +352,11 @@ export default function AIAgentsSettings() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>
-              <strong>Clara</strong> is your customer-facing AI that helps visitors understand your services, 
-              answers questions about pricing and packages, and guides them toward booking demos or consultations.
-            </p>
-            <p>
-              <strong>Ineke</strong> is designed specifically for nurses, providing quick access to member data, 
-              care protocols, device information, and helping prioritize tasks and alerts efficiently.
-            </p>
-            <p className="text-xs pt-2">
-              Both agents are powered by advanced AI and can be fully customized through their configuration pages.
-            </p>
+            <p><strong>Clara (Sales)</strong> - Customer-facing AI for website visitors.</p>
+            <p><strong>Clara (Member/Family)</strong> - Personal companions with medical handoff to Ineke.</p>
+            <p><strong>Ineke</strong> - Nurse support AI with clinical expertise.</p>
+            <p><strong>Isabella</strong> - Facility and company management assistant.</p>
+            <p><strong>LEE The Brain</strong> - Master AI orchestrator for admins with full system access.</p>
           </CardContent>
         </Card>
       </div>

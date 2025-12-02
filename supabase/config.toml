@@ -11,3 +11,18 @@ verify_jwt = false
 
 [functions.clara-checkout]
 verify_jwt = false
+
+[functions.agent-handoff]
+verify_jwt = true
+
+[functions.clara-member-chat]
+verify_jwt = true
+
+[functions.clara-family-chat]
+verify_jwt = true
+
+[functions.isabella-chat]
+verify_jwt = true
+
+[functions.lee-chat]
+verify_jwt = true
