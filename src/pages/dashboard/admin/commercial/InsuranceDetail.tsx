@@ -29,7 +29,7 @@ import { AddInsurancePolicyDialog } from "@/components/admin/AddInsurancePolicyD
 import { AddCoveredMemberDialog } from "@/components/admin/AddCoveredMemberDialog";
 
 export default function InsuranceDetail() {
-  const { t } = useTranslation('dashboard-admin');
+  const { t } = useTranslation(['dashboard-admin', 'common']);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -283,12 +283,12 @@ export default function InsuranceDetail() {
                 {policies.map((policy: any) => (
                   <Card key={policy.id}>
                     <CardHeader>
-                      <div className="flex items-start justify-between">
+                        <div className="flex items-start justify-between">
                         <div>
                           <CardTitle className="text-lg">{policy.policy_name}</CardTitle>
                           <div className="flex items-center gap-2 mt-2">
                             <Badge variant={policy.is_active ? "default" : "secondary"}>
-                              {policy.is_active ? "Active" : "Inactive"}
+                              {policy.is_active ? t('status.active', 'Active') : t('status.inactive', 'Inactive')}
                             </Badge>
                             {policy.coverage_type && (
                               <Badge variant="outline">{policy.coverage_type}</Badge>

@@ -1059,5 +1059,62 @@
       "success": "Roles actualizados exitosamente",
       "error": "Error al actualizar roles"
     }
+  },
+  "aiAgents": {
+    "title": "Agentes de IA",
+    "subtitle": "Configurar y monitorear asistentes de IA",
+    "configure": "Configurar",
+    "analytics": "Analíticas",
+    "enable": "Activar",
+    "disable": "Desactivar",
+    "addAgent": "Agregar Agente",
+    "today": "hoy",
+    "rating": "calificación",
+    "notFound": "Agente no encontrado",
+    "sections": {
+      "salesSupport": "Ventas y Soporte",
+      "memberFamily": "Miembros y Familia",
+      "clinicalSupport": "Soporte Clínico",
+      "managementAdmin": "Gestión y Admin"
+    },
+    "badges": {
+      "publicFacing": "Cara al Público",
+      "personalCompanions": "Compañeros Personales",
+      "nurseDashboard": "Panel de Enfermería",
+      "adminTools": "Herramientas Admin"
+    },
+    "settings": {
+      "general": "General",
+      "systemPrompt": "Prompt del Sistema",
+      "personality": "Personalidad",
+      "knowledgeBase": "Base de Conocimientos",
+      "functions": "Funciones",
+      "avatar": "Avatar del Agente",
+      "avatarHint": "Subir foto de perfil (máx 2MB, JPG/PNG/WebP)",
+      "uploadAvatar": "Subir Avatar",
+      "uploading": "Subiendo...",
+      "remove": "Eliminar",
+      "displayName": "Nombre para Mostrar",
+      "description": "Descripción",
+      "status": "Estado",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "training": "Entrenamiento",
+      "saving": "Guardando...",
+      "saveChanges": "Guardar Cambios",
+      "aiModel": "Modelo de IA",
+      "responseStyle": "Estilo de Respuesta",
+      "temperature": "Temperatura",
+      "maxTokens": "Longitud máx. de respuesta (tokens)",
+      "styles": {
+        "friendly": "Amigable y Conversacional",
+        "supportive": "De Apoyo y Tranquilizador",
+        "professional": "Profesional",
+        "executive": "Resumen Ejecutivo",
+        "concise": "Conciso y Directo",
+        "detailed": "Detallado y Exhaustivo"
+      }
+    },
+    "reference": "Referencia de Agentes"
   }
 }

@@ -57,7 +57,7 @@ export function MemberSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/60">
-            {!isCollapsed && "My Care"}
+            {!isCollapsed && t('sidebar.myCare', 'My Care')}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

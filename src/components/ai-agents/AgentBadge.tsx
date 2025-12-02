@@ -17,7 +17,7 @@ const agentNames = {
   clara: 'Clara',
   ineke: 'Ineke',
   isabella: 'Isabella',
-  lee: 'LEE',
+  lee: 'Lee',
 };
 
 const sizeClasses = {

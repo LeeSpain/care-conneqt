@@ -29,7 +29,9 @@
     "familyMembers": "Miembros de Familia",
     "residents": "Residentes",
     "staff": "Personal",
-    "reports": "Informes"
+    "reports": "Informes",
+    "careManagement": "Gestión de Atención",
+    "myCare": "Mi Cuidado"
   },
   "footer": {
     "tagline": "Salud Conectada. Cuidado Humano.",
@@ -138,7 +140,10 @@
     "greeting": "¡Hola! Soy Isabella, tu asistente de gestión de instalaciones. ¿Cómo puedo ayudarte con las operaciones hoy?"
   },
   "lee": {
-    "greeting": "Saludos. Soy LEE El Cerebro, orquestador maestro de IA. Tengo acceso completo al sistema y puedo proporcionar información a nivel ejecutivo. ¿Cómo puedo ayudarte?"
+    "greeting": "Saludos. Soy Lee \"El Cerebro\", orquestador maestro de IA. Tengo acceso completo al sistema y puedo proporcionar información a nivel ejecutivo. ¿Cómo puedo ayudarte?",
+    "subtitle": "Orquestador Maestro de IA • Acceso Completo",
+    "thinking": "Lee está pensando...",
+    "placeholder": "Pregunta a Lee cualquier cosa sobre el sistema..."
   },
   "aiGuardian": {
     "greeting": "¡Hola! Soy tu Guardián IA. ¿Cómo te sientes hoy? Estoy aquí para ayudarte con cualquier pregunta de salud o simplemente charlar.",
