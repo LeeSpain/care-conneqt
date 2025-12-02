@@ -29,13 +29,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Plus, Search, MoreVertical, Edit, Trash2, Users, Building2, MapPin, Briefcase } from "lucide-react";
+import { Plus, Search, MoreVertical, Edit, Trash2, Building2, MapPin, Briefcase } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { AddCareCompanyDialog } from "@/components/admin/AddCareCompanyDialog";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CareCompanies() {
+  const { t } = useTranslation('dashboard-admin');
   const [searchQuery, setSearchQuery] = useState("");
   const [companyTypeFilter, setCompanyTypeFilter] = useState<string>("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -84,14 +86,14 @@ export default function CareCompanies() {
 
     if (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete care company",
+        title: t('commercial.error'),
+        description: t('commercial.deleteCompanyError'),
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Success",
-        description: "Care company deleted successfully",
+        title: t('commercial.success'),
+        description: t('commercial.companyDeleted'),
       });
       queryClient.invalidateQueries({ queryKey: ["care-companies"] });
     }
@@ -114,25 +116,22 @@ export default function CareCompanies() {
 
   const getCompanyTypeLabel = (type: string) => {
     const labels = {
-      home_care: "Home Care",
-      domiciliary: "Domiciliary",
-      agency: "Agency",
-      other: "Other",
+      home_care: t('commercial.companyTypes.homeCare'),
+      domiciliary: t('commercial.companyTypes.domiciliary'),
+      agency: t('commercial.companyTypes.agency'),
+      other: t('commercial.companyTypes.other'),
     };
     return labels[type as keyof typeof labels] || type;
   };
 
   return (
-    <AdminDashboardLayout
-      title="Care Companies"
-    >
+    <AdminDashboardLayout title={t('commercial.careCompanies')}>
       <div className="space-y-6">
-        {/* Search and Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search companies by name or location..."
+              placeholder={t('commercial.searchCompanies')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -140,14 +139,14 @@ export default function CareCompanies() {
           </div>
           <Select value={companyTypeFilter} onValueChange={setCompanyTypeFilter}>
             <SelectTrigger className="w-full sm:w-[200px]">
-              <SelectValue placeholder="Filter by type" />
+              <SelectValue placeholder={t('commercial.filterByType')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="home_care">Home Care</SelectItem>
-              <SelectItem value="domiciliary">Domiciliary</SelectItem>
-              <SelectItem value="agency">Agency</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
+              <SelectItem value="all">{t('commercial.allTypes')}</SelectItem>
+              <SelectItem value="home_care">{t('commercial.companyTypes.homeCare')}</SelectItem>
+              <SelectItem value="domiciliary">{t('commercial.companyTypes.domiciliary')}</SelectItem>
+              <SelectItem value="agency">{t('commercial.companyTypes.agency')}</SelectItem>
+              <SelectItem value="other">{t('commercial.companyTypes.other')}</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={() => {
@@ -155,11 +154,10 @@ export default function CareCompanies() {
             setIsAddDialogOpen(true);
           }}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Company
+            {t('commercial.addCompany')}
           </Button>
         </div>
 
-        {/* Companies Grid */}
         {isLoading ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
@@ -195,18 +193,18 @@ export default function CareCompanies() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/commercial/companies/${company.id}`)}>
                           <Building2 className="h-4 w-4 mr-2" />
-                          View Details
+                          {t('commercial.viewDetails')}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleEdit(company)}>
                           <Edit className="h-4 w-4 mr-2" />
-                          Edit Company
+                          {t('commercial.editCompany')}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => handleDelete(company.id)}
                           className="text-destructive"
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Delete Company
+                          {t('commercial.deleteCompany')}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -223,11 +221,11 @@ export default function CareCompanies() {
                     
                     <div className="grid grid-cols-2 gap-4 pt-3 border-t">
                       <div>
-                        <div className="text-xs text-muted-foreground">Clients</div>
+                        <div className="text-xs text-muted-foreground">{t('commercial.clients')}</div>
                         <div className="text-2xl font-bold">{company.total_clients || 0}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-muted-foreground">Staff</div>
+                        <div className="text-xs text-muted-foreground">{t('commercial.staff')}</div>
                         <div className="text-2xl font-bold">{company.total_staff || 0}</div>
                       </div>
                     </div>
@@ -246,16 +244,16 @@ export default function CareCompanies() {
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-12">
               <Briefcase className="h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No care companies found</h3>
+              <h3 className="text-lg font-semibold mb-2">{t('commercial.noCompaniesFound')}</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 {searchQuery || companyTypeFilter !== "all"
-                  ? "Try adjusting your search or filters"
-                  : "Get started by adding your first care company"}
+                  ? t('commercial.adjustFilters')
+                  : t('commercial.getStartedCompany')}
               </p>
               {!searchQuery && companyTypeFilter === "all" && (
                 <Button onClick={() => setIsAddDialogOpen(true)}>
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Care Company
+                  {t('commercial.addCareCompany')}
                 </Button>
               )}
             </CardContent>
@@ -263,7 +261,6 @@ export default function CareCompanies() {
         )}
       </div>
 
-      {/* Dialogs */}
       <AddCareCompanyDialog
         open={isAddDialogOpen}
         onOpenChange={(open) => {
@@ -276,16 +273,15 @@ export default function CareCompanies() {
       <AlertDialog open={!!deletingCompanyId} onOpenChange={() => setDeletingCompanyId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Care Company</AlertDialogTitle>
+            <AlertDialogTitle>{t('commercial.deleteCompanyTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this care company? This action cannot be undone.
-              All associated staff and client relationships will be removed.
+              {t('commercial.deleteCompanyConfirm')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('commercial.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Delete
+              {t('commercial.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

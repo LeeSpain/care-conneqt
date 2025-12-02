@@ -1,69 +1,75 @@
+import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CreditCard, ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Integrations() {
+  const { t } = useTranslation('dashboard-admin');
+
   const handleEnableStripe = () => {
     window.open('https://dashboard.stripe.com/register', '_blank');
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">Integrations</h1>
-        <p className="text-muted-foreground mt-2">
-          Connect external services to extend platform capabilities
-        </p>
-      </div>
+    <AdminDashboardLayout title={t('integrations.title')}>
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">{t('integrations.title')}</h2>
+          <p className="text-muted-foreground mt-2">
+            {t('integrations.subtitle')}
+          </p>
+        </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <CreditCard className="h-6 w-6 text-primary" />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <CreditCard className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle>{t('integrations.stripe.title')}</CardTitle>
+                  <CardDescription>{t('integrations.stripe.description')}</CardDescription>
+                </div>
               </div>
-              <div>
-                <CardTitle>Stripe Payments</CardTitle>
-                <CardDescription>Process payments and subscriptions</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                {t('integrations.stripe.details')}
+              </p>
+              <div className="space-y-2">
+                <p className="text-sm font-medium">{t('integrations.stripe.benefits')}:</p>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>{t('integrations.stripe.benefit1')}</li>
+                  <li>{t('integrations.stripe.benefit2')}</li>
+                  <li>{t('integrations.stripe.benefit3')}</li>
+                  <li>{t('integrations.stripe.benefit4')}</li>
+                </ul>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Enable Stripe to allow Clara AI to process payments, create checkout sessions, and manage subscriptions directly through conversations.
-            </p>
-            <div className="space-y-2">
-              <p className="text-sm font-medium">Benefits:</p>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>Clara can complete sales end-to-end</li>
-                <li>Automatic order tracking</li>
-                <li>Secure payment processing</li>
-                <li>Subscription management</li>
-              </ul>
-            </div>
-            <Button onClick={handleEnableStripe} className="w-full">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Set Up Stripe Integration
-            </Button>
-            <p className="text-xs text-muted-foreground">
-              You'll need to create a Stripe account and add your API keys in Lovable secrets management.
-            </p>
-          </CardContent>
-        </Card>
+              <Button onClick={handleEnableStripe} className="w-full">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {t('integrations.stripe.setupButton')}
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                {t('integrations.stripe.note')}
+              </p>
+            </CardContent>
+          </Card>
 
-        <Card className="opacity-50">
-          <CardHeader>
-            <CardTitle>More Integrations Coming Soon</CardTitle>
-            <CardDescription>Additional integrations will be available here</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Future integrations may include email marketing, CRM systems, and analytics platforms.
-            </p>
-          </CardContent>
-        </Card>
+          <Card className="opacity-50">
+            <CardHeader>
+              <CardTitle>{t('integrations.comingSoon.title')}</CardTitle>
+              <CardDescription>{t('integrations.comingSoon.description')}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">
+                {t('integrations.comingSoon.details')}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </AdminDashboardLayout>
   );
 }

@@ -3,12 +3,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { TrendingUp, Users, DollarSign, Activity, AlertCircle, Heart } from "lucide-react";
+import { TrendingUp, Users, Activity, AlertCircle, Heart } from "lucide-react";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const COLORS = ["hsl(var(--primary))", "hsl(var(--secondary))", "hsl(var(--accent))", "hsl(var(--muted))"];
 
 export default function PlatformAnalytics() {
+  const { t } = useTranslation('dashboard-admin');
+
   const { data: stats } = useQuery({
     queryKey: ["platform-stats"],
     queryFn: async () => {
@@ -72,7 +75,6 @@ export default function PlatformAnalytics() {
     }
   });
 
-  // Mock growth data (in production, calculate from actual data over time)
   const growthData = [
     { month: "Jan", users: 120, members: 80 },
     { month: "Feb", users: 145, members: 95 },
@@ -83,92 +85,92 @@ export default function PlatformAnalytics() {
   ];
 
   return (
-    <AdminDashboardLayout title="Platform Analytics">
+    <AdminDashboardLayout title={t('platformAnalytics.title')}>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h2>
+          <h2 className="text-3xl font-bold tracking-tight">{t('platformAnalytics.title')}</h2>
           <p className="text-muted-foreground">
-            Comprehensive insights and platform metrics
+            {t('platformAnalytics.subtitle')}
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.totalUsers')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalUsers || 0}</div>
               <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                 <TrendingUp className="h-3 w-3 text-green-600" />
-                <span className="text-green-600">+12.5%</span> from last month
+                <span className="text-green-600">+12.5%</span> {t('platformAnalytics.fromLastMonth')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Care Recipients</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.careRecipients')}</CardTitle>
               <Heart className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalMembers || 0}</div>
               <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                 <TrendingUp className="h-3 w-3 text-green-600" />
-                <span className="text-green-600">+8.3%</span> from last month
+                <span className="text-green-600">+8.3%</span> {t('platformAnalytics.fromLastMonth')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Nursing Staff</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.nursingStaff')}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalNurses || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Active care providers
+                {t('platformAnalytics.activeCareProviders')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Facilities</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.facilities')}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalFacilities || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Care facilities
+                {t('platformAnalytics.careFacilities')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Connected Devices</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.connectedDevices')}</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalDevices || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Active monitoring devices
+                {t('platformAnalytics.activeMonitoringDevices')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('platformAnalytics.activeAlerts')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats?.activeAlerts || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Requiring attention
+                {t('platformAnalytics.requiringAttention')}
               </p>
             </CardContent>
           </Card>
@@ -176,16 +178,16 @@ export default function PlatformAnalytics() {
 
         <Tabs defaultValue="growth" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="growth">Growth Trends</TabsTrigger>
-            <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
-            <TabsTrigger value="devices">Devices</TabsTrigger>
+            <TabsTrigger value="growth">{t('platformAnalytics.tabs.growthTrends')}</TabsTrigger>
+            <TabsTrigger value="subscriptions">{t('platformAnalytics.tabs.subscriptions')}</TabsTrigger>
+            <TabsTrigger value="devices">{t('platformAnalytics.tabs.devices')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="growth" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>User Growth</CardTitle>
-                <CardDescription>Total users and care recipients over time</CardDescription>
+                <CardTitle>{t('platformAnalytics.userGrowth')}</CardTitle>
+                <CardDescription>{t('platformAnalytics.usersAndRecipientsOverTime')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -195,8 +197,8 @@ export default function PlatformAnalytics() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={2} name="Total Users" />
-                    <Line type="monotone" dataKey="members" stroke="hsl(var(--secondary))" strokeWidth={2} name="Care Recipients" />
+                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={2} name={t('platformAnalytics.totalUsers')} />
+                    <Line type="monotone" dataKey="members" stroke="hsl(var(--secondary))" strokeWidth={2} name={t('platformAnalytics.careRecipients')} />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -206,8 +208,8 @@ export default function PlatformAnalytics() {
           <TabsContent value="subscriptions" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Subscription Breakdown</CardTitle>
-                <CardDescription>Distribution of subscription tiers</CardDescription>
+                <CardTitle>{t('platformAnalytics.subscriptionBreakdown')}</CardTitle>
+                <CardDescription>{t('platformAnalytics.distributionOfTiers')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -236,8 +238,8 @@ export default function PlatformAnalytics() {
           <TabsContent value="devices" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Device Distribution</CardTitle>
-                <CardDescription>Types of monitoring devices in use</CardDescription>
+                <CardTitle>{t('platformAnalytics.deviceDistribution')}</CardTitle>
+                <CardDescription>{t('platformAnalytics.typesOfDevices')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -246,7 +248,7 @@ export default function PlatformAnalytics() {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="value" fill="hsl(var(--primary))" name="Devices" />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" name={t('platformAnalytics.devices')} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

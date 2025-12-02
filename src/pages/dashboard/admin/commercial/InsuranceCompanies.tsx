@@ -29,13 +29,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Plus, Search, MoreVertical, Edit, Trash2, Shield, MapPin, FileText } from "lucide-react";
+import { Plus, Search, MoreVertical, Edit, Trash2, Shield, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { AddInsuranceCompanyDialog } from "@/components/admin/AddInsuranceCompanyDialog";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function InsuranceCompanies() {
+  const { t } = useTranslation('dashboard-admin');
   const [searchQuery, setSearchQuery] = useState("");
   const [insuranceTypeFilter, setInsuranceTypeFilter] = useState<string>("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -84,14 +86,14 @@ export default function InsuranceCompanies() {
 
     if (error) {
       toast({
-        title: "Error",
-        description: "Failed to delete insurance company",
+        title: t('commercial.error'),
+        description: t('commercial.deleteInsuranceError'),
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Success",
-        description: "Insurance company deleted successfully",
+        title: t('commercial.success'),
+        description: t('commercial.insuranceDeleted'),
       });
       queryClient.invalidateQueries({ queryKey: ["insurance-companies"] });
     }
@@ -114,23 +116,22 @@ export default function InsuranceCompanies() {
 
   const getInsuranceTypeLabel = (type: string) => {
     const labels = {
-      health: "Health",
-      care: "Care",
-      life: "Life",
-      other: "Other",
+      health: t('commercial.insuranceTypes.health'),
+      care: t('commercial.insuranceTypes.care'),
+      life: t('commercial.insuranceTypes.life'),
+      other: t('commercial.insuranceTypes.other'),
     };
     return labels[type as keyof typeof labels] || type;
   };
 
   return (
-    <AdminDashboardLayout title="Insurance Companies">
+    <AdminDashboardLayout title={t('commercial.insuranceCompanies')}>
       <div className="space-y-6">
-        {/* Search and Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search insurance companies..."
+              placeholder={t('commercial.searchInsurance')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -138,14 +139,14 @@ export default function InsuranceCompanies() {
           </div>
           <Select value={insuranceTypeFilter} onValueChange={setInsuranceTypeFilter}>
             <SelectTrigger className="w-full sm:w-[200px]">
-              <SelectValue placeholder="Filter by type" />
+              <SelectValue placeholder={t('commercial.filterByType')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="health">Health</SelectItem>
-              <SelectItem value="care">Care</SelectItem>
-              <SelectItem value="life">Life</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
+              <SelectItem value="all">{t('commercial.allTypes')}</SelectItem>
+              <SelectItem value="health">{t('commercial.insuranceTypes.health')}</SelectItem>
+              <SelectItem value="care">{t('commercial.insuranceTypes.care')}</SelectItem>
+              <SelectItem value="life">{t('commercial.insuranceTypes.life')}</SelectItem>
+              <SelectItem value="other">{t('commercial.insuranceTypes.other')}</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={() => {
@@ -153,11 +154,10 @@ export default function InsuranceCompanies() {
             setIsAddDialogOpen(true);
           }}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Insurance Company
+            {t('commercial.addInsurance')}
           </Button>
         </div>
 
-        {/* Companies Grid */}
         {isLoading ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
@@ -193,18 +193,18 @@ export default function InsuranceCompanies() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/commercial/insurance/${company.id}`)}>
                           <Shield className="h-4 w-4 mr-2" />
-                          View Details
+                          {t('commercial.viewDetails')}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleEdit(company)}>
                           <Edit className="h-4 w-4 mr-2" />
-                          Edit Company
+                          {t('commercial.editCompany')}
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => handleDelete(company.id)}
                           className="text-destructive"
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Delete Company
+                          {t('commercial.deleteCompany')}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -221,11 +221,11 @@ export default function InsuranceCompanies() {
                     
                     <div className="grid grid-cols-2 gap-4 pt-3 border-t">
                       <div>
-                        <div className="text-xs text-muted-foreground">Policies</div>
+                        <div className="text-xs text-muted-foreground">{t('commercial.policies')}</div>
                         <div className="text-2xl font-bold">{company.total_policies || 0}</div>
                       </div>
                       <div>
-                        <div className="text-xs text-muted-foreground">Covered</div>
+                        <div className="text-xs text-muted-foreground">{t('commercial.covered')}</div>
                         <div className="text-2xl font-bold">
                           {company.covered_members?.[0]?.count || 0}
                         </div>
@@ -246,16 +246,16 @@ export default function InsuranceCompanies() {
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-12">
               <Shield className="h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No insurance companies found</h3>
+              <h3 className="text-lg font-semibold mb-2">{t('commercial.noInsuranceFound')}</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 {searchQuery || insuranceTypeFilter !== "all"
-                  ? "Try adjusting your search or filters"
-                  : "Get started by adding your first insurance company"}
+                  ? t('commercial.adjustFilters')
+                  : t('commercial.getStartedInsurance')}
               </p>
               {!searchQuery && insuranceTypeFilter === "all" && (
                 <Button onClick={() => setIsAddDialogOpen(true)}>
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Insurance Company
+                  {t('commercial.addInsuranceCompany')}
                 </Button>
               )}
             </CardContent>
@@ -263,7 +263,6 @@ export default function InsuranceCompanies() {
         )}
       </div>
 
-      {/* Dialogs */}
       <AddInsuranceCompanyDialog
         open={isAddDialogOpen}
         onOpenChange={(open) => {
@@ -276,16 +275,15 @@ export default function InsuranceCompanies() {
       <AlertDialog open={!!deletingCompanyId} onOpenChange={() => setDeletingCompanyId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Insurance Company</AlertDialogTitle>
+            <AlertDialogTitle>{t('commercial.deleteInsuranceTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this insurance company? This action cannot be undone.
-              All associated policies and covered members will be removed.
+              {t('commercial.deleteInsuranceConfirm')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('commercial.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Delete
+              {t('commercial.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
