@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useFamilyStats } from "@/hooks/useFamilyStats";
 import { useTranslation } from 'react-i18next';
+import { ClaraFamilyChat } from "@/components/ai-agents/ClaraFamilyChat";
 
 export default function FamilyHome() {
   const { user } = useAuth();
@@ -203,6 +204,8 @@ export default function FamilyHome() {
           </CardContent>
         </Card>
       </div>
+      
+      <ClaraFamilyChat />
     </FamilyDashboardLayout>
   );
 }

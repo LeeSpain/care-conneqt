@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminStats } from "@/hooks/useAdminStats";
 import { useTranslation } from 'react-i18next';
+import { LeeChat } from "@/components/ai-agents/LeeChat";
 
 export default function AdminHome() {
   const navigate = useNavigate();
@@ -171,6 +172,8 @@ export default function AdminHome() {
           </Card>
         </div>
       </div>
+      
+      <LeeChat />
     </AdminDashboardLayout>
   );
 }

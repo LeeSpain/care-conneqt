@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useFacilityStats } from "@/hooks/useFacilityStats";
 import { useTranslation } from 'react-i18next';
+import { IsabellaChat } from "@/components/ai-agents/IsabellaChat";
 
 export default function FacilityHome() {
   const { user } = useAuth();
@@ -175,6 +176,8 @@ export default function FacilityHome() {
           </Card>
         </div>
       </div>
+      
+      <IsabellaChat facilityId={data?.facilityInfo?.id} />
     </FacilityDashboardLayout>
   );
 }
