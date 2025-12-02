@@ -83,7 +83,7 @@ export default function Signup() {
           <div className="flex items-start justify-between">
             <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
               <ArrowLeft className="h-4 w-4" />
-              <span className="text-sm">Back to Home</span>
+              <span className="text-sm">{t('backToHome')}</span>
             </Link>
             <LanguageSwitcher />
           </div>

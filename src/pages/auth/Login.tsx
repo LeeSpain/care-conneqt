@@ -73,7 +73,7 @@ export default function Login() {
           <div className="flex items-start justify-between">
             <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
               <ArrowLeft className="h-4 w-4" />
-              <span className="text-sm">Back to Home</span>
+              <span className="text-sm">{t('backToHome')}</span>
             </Link>
             <LanguageSwitcher />
           </div>
@@ -137,21 +137,21 @@ export default function Login() {
               <DialogTrigger asChild>
                 <Button type="button" variant="outline" className="w-full">
                   <Info className="h-4 w-4 mr-2" />
-                  View Test Credentials
+                  {t('login.testCredentials.button')}
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
                 <DialogHeader>
-                  <DialogTitle>Test Credentials - All Roles</DialogTitle>
+                  <DialogTitle>{t('login.testCredentials.title')}</DialogTitle>
                   <DialogDescription>
-                    Use these credentials to test different user roles. Create accounts via signup if they don't exist yet.
+                    {t('login.testCredentials.description')}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-3 mt-4">
                   <div className="bg-secondary/50 p-3 rounded-lg">
                     <p className="font-semibold text-sm mb-2 flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-purple-500"></span>
-                      Admin Account
+                      {t('login.testCredentials.admin')}
                     </p>
                     <p className="font-mono text-xs text-muted-foreground">admin@test.com</p>
                     <p className="font-mono text-xs text-muted-foreground">Admin123!</p>
@@ -160,7 +160,7 @@ export default function Login() {
                   <div className="bg-secondary/50 p-3 rounded-lg">
                     <p className="font-semibold text-sm mb-2 flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-blue-500"></span>
-                      Facility Admin
+                      {t('login.testCredentials.facility')}
                     </p>
                     <p className="font-mono text-xs text-muted-foreground">facility@test.com</p>
                     <p className="font-mono text-xs text-muted-foreground">Facility123!</p>
@@ -169,7 +169,7 @@ export default function Login() {
                   <div className="bg-secondary/50 p-3 rounded-lg">
                     <p className="font-semibold text-sm mb-2 flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-green-500"></span>
-                      Nurse Account
+                      {t('login.testCredentials.nurse')}
                     </p>
                     <p className="font-mono text-xs text-muted-foreground">nurse@test.com</p>
                     <p className="font-mono text-xs text-muted-foreground">Nurse123!</p>
@@ -178,7 +178,7 @@ export default function Login() {
                   <div className="bg-secondary/50 p-3 rounded-lg">
                     <p className="font-semibold text-sm mb-2 flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-orange-500"></span>
-                      Family Carer
+                      {t('login.testCredentials.family')}
                     </p>
                     <p className="font-mono text-xs text-muted-foreground">family@test.com</p>
                     <p className="font-mono text-xs text-muted-foreground">Family123!</p>
@@ -187,7 +187,7 @@ export default function Login() {
                   <div className="bg-secondary/50 p-3 rounded-lg">
                     <p className="font-semibold text-sm mb-2 flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full bg-pink-500"></span>
-                      Member Account
+                      {t('login.testCredentials.member')}
                     </p>
                     <p className="font-mono text-xs text-muted-foreground">member@test.com</p>
                     <p className="font-mono text-xs text-muted-foreground">Member123!</p>

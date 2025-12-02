@@ -1085,8 +1085,17 @@
     },
     "settings": {
       "general": "General",
+      "generalTitle": "Configuración General",
+      "generalDescription": "Información básica del agente y estado",
       "systemPrompt": "Prompt del Sistema",
+      "systemPromptTitle": "Prompt del Sistema",
+      "systemPromptDescription": "Define cómo se comporta y responde este agente",
+      "systemPromptHint": "Esta es la instrucción central que define la personalidad, conocimiento y comportamiento del agente.",
+      "saveSystemPrompt": "Guardar Prompt del Sistema",
       "personality": "Personalidad",
+      "personalityTitle": "Personalidad y Configuración de IA",
+      "personalityDescription": "Ajusta el comportamiento y las respuestas del agente",
+      "temperatureHint": "(0 = enfocado, 1 = creativo)",
       "knowledgeBase": "Base de Conocimientos",
       "functions": "Funciones",
       "avatar": "Avatar del Agente",
@@ -1106,6 +1115,11 @@
       "responseStyle": "Estilo de Respuesta",
       "temperature": "Temperatura",
       "maxTokens": "Longitud máx. de respuesta (tokens)",
+      "models": {
+        "flash": "Gemini 2.5 Flash (Recomendado)",
+        "pro": "Gemini 2.5 Pro (Mejor Calidad)",
+        "lite": "Gemini 2.5 Flash Lite (Más Rápido)"
+      },
       "styles": {
         "friendly": "Amigable y Conversacional",
         "supportive": "De Apoyo y Tranquilizador",
