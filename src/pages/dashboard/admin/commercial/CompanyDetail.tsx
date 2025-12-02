@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +32,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function CompanyDetail() {
+  const { t } = useTranslation('dashboard-admin');
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
