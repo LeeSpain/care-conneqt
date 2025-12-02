@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+
 export default function CommercialOverview() {
   const navigate = useNavigate();
   const { t } = useTranslation('dashboard-admin');
