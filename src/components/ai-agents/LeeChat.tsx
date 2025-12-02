@@ -3,16 +3,22 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Brain, X, Send, Loader2, Minimize2, Maximize2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { AgentBadge } from './AgentBadge';
+import leeAvatar from '@/assets/lee-avatar.png';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+}
+
+interface AgentData {
+  avatar_url: string | null;
+  display_name: string;
 }
 
 export function LeeChat() {
@@ -21,12 +27,28 @@ export function LeeChat() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [agent, setAgent] = useState<AgentData | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: t('lee.greeting', 'Greetings. I am LEE The Brain, master AI orchestrator. I have full system access and can provide executive-level insights. How may I assist you?') }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Fetch agent data on mount
+  useEffect(() => {
+    const fetchAgent = async () => {
+      const { data } = await supabase
+        .from('ai_agents')
+        .select('avatar_url, display_name')
+        .eq('name', 'lee-the-brain')
+        .single();
+      
+      if (data) setAgent(data);
+    };
+    
+    fetchAgent();
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -67,71 +89,101 @@ export function LeeChat() {
     }
   };
 
+  const avatarSrc = agent?.avatar_url || leeAvatar;
+
   if (!isOpen) {
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 h-14 px-5 rounded-full shadow-2xl z-50 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold flex items-center gap-3"
+        className="fixed top-20 right-6 h-12 px-4 rounded-full shadow-2xl z-50 bg-gradient-to-r from-amber-600 via-orange-500 to-amber-500 hover:from-amber-700 hover:via-orange-600 hover:to-amber-600 text-white font-semibold flex items-center gap-3 border border-amber-400/30 transition-all hover:scale-105"
       >
-        <Brain className="h-5 w-5" />
-        <span className="hidden sm:inline">LEE The Brain</span>
+        <Avatar className="h-8 w-8 ring-2 ring-white/30">
+          <AvatarImage src={avatarSrc} alt="LEE The Brain" className="object-cover" />
+          <AvatarFallback className="bg-amber-700">
+            <Brain className="h-4 w-4 text-white" />
+          </AvatarFallback>
+        </Avatar>
+        <span className="hidden sm:inline text-sm">LEE The Brain</span>
       </Button>
     );
   }
 
   return (
-    <Card className={`fixed bottom-6 right-6 ${isMinimized ? 'w-80 h-14' : 'w-[450px] h-[550px]'} shadow-2xl z-50 flex flex-col transition-all border-amber-500/30`}>
-      <div className="p-3 border-b bg-gradient-to-r from-amber-500/10 to-orange-500/10 flex items-center justify-between rounded-t-lg">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-8 w-8 ring-2 ring-amber-500/30">
-            <AvatarFallback className="bg-amber-500/20">
-              <Brain className="h-4 w-4 text-amber-500" />
+    <Card className={`fixed top-20 right-6 ${isMinimized ? 'w-80 h-16' : 'w-[480px] h-[580px]'} shadow-2xl z-50 flex flex-col transition-all border-amber-500/40 bg-background/95 backdrop-blur-sm`}>
+      {/* Professional Header */}
+      <div className="p-4 border-b bg-gradient-to-r from-amber-600 via-orange-500 to-amber-500 flex items-center justify-between rounded-t-lg">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-10 w-10 ring-2 ring-white/40 shadow-lg">
+            <AvatarImage src={avatarSrc} alt="LEE The Brain" className="object-cover" />
+            <AvatarFallback className="bg-amber-700">
+              <Brain className="h-5 w-5 text-white" />
             </AvatarFallback>
           </Avatar>
           <div>
-            <h3 className="font-semibold text-sm">LEE The Brain</h3>
-            <p className="text-xs text-muted-foreground">Master AI • Full access</p>
+            <h3 className="font-bold text-white text-sm tracking-wide">LEE The Brain</h3>
+            <p className="text-xs text-white/80">Master AI Orchestrator • Full Access</p>
           </div>
         </div>
         <div className="flex gap-1">
-          <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsMinimized(!isMinimized)}>
-            {isMinimized ? <Maximize2 className="h-3 w-3" /> : <Minimize2 className="h-3 w-3" />}
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20" onClick={() => setIsMinimized(!isMinimized)}>
+            {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
           </Button>
-          <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsOpen(false)}>
-            <X className="h-3 w-3" />
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20" onClick={() => setIsOpen(false)}>
+            <X className="h-4 w-4" />
           </Button>
         </div>
       </div>
 
       {!isMinimized && (
         <>
-          <ScrollArea className="flex-1 p-3" ref={scrollRef}>
-            <div className="space-y-3">
+          {/* Messages Area */}
+          <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+            <div className="space-y-4">
               {messages.map((message, index) => (
                 <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] rounded-lg p-2.5 ${
-                    message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-amber-500/5 border border-amber-500/20'
+                  {message.role === 'assistant' && (
+                    <Avatar className="h-8 w-8 mr-2 flex-shrink-0 ring-2 ring-amber-500/30">
+                      <AvatarImage src={avatarSrc} alt="LEE" className="object-cover" />
+                      <AvatarFallback className="bg-amber-500/20">
+                        <Brain className="h-4 w-4 text-amber-500" />
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
+                  <div className={`max-w-[80%] rounded-2xl p-3 ${
+                    message.role === 'user' 
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white' 
+                      : 'bg-amber-500/10 border border-amber-500/20'
                   }`}>
                     {message.role === 'assistant' && (
-                      <div className="mb-1">
+                      <div className="mb-1.5">
                         <AgentBadge agent="lee" size="sm" />
                       </div>
                     )}
-                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                   </div>
                 </div>
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-2.5">
-                    <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
+                  <Avatar className="h-8 w-8 mr-2 flex-shrink-0 ring-2 ring-amber-500/30">
+                    <AvatarImage src={avatarSrc} alt="LEE" className="object-cover" />
+                    <AvatarFallback className="bg-amber-500/20">
+                      <Brain className="h-4 w-4 text-amber-500" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3">
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
+                      <span className="text-sm text-muted-foreground">LEE is thinking...</span>
+                    </div>
                   </div>
                 </div>
               )}
             </div>
           </ScrollArea>
 
-          <div className="p-3 border-t">
+          {/* Input Area */}
+          <div className="p-4 border-t bg-muted/30">
             <div className="flex gap-2">
               <Input
                 value={input}
@@ -139,9 +191,14 @@ export function LeeChat() {
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
                 placeholder="Ask LEE anything about the system..."
                 disabled={isLoading}
-                className="flex-1 text-sm"
+                className="flex-1 text-sm bg-background border-amber-500/20 focus-visible:ring-amber-500/50"
               />
-              <Button onClick={sendMessage} disabled={isLoading || !input.trim()} size="icon" className="bg-gradient-to-r from-amber-500 to-orange-500">
+              <Button 
+                onClick={sendMessage} 
+                disabled={isLoading || !input.trim()} 
+                size="icon" 
+                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 shadow-lg"
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
