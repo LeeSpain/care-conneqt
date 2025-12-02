@@ -25,7 +25,11 @@
     "healthMonitoring": "Health Monitoring",
     "deviceManagement": "Device Management",
     "invitations": "Invitations",
-    "aiChat": "AI Chat"
+    "aiChat": "AI Chat",
+    "familyMembers": "Family Members",
+    "residents": "Residents",
+    "staff": "Staff",
+    "reports": "Reports"
   },
   "footer": {
     "tagline": "Connected Health. Human Care.",

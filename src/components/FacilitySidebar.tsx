@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Users, UserCheck, BarChart3, MessageSquare, Settings } from "lucide-react";
+import { Home, Users, UserCheck, BarChart3, MessageSquare, Settings, Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/Logo";
 import {
   Sidebar,
@@ -19,14 +20,16 @@ export function FacilitySidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const isCollapsed = state === "collapsed";
+  const { t } = useTranslation('common');
 
   const navigationItems = [
-    { title: "Dashboard", url: "/dashboard/facility", icon: Home },
-    { title: "Residents", url: "/dashboard/facility/residents", icon: Users },
-    { title: "Staff", url: "/dashboard/facility/staff", icon: UserCheck },
-    { title: "Reports", url: "/dashboard/facility/reports", icon: BarChart3 },
-    { title: "AI Guardian", url: "/dashboard/facility/ai-chat", icon: MessageSquare },
-    { title: "Settings", url: "/dashboard/facility/settings", icon: Settings },
+    { title: t('sidebar.dashboard', 'Dashboard'), url: "/dashboard/facility", icon: Home },
+    { title: t('sidebar.residents', 'Residents'), url: "/dashboard/facility/residents", icon: Users },
+    { title: t('sidebar.staff', 'Staff'), url: "/dashboard/facility/staff", icon: UserCheck },
+    { title: t('sidebar.messages', 'Messages'), url: "/dashboard/facility/messages", icon: Mail },
+    { title: t('sidebar.reports', 'Reports'), url: "/dashboard/facility/reports", icon: BarChart3 },
+    { title: t('sidebar.aiGuardian', 'AI Guardian'), url: "/dashboard/facility/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.settings', 'Settings'), url: "/dashboard/facility/settings", icon: Settings },
   ];
 
   const isActive = (path: string) => location.pathname === path;

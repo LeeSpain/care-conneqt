@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { Home, Users, Calendar, MessageSquare, Settings } from "lucide-react";
+import { Home, Users, Calendar, MessageSquare, Settings, Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/Logo";
 import {
   Sidebar,
@@ -19,13 +20,15 @@ export function FamilySidebar() {
   const { state } = useSidebar();
   const location = useLocation();
   const isCollapsed = state === "collapsed";
+  const { t } = useTranslation('common');
 
   const navigationItems = [
-    { title: "Dashboard", url: "/dashboard/family", icon: Home },
-    { title: "Family Members", url: "/dashboard/family/members", icon: Users },
-    { title: "Schedule", url: "/dashboard/family/schedule", icon: Calendar },
-    { title: "AI Guardian", url: "/dashboard/family/ai-chat", icon: MessageSquare },
-    { title: "Settings", url: "/dashboard/family/settings", icon: Settings },
+    { title: t('sidebar.dashboard', 'Dashboard'), url: "/dashboard/family", icon: Home },
+    { title: t('sidebar.familyMembers', 'Family Members'), url: "/dashboard/family/members", icon: Users },
+    { title: t('sidebar.messages', 'Messages'), url: "/dashboard/family/messages", icon: Mail },
+    { title: t('sidebar.schedule', 'Schedule'), url: "/dashboard/family/schedule", icon: Calendar },
+    { title: t('sidebar.aiGuardian', 'AI Guardian'), url: "/dashboard/family/ai-chat", icon: MessageSquare },
+    { title: t('sidebar.settings', 'Settings'), url: "/dashboard/family/settings", icon: Settings },
   ];
 
   const isActive = (path: string) => location.pathname === path;

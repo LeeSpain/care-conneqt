@@ -1,4 +1,4 @@
-import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, Activity, Heart } from "lucide-react";
+import { Home, Calendar, UserCog, Package, Users, CreditCard, MessageSquare, Settings, Activity, Heart, Mail } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Logo } from "./Logo";
@@ -26,6 +26,7 @@ export function MemberSidebar() {
     { title: t('sidebar.dashboard'), url: "/dashboard/member", icon: Home },
     { title: t('sidebar.schedule'), url: "/dashboard/member/schedule", icon: Calendar },
     { title: t('sidebar.careTeam'), url: "/dashboard/member/care-team", icon: UserCog },
+    { title: t('sidebar.messages'), url: "/dashboard/member/messages", icon: Mail },
     { title: t('sidebar.devices'), url: "/dashboard/member/devices", icon: Activity },
     { title: t('sidebar.family'), url: "/dashboard/member/family", icon: Heart },
     { title: t('sidebar.subscription'), url: "/dashboard/member/subscriptions", icon: CreditCard },

@@ -25,7 +25,11 @@
     "healthMonitoring": "Monitoreo de Salud",
     "deviceManagement": "Gestión de Dispositivos",
     "invitations": "Invitaciones",
-    "aiChat": "Chat IA"
+    "aiChat": "Chat IA",
+    "familyMembers": "Miembros de Familia",
+    "residents": "Residentes",
+    "staff": "Personal",
+    "reports": "Informes"
   },
   "footer": {
     "tagline": "Salud Conectada. Cuidado Humano.",
