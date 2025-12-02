@@ -23,6 +23,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddInsurancePolicyDialogProps {
   open: boolean;
@@ -37,6 +38,7 @@ export function AddInsurancePolicyDialog({
   companyId,
   policy,
 }: AddInsurancePolicyDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const [policyName, setPolicyName] = useState("");
   const [coverageType, setCoverageType] = useState("");
@@ -70,8 +72,8 @@ export function AddInsurancePolicyDialog({
     e.preventDefault();
     if (!policyName) {
       toast({
-        title: "Error",
-        description: "Please provide a policy name",
+        title: t('dialogs.common.error'),
+        description: t('dialogs.addInsurancePolicy.policyNameRequired'),
         variant: "destructive",
       });
       return;
@@ -102,8 +104,8 @@ export function AddInsurancePolicyDialog({
         if (error) throw error;
 
         toast({
-          title: "Success",
-          description: "Policy updated successfully",
+          title: t('dialogs.common.success'),
+          description: t('dialogs.addInsurancePolicy.updateSuccess'),
         });
       } else {
         const { error } = await supabase
@@ -112,7 +114,6 @@ export function AddInsurancePolicyDialog({
 
         if (error) throw error;
 
-        // Update total_policies count
         const { data: currentPolicies } = await supabase
           .from("insurance_policies")
           .select("id")
@@ -124,8 +125,8 @@ export function AddInsurancePolicyDialog({
           .eq("id", companyId);
 
         toast({
-          title: "Success",
-          description: "Policy added successfully",
+          title: t('dialogs.common.success'),
+          description: t('dialogs.addInsurancePolicy.createSuccess'),
         });
       }
 
@@ -141,8 +142,8 @@ export function AddInsurancePolicyDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to save policy",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addInsurancePolicy.createError'),
         variant: "destructive",
       });
     } finally {
@@ -154,64 +155,64 @@ export function AddInsurancePolicyDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{policy ? "Edit" : "Add"} Insurance Policy</DialogTitle>
+          <DialogTitle>{policy ? t('dialogs.addInsurancePolicy.editTitle') : t('dialogs.addInsurancePolicy.title')}</DialogTitle>
           <DialogDescription>
-            {policy ? "Update" : "Create"} an insurance policy for this company
+            {policy ? t('dialogs.addInsurancePolicy.editDescription') : t('dialogs.addInsurancePolicy.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="policy_name">Policy Name *</Label>
+            <Label htmlFor="policy_name">{t('dialogs.addInsurancePolicy.policyName')} *</Label>
             <Input
               id="policy_name"
               value={policyName}
               onChange={(e) => setPolicyName(e.target.value)}
-              placeholder="e.g., Comprehensive Care Plan"
+              placeholder={t('dialogs.addInsurancePolicy.policyNamePlaceholder')}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="coverage_type">Coverage Type</Label>
+            <Label htmlFor="coverage_type">{t('dialogs.addInsurancePolicy.coverageType')}</Label>
             <Select value={coverageType} onValueChange={setCoverageType}>
               <SelectTrigger>
-                <SelectValue placeholder="Select coverage type" />
+                <SelectValue placeholder={t('dialogs.addInsurancePolicy.selectCoverageType')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="basic">Basic</SelectItem>
-                <SelectItem value="standard">Standard</SelectItem>
-                <SelectItem value="premium">Premium</SelectItem>
-                <SelectItem value="comprehensive">Comprehensive</SelectItem>
+                <SelectItem value="basic">{t('dialogs.addInsurancePolicy.types.basic')}</SelectItem>
+                <SelectItem value="standard">{t('dialogs.addInsurancePolicy.types.standard')}</SelectItem>
+                <SelectItem value="premium">{t('dialogs.addInsurancePolicy.types.premium')}</SelectItem>
+                <SelectItem value="comprehensive">{t('dialogs.addInsurancePolicy.types.comprehensive')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="premium_range">Premium Range</Label>
+            <Label htmlFor="premium_range">{t('dialogs.addInsurancePolicy.premiumRange')}</Label>
             <Input
               id="premium_range"
               value={premiumRange}
               onChange={(e) => setPremiumRange(e.target.value)}
-              placeholder="e.g., €50-€150/month"
+              placeholder={t('dialogs.addInsurancePolicy.premiumRangePlaceholder')}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="covered_services">Covered Services</Label>
+            <Label htmlFor="covered_services">{t('dialogs.addInsurancePolicy.coveredServices')}</Label>
             <Textarea
               id="covered_services"
               value={coveredServices}
               onChange={(e) => setCoveredServices(e.target.value)}
-              placeholder="Enter services separated by commas"
+              placeholder={t('dialogs.addInsurancePolicy.coveredServicesPlaceholder')}
               rows={3}
             />
             <p className="text-xs text-muted-foreground">
-              Separate services with commas (e.g., "Home care, Medical equipment, Nurse visits")
+              {t('dialogs.addInsurancePolicy.coveredServicesHelp')}
             </p>
           </div>
 
           <div className="flex items-center justify-between">
-            <Label htmlFor="is_active">Active Policy</Label>
+            <Label htmlFor="is_active">{t('dialogs.addInsurancePolicy.activePolicy')}</Label>
             <Switch
               id="is_active"
               checked={isActive}
@@ -221,11 +222,11 @@ export function AddInsurancePolicyDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {policy ? "Update" : "Add"} Policy
+              {policy ? t('dialogs.addInsurancePolicy.updatePolicy') : t('dialogs.addInsurancePolicy.addPolicy')}
             </Button>
           </DialogFooter>
         </form>

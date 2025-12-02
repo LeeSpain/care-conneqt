@@ -1,5 +1,5 @@
 import { AdminDashboardLayout } from '@/components/AdminDashboardLayout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Bot, Settings, TrendingUp, MessageSquare, Users, HeartPulse, Building2, Brain, Plus, LucideIcon } from 'lucide-react';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 interface Agent {
   id: string;
@@ -32,15 +33,6 @@ interface AgentConfig {
   settingsPath: string;
 }
 
-// ============================================================
-// AGENT CONFIGURATION - Add new agents here
-// ============================================================
-// To add a new AI agent:
-// 1. Add the agent to the database (ai_agents table)
-// 2. Add its configuration below with matching 'name' key
-// 3. Create a settings page (copy existing and update agentName)
-// 4. Add route in App.tsx
-// ============================================================
 const agentConfigs: Record<string, AgentConfig> = {
   'clara': {
     icon: MessageSquare,
@@ -90,32 +82,21 @@ const agentConfigs: Record<string, AgentConfig> = {
     section: 'management',
     settingsPath: '/dashboard/admin/ai-agents/lee',
   },
-  // ============================================================
-  // ADD NEW AGENTS BELOW - Example:
-  // ============================================================
-  // 'new-agent': {
-  //   icon: Bot,
-  //   iconColor: 'text-indigo-500',
-  //   bgGradient: 'from-indigo-500/20 to-blue-500/20',
-  //   borderHover: 'hover:border-indigo-500/40',
-  //   section: 'management',
-  //   settingsPath: '/dashboard/admin/ai-agents/new-agent',
-  // },
-};
-
-// Section configuration
-const sections = {
-  sales: { title: 'Sales & Support', badge: 'Public Facing', gradient: 'from-purple-500 to-pink-500' },
-  companion: { title: 'Member & Family', badge: 'Personal Companions', gradient: 'from-violet-500 to-fuchsia-500' },
-  clinical: { title: 'Clinical Support', badge: 'Nurse Dashboard', gradient: 'from-emerald-500 to-teal-500' },
-  management: { title: 'Management & Admin', badge: 'Admin Tools', gradient: 'from-blue-500 to-amber-500' },
 };
 
 export default function AIAgentsSettings() {
+  const { t } = useTranslation('dashboard-admin');
   const [agents, setAgents] = useState<Agent[]>([]);
   const [stats, setStats] = useState<Record<string, AgentStats>>({});
   const [loading, setLoading] = useState(true);
   const fetchInProgress = useRef(false);
+
+  const sections = {
+    sales: { title: t('aiAgents.sections.sales'), badge: t('aiAgents.sections.salesBadge'), gradient: 'from-purple-500 to-pink-500' },
+    companion: { title: t('aiAgents.sections.companion'), badge: t('aiAgents.sections.companionBadge'), gradient: 'from-violet-500 to-fuchsia-500' },
+    clinical: { title: t('aiAgents.sections.clinical'), badge: t('aiAgents.sections.clinicalBadge'), gradient: 'from-emerald-500 to-teal-500' },
+    management: { title: t('aiAgents.sections.management'), badge: t('aiAgents.sections.managementBadge'), gradient: 'from-blue-500 to-amber-500' },
+  };
 
   useEffect(() => {
     fetchAgents();
@@ -152,7 +133,7 @@ export default function AIAgentsSettings() {
       setStats(statsMap);
     } catch (error) {
       console.error('Error fetching agents:', error);
-      toast.error('Failed to load AI agents');
+      toast.error(t('aiAgents.failedToLoad'));
     } finally {
       setLoading(false);
       fetchInProgress.current = false;
@@ -168,15 +149,14 @@ export default function AIAgentsSettings() {
         .eq('id', agentId);
 
       if (error) throw error;
-      toast.success(`Agent ${newStatus === 'active' ? 'activated' : 'deactivated'}`);
+      toast.success(newStatus === 'active' ? t('aiAgents.agentActivated') : t('aiAgents.agentDeactivated'));
       fetchAgents();
     } catch (error) {
       console.error('Error updating agent status:', error);
-      toast.error('Failed to update agent status');
+      toast.error(t('aiAgents.failedToUpdate'));
     }
   };
 
-  // Compact Agent Card Component
   const AgentCard = ({ agent }: { agent: Agent }) => {
     const config = agentConfigs[agent.name];
     if (!config) return null;
@@ -187,7 +167,6 @@ export default function AIAgentsSettings() {
     return (
       <Card className={`border transition-all ${config.borderHover} overflow-hidden`}>
         <CardContent className="p-4">
-          {/* Header */}
           <div className="flex items-center gap-3 mb-3">
             <div className={`p-2.5 rounded-lg bg-gradient-to-br ${config.bgGradient} shrink-0`}>
               <Icon className={`h-4 w-4 ${config.iconColor}`} />
@@ -205,37 +184,34 @@ export default function AIAgentsSettings() {
             </div>
           </div>
 
-          {/* Description */}
           <p className="text-xs text-muted-foreground line-clamp-2 mb-3 min-h-[2rem]">
             {agent.description}
           </p>
 
-          {/* Stats */}
           <div className="flex items-center gap-4 text-xs mb-3 py-2 px-3 rounded-md bg-muted/50">
             <div className="flex items-center gap-1.5">
               <MessageSquare className="h-3 w-3 text-muted-foreground" />
               <span className="font-medium">{agentStats?.conversations_today || 0}</span>
-              <span className="text-muted-foreground">today</span>
+              <span className="text-muted-foreground">{t('aiAgents.today')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <TrendingUp className="h-3 w-3 text-muted-foreground" />
               <span className="font-medium">{(agentStats?.satisfaction_rate || 0).toFixed(1)}</span>
-              <span className="text-muted-foreground">rating</span>
+              <span className="text-muted-foreground">{t('aiAgents.rating')}</span>
             </div>
           </div>
 
-          {/* Actions */}
           <div className="flex gap-2">
             <Button asChild size="sm" className="h-8 text-xs flex-1">
               <Link to={config.settingsPath}>
                 <Settings className="h-3.5 w-3.5 mr-1.5" />
-                Configure
+                {t('aiAgents.configure')}
               </Link>
             </Button>
             <Button asChild variant="outline" size="sm" className="h-8 text-xs flex-1">
               <Link to={`${config.settingsPath}/analytics`}>
                 <TrendingUp className="h-3.5 w-3.5 mr-1.5" />
-                Analytics
+                {t('aiAgents.analytics')}
               </Link>
             </Button>
             <Button 
@@ -244,7 +220,7 @@ export default function AIAgentsSettings() {
               className="h-8 text-xs px-3 shrink-0"
               onClick={() => toggleAgentStatus(agent.id, agent.status)}
             >
-              {agent.status === 'active' ? 'Disable' : 'Enable'}
+              {agent.status === 'active' ? t('aiAgents.disable') : t('aiAgents.enable')}
             </Button>
           </div>
         </CardContent>
@@ -252,7 +228,6 @@ export default function AIAgentsSettings() {
     );
   };
 
-  // Section Component
   const Section = ({ sectionKey, agents: sectionAgents }: { sectionKey: keyof typeof sections; agents: Agent[] }) => {
     if (sectionAgents.length === 0) return null;
     const section = sections[sectionKey];
@@ -273,7 +248,7 @@ export default function AIAgentsSettings() {
 
   if (loading) {
     return (
-      <AdminDashboardLayout title="AI Agents">
+      <AdminDashboardLayout title={t('aiAgents.title')}>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
@@ -281,7 +256,6 @@ export default function AIAgentsSettings() {
     );
   }
 
-  // Group agents by section
   const groupedAgents = {
     sales: agents.filter(a => agentConfigs[a.name]?.section === 'sales'),
     companion: agents.filter(a => agentConfigs[a.name]?.section === 'companion'),
@@ -290,40 +264,37 @@ export default function AIAgentsSettings() {
   };
 
   return (
-    <AdminDashboardLayout title="AI Agents">
+    <AdminDashboardLayout title={t('aiAgents.title')}>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">AI Agents</h1>
+            <h1 className="text-2xl font-bold">{t('aiAgents.title')}</h1>
             <p className="text-sm text-muted-foreground">
-              Configure and monitor AI assistants
+              {t('aiAgents.subtitle')}
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="gap-1 text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-              {agents.filter(a => a.status === 'active').length} Active
+              {agents.filter(a => a.status === 'active').length} {t('aiAgents.active')}
             </Badge>
             <Button variant="outline" size="sm" className="h-8 text-xs" disabled>
               <Plus className="h-3 w-3 mr-1" />
-              Add Agent
+              {t('aiAgents.addAgent')}
             </Button>
           </div>
         </div>
 
-        {/* Agent Sections */}
         <Section sectionKey="sales" agents={groupedAgents.sales} />
         <Section sectionKey="companion" agents={groupedAgents.companion} />
         <Section sectionKey="clinical" agents={groupedAgents.clinical} />
         <Section sectionKey="management" agents={groupedAgents.management} />
 
-        {/* Quick Reference */}
         <Card className="bg-muted/30">
           <CardHeader className="py-3 px-4">
             <CardTitle className="text-sm flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              Agent Reference
+              {t('aiAgents.agentReference')}
             </CardTitle>
           </CardHeader>
           <CardContent className="px-4 pb-4 pt-0">

@@ -23,6 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   discharge_date: z.string().min(1, "Discharge date is required"),
@@ -38,6 +39,7 @@ interface DischargeResidentDialogProps {
 }
 
 export const DischargeResidentDialog = ({ open, onOpenChange, resident, facilityId }: DischargeResidentDialogProps) => {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
@@ -58,14 +60,14 @@ export const DischargeResidentDialog = ({ open, onOpenChange, resident, facility
 
       if (error) throw error;
 
-      toast.success("Resident discharged successfully");
+      toast.success(t('dialogs.dischargeResident.createSuccess'));
       queryClient.invalidateQueries({ queryKey: ["facility-residents", facilityId] });
       queryClient.invalidateQueries({ queryKey: ["admin-facilities"] });
       form.reset();
       onOpenChange(false);
     } catch (error: any) {
       console.error("Error discharging resident:", error);
-      toast.error(error.message || "Failed to discharge resident");
+      toast.error(error.message || t('dialogs.dischargeResident.createError'));
     } finally {
       setIsLoading(false);
     }
@@ -75,9 +77,9 @@ export const DischargeResidentDialog = ({ open, onOpenChange, resident, facility
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Discharge Resident</DialogTitle>
+          <DialogTitle>{t('dialogs.dischargeResident.title')}</DialogTitle>
           <DialogDescription>
-            Set the discharge date for {resident?.member?.profile?.first_name} {resident?.member?.profile?.last_name}
+            {t('dialogs.dischargeResident.description')} {resident?.member?.profile?.first_name} {resident?.member?.profile?.last_name}
           </DialogDescription>
         </DialogHeader>
 
@@ -88,7 +90,7 @@ export const DischargeResidentDialog = ({ open, onOpenChange, resident, facility
               name="discharge_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Discharge Date</FormLabel>
+                  <FormLabel>{t('dialogs.dischargeResident.dischargeDate')}</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} />
                   </FormControl>
@@ -104,11 +106,11 @@ export const DischargeResidentDialog = ({ open, onOpenChange, resident, facility
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                {t('dialogs.common.cancel')}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Discharge
+                {t('dialogs.dischargeResident.discharge')}
               </Button>
             </div>
           </form>

@@ -22,6 +22,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddInsuranceStaffDialogProps {
   open: boolean;
@@ -34,6 +35,7 @@ export function AddInsuranceStaffDialog({
   onOpenChange,
   companyId,
 }: AddInsuranceStaffDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [staffRole, setStaffRole] = useState("");
@@ -59,8 +61,8 @@ export function AddInsuranceStaffDialog({
     e.preventDefault();
     if (!selectedUserId || !staffRole) {
       toast({
-        title: "Error",
-        description: "Please fill in all required fields",
+        title: t('dialogs.common.error'),
+        description: t('dialogs.common.fillRequired'),
         variant: "destructive",
       });
       return;
@@ -81,7 +83,6 @@ export function AddInsuranceStaffDialog({
 
       if (staffError) throw staffError;
 
-      // Add insurance_admin role if is_admin is true
       if (isAdmin) {
         const { error: roleError } = await supabase
           .from("user_roles")
@@ -94,8 +95,8 @@ export function AddInsuranceStaffDialog({
       }
 
       toast({
-        title: "Success",
-        description: "Staff member added successfully",
+        title: t('dialogs.common.success'),
+        description: t('dialogs.addInsuranceStaff.createSuccess'),
       });
 
       queryClient.invalidateQueries({ queryKey: ["insurance-staff", companyId] });
@@ -108,8 +109,8 @@ export function AddInsuranceStaffDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to add staff member",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addInsuranceStaff.createError'),
         variant: "destructive",
       });
     } finally {
@@ -121,17 +122,17 @@ export function AddInsuranceStaffDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Staff Member</DialogTitle>
+          <DialogTitle>{t('dialogs.addInsuranceStaff.title')}</DialogTitle>
           <DialogDescription>
-            Add a new staff member to this insurance company
+            {t('dialogs.addInsuranceStaff.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="user">Select User *</Label>
+            <Label htmlFor="user">{t('dialogs.addCompanyStaff.selectUser')} *</Label>
             <Select value={selectedUserId} onValueChange={setSelectedUserId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a user" />
+                <SelectValue placeholder={t('dialogs.addCompanyStaff.selectUserPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {users?.map((user) => (
@@ -144,18 +145,18 @@ export function AddInsuranceStaffDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="staff_role">Role *</Label>
+            <Label htmlFor="staff_role">{t('dialogs.addInsuranceStaff.role')} *</Label>
             <Input
               id="staff_role"
               value={staffRole}
               onChange={(e) => setStaffRole(e.target.value)}
-              placeholder="e.g., Claims Manager, Underwriter"
+              placeholder={t('dialogs.addInsuranceStaff.rolePlaceholder')}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="hired_at">Hired Date</Label>
+            <Label htmlFor="hired_at">{t('dialogs.addInsuranceStaff.hiredDate')}</Label>
             <Input
               id="hired_at"
               type="date"
@@ -165,7 +166,7 @@ export function AddInsuranceStaffDialog({
           </div>
 
           <div className="flex items-center justify-between">
-            <Label htmlFor="is_admin">Company Admin</Label>
+            <Label htmlFor="is_admin">{t('dialogs.addInsuranceStaff.companyAdmin')}</Label>
             <Switch
               id="is_admin"
               checked={isAdmin}
@@ -175,11 +176,11 @@ export function AddInsuranceStaffDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Add Staff Member
+              {t('dialogs.addInsuranceStaff.addStaffMember')}
             </Button>
           </DialogFooter>
         </form>

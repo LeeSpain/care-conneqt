@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface AddCompanyClientDialogProps {
   open: boolean;
@@ -33,6 +34,7 @@ export function AddCompanyClientDialog({
   onOpenChange,
   companyId,
 }: AddCompanyClientDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMemberId, setSelectedMemberId] = useState("");
   const [serviceType, setServiceType] = useState("");
@@ -43,7 +45,6 @@ export function AddCompanyClientDialog({
   const { data: members } = useQuery({
     queryKey: ["available-members"],
     queryFn: async () => {
-      // First get members with their user_ids
       const { data: membersData, error: membersError } = await supabase
         .from("members")
         .select("id, user_id")
@@ -51,7 +52,6 @@ export function AddCompanyClientDialog({
 
       if (membersError) throw membersError;
 
-      // Then get profiles for those user_ids
       const userIds = membersData?.map(m => m.user_id) || [];
       const { data: profilesData, error: profilesError } = await supabase
         .from("profiles")
@@ -60,7 +60,6 @@ export function AddCompanyClientDialog({
 
       if (profilesError) throw profilesError;
 
-      // Combine the data
       return membersData?.map(member => ({
         ...member,
         profile: profilesData?.find(p => p.id === member.user_id)
@@ -72,8 +71,8 @@ export function AddCompanyClientDialog({
     e.preventDefault();
     if (!selectedMemberId || !serviceType) {
       toast({
-        title: "Error",
-        description: "Please fill in all required fields",
+        title: t('dialogs.common.error'),
+        description: t('dialogs.common.fillRequired'),
         variant: "destructive",
       });
       return;
@@ -93,7 +92,6 @@ export function AddCompanyClientDialog({
 
       if (error) throw error;
 
-      // Update total_clients count
       const { data: currentClients } = await supabase
         .from("company_clients")
         .select("id")
@@ -105,8 +103,8 @@ export function AddCompanyClientDialog({
         .eq("id", companyId);
 
       toast({
-        title: "Success",
-        description: "Client added successfully",
+        title: t('dialogs.common.success'),
+        description: t('dialogs.addCompanyClient.createSuccess'),
       });
 
       queryClient.invalidateQueries({ queryKey: ["company-clients", companyId] });
@@ -119,8 +117,8 @@ export function AddCompanyClientDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to add client",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addCompanyClient.createError'),
         variant: "destructive",
       });
     } finally {
@@ -132,17 +130,17 @@ export function AddCompanyClientDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Client</DialogTitle>
+          <DialogTitle>{t('dialogs.addCompanyClient.title')}</DialogTitle>
           <DialogDescription>
-            Add a member as a client to this care company
+            {t('dialogs.addCompanyClient.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="member">Select Member *</Label>
+            <Label htmlFor="member">{t('dialogs.addCompanyClient.selectMember')} *</Label>
             <Select value={selectedMemberId} onValueChange={setSelectedMemberId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a member" />
+                <SelectValue placeholder={t('dialogs.addCompanyClient.selectMemberPlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {members?.map((member) => (
@@ -155,18 +153,18 @@ export function AddCompanyClientDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="service_type">Service Type *</Label>
+            <Label htmlFor="service_type">{t('dialogs.addCompanyClient.serviceType')} *</Label>
             <Input
               id="service_type"
               value={serviceType}
               onChange={(e) => setServiceType(e.target.value)}
-              placeholder="e.g., Home Care, Personal Care"
+              placeholder={t('dialogs.addCompanyClient.serviceTypePlaceholder')}
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="start_date">Start Date</Label>
+            <Label htmlFor="start_date">{t('dialogs.addCompanyClient.startDate')}</Label>
             <Input
               id="start_date"
               type="date"
@@ -177,11 +175,11 @@ export function AddCompanyClientDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Add Client
+              {t('dialogs.addCompanyClient.addClient')}
             </Button>
           </DialogFooter>
         </form>

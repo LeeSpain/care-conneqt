@@ -23,6 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   room_number: z.string().min(1, "Room number is required"),
@@ -38,6 +39,7 @@ interface ChangeRoomDialogProps {
 }
 
 export const ChangeRoomDialog = ({ open, onOpenChange, resident, facilityId }: ChangeRoomDialogProps) => {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
@@ -58,13 +60,13 @@ export const ChangeRoomDialog = ({ open, onOpenChange, resident, facilityId }: C
 
       if (error) throw error;
 
-      toast.success("Room changed successfully");
+      toast.success(t('dialogs.changeRoom.createSuccess'));
       queryClient.invalidateQueries({ queryKey: ["facility-residents", facilityId] });
       form.reset();
       onOpenChange(false);
     } catch (error: any) {
       console.error("Error changing room:", error);
-      toast.error(error.message || "Failed to change room");
+      toast.error(error.message || t('dialogs.changeRoom.createError'));
     } finally {
       setIsLoading(false);
     }
@@ -74,9 +76,9 @@ export const ChangeRoomDialog = ({ open, onOpenChange, resident, facilityId }: C
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change Room</DialogTitle>
+          <DialogTitle>{t('dialogs.changeRoom.title')}</DialogTitle>
           <DialogDescription>
-            Change room for {resident?.member?.profile?.first_name} {resident?.member?.profile?.last_name}
+            {t('dialogs.changeRoom.description')} {resident?.member?.profile?.first_name} {resident?.member?.profile?.last_name}
           </DialogDescription>
         </DialogHeader>
 
@@ -87,7 +89,7 @@ export const ChangeRoomDialog = ({ open, onOpenChange, resident, facilityId }: C
               name="room_number"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New Room Number</FormLabel>
+                  <FormLabel>{t('dialogs.changeRoom.newRoomNumber')}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="102" />
                   </FormControl>
@@ -103,11 +105,11 @@ export const ChangeRoomDialog = ({ open, onOpenChange, resident, facilityId }: C
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
-                Cancel
+                {t('dialogs.common.cancel')}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Change Room
+                {t('dialogs.changeRoom.changeRoom')}
               </Button>
             </div>
           </form>

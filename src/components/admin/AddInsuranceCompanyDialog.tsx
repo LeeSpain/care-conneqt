@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { Database } from "@/integrations/supabase/types";
 
 interface AddInsuranceCompanyDialogProps {
@@ -34,6 +35,7 @@ export function AddInsuranceCompanyDialog({
   onOpenChange,
   company,
 }: AddInsuranceCompanyDialogProps) {
+  const { t } = useTranslation('dashboard-admin');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -102,7 +104,6 @@ export function AddInsuranceCompanyDialog({
 
     try {
       if (company) {
-        // Update existing company
         const { error } = await supabase
           .from("insurance_companies")
           .update(formData)
@@ -111,11 +112,10 @@ export function AddInsuranceCompanyDialog({
         if (error) throw error;
 
         toast({
-          title: "Success",
-          description: "Insurance company updated successfully",
+          title: t('dialogs.common.success'),
+          description: t('dialogs.addInsuranceCompany.updateSuccess'),
         });
       } else {
-        // Create new company
         const { error } = await supabase
           .from("insurance_companies")
           .insert([formData]);
@@ -123,8 +123,8 @@ export function AddInsuranceCompanyDialog({
         if (error) throw error;
 
         toast({
-          title: "Success",
-          description: "Insurance company created successfully",
+          title: t('dialogs.common.success'),
+          description: t('dialogs.addInsuranceCompany.createSuccess'),
         });
       }
 
@@ -133,8 +133,8 @@ export function AddInsuranceCompanyDialog({
       onOpenChange(false);
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Failed to save insurance company",
+        title: t('dialogs.common.error'),
+        description: error.message || t('dialogs.addInsuranceCompany.createError'),
         variant: "destructive",
       });
     } finally {
@@ -146,17 +146,17 @@ export function AddInsuranceCompanyDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{company ? "Edit Insurance Company" : "Add Insurance Company"}</DialogTitle>
+          <DialogTitle>{company ? t('dialogs.addInsuranceCompany.editTitle') : t('dialogs.addInsuranceCompany.title')}</DialogTitle>
           <DialogDescription>
             {company
-              ? "Update the insurance company information below"
-              : "Enter the details for the new insurance company"}
+              ? t('dialogs.addInsuranceCompany.editDescription')
+              : t('dialogs.addInsuranceCompany.description')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Company Name *</Label>
+              <Label htmlFor="name">{t('dialogs.addInsuranceCompany.companyName')} *</Label>
               <Input
                 id="name"
                 value={formData.name}
@@ -165,7 +165,7 @@ export function AddInsuranceCompanyDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="insurance_type">Insurance Type *</Label>
+              <Label htmlFor="insurance_type">{t('dialogs.addInsuranceCompany.insuranceType')} *</Label>
               <Select
                 value={formData.insurance_type}
                 onValueChange={(value) => setFormData({ ...formData, insurance_type: value })}
@@ -174,10 +174,10 @@ export function AddInsuranceCompanyDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="health">Health</SelectItem>
-                  <SelectItem value="care">Care</SelectItem>
-                  <SelectItem value="life">Life</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="health">{t('dialogs.addInsuranceCompany.types.health')}</SelectItem>
+                  <SelectItem value="care">{t('dialogs.addInsuranceCompany.types.care')}</SelectItem>
+                  <SelectItem value="life">{t('dialogs.addInsuranceCompany.types.life')}</SelectItem>
+                  <SelectItem value="other">{t('dialogs.addInsuranceCompany.types.other')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -185,7 +185,7 @@ export function AddInsuranceCompanyDialog({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="registration_number">Registration Number</Label>
+              <Label htmlFor="registration_number">{t('dialogs.addCareCompany.registrationNumber')}</Label>
               <Input
                 id="registration_number"
                 value={formData.registration_number}
@@ -195,7 +195,7 @@ export function AddInsuranceCompanyDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="subscription_status">Subscription Status</Label>
+              <Label htmlFor="subscription_status">{t('dialogs.addCareCompany.subscriptionStatus')}</Label>
               <Select
                 value={formData.subscription_status}
                 onValueChange={(value: Database["public"]["Enums"]["subscription_status"]) =>
@@ -206,16 +206,16 @@ export function AddInsuranceCompanyDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="trial">Trial</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                  <SelectItem value="trial">{t('dialogs.addCareCompany.status.trial')}</SelectItem>
+                  <SelectItem value="active">{t('dialogs.addCareCompany.status.active')}</SelectItem>
+                  <SelectItem value="cancelled">{t('dialogs.addCareCompany.status.cancelled')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address_line1">Address Line 1</Label>
+            <Label htmlFor="address_line1">{t('dialogs.addCareCompany.addressLine1')}</Label>
             <Input
               id="address_line1"
               value={formData.address_line1}
@@ -224,7 +224,7 @@ export function AddInsuranceCompanyDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address_line2">Address Line 2</Label>
+            <Label htmlFor="address_line2">{t('dialogs.addCareCompany.addressLine2')}</Label>
             <Input
               id="address_line2"
               value={formData.address_line2}
@@ -234,7 +234,7 @@ export function AddInsuranceCompanyDialog({
 
           <div className="grid grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="city">City</Label>
+              <Label htmlFor="city">{t('dialogs.addCareCompany.city')}</Label>
               <Input
                 id="city"
                 value={formData.city}
@@ -242,7 +242,7 @@ export function AddInsuranceCompanyDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="postal_code">Postal Code</Label>
+              <Label htmlFor="postal_code">{t('dialogs.addCareCompany.postalCode')}</Label>
               <Input
                 id="postal_code"
                 value={formData.postal_code}
@@ -250,7 +250,7 @@ export function AddInsuranceCompanyDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="country">Country</Label>
+              <Label htmlFor="country">{t('dialogs.addCareCompany.country')}</Label>
               <Input
                 id="country"
                 value={formData.country}
@@ -261,7 +261,7 @@ export function AddInsuranceCompanyDialog({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">{t('dialogs.addCareCompany.phone')}</Label>
               <Input
                 id="phone"
                 type="tel"
@@ -270,7 +270,7 @@ export function AddInsuranceCompanyDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('dialogs.addCareCompany.email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -282,11 +282,11 @@ export function AddInsuranceCompanyDialog({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('dialogs.common.cancel')}
             </Button>
             <Button type="submit" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {company ? "Update Company" : "Create Company"}
+              {company ? t('dialogs.common.update') : t('dialogs.common.create')}
             </Button>
           </DialogFooter>
         </form>
