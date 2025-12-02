@@ -1085,8 +1085,17 @@
     },
     "settings": {
       "general": "Algemeen",
+      "generalTitle": "Algemene Instellingen",
+      "generalDescription": "Basis agentinformatie en status",
       "systemPrompt": "Systeem Prompt",
+      "systemPromptTitle": "Systeem Prompt",
+      "systemPromptDescription": "Definieer hoe deze agent zich gedraagt en reageert",
+      "systemPromptHint": "Dit is de kerninstructie die de persoonlijkheid, kennis en gedrag van de agent definieert.",
+      "saveSystemPrompt": "Systeem Prompt Opslaan",
       "personality": "Persoonlijkheid",
+      "personalityTitle": "Persoonlijkheid & AI Configuratie",
+      "personalityDescription": "Verfijn het gedrag en de reacties van de agent",
+      "temperatureHint": "(0 = gefocust, 1 = creatief)",
       "knowledgeBase": "Kennisbank",
       "functions": "Functies",
       "avatar": "Agent Avatar",
@@ -1106,6 +1115,11 @@
       "responseStyle": "Reactiestijl",
       "temperature": "Temperatuur",
       "maxTokens": "Max. reactielengte (tokens)",
+      "models": {
+        "flash": "Gemini 2.5 Flash (Aanbevolen)",
+        "pro": "Gemini 2.5 Pro (Beste Kwaliteit)",
+        "lite": "Gemini 2.5 Flash Lite (Snelst)"
+      },
       "styles": {
         "friendly": "Vriendelijk & Conversationeel",
         "supportive": "Ondersteunend & Geruststellend",
