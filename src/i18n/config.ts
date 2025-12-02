@@ -18,11 +18,12 @@ i18n
     },
 
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
+      // Cache busting to ensure fresh translations are loaded
+      loadPath: '/locales/{{lng}}/{{ns}}.json?v=' + Date.now(),
     },
 
-    // Load only critical namespaces initially - others load on demand
-    ns: ['common', 'home'],
+    // Load critical namespaces initially - others load on demand
+    ns: ['common', 'home', 'dashboard-admin'],
     defaultNS: 'common',
 
     detection: {
