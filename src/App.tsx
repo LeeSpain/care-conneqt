@@ -115,6 +115,14 @@ const LeadsList = lazy(() => import("./pages/dashboard/admin/LeadsList"));
 const LeadDetail = lazy(() => import("./pages/dashboard/admin/LeadDetail"));
 const AdminMessages = lazy(() => import("./pages/dashboard/admin/AdminMessages"));
 
+// Finance pages
+const FinanceDashboard = lazy(() => import("./pages/dashboard/admin/finance/FinanceDashboard"));
+const FinanceSubscriptions = lazy(() => import("./pages/dashboard/admin/finance/FinanceSubscriptions"));
+const FinanceInvoices = lazy(() => import("./pages/dashboard/admin/finance/FinanceInvoices"));
+const FinanceTransactions = lazy(() => import("./pages/dashboard/admin/finance/FinanceTransactions"));
+const FinanceCredits = lazy(() => import("./pages/dashboard/admin/finance/FinanceCredits"));
+const FinanceReports = lazy(() => import("./pages/dashboard/admin/finance/FinanceReports"));
+
 // Shared pages
 const AIChatPage = lazy(() => import("./pages/dashboard/AIChatPage"));
 const Settings = lazy(() => import("./pages/dashboard/Settings"));
@@ -716,6 +724,51 @@ const App = () => (
                 </Suspense>
               </ProtectedRoute>
             } />
+            
+            {/* Finance routes */}
+            <Route path="/dashboard/admin/finance" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceDashboard />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/finance/subscriptions" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceSubscriptions />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/finance/invoices" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceInvoices />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/finance/transactions" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceTransactions />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/finance/credits" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceCredits />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/finance/reports" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <FinanceReports />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            
             <Route path="/dashboard/admin/sales" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
