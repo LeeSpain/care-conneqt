@@ -87,62 +87,43 @@ serve(async (req) => {
       });
     }
 
-    // Parallel fetch all stats for speed
-    const [
-      memberResult,
-      facilityResult,
-      companyResult,
-      insuranceResult,
-      leadResult,
-      alertResult,
-      agentsResult,
-      staffResult,
-      rolesResult
-    ] = await Promise.all([
-      supabase.from('members').select('*', { count: 'exact', head: true }),
-      supabase.from('facilities').select('*', { count: 'exact', head: true }),
-      supabase.from('care_companies').select('*', { count: 'exact', head: true }),
-      supabase.from('insurance_companies').select('*', { count: 'exact', head: true }),
-      supabase.from('leads').select('status'),
-      supabase.from('alerts').select('*', { count: 'exact', head: true }).eq('status', 'active'),
-      supabase.from('ai_agents').select('display_name, status'),
-      supabase.from('profiles').select('id, first_name, last_name, email').limit(50),
-      supabase.from('user_roles').select('user_id, role')
-    ]);
+    // Compact system overview (stats fetched on demand via actions now)
+    systemPrompt += `\n\n=== SYSTEM OVERVIEW ===
+You have full READ access to all system data. Use query actions to get current data.
+Today: ${new Date().toISOString().split('T')[0]}
+=== END OVERVIEW ===\n`;
 
-    const newLeads = leadResult.data?.filter((l: any) => l.status === 'new').length || 0;
-    const qualifiedLeads = leadResult.data?.filter((l: any) => l.status === 'qualified').length || 0;
-
-    // Compact system overview
-    systemPrompt += `\n\n=== SYSTEM STATS ===
-Members: ${memberResult.count || 0} | Facilities: ${facilityResult.count || 0} | Companies: ${companyResult.count || 0} | Insurance: ${insuranceResult.count || 0}
-Leads: ${newLeads} new, ${qualifiedLeads} qualified | Active Alerts: ${alertResult.count || 0}
-Agents: ${agentsResult.data?.map((a: any) => a.display_name).join(', ')}
-=== END STATS ===\n`;
-
-    // Compact staff list
-    systemPrompt += '\n=== STAFF (use lookup_user for details) ===\n';
-    staffResult.data?.slice(0, 20).forEach((s: any) => {
-      const roles = rolesResult.data?.filter((r: any) => r.user_id === s.id).map((r: any) => r.role) || [];
-      systemPrompt += `${s.first_name || ''} ${s.last_name || ''} (${roles.join(',')}) ID:${s.id}\n`;
-    });
-    systemPrompt += '=== END STAFF ===\n';
-
-    // Condensed capability instructions
+    // Comprehensive capability instructions
     systemPrompt += `\n\n=== COMMANDS ===
 Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 
-Actions:
-1. send_message: {recipient_type:"user|role|broadcast", recipient_id, message, priority:"normal|urgent"}
-2. schedule_appointment: {title, start_time, end_time, appointment_type:"meeting|call|video", participant_ids:[], requires_confirmation:true}
-3. create_task: {title, member_id, nurse_id, task_type:"check_in|medication|assessment|other", priority, due_date}
-4. create_reminder: {title, reminder_time, priority:"low|normal|high|urgent", related_entity_type, related_entity_id}
-5. manage_alert: {alert_id, operation:"acknowledge|escalate|resolve", notes}
-6. update_lead: {lead_id, status:"new|contacted|qualified|proposal|won|lost", notes}
-7. lookup_user: {query, search_type:"name|email|role"}
+=== READ ACTIONS (Query Data) ===
+1. get_members: {status?:"active|inactive", care_level?:"low|medium|high", limit?:number, search?:string}
+2. get_member_details: {member_id:string} - Full profile with devices, alerts, nurses
+3. get_nurses: {limit?:number} - List nurses with workload stats
+4. get_facilities: {limit?:number} - List facilities with occupancy
+5. get_leads: {status?:"new|contacted|qualified|proposal|won|lost", limit?:number}
+6. get_products: {type?:"device|service", active_only?:boolean}
+7. get_pricing_plans: {} - List all pricing plans
+8. get_support_tickets: {status?:"open|in_progress|resolved|closed", limit?:number}
+9. get_announcements: {active_only?:boolean, limit?:number}
+10. get_analytics: {} - Platform-wide statistics
+11. get_companies: {type?:"care|insurance", limit?:number}
+12. lookup_user: {query:string, search_type:"name|email|role"}
 
-Today: ${new Date().toISOString().split('T')[0]}
-Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
+=== WRITE ACTIONS ===
+13. send_message: {recipient_type:"user|role|broadcast", recipient_id:string, message:string, priority?:"normal|urgent"}
+14. schedule_appointment: {title:string, start_time:string, end_time:string, appointment_type?:"meeting|call|video", participant_ids?:[], requires_confirmation?:boolean}
+15. create_task: {title:string, member_id:string, nurse_id:string, task_type?:"check_in|medication|assessment|other", priority?:string, due_date?:string}
+16. create_reminder: {title:string, reminder_time:string, priority?:"low|normal|high|urgent", related_entity_type?:string, related_entity_id?:string}
+17. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
+18. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
+
+Rules:
+- Use READ actions to answer questions about the system
+- Use lookup_user first to find user IDs before sending messages or creating tasks
+- Put action blocks at END of response
+- Keep text brief - action results display automatically
 === END COMMANDS ===\n`;
 
     systemPrompt += `\n\nRespond in ${languageName}. Be concise. NEVER repeat action results in your text - they are shown automatically. Just acknowledge the action briefly (e.g., "Here are the nurses:" or "Done.") then put the action block. Keep responses under 50 words.`;
@@ -162,7 +143,7 @@ Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
           ...messages
         ],
         temperature: parseFloat(config.temperature),
-        max_tokens: Math.min(config.max_tokens, 1000), // Allow fuller responses
+        max_tokens: Math.min(config.max_tokens, 1500),
       }),
     });
 
@@ -193,6 +174,44 @@ Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
         let result = null;
         
         switch (actionData.action) {
+          // READ actions
+          case 'get_members':
+            result = await executeGetMembers(supabase, actionData);
+            break;
+          case 'get_member_details':
+            result = await executeGetMemberDetails(supabase, actionData);
+            break;
+          case 'get_nurses':
+            result = await executeGetNurses(supabase, actionData);
+            break;
+          case 'get_facilities':
+            result = await executeGetFacilities(supabase, actionData);
+            break;
+          case 'get_leads':
+            result = await executeGetLeads(supabase, actionData);
+            break;
+          case 'get_products':
+            result = await executeGetProducts(supabase, actionData);
+            break;
+          case 'get_pricing_plans':
+            result = await executeGetPricingPlans(supabase);
+            break;
+          case 'get_support_tickets':
+            result = await executeGetSupportTickets(supabase, actionData);
+            break;
+          case 'get_announcements':
+            result = await executeGetAnnouncements(supabase, actionData);
+            break;
+          case 'get_analytics':
+            result = await executeGetAnalytics(supabase);
+            break;
+          case 'get_companies':
+            result = await executeGetCompanies(supabase, actionData);
+            break;
+          case 'lookup_user':
+            result = await executeLookupUser(supabase, actionData);
+            break;
+          // WRITE actions
           case 'send_message':
             result = await executeSendMessage(supabase, user.id, actionData);
             break;
@@ -210,9 +229,6 @@ Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
             break;
           case 'update_lead':
             result = await executeUpdateLead(supabase, user.id, actionData);
-            break;
-          case 'lookup_user':
-            result = await executeLookupUser(supabase, actionData);
             break;
         }
         
@@ -250,7 +266,547 @@ Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
   }
 });
 
-// ==================== ACTION EXECUTORS ====================
+// ==================== READ ACTION EXECUTORS ====================
+
+async function executeGetMembers(
+  supabase: any,
+  actionData: { status?: string; care_level?: string; limit?: number; search?: string }
+) {
+  try {
+    let query = supabase
+      .from('members')
+      .select(`
+        id, user_id, care_level, subscription_status, city, country, created_at,
+        profiles:user_id (first_name, last_name, email)
+      `)
+      .order('created_at', { ascending: false })
+      .limit(actionData.limit || 20);
+
+    if (actionData.status) {
+      query = query.eq('subscription_status', actionData.status);
+    }
+    if (actionData.care_level) {
+      query = query.eq('care_level', actionData.care_level);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const members = data?.map((m: any) => ({
+      id: m.id,
+      name: m.profiles ? `${m.profiles.first_name || ''} ${m.profiles.last_name || ''}`.trim() : 'Unknown',
+      email: m.profiles?.email || '',
+      care_level: m.care_level || 'not set',
+      status: m.subscription_status || 'unknown',
+      location: [m.city, m.country].filter(Boolean).join(', ') || 'Unknown',
+      joined: m.created_at?.split('T')[0] || ''
+    })) || [];
+
+    return { success: true, count: members.length, members };
+  } catch (error: any) {
+    console.error('Error getting members:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetMemberDetails(
+  supabase: any,
+  actionData: { member_id: string }
+) {
+  try {
+    const { data: member, error: memberError } = await supabase
+      .from('members')
+      .select(`
+        *,
+        profiles:user_id (first_name, last_name, email, phone, avatar_url)
+      `)
+      .eq('id', actionData.member_id)
+      .single();
+
+    if (memberError) throw memberError;
+
+    // Parallel fetch related data
+    const [devicesResult, alertsResult, assignmentsResult] = await Promise.all([
+      supabase.from('member_devices').select('*').eq('member_id', actionData.member_id),
+      supabase.from('alerts').select('*').eq('member_id', actionData.member_id).order('created_at', { ascending: false }).limit(5),
+      supabase.from('nurse_assignments').select(`
+        *,
+        nurse:nurse_id (id, first_name, last_name, email)
+      `).eq('member_id', actionData.member_id)
+    ]);
+
+    return {
+      success: true,
+      member: {
+        id: member.id,
+        name: member.profiles ? `${member.profiles.first_name || ''} ${member.profiles.last_name || ''}`.trim() : 'Unknown',
+        email: member.profiles?.email,
+        phone: member.profiles?.phone,
+        care_level: member.care_level,
+        status: member.subscription_status,
+        medical_conditions: member.medical_conditions || [],
+        medications: member.medications || [],
+        allergies: member.allergies || [],
+        address: [member.address_line1, member.city, member.postal_code, member.country].filter(Boolean).join(', '),
+        emergency_contact: member.emergency_contact_name ? {
+          name: member.emergency_contact_name,
+          phone: member.emergency_contact_phone,
+          relationship: member.emergency_contact_relationship
+        } : null
+      },
+      devices: devicesResult.data?.map((d: any) => ({
+        id: d.id,
+        name: d.device_name,
+        type: d.device_type,
+        status: d.device_status,
+        battery: d.battery_level,
+        last_sync: d.last_sync_at
+      })) || [],
+      recent_alerts: alertsResult.data?.map((a: any) => ({
+        id: a.id,
+        title: a.title,
+        type: a.alert_type,
+        priority: a.priority,
+        status: a.status,
+        created: a.created_at
+      })) || [],
+      assigned_nurses: assignmentsResult.data?.map((a: any) => ({
+        id: a.nurse?.id,
+        name: a.nurse ? `${a.nurse.first_name || ''} ${a.nurse.last_name || ''}`.trim() : 'Unknown',
+        is_primary: a.is_primary
+      })) || []
+    };
+  } catch (error: any) {
+    console.error('Error getting member details:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetNurses(
+  supabase: any,
+  actionData: { limit?: number }
+) {
+  try {
+    // Get users with nurse role
+    const { data: nurseRoles } = await supabase
+      .from('user_roles')
+      .select('user_id')
+      .eq('role', 'nurse');
+
+    if (!nurseRoles || nurseRoles.length === 0) {
+      return { success: true, count: 0, nurses: [] };
+    }
+
+    const nurseIds = nurseRoles.map((r: any) => r.user_id);
+
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, first_name, last_name, email, phone, avatar_url')
+      .in('id', nurseIds)
+      .limit(actionData.limit || 20);
+
+    // Get assignment counts
+    const { data: assignments } = await supabase
+      .from('nurse_assignments')
+      .select('nurse_id, member_id');
+
+    const assignmentCounts: { [key: string]: number } = {};
+    assignments?.forEach((a: any) => {
+      assignmentCounts[a.nurse_id] = (assignmentCounts[a.nurse_id] || 0) + 1;
+    });
+
+    // Get task counts
+    const { data: tasks } = await supabase
+      .from('nurse_tasks')
+      .select('nurse_id, status')
+      .eq('status', 'pending');
+
+    const taskCounts: { [key: string]: number } = {};
+    tasks?.forEach((t: any) => {
+      taskCounts[t.nurse_id] = (taskCounts[t.nurse_id] || 0) + 1;
+    });
+
+    const nurses = profiles?.map((p: any) => ({
+      id: p.id,
+      name: `${p.first_name || ''} ${p.last_name || ''}`.trim() || 'Unknown',
+      email: p.email,
+      phone: p.phone,
+      assigned_members: assignmentCounts[p.id] || 0,
+      pending_tasks: taskCounts[p.id] || 0
+    })) || [];
+
+    return { success: true, count: nurses.length, nurses };
+  } catch (error: any) {
+    console.error('Error getting nurses:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetFacilities(
+  supabase: any,
+  actionData: { limit?: number }
+) {
+  try {
+    const { data: facilities, error } = await supabase
+      .from('facilities')
+      .select('*')
+      .order('name')
+      .limit(actionData.limit || 20);
+
+    if (error) throw error;
+
+    // Get resident counts per facility
+    const { data: residents } = await supabase
+      .from('facility_residents')
+      .select('facility_id')
+      .is('discharge_date', null);
+
+    const residentCounts: { [key: string]: number } = {};
+    residents?.forEach((r: any) => {
+      residentCounts[r.facility_id] = (residentCounts[r.facility_id] || 0) + 1;
+    });
+
+    const result = facilities?.map((f: any) => ({
+      id: f.id,
+      name: f.name,
+      type: f.facility_type,
+      capacity: f.bed_capacity || 0,
+      current_residents: residentCounts[f.id] || 0,
+      occupancy: f.bed_capacity ? Math.round((residentCounts[f.id] || 0) / f.bed_capacity * 100) : 0,
+      location: [f.city, f.country].filter(Boolean).join(', '),
+      status: f.subscription_status,
+      contact: f.email || f.phone || 'No contact'
+    })) || [];
+
+    return { success: true, count: result.length, facilities: result };
+  } catch (error: any) {
+    console.error('Error getting facilities:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetLeads(
+  supabase: any,
+  actionData: { status?: string; limit?: number }
+) {
+  try {
+    let query = supabase
+      .from('leads')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(actionData.limit || 20);
+
+    if (actionData.status) {
+      query = query.eq('status', actionData.status);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const leads = data?.map((l: any) => ({
+      id: l.id,
+      name: l.name,
+      email: l.email,
+      phone: l.phone,
+      type: l.lead_type,
+      interest: l.interest_type,
+      status: l.status,
+      source: l.source_page,
+      organization: l.organization_name,
+      estimated_value: l.estimated_value,
+      created: l.created_at?.split('T')[0],
+      last_contacted: l.last_contacted_at?.split('T')[0]
+    })) || [];
+
+    return { success: true, count: leads.length, leads };
+  } catch (error: any) {
+    console.error('Error getting leads:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetProducts(
+  supabase: any,
+  actionData: { type?: string; active_only?: boolean }
+) {
+  try {
+    let query = supabase
+      .from('products')
+      .select('*')
+      .order('sort_order');
+
+    if (actionData.type) {
+      query = query.eq('product_type', actionData.type);
+    }
+    if (actionData.active_only !== false) {
+      query = query.eq('is_active', true);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const products = data?.map((p: any) => ({
+      id: p.id,
+      slug: p.slug,
+      type: p.product_type,
+      category: p.category,
+      price: p.price,
+      is_active: p.is_active,
+      is_featured: p.is_featured
+    })) || [];
+
+    return { success: true, count: products.length, products };
+  } catch (error: any) {
+    console.error('Error getting products:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetPricingPlans(supabase: any) {
+  try {
+    const { data, error } = await supabase
+      .from('pricing_plans')
+      .select(`
+        *,
+        pricing_plan_translations (language, name, description, features)
+      `)
+      .order('sort_order');
+
+    if (error) throw error;
+
+    const plans = data?.map((p: any) => {
+      const enTranslation = p.pricing_plan_translations?.find((t: any) => t.language === 'en') || {};
+      return {
+        id: p.id,
+        slug: p.slug,
+        name: enTranslation.name || p.slug,
+        price: p.monthly_price,
+        devices_included: p.devices_included,
+        family_dashboards: p.family_dashboards,
+        is_active: p.is_active,
+        is_popular: p.is_popular
+      };
+    }) || [];
+
+    return { success: true, count: plans.length, plans };
+  } catch (error: any) {
+    console.error('Error getting pricing plans:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetSupportTickets(
+  supabase: any,
+  actionData: { status?: string; limit?: number }
+) {
+  try {
+    let query = supabase
+      .from('support_tickets')
+      .select(`
+        *,
+        user:user_id (first_name, last_name, email)
+      `)
+      .order('created_at', { ascending: false })
+      .limit(actionData.limit || 20);
+
+    if (actionData.status) {
+      query = query.eq('status', actionData.status);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const tickets = data?.map((t: any) => ({
+      id: t.id,
+      title: t.title,
+      status: t.status,
+      priority: t.priority,
+      category: t.category,
+      user: t.user ? `${t.user.first_name || ''} ${t.user.last_name || ''}`.trim() : 'Unknown',
+      user_email: t.user?.email,
+      created: t.created_at?.split('T')[0],
+      resolved: t.resolved_at?.split('T')[0]
+    })) || [];
+
+    return { success: true, count: tickets.length, tickets };
+  } catch (error: any) {
+    console.error('Error getting support tickets:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetAnnouncements(
+  supabase: any,
+  actionData: { active_only?: boolean; limit?: number }
+) {
+  try {
+    let query = supabase
+      .from('platform_announcements')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(actionData.limit || 10);
+
+    if (actionData.active_only !== false) {
+      query = query.eq('is_active', true);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const announcements = data?.map((a: any) => ({
+      id: a.id,
+      title: a.title,
+      content: a.content?.substring(0, 100) + (a.content?.length > 100 ? '...' : ''),
+      priority: a.priority,
+      target_roles: a.target_roles,
+      is_active: a.is_active,
+      published: a.published_at?.split('T')[0],
+      expires: a.expires_at?.split('T')[0]
+    })) || [];
+
+    return { success: true, count: announcements.length, announcements };
+  } catch (error: any) {
+    console.error('Error getting announcements:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetAnalytics(supabase: any) {
+  try {
+    const [
+      membersResult,
+      facilitiesResult,
+      careCompaniesResult,
+      insuranceResult,
+      leadsResult,
+      alertsResult,
+      ticketsResult,
+      ordersResult,
+      nursesResult
+    ] = await Promise.all([
+      supabase.from('members').select('subscription_status'),
+      supabase.from('facilities').select('subscription_status'),
+      supabase.from('care_companies').select('subscription_status'),
+      supabase.from('insurance_companies').select('subscription_status'),
+      supabase.from('leads').select('status, lead_type, estimated_value'),
+      supabase.from('alerts').select('status, priority'),
+      supabase.from('support_tickets').select('status, priority'),
+      supabase.from('orders').select('status, total_amount'),
+      supabase.from('user_roles').select('user_id').eq('role', 'nurse')
+    ]);
+
+    const members = membersResult.data || [];
+    const leads = leadsResult.data || [];
+    const alerts = alertsResult.data || [];
+    const tickets = ticketsResult.data || [];
+    const orders = ordersResult.data || [];
+
+    return {
+      success: true,
+      analytics: {
+        members: {
+          total: members.length,
+          active: members.filter((m: any) => m.subscription_status === 'active').length,
+          trial: members.filter((m: any) => m.subscription_status === 'trial').length
+        },
+        facilities: {
+          total: facilitiesResult.data?.length || 0
+        },
+        care_companies: {
+          total: careCompaniesResult.data?.length || 0
+        },
+        insurance_companies: {
+          total: insuranceResult.data?.length || 0
+        },
+        nurses: {
+          total: nursesResult.data?.length || 0
+        },
+        leads: {
+          total: leads.length,
+          new: leads.filter((l: any) => l.status === 'new').length,
+          qualified: leads.filter((l: any) => l.status === 'qualified').length,
+          won: leads.filter((l: any) => l.status === 'won').length,
+          total_value: leads.reduce((sum: number, l: any) => sum + (l.estimated_value || 0), 0),
+          by_type: {
+            personal: leads.filter((l: any) => l.lead_type === 'personal').length,
+            institutional: leads.filter((l: any) => l.lead_type === 'institutional').length
+          }
+        },
+        alerts: {
+          total: alerts.length,
+          active: alerts.filter((a: any) => a.status === 'new' || a.status === 'acknowledged').length,
+          critical: alerts.filter((a: any) => a.priority === 'critical').length
+        },
+        support: {
+          total_tickets: tickets.length,
+          open: tickets.filter((t: any) => t.status === 'open').length,
+          high_priority: tickets.filter((t: any) => t.priority === 'high' || t.priority === 'urgent').length
+        },
+        orders: {
+          total: orders.length,
+          completed: orders.filter((o: any) => o.status === 'completed').length,
+          revenue: orders.filter((o: any) => o.status === 'completed').reduce((sum: number, o: any) => sum + (o.total_amount || 0), 0)
+        }
+      }
+    };
+  } catch (error: any) {
+    console.error('Error getting analytics:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetCompanies(
+  supabase: any,
+  actionData: { type?: string; limit?: number }
+) {
+  try {
+    const results: any = { success: true };
+
+    if (!actionData.type || actionData.type === 'care') {
+      const { data: careCompanies } = await supabase
+        .from('care_companies')
+        .select('*')
+        .order('name')
+        .limit(actionData.limit || 20);
+
+      results.care_companies = careCompanies?.map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        type: c.company_type,
+        status: c.subscription_status,
+        total_clients: c.total_clients,
+        total_staff: c.total_staff,
+        location: [c.city, c.country].filter(Boolean).join(', '),
+        contact: c.email || c.phone
+      })) || [];
+    }
+
+    if (!actionData.type || actionData.type === 'insurance') {
+      const { data: insuranceCompanies } = await supabase
+        .from('insurance_companies')
+        .select('*')
+        .order('name')
+        .limit(actionData.limit || 20);
+
+      results.insurance_companies = insuranceCompanies?.map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        type: c.insurance_type,
+        status: c.subscription_status,
+        total_policies: c.total_policies,
+        location: [c.city, c.country].filter(Boolean).join(', '),
+        contact: c.email || c.phone
+      })) || [];
+    }
+
+    return results;
+  } catch (error: any) {
+    console.error('Error getting companies:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==================== WRITE ACTION EXECUTORS ====================
 
 async function executeSendMessage(
   supabase: any,
