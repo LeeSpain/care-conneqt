@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -27,16 +27,23 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
-import { useEffect, useRef } from "react";
+import { LeeActionResults } from "@/components/ai-agents/LeeActionResults";
 
 interface AdminDashboardLayoutProps {
   children: ReactNode;
   title: string;
 }
 
+interface ActionResult {
+  action: string;
+  result: any;
+  error?: string;
+}
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  actionResults?: ActionResult[];
 }
 
 interface AgentData {
@@ -88,6 +95,14 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
     ? `${profile.first_name?.[0] || ""}${profile.last_name?.[0] || ""}`.toUpperCase()
     : "A";
 
+  const cleanActionBlocks = (text: string): string => {
+    return text
+      .replace(/```action[\s\S]*?```/gi, '')
+      .replace(/```json[\s\S]*?```/gi, '')
+      .replace(/\{[\s\S]*?"action"[\s\S]*?\}/g, '')
+      .trim();
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -106,7 +121,15 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
 
       if (error) throw error;
 
-      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+      // Clean action blocks from message and store action results separately
+      const cleanedMessage = cleanActionBlocks(data.message);
+      const actionResults = data.action_results || [];
+
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: cleanedMessage || 'Done.',
+        actionResults: actionResults.length > 0 ? actionResults : undefined
+      }]);
     } catch (error) {
       console.error('Lee chat error:', error);
       setMessages(prev => [...prev, { 
@@ -169,7 +192,7 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                   <ScrollArea ref={scrollRef} className="flex-1 p-4">
                     <div className="space-y-4">
                       {messages.map((msg, i) => (
-                        <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                           <div className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
                             msg.role === 'user' 
                               ? 'bg-primary text-primary-foreground' 
@@ -177,6 +200,11 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                           }`}>
                             {msg.content}
                           </div>
+                          {msg.actionResults && msg.actionResults.length > 0 && (
+                            <div className="w-full mt-2">
+                              <LeeActionResults results={msg.actionResults} />
+                            </div>
+                          )}
                         </div>
                       ))}
                       {isLoading && (
