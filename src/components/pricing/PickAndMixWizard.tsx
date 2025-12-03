@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
@@ -6,16 +6,75 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight, Check, Shield, Clock, Package, Sparkles } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { 
+  ArrowLeft, ArrowRight, Check, Shield, Clock, Package, Sparkles,
+  Users, HeartPulse, UserCheck, Pill, Activity, Watch, Radio, Home,
+  Calendar, Scale, Thermometer
+} from "lucide-react";
 import { StepIndicator } from "./StepIndicator";
 import { AccountForm } from "./AccountForm";
 import { useProducts, Product } from "@/hooks/useProducts";
 import { formatCurrency } from "@/lib/intl";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { getProductImageSync } from "@/lib/productImages";
+import { getProductImage } from "@/lib/productImages";
 
 const BASE_PLATFORM_PRICE = 49.99;
+
+// Icon map for services
+const serviceIconMap: Record<string, React.ElementType> = {
+  'Users': Users,
+  'HeartPulse': HeartPulse,
+  'Shield': Shield,
+  'UserCheck': UserCheck,
+  'Pill': Pill,
+};
+
+// Icon map for devices
+const deviceIconMap: Record<string, React.ElementType> = {
+  'Watch': Watch,
+  'Radio': Radio,
+  'Home': Home,
+  'Calendar': Calendar,
+  'Activity': Activity,
+  'Scale': Scale,
+  'Thermometer': Thermometer,
+};
+
+// Product Image component with loading state
+const ProductImage = ({ product }: { product: Product }) => {
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadImage = async () => {
+      setLoading(true);
+      const src = await getProductImage(product.slug, product.image_url);
+      setImageSrc(src);
+      setLoading(false);
+    };
+    loadImage();
+  }, [product.slug, product.image_url]);
+
+  if (loading) {
+    return <Skeleton className="w-full h-full rounded-lg" />;
+  }
+
+  return (
+    <img
+      src={imageSrc || '/placeholder.svg'}
+      alt={product.translation?.name || product.slug}
+      className="w-full h-full object-cover rounded-lg"
+    />
+  );
+};
+
+// Service Icon component
+const ServiceIcon = ({ iconName, className }: { iconName: string | null; className?: string }) => {
+  const Icon = iconName ? serviceIconMap[iconName] || Activity : Activity;
+  return <Icon className={className} />;
+};
 
 export const PickAndMixWizard = () => {
   const { t, i18n } = useTranslation('pricing');
@@ -29,11 +88,12 @@ export const PickAndMixWizard = () => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
 
-  // Filter products by category
-  const baseDevices = products?.filter(p => p.is_base_device) || [];
-  const addonDevices = products?.filter(p => !p.is_base_device) || [];
+  // Filter products by type
+  const baseDevices = products?.filter(p => p.is_base_device && p.product_type === 'device') || [];
+  const addonDevices = products?.filter(p => !p.is_base_device && p.product_type === 'device') || [];
+  const services = products?.filter(p => p.product_type === 'service') || [];
 
-  // Group addons by category
+  // Group addon devices by category
   const addonsByCategory = addonDevices.reduce((acc, product) => {
     const category = product.category || 'other';
     if (!acc[category]) acc[category] = [];
@@ -43,6 +103,8 @@ export const PickAndMixWizard = () => {
 
   const selectedBaseDevice = products?.find(p => p.id === selectedBaseDeviceId);
   const selectedAddons = products?.filter(p => selectedAddonIds.includes(p.id)) || [];
+  const selectedServices = selectedAddons.filter(a => a.product_type === 'service');
+  const selectedDeviceAddons = selectedAddons.filter(a => a.product_type === 'device');
 
   // Calculate total
   const addonsTotal = selectedAddons.reduce((sum, d) => sum + (d.monthly_price || 0), 0);
@@ -70,7 +132,7 @@ export const PickAndMixWizard = () => {
     if (!userId || !selectedBaseDeviceId) return;
 
     try {
-      const allSelectedDevices = [selectedBaseDeviceId, ...selectedAddonIds];
+      const allSelectedItems = [selectedBaseDeviceId, ...selectedAddonIds];
       
       const { data: order, error } = await supabase
         .from('orders')
@@ -78,13 +140,14 @@ export const PickAndMixWizard = () => {
           created_by: userId,
           customer_email: userEmail,
           total_monthly: totalMonthly,
-          selected_devices: allSelectedDevices.map(id => {
-            const device = products?.find(p => p.id === id);
+          selected_devices: allSelectedItems.map(id => {
+            const item = products?.find(p => p.id === id);
             return { 
               id, 
-              name: device?.translation?.name, 
-              price: device?.monthly_price,
-              isBase: device?.is_base_device 
+              name: item?.translation?.name, 
+              price: item?.monthly_price,
+              isBase: item?.is_base_device,
+              type: item?.product_type
             };
           }),
           payment_status: 'pending',
@@ -166,7 +229,7 @@ export const PickAndMixWizard = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <Check className="h-4 w-4 text-secondary" />
@@ -202,33 +265,36 @@ export const PickAndMixWizard = () => {
                   <CardDescription>{t('pickAndMix.baseDeviceIncluded')}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-3 gap-4">
                     {baseDevices.map(device => (
                       <Card
                         key={device.id}
-                        className={`cursor-pointer transition-all ${
+                        className={`cursor-pointer transition-all hover:shadow-lg ${
                           selectedBaseDeviceId === device.id
-                            ? 'border-2 border-secondary shadow-lg'
-                            : 'border hover:border-secondary/50'
+                            ? 'ring-2 ring-secondary shadow-lg bg-secondary/5'
+                            : 'hover:border-secondary/50'
                         }`}
                         onClick={() => setSelectedBaseDeviceId(device.id)}
                       >
                         <CardContent className="p-4">
-                          <div className="flex items-center gap-4">
-                            <img
-                              src={getProductImageSync(device.slug, device.image_url)}
-                              alt={device.translation?.name || device.slug}
-                              className="w-16 h-16 object-cover rounded-lg"
-                            />
-                            <div className="flex-1">
-                              <h4 className="font-semibold">{device.translation?.name}</h4>
-                              <p className="text-sm text-muted-foreground line-clamp-2">
-                                {device.translation?.tagline}
-                              </p>
+                          <div className="aspect-square w-full mb-3 bg-muted/30 rounded-lg overflow-hidden">
+                            <ProductImage product={device} />
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <h4 className="font-semibold text-sm">{device.translation?.name}</h4>
+                              {selectedBaseDeviceId === device.id && (
+                                <div className="w-5 h-5 rounded-full bg-secondary flex items-center justify-center">
+                                  <Check className="h-3 w-3 text-secondary-foreground" />
+                                </div>
+                              )}
                             </div>
-                            {selectedBaseDeviceId === device.id && (
-                              <Check className="h-5 w-5 text-secondary" />
-                            )}
+                            <p className="text-xs text-muted-foreground line-clamp-2">
+                              {device.translation?.tagline}
+                            </p>
+                            <Badge variant="outline" className="text-xs">
+                              {t('pickAndMix.included')}
+                            </Badge>
                           </div>
                         </CardContent>
                       </Card>
@@ -245,9 +311,9 @@ export const PickAndMixWizard = () => {
             </div>
           )}
 
-          {/* Step 2: Add-on Devices & Services */}
+          {/* Step 2: Add-on Services & Devices */}
           {currentStep === 2 && (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="text-center mb-6">
                 <h2 className="text-3xl font-bold font-['Poppins'] mb-2">
                   {t('pickAndMix.step2Title')}
@@ -257,57 +323,138 @@ export const PickAndMixWizard = () => {
                 </p>
               </div>
 
-              {Object.entries(addonsByCategory).map(([category, categoryProducts]) => (
-                <Card key={category}>
-                  <CardHeader>
-                    <CardTitle className="text-lg">{getCategoryLabel(category)}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {categoryProducts.map(product => (
-                        <div
-                          key={product.id}
-                          className={`flex items-center gap-4 p-4 rounded-lg border transition-all cursor-pointer ${
-                            selectedAddonIds.includes(product.id)
-                              ? 'border-secondary bg-secondary/5'
-                              : 'hover:border-secondary/50'
-                          }`}
-                          onClick={() => toggleAddon(product.id)}
-                        >
-                          <Checkbox
-                            checked={selectedAddonIds.includes(product.id)}
-                            onCheckedChange={() => toggleAddon(product.id)}
-                          />
-                          <img
-                            src={getProductImageSync(product.slug, product.image_url)}
-                            alt={product.translation?.name || product.slug}
-                            className="w-14 h-14 object-cover rounded-lg"
-                          />
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <h4 className="font-semibold">{product.translation?.name}</h4>
-                              {product.is_popular && (
-                                <Badge variant="secondary" className="text-xs">
-                                  {t('planSelection.mostPopular')}
-                                </Badge>
-                              )}
-                            </div>
-                            <p className="text-sm text-muted-foreground line-clamp-1">
-                              {product.translation?.tagline}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <span className="font-semibold text-primary">
-                              +{formatCurrency(product.monthly_price || 0, 'EUR', i18n.language)}
-                            </span>
-                            <span className="text-sm text-muted-foreground">{t('planSelection.perMonth')}</span>
-                          </div>
-                        </div>
-                      ))}
+              {/* Care Services Section */}
+              {services.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <HeartPulse className="h-5 w-5 text-primary" />
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    <h3 className="text-xl font-semibold">{t('pickAndMix.servicesTitle')}</h3>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {services.map(service => (
+                      <Card
+                        key={service.id}
+                        className={`cursor-pointer transition-all hover:shadow-md ${
+                          selectedAddonIds.includes(service.id)
+                            ? 'ring-2 ring-secondary bg-secondary/5'
+                            : 'hover:border-secondary/50'
+                        }`}
+                        onClick={() => toggleAddon(service.id)}
+                      >
+                        <CardContent className="p-5">
+                          <div className="flex items-start gap-4">
+                            <div className={`p-3 rounded-xl ${service.gradient_class} shrink-0`}>
+                              <ServiceIcon iconName={service.icon_name} className={`h-6 w-6 ${service.color_class}`} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="flex items-center gap-2">
+                                  <h4 className="font-semibold">{service.translation?.name}</h4>
+                                  {service.is_popular && (
+                                    <Badge variant="secondary" className="text-xs">
+                                      {t('planSelection.mostPopular')}
+                                    </Badge>
+                                  )}
+                                </div>
+                                <Checkbox
+                                  checked={selectedAddonIds.includes(service.id)}
+                                  onCheckedChange={() => toggleAddon(service.id)}
+                                  className="shrink-0"
+                                />
+                              </div>
+                              <p className="text-sm text-muted-foreground mb-3">
+                                {service.translation?.tagline}
+                              </p>
+                              <div className="flex items-center justify-between">
+                                <ul className="space-y-1">
+                                  {service.translation?.features?.slice(0, 2).map((feature, idx) => (
+                                    <li key={idx} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                      <Check className="h-3 w-3 text-secondary" />
+                                      {feature}
+                                    </li>
+                                  ))}
+                                </ul>
+                                <div className="text-right">
+                                  <span className="font-bold text-primary">
+                                    +{formatCurrency(service.monthly_price || 0, 'EUR', i18n.language)}
+                                  </span>
+                                  <span className="text-xs text-muted-foreground">{t('planSelection.perMonth')}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Health Devices Section */}
+              {Object.keys(addonsByCategory).length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-secondary/10">
+                      <Activity className="h-5 w-5 text-secondary" />
+                    </div>
+                    <h3 className="text-xl font-semibold">{t('pickAndMix.devicesTitle')}</h3>
+                  </div>
+
+                  {Object.entries(addonsByCategory).map(([category, categoryProducts]) => (
+                    <Card key={category}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-base font-medium text-muted-foreground">
+                          {getCategoryLabel(category)}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          {categoryProducts.map(product => (
+                            <div
+                              key={product.id}
+                              className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                                selectedAddonIds.includes(product.id)
+                                  ? 'border-secondary bg-secondary/5 shadow-sm'
+                                  : 'border-border hover:border-secondary/50'
+                              }`}
+                              onClick={() => toggleAddon(product.id)}
+                            >
+                              <Checkbox
+                                checked={selectedAddonIds.includes(product.id)}
+                                onCheckedChange={() => toggleAddon(product.id)}
+                                className="shrink-0"
+                              />
+                              <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted/30 shrink-0">
+                                <ProductImage product={product} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h4 className="font-semibold text-sm">{product.translation?.name}</h4>
+                                  {product.is_popular && (
+                                    <Badge variant="secondary" className="text-xs">
+                                      {t('planSelection.mostPopular')}
+                                    </Badge>
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted-foreground line-clamp-1 mb-1">
+                                  {product.translation?.tagline}
+                                </p>
+                                <span className="font-semibold text-primary text-sm">
+                                  +{formatCurrency(product.monthly_price || 0, 'EUR', i18n.language)}
+                                  <span className="text-xs text-muted-foreground font-normal">{t('planSelection.perMonth')}</span>
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
 
               <div className="flex justify-between">
                 <Button variant="outline" onClick={handleBack}>
@@ -468,43 +615,76 @@ export const PickAndMixWizard = () => {
         {currentStep < 5 && (
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
-              <CardHeader>
-                <CardTitle>{t('orderSummary.title')}</CardTitle>
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2">
+                  <Package className="h-5 w-5 text-primary" />
+                  {t('orderSummary.title')}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Platform Base */}
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-medium">{t('pickAndMix.platformTitle')}</p>
-                    <p className="text-sm text-muted-foreground">{t('pickAndMix.includes1Device')}</p>
+                <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    <span className="font-semibold">{t('pickAndMix.platformTitle')}</span>
                   </div>
-                  <span className="font-semibold">
-                    {formatCurrency(BASE_PLATFORM_PRICE, 'EUR', i18n.language)}
-                  </span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">{t('pickAndMix.includes1Device')}</span>
+                    <span className="font-semibold">
+                      {formatCurrency(BASE_PLATFORM_PRICE, 'EUR', i18n.language)}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Base Device */}
                 {selectedBaseDevice && (
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2">
-                      <Check className="h-4 w-4 text-secondary" />
-                      <span>{selectedBaseDevice.translation?.name}</span>
+                  <div className="flex items-center gap-3 text-sm p-2 rounded-lg bg-muted/50">
+                    <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted">
+                      <ProductImage product={selectedBaseDevice} />
                     </div>
-                    <span className="text-muted-foreground">{t('pickAndMix.included')}</span>
+                    <div className="flex-1">
+                      <span className="font-medium">{selectedBaseDevice.translation?.name}</span>
+                      <p className="text-xs text-muted-foreground">{t('pickAndMix.included')}</p>
+                    </div>
+                    <Check className="h-4 w-4 text-secondary" />
                   </div>
                 )}
 
-                {/* Add-ons */}
-                {selectedAddons.length > 0 && (
+                {/* Services */}
+                {selectedServices.length > 0 && (
                   <>
                     <Separator />
                     <div>
-                      <p className="font-medium mb-2">{t('pickAndMix.addons')}</p>
+                      <p className="font-medium text-sm mb-2 flex items-center gap-2">
+                        <HeartPulse className="h-4 w-4 text-primary" />
+                        {t('pickAndMix.servicesTitle')}
+                      </p>
                       <div className="space-y-2">
-                        {selectedAddons.map(addon => (
+                        {selectedServices.map(service => (
+                          <div key={service.id} className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">{service.translation?.name}</span>
+                            <span className="font-medium">+{formatCurrency(service.monthly_price || 0, 'EUR', i18n.language)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Devices Add-ons */}
+                {selectedDeviceAddons.length > 0 && (
+                  <>
+                    <Separator />
+                    <div>
+                      <p className="font-medium text-sm mb-2 flex items-center gap-2">
+                        <Activity className="h-4 w-4 text-secondary" />
+                        {t('pickAndMix.devicesTitle')}
+                      </p>
+                      <div className="space-y-2">
+                        {selectedDeviceAddons.map(addon => (
                           <div key={addon.id} className="flex justify-between text-sm">
-                            <span>{addon.translation?.name}</span>
-                            <span>+{formatCurrency(addon.monthly_price || 0, 'EUR', i18n.language)}</span>
+                            <span className="text-muted-foreground">{addon.translation?.name}</span>
+                            <span className="font-medium">+{formatCurrency(addon.monthly_price || 0, 'EUR', i18n.language)}</span>
                           </div>
                         ))}
                       </div>
@@ -515,13 +695,23 @@ export const PickAndMixWizard = () => {
                 <Separator />
 
                 {/* Total */}
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold">{t('orderSummary.monthlyTotal')}</span>
-                  <div className="text-right">
-                    <span className="text-2xl font-bold text-primary">
-                      {formatCurrency(totalMonthly, 'EUR', i18n.language)}
-                    </span>
-                    <span className="text-muted-foreground">{t('orderSummary.perMonth')}</span>
+                <div className="p-3 rounded-lg bg-secondary/10 border border-secondary/20">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold">{t('orderSummary.monthlyTotal')}</span>
+                    <div className="text-right">
+                      <span className="text-2xl font-bold text-primary">
+                        {formatCurrency(totalMonthly, 'EUR', i18n.language)}
+                      </span>
+                      <span className="text-muted-foreground text-sm">{t('orderSummary.perMonth')}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trust badges */}
+                <div className="flex items-center justify-center gap-3 pt-2 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Shield className="h-3 w-3" />
+                    <span>{t('review.secureCheckout')}</span>
                   </div>
                 </div>
               </CardContent>
