@@ -45,6 +45,23 @@
     "creditsRefunds": "Créditos y Reembolsos",
     "financialReports": "Informes Financieros"
   },
+  "finance": {
+    "customerType": "Tipo de Cliente",
+    "filterByCustomerType": "Filtrar por cliente",
+    "customerTypes": {
+      "member": "Miembro",
+      "facility": "Instalación",
+      "careCompany": "Empresa de Cuidados",
+      "insurance": "Aseguradora"
+    },
+    "subscriptions": {
+      "customer": "Cliente"
+    },
+    "credits": {
+      "customer": "Cliente",
+      "customerId": "ID de Cliente",
+      "customerIdPlaceholder": "Ingrese ID de cliente..."
+    }
   "home": {
     "title": "Panel de Administración",
     "welcome": "Bienvenido, Admin",

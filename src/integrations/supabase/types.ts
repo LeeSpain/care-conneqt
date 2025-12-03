@@ -1024,12 +1024,16 @@ export type Database = {
         Row: {
           amount: number
           applied_to_invoice_id: string | null
+          care_company_id: string | null
           created_at: string
           created_by: string | null
           currency: string
+          customer_type: Database["public"]["Enums"]["customer_type"] | null
           expires_at: string | null
+          facility_id: string | null
           id: string
-          member_id: string
+          insurance_company_id: string | null
+          member_id: string | null
           reason: string
           remaining_amount: number
           status: string
@@ -1038,12 +1042,16 @@ export type Database = {
         Insert: {
           amount: number
           applied_to_invoice_id?: string | null
+          care_company_id?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           expires_at?: string | null
+          facility_id?: string | null
           id?: string
-          member_id: string
+          insurance_company_id?: string | null
+          member_id?: string | null
           reason: string
           remaining_amount: number
           status?: string
@@ -1052,12 +1060,16 @@ export type Database = {
         Update: {
           amount?: number
           applied_to_invoice_id?: string | null
+          care_company_id?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           expires_at?: string | null
+          facility_id?: string | null
           id?: string
-          member_id?: string
+          insurance_company_id?: string | null
+          member_id?: string | null
           reason?: string
           remaining_amount?: number
           status?: string
@@ -1069,6 +1081,27 @@ export type Database = {
             columns: ["applied_to_invoice_id"]
             isOneToOne: false
             referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credits_care_company_id_fkey"
+            columns: ["care_company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credits_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credits_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
             referencedColumns: ["id"]
           },
           {
@@ -1752,13 +1785,17 @@ export type Database = {
           amount_paid: number | null
           billing_period_end: string | null
           billing_period_start: string | null
+          care_company_id: string | null
           created_at: string
           currency: string
+          customer_type: Database["public"]["Enums"]["customer_type"] | null
           discount_amount: number | null
           due_date: string | null
+          facility_id: string | null
           id: string
+          insurance_company_id: string | null
           invoice_number: string
-          member_id: string
+          member_id: string | null
           metadata: Json | null
           notes: string | null
           order_id: string | null
@@ -1778,13 +1815,17 @@ export type Database = {
           amount_paid?: number | null
           billing_period_end?: string | null
           billing_period_start?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           discount_amount?: number | null
           due_date?: string | null
+          facility_id?: string | null
           id?: string
+          insurance_company_id?: string | null
           invoice_number: string
-          member_id: string
+          member_id?: string | null
           metadata?: Json | null
           notes?: string | null
           order_id?: string | null
@@ -1804,13 +1845,17 @@ export type Database = {
           amount_paid?: number | null
           billing_period_end?: string | null
           billing_period_start?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           discount_amount?: number | null
           due_date?: string | null
+          facility_id?: string | null
           id?: string
+          insurance_company_id?: string | null
           invoice_number?: string
-          member_id?: string
+          member_id?: string | null
           metadata?: Json | null
           notes?: string | null
           order_id?: string | null
@@ -1826,6 +1871,27 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "invoices_care_company_id_fkey"
+            columns: ["care_company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "invoices_member_id_fkey"
             columns: ["member_id"]
@@ -2887,12 +2953,16 @@ export type Database = {
           billing_interval: string
           cancel_at_period_end: boolean | null
           cancelled_at: string | null
+          care_company_id: string | null
           created_at: string
           currency: string
           current_period_end: string
           current_period_start: string
+          customer_type: Database["public"]["Enums"]["customer_type"] | null
+          facility_id: string | null
           id: string
-          member_id: string
+          insurance_company_id: string | null
+          member_id: string | null
           metadata: Json | null
           monthly_amount: number
           paused_at: string | null
@@ -2906,12 +2976,16 @@ export type Database = {
           billing_interval?: string
           cancel_at_period_end?: boolean | null
           cancelled_at?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
           current_period_end: string
           current_period_start?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
+          facility_id?: string | null
           id?: string
-          member_id: string
+          insurance_company_id?: string | null
+          member_id?: string | null
           metadata?: Json | null
           monthly_amount?: number
           paused_at?: string | null
@@ -2925,12 +2999,16 @@ export type Database = {
           billing_interval?: string
           cancel_at_period_end?: boolean | null
           cancelled_at?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
           current_period_end?: string
           current_period_start?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
+          facility_id?: string | null
           id?: string
-          member_id?: string
+          insurance_company_id?: string | null
+          member_id?: string | null
           metadata?: Json | null
           monthly_amount?: number
           paused_at?: string | null
@@ -2941,6 +3019,27 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "subscriptions_care_company_id_fkey"
+            columns: ["care_company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "subscriptions_member_id_fkey"
             columns: ["member_id"]
@@ -3061,11 +3160,15 @@ export type Database = {
           amount: number
           card_brand: string | null
           card_last_four: string | null
+          care_company_id: string | null
           created_at: string
           currency: string
+          customer_type: Database["public"]["Enums"]["customer_type"] | null
           description: string | null
+          facility_id: string | null
           failure_reason: string | null
           id: string
+          insurance_company_id: string | null
           invoice_id: string | null
           member_id: string | null
           metadata: Json | null
@@ -3082,11 +3185,15 @@ export type Database = {
           amount: number
           card_brand?: string | null
           card_last_four?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           description?: string | null
+          facility_id?: string | null
           failure_reason?: string | null
           id?: string
+          insurance_company_id?: string | null
           invoice_id?: string | null
           member_id?: string | null
           metadata?: Json | null
@@ -3103,11 +3210,15 @@ export type Database = {
           amount?: number
           card_brand?: string | null
           card_last_four?: string | null
+          care_company_id?: string | null
           created_at?: string
           currency?: string
+          customer_type?: Database["public"]["Enums"]["customer_type"] | null
           description?: string | null
+          facility_id?: string | null
           failure_reason?: string | null
           id?: string
+          insurance_company_id?: string | null
           invoice_id?: string | null
           member_id?: string | null
           metadata?: Json | null
@@ -3121,6 +3232,27 @@ export type Database = {
           transaction_type?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "transactions_care_company_id_fkey"
+            columns: ["care_company_id"]
+            isOneToOne: false
+            referencedRelation: "care_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_insurance_company_id_fkey"
+            columns: ["insurance_company_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "transactions_invoice_id_fkey"
             columns: ["invoice_id"]
@@ -3249,6 +3381,11 @@ export type Database = {
         | "privacy_policy"
         | "data_processing"
         | "marketing"
+      customer_type:
+        | "member"
+        | "facility"
+        | "care_company"
+        | "insurance_company"
       device_status: "active" | "inactive" | "error" | "needs_battery"
       device_type:
         | "vivago_watch"
@@ -3415,6 +3552,12 @@ export const Constants = {
         "privacy_policy",
         "data_processing",
         "marketing",
+      ],
+      customer_type: [
+        "member",
+        "facility",
+        "care_company",
+        "insurance_company",
       ],
       device_status: ["active", "inactive", "error", "needs_battery"],
       device_type: [
