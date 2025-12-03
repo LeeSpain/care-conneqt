@@ -306,9 +306,167 @@ export function LeeChat() {
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                     {/* Display action results */}
                     {message.actionResults && message.actionResults.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-amber-500/20">
+                      <div className="mt-3 pt-3 border-t border-amber-500/20 space-y-2">
                         {message.actionResults.map((result: any, idx: number) => (
-                          <div key={idx} className="text-xs bg-background/50 rounded-lg p-2 mt-1">
+                          <div key={idx} className="text-xs bg-background/50 rounded-lg p-2">
+                            {/* READ Actions */}
+                            {result.action === 'get_members' && result.result?.members && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Members ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.members.slice(0, 10).map((m: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{m.name || 'Unknown'}</span>
+                                      <span className="text-muted-foreground">{m.care_level} • {m.status}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_member_details' && result.result?.member && (
+                              <div>
+                                <span className="font-semibold text-amber-600">{result.result.member.name}</span>
+                                <div className="mt-1 grid grid-cols-2 gap-1 text-muted-foreground">
+                                  <span>Care: {result.result.member.care_level}</span>
+                                  <span>Status: {result.result.member.status}</span>
+                                  <span>Devices: {result.result.devices?.length || 0}</span>
+                                  <span>Alerts: {result.result.recent_alerts?.length || 0}</span>
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_nurses' && result.result?.nurses && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Nurses ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.nurses.map((n: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{n.name}</span>
+                                      <span className="text-muted-foreground">{n.assigned_members} members • {n.pending_tasks} tasks</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_facilities' && result.result?.facilities && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Facilities ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.facilities.map((f: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{f.name}</span>
+                                      <span className="text-muted-foreground">{f.current_residents}/{f.capacity} ({f.occupancy}%)</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_leads' && result.result?.leads && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Leads ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.leads.slice(0, 10).map((l: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{l.name}</span>
+                                      <span className="text-muted-foreground">{l.status} • {l.type}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_products' && result.result?.products && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Products ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.products.map((p: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{p.slug}</span>
+                                      <span className="text-muted-foreground">€{p.price} • {p.type}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_pricing_plans' && result.result?.plans && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Pricing Plans ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.plans.map((p: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{p.name}</span>
+                                      <span className="text-muted-foreground">€{p.price}/mo • {p.devices_included} devices</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_support_tickets' && result.result?.tickets && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Support Tickets ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.tickets.slice(0, 10).map((t: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium truncate max-w-[60%]">{t.title}</span>
+                                      <span className="text-muted-foreground">{t.status} • {t.priority}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_announcements' && result.result?.announcements && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Announcements ({result.result.count}):</span>
+                                <div className="mt-1 max-h-32 overflow-y-auto space-y-1">
+                                  {result.result.announcements.map((a: any, i: number) => (
+                                    <div key={i} className="py-0.5 border-b border-border/30 last:border-0">
+                                      <span className="font-medium">{a.title}</span>
+                                      <span className="text-muted-foreground block">{a.priority} • {a.is_active ? 'Active' : 'Inactive'}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_analytics' && result.result?.analytics && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Platform Analytics:</span>
+                                <div className="mt-1 grid grid-cols-2 gap-1">
+                                  <span>Members: {result.result.analytics.members?.total || 0}</span>
+                                  <span>Active: {result.result.analytics.members?.active || 0}</span>
+                                  <span>Nurses: {result.result.analytics.nurses?.total || 0}</span>
+                                  <span>Facilities: {result.result.analytics.facilities?.total || 0}</span>
+                                  <span>Leads: {result.result.analytics.leads?.total || 0}</span>
+                                  <span>New: {result.result.analytics.leads?.new || 0}</span>
+                                  <span>Open Tickets: {result.result.analytics.support?.open || 0}</span>
+                                  <span>Active Alerts: {result.result.analytics.alerts?.active || 0}</span>
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'get_companies' && (result.result?.care_companies || result.result?.insurance_companies) && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Companies:</span>
+                                {result.result.care_companies && result.result.care_companies.length > 0 && (
+                                  <div className="mt-1">
+                                    <span className="text-muted-foreground">Care Companies ({result.result.care_companies.length}):</span>
+                                    {result.result.care_companies.slice(0, 5).map((c: any, i: number) => (
+                                      <div key={i} className="flex justify-between items-center py-0.5">
+                                        <span>{c.name}</span>
+                                        <span className="text-muted-foreground">{c.total_clients} clients</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {result.result.insurance_companies && result.result.insurance_companies.length > 0 && (
+                                  <div className="mt-1">
+                                    <span className="text-muted-foreground">Insurance Companies ({result.result.insurance_companies.length}):</span>
+                                    {result.result.insurance_companies.slice(0, 5).map((c: any, i: number) => (
+                                      <div key={i} className="flex justify-between items-center py-0.5">
+                                        <span>{c.name}</span>
+                                        <span className="text-muted-foreground">{c.total_policies} policies</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            )}
                             {result.action === 'lookup_user' && result.result?.users && (
                               <div>
                                 <span className="font-semibold text-amber-600">Found {result.result.users_found} user(s):</span>
@@ -322,6 +480,7 @@ export function LeeChat() {
                                 </ul>
                               </div>
                             )}
+                            {/* WRITE Actions */}
                             {result.action === 'send_message' && result.result?.success && (
                               <span className="text-green-600">✓ Message sent to {result.result.recipients_count} recipient(s)</span>
                             )}
