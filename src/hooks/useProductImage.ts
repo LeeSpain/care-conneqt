@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-// Lazy loading map for device images
+// Lazy loading map for device and service images
 const imageImporters: Record<string, () => Promise<{ default: string }>> = {
+  // Devices
   'vivago-watch': () => import('@/assets/devices/vivago-watch.jpg'),
   'sos-pendant': () => import('@/assets/devices/sos-pendant.jpg'),
   'vivago-domi': () => import('@/assets/devices/vivago-domi.jpg'),
@@ -15,6 +16,12 @@ const imageImporters: Record<string, () => Promise<{ default: string }>> = {
   'weight-scale': () => import('@/assets/devices/smart-scale.jpg'),
   'smart-thermometer': () => import('@/assets/devices/smart-thermometer.jpg'),
   'thermometer': () => import('@/assets/devices/smart-thermometer.jpg'),
+  // Services
+  'family-dashboard': () => import('@/assets/services/family-dashboard.jpg'),
+  'extra-nurse-support': () => import('@/assets/services/nurse-support.jpg'),
+  'priority-emergency': () => import('@/assets/services/emergency-response.jpg'),
+  'care-coordinator': () => import('@/assets/services/care-coordinator.jpg'),
+  'medication-management-service': () => import('@/assets/services/medication-management.jpg'),
 };
 
 // Global cache for loaded images
