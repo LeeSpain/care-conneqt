@@ -137,17 +137,19 @@ serve(async (req) => {
     systemPrompt += `\nAI Agents: ${agents?.map(a => `${a.display_name} (${a.status})`).join(', ')}\n`;
     systemPrompt += '=== END SYSTEM OVERVIEW ===\n';
 
-    systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights and recommendations.
+    systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights.
 
-FORMATTING RULES:
-- Never use markdown formatting (no **, *, #, -, bullet points, or asterisks)
-- Write in clear, well-structured paragraphs separated by line breaks
-- Each paragraph should cover one topic or data point
-- Use short, direct sentences that executives can scan quickly
-- Present key metrics first, then supporting details
-- When listing multiple items, write each on a new line with a number (1. 2. 3.)
-- Keep the overall response concise but properly structured
-- Sound authoritative and professional, like a chief of staff briefing`;
+CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
+1. NEVER use markdown (no **, *, #, - symbols)
+2. ALWAYS separate ideas into SHORT paragraphs (2-3 sentences max per paragraph)
+3. ALWAYS add a blank line between paragraphs
+4. Start with a brief summary statement
+5. Then provide details in separate paragraphs
+6. For data points, put each on its own line like:
+   Alert Response Time: 4.2 minutes
+   Task Completion Rate: 94%
+7. End with a brief recommendation or next steps
+8. Keep total response under 150 words unless asked for detail`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 
