@@ -1,15 +1,36 @@
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CreditCard, ExternalLink } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CreditCard, ExternalLink, Settings, Copy, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Integrations() {
   const { t } = useTranslation('dashboard-admin');
+  const [stripeSecretKey, setStripeSecretKey] = useState('');
+  const [stripeWebhookSecret, setStripeWebhookSecret] = useState('');
+  const [copied, setCopied] = useState<string | null>(null);
 
   const handleEnableStripe = () => {
     window.open('https://dashboard.stripe.com/register', '_blank');
   };
+
+  const handleSaveStripeConfig = () => {
+    // TODO: Save to secrets when backend is ready
+    toast.success(t('integrations.stripe.configSaved'));
+  };
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(field);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
+  // Webhook endpoint URL for Stripe configuration
+  const webhookEndpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-webhook`;
 
   return (
     <AdminDashboardLayout title={t('integrations.title')}>
@@ -53,6 +74,79 @@ export default function Integrations() {
               </Button>
               <p className="text-xs text-muted-foreground">
                 {t('integrations.stripe.note')}
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Stripe Configuration Card */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Settings className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle>{t('integrations.stripeConfig.title')}</CardTitle>
+                  <CardDescription>{t('integrations.stripeConfig.description')}</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="webhook-endpoint">{t('integrations.stripeConfig.webhookEndpoint')}</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="webhook-endpoint"
+                    value={webhookEndpoint}
+                    readOnly
+                    className="font-mono text-xs"
+                  />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => copyToClipboard(webhookEndpoint, 'webhook')}
+                  >
+                    {copied === 'webhook' ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {t('integrations.stripeConfig.webhookEndpointHelp')}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="stripe-secret">{t('integrations.stripeConfig.secretKey')}</Label>
+                <Input
+                  id="stripe-secret"
+                  type="password"
+                  placeholder="sk_live_..."
+                  value={stripeSecretKey}
+                  onChange={(e) => setStripeSecretKey(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t('integrations.stripeConfig.secretKeyHelp')}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="webhook-secret">{t('integrations.stripeConfig.webhookSecret')}</Label>
+                <Input
+                  id="webhook-secret"
+                  type="password"
+                  placeholder="whsec_..."
+                  value={stripeWebhookSecret}
+                  onChange={(e) => setStripeWebhookSecret(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t('integrations.stripeConfig.webhookSecretHelp')}
+                </p>
+              </div>
+
+              <Button onClick={handleSaveStripeConfig} className="w-full" disabled>
+                {t('integrations.stripeConfig.saveButton')}
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                {t('integrations.stripeConfig.comingSoon')}
               </p>
             </CardContent>
           </Card>

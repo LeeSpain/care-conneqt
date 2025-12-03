@@ -368,7 +368,20 @@
       "benefit3": "Procesamiento seguro de pagos",
       "benefit4": "Gestión de suscripciones",
       "setupButton": "Configurar Integración de Stripe",
-      "note": "Necesitarás crear una cuenta de Stripe y agregar tus claves API en la gestión de secretos de Lovable."
+      "note": "Necesitarás crear una cuenta de Stripe y agregar tus claves API en la gestión de secretos de Lovable.",
+      "configSaved": "Configuración de Stripe guardada correctamente"
+    },
+    "stripeConfig": {
+      "title": "Configuración de Stripe",
+      "description": "Configura tus claves API y webhook de Stripe",
+      "webhookEndpoint": "URL del Endpoint de Webhook",
+      "webhookEndpointHelp": "Copia esta URL y agrégala como endpoint de webhook en tu Panel de Stripe → Desarrolladores → Webhooks",
+      "secretKey": "Clave Secreta de Stripe",
+      "secretKeyHelp": "Se encuentra en Panel de Stripe → Desarrolladores → Claves API (comienza con sk_live_ o sk_test_)",
+      "webhookSecret": "Secreto de Firma del Webhook",
+      "webhookSecretHelp": "Se genera cuando creas el endpoint de webhook en Stripe (comienza con whsec_)",
+      "saveButton": "Guardar Configuración de Stripe",
+      "comingSoon": "La configuración se guardará en almacenamiento seguro de secretos (próximamente)"
     },
     "comingSoon": {
       "title": "Más Integraciones Próximamente",

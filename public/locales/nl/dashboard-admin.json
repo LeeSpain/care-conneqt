@@ -368,7 +368,20 @@
       "benefit3": "Veilige betalingsverwerking",
       "benefit4": "Abonnementenbeheer",
       "setupButton": "Stripe Integratie Instellen",
-      "note": "Je moet een Stripe-account aanmaken en je API-sleutels toevoegen in Lovable secrets management."
+      "note": "Je moet een Stripe-account aanmaken en je API-sleutels toevoegen in Lovable secrets management.",
+      "configSaved": "Stripe configuratie succesvol opgeslagen"
+    },
+    "stripeConfig": {
+      "title": "Stripe Configuratie",
+      "description": "Configureer je Stripe API-sleutels en webhook",
+      "webhookEndpoint": "Webhook Endpoint URL",
+      "webhookEndpointHelp": "Kopieer deze URL en voeg deze toe als webhook-endpoint in je Stripe Dashboard → Ontwikkelaars → Webhooks",
+      "secretKey": "Stripe Geheime Sleutel",
+      "secretKeyHelp": "Te vinden in Stripe Dashboard → Ontwikkelaars → API-sleutels (begint met sk_live_ of sk_test_)",
+      "webhookSecret": "Webhook Ondertekeningsgeheim",
+      "webhookSecretHelp": "Gegenereerd wanneer je het webhook-endpoint aanmaakt in Stripe (begint met whsec_)",
+      "saveButton": "Stripe Configuratie Opslaan",
+      "comingSoon": "Configuratie wordt opgeslagen in beveiligde secrets opslag (binnenkort beschikbaar)"
     },
     "comingSoon": {
       "title": "Meer Integraties Binnenkort",

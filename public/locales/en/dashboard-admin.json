@@ -368,7 +368,20 @@
       "benefit3": "Secure payment processing",
       "benefit4": "Subscription management",
       "setupButton": "Set Up Stripe Integration",
-      "note": "You'll need to create a Stripe account and add your API keys in Lovable secrets management."
+      "note": "You'll need to create a Stripe account and add your API keys in Lovable secrets management.",
+      "configSaved": "Stripe configuration saved successfully"
+    },
+    "stripeConfig": {
+      "title": "Stripe Configuration",
+      "description": "Configure your Stripe API keys and webhook",
+      "webhookEndpoint": "Webhook Endpoint URL",
+      "webhookEndpointHelp": "Copy this URL and add it as a webhook endpoint in your Stripe Dashboard → Developers → Webhooks",
+      "secretKey": "Stripe Secret Key",
+      "secretKeyHelp": "Found in Stripe Dashboard → Developers → API keys (starts with sk_live_ or sk_test_)",
+      "webhookSecret": "Webhook Signing Secret",
+      "webhookSecretHelp": "Generated when you create the webhook endpoint in Stripe (starts with whsec_)",
+      "saveButton": "Save Stripe Configuration",
+      "comingSoon": "Configuration will be saved to secure secrets storage (coming soon)"
     },
     "comingSoon": {
       "title": "More Integrations Coming Soon",
