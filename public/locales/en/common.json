@@ -167,6 +167,7 @@
     "subtitle": "Master AI Orchestrator • Full Access",
     "thinking": "Lee is thinking...",
     "placeholder": "Ask Lee anything about the system...",
+    "error": "I apologize, but I encountered an error. Please try again.",
     "actions": {
       "categories": {
         "read": "Query Data",
@@ -263,5 +264,8 @@
   },
   "adminGuide": {
     "title": "Guide"
+  },
+  "dailyReport": {
+    "title": "Daily Report"
   }
 }
