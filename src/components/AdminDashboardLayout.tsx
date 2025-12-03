@@ -4,7 +4,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/AdminSidebar";
 import { Button } from "@/components/ui/button";
-import { Bell, Brain, X, Send, Sparkles } from "lucide-react";
+import { Bell, Brain, Send, Sparkles } from "lucide-react";
+import leeAvatar from "@/assets/lee-avatar.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -118,7 +119,7 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
     }
   };
 
-  const avatarSrc = agent?.avatar_url || '/placeholder.svg';
+  const avatarSrc = agent?.avatar_url || leeAvatar;
 
   return (
     <SidebarProvider>
