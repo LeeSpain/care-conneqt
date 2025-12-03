@@ -97,7 +97,25 @@
     "systemHealth": {
       "title": "Estado del Sistema",
       "subtitle": "Estado actual",
-      "operational": "Todos los Sistemas Operativos"
+      "operational": "Todos los Sistemas Operativos",
+      "viewDetails": "Ver Detalles",
+      "integrations": "Estado de Integraciones",
+      "configure": "Configurar"
+    },
+    "ceo": {
+      "mrr": "Ingresos Mensuales",
+      "criticalAlerts": "Alertas Críticas",
+      "pending": "pendientes en total",
+      "aiConversations": "Conversaciones IA",
+      "escalations": "escalaciones",
+      "satisfaction": "Satisfacción",
+      "aiSatisfaction": "Tasa de satisfacción IA",
+      "recentLeads": "Leads Recientes",
+      "recentOrders": "Pedidos Recientes",
+      "recentSignups": "Registros Recientes",
+      "noRecentLeads": "Sin leads recientes",
+      "noRecentOrders": "Sin pedidos recientes",
+      "noRecentSignups": "Sin registros recientes"
     }
   },
   "commercial": {
@@ -503,6 +521,13 @@
   "integrations": {
     "title": "Integraciones",
     "subtitle": "Conecta servicios externos para ampliar las capacidades de la plataforma",
+    "copied": "Copiado al portapapeles",
+    "status": {
+      "connected": "Conectado",
+      "notConnected": "No Conectado",
+      "checking": "Verificando...",
+      "refresh": "Actualizar Estado"
+    },
     "stripe": {
       "title": "Pagos con Stripe",
       "description": "Procesa pagos y suscripciones",
@@ -513,6 +538,7 @@
       "benefit3": "Procesamiento seguro de pagos",
       "benefit4": "Gestión de suscripciones",
       "setupButton": "Configurar Integración de Stripe",
+      "dashboard": "Panel de Stripe",
       "note": "Necesitarás crear una cuenta de Stripe y agregar tus claves API en la gestión de secretos de Lovable.",
       "configSaved": "Configuración de Stripe guardada correctamente"
     },
@@ -526,12 +552,34 @@
       "webhookSecret": "Secreto de Firma del Webhook",
       "webhookSecretHelp": "Se genera cuando creas el endpoint de webhook en Stripe (comienza con whsec_)",
       "saveButton": "Guardar Configuración de Stripe",
-      "comingSoon": "La configuración se guardará en almacenamiento seguro de secretos (próximamente)"
+      "comingSoon": "La configuración se guardará en almacenamiento seguro de secretos (próximamente)",
+      "setupInstructions": "Instrucciones de Configuración",
+      "step1": "Crea una cuenta de Stripe en stripe.com",
+      "step2": "Copia tus claves API del Panel de Stripe",
+      "step3": "Añade STRIPE_SECRET_KEY a los secretos de tu proyecto Lovable",
+      "step4": "Configura el endpoint de webhook en Stripe con la URL de arriba"
+    },
+    "otherIntegrations": "Otras Integraciones",
+    "twilio": {
+      "description": "Comunicación SMS y voz para alertas"
+    },
+    "sendgrid": {
+      "description": "Notificaciones por email y boletines"
+    },
+    "googleCalendar": {
+      "description": "Sincronización de citas y agenda"
     },
     "comingSoon": {
       "title": "Más Integraciones Próximamente",
       "description": "Integraciones adicionales estarán disponibles aquí",
-      "details": "Las futuras integraciones pueden incluir email marketing, sistemas CRM y plataformas de análisis."
+      "details": "Las futuras integraciones pueden incluir email marketing, sistemas CRM y plataformas de análisis.",
+      "badge": "Próximamente"
+    },
+    "api": {
+      "title": "API y Webhooks",
+      "description": "Construye integraciones personalizadas con nuestra API",
+      "details": "Accede a nuestra API REST para construir integraciones personalizadas, automatizar flujos de trabajo y extender la funcionalidad de la plataforma.",
+      "viewDocs": "Ver Documentación API"
     }
   },
   "aiAnalytics": {
