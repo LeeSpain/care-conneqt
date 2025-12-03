@@ -753,6 +753,9 @@ export type Database = {
           context_type: string | null
           created_at: string | null
           id: string
+          is_archived: boolean | null
+          is_broadcast: boolean | null
+          is_pinned: boolean | null
           last_message_at: string | null
           title: string | null
           type: string
@@ -763,6 +766,9 @@ export type Database = {
           context_type?: string | null
           created_at?: string | null
           id?: string
+          is_archived?: boolean | null
+          is_broadcast?: boolean | null
+          is_pinned?: boolean | null
           last_message_at?: string | null
           title?: string | null
           type?: string
@@ -773,6 +779,9 @@ export type Database = {
           context_type?: string | null
           created_at?: string | null
           id?: string
+          is_archived?: boolean | null
+          is_broadcast?: boolean | null
+          is_pinned?: boolean | null
           last_message_at?: string | null
           title?: string | null
           type?: string
@@ -1767,6 +1776,39 @@ export type Database = {
         }
         Relationships: []
       }
+      message_templates: {
+        Row: {
+          category: string
+          content: string
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string
+          content: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       nurse_assignments: {
         Row: {
           assigned_at: string | null
@@ -2058,7 +2100,9 @@ export type Database = {
           is_read: boolean | null
           message: string
           message_type: string | null
+          priority: string | null
           sender_id: string
+          template_id: string | null
           updated_at: string | null
         }
         Insert: {
@@ -2069,7 +2113,9 @@ export type Database = {
           is_read?: boolean | null
           message: string
           message_type?: string | null
+          priority?: string | null
           sender_id: string
+          template_id?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -2080,7 +2126,9 @@ export type Database = {
           is_read?: boolean | null
           message?: string
           message_type?: string | null
+          priority?: string | null
           sender_id?: string
+          template_id?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -2089,6 +2137,13 @@ export type Database = {
             columns: ["conversation_id"]
             isOneToOne: false
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "platform_messages_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "message_templates"
             referencedColumns: ["id"]
           },
         ]

@@ -34,5 +34,41 @@
     "facilityAdmin": "Facility Admin",
     "insuranceAdmin": "Insurance",
     "companyAdmin": "Care Company"
+  },
+  "tabs": {
+    "all": "All",
+    "staff": "Staff",
+    "members": "Members",
+    "families": "Families",
+    "system": "System"
+  },
+  "broadcast": {
+    "title": "Broadcast",
+    "description": "Send a message to multiple users at once",
+    "selectRecipients": "Select Recipients",
+    "allNurses": "All Nurses",
+    "allMembers": "All Members",
+    "allFamilies": "All Family Carers",
+    "allFacilityAdmins": "All Facility Admins",
+    "allAdmins": "All Admins",
+    "priority": "Priority",
+    "priorityNormal": "Normal",
+    "priorityUrgent": "Urgent",
+    "message": "Message",
+    "messagePlaceholder": "Enter your broadcast message...",
+    "send": "Send Broadcast",
+    "sent": "Broadcast sent to {{count}} recipients",
+    "error": "Failed to send broadcast",
+    "noRecipients": "No recipients found",
+    "recipientCount": "{{count}} groups selected",
+    "broadcastMessage": "Broadcast Message"
+  },
+  "templates": {
+    "title": "Message Templates",
+    "useTemplate": "Use Template",
+    "welcome": "Welcome Message",
+    "reminder": "Appointment Reminder",
+    "followUp": "Follow-up Message",
+    "emergency": "Emergency Alert"
   }
 }

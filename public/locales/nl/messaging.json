@@ -34,5 +34,41 @@
     "facilityAdmin": "Faciliteit Beheerder",
     "insuranceAdmin": "Verzekering",
     "companyAdmin": "Zorgbedrijf"
+  },
+  "tabs": {
+    "all": "Alles",
+    "staff": "Personeel",
+    "members": "Leden",
+    "families": "Families",
+    "system": "Systeem"
+  },
+  "broadcast": {
+    "title": "Broadcast",
+    "description": "Stuur een bericht naar meerdere gebruikers tegelijk",
+    "selectRecipients": "Selecteer Ontvangers",
+    "allNurses": "Alle Verpleegkundigen",
+    "allMembers": "Alle Leden",
+    "allFamilies": "Alle Familieverzorgers",
+    "allFacilityAdmins": "Alle Faciliteitbeheerders",
+    "allAdmins": "Alle Beheerders",
+    "priority": "Prioriteit",
+    "priorityNormal": "Normaal",
+    "priorityUrgent": "Dringend",
+    "message": "Bericht",
+    "messagePlaceholder": "Voer uw broadcast bericht in...",
+    "send": "Broadcast Versturen",
+    "sent": "Broadcast verzonden naar {{count}} ontvangers",
+    "error": "Broadcast versturen mislukt",
+    "noRecipients": "Geen ontvangers gevonden",
+    "recipientCount": "{{count}} groepen geselecteerd",
+    "broadcastMessage": "Broadcast Bericht"
+  },
+  "templates": {
+    "title": "Berichtsjablonen",
+    "useTemplate": "Sjabloon Gebruiken",
+    "welcome": "Welkomstbericht",
+    "reminder": "Afspraakherinnering",
+    "followUp": "Opvolgbericht",
+    "emergency": "Noodmelding"
   }
 }
