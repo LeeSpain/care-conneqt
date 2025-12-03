@@ -88,7 +88,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
             <div>
               <span className="text-xl">{profile?.first_name} {profile?.last_name}</span>
               <p className="text-sm font-normal text-muted-foreground">
-                Room {resident.room_number} • Admitted {format(new Date(resident.admission_date), 'MMM d, yyyy')}
+                {t('residentDetail.room')} {resident.room_number} • {t('residentDetail.admitted')} {format(new Date(resident.admission_date), 'MMM d, yyyy')}
               </p>
             </div>
           </DialogTitle>
@@ -97,9 +97,9 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
         <ScrollArea className="max-h-[calc(90vh-120px)]">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="medical">Medical</TabsTrigger>
-              <TabsTrigger value="devices">Devices ({devices?.length || 0})</TabsTrigger>
+              <TabsTrigger value="overview">{t('residentDetail.tabs.overview')}</TabsTrigger>
+              <TabsTrigger value="medical">{t('residentDetail.tabs.medical')}</TabsTrigger>
+              <TabsTrigger value="devices">{t('residentDetail.tabs.devices')} ({devices?.length || 0})</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-4 mt-4">
@@ -107,42 +107,42 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    Personal Information
+                    {t('residentDetail.personalInfo')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 gap-4 text-sm">
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Full Name</p>
+                    <p className="text-muted-foreground">{t('residentDetail.fullName')}</p>
                     <p className="font-medium">{profile?.first_name} {profile?.last_name}</p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Date of Birth</p>
+                    <p className="text-muted-foreground">{t('residentDetail.dateOfBirth')}</p>
                     <p className="font-medium">
                       {member?.date_of_birth 
                         ? format(new Date(member.date_of_birth), 'MMMM d, yyyy')
-                        : 'Not recorded'}
+                        : t('residentDetail.notRecorded')}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-muted-foreground flex items-center gap-1">
-                      <Mail className="h-3 w-3" /> Email
+                      <Mail className="h-3 w-3" /> {t('residentDetail.email')}
                     </p>
-                    <p className="font-medium">{profile?.email || 'Not recorded'}</p>
+                    <p className="font-medium">{profile?.email || t('residentDetail.notRecorded')}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-muted-foreground flex items-center gap-1">
-                      <Phone className="h-3 w-3" /> Phone
+                      <Phone className="h-3 w-3" /> {t('residentDetail.phone')}
                     </p>
-                    <p className="font-medium">{profile?.phone || 'Not recorded'}</p>
+                    <p className="font-medium">{profile?.phone || t('residentDetail.notRecorded')}</p>
                   </div>
                   <div className="space-y-1 col-span-2">
                     <p className="text-muted-foreground flex items-center gap-1">
-                      <MapPin className="h-3 w-3" /> Address
+                      <MapPin className="h-3 w-3" /> {t('residentDetail.address')}
                     </p>
                     <p className="font-medium">
                       {member?.address_line1 
                         ? `${member.address_line1}, ${member.city || ''} ${member.postal_code || ''}`
-                        : 'Not recorded'}
+                        : t('residentDetail.notRecorded')}
                     </p>
                   </div>
                 </CardContent>
@@ -152,17 +152,17 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <AlertCircle className="h-4 w-4" />
-                    Emergency Contact
+                    {t('residentDetail.emergencyContact')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 gap-4 text-sm">
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Contact Name</p>
-                    <p className="font-medium">{member?.emergency_contact_name || 'Not recorded'}</p>
+                    <p className="text-muted-foreground">{t('residentDetail.contactName')}</p>
+                    <p className="font-medium">{member?.emergency_contact_name || t('residentDetail.notRecorded')}</p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Phone Number</p>
-                    <p className="font-medium">{member?.emergency_contact_phone || 'Not recorded'}</p>
+                    <p className="text-muted-foreground">{t('residentDetail.phoneNumber')}</p>
+                    <p className="font-medium">{member?.emergency_contact_phone || t('residentDetail.notRecorded')}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -171,26 +171,26 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Care Status
+                    {t('residentDetail.careStatus')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-4 text-sm">
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Care Level</p>
+                    <p className="text-muted-foreground">{t('residentDetail.careLevel')}</p>
                     <Badge variant="outline" className="capitalize">
-                      {member?.care_level || 'Standard'}
+                      {member?.care_level || t('residentDetail.standard')}
                     </Badge>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Mobility</p>
+                    <p className="text-muted-foreground">{t('residentDetail.mobility')}</p>
                     <Badge variant="outline" className="capitalize">
-                      {member?.mobility_level || 'Independent'}
+                      {member?.mobility_level || t('residentDetail.independent')}
                     </Badge>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-muted-foreground">Subscription</p>
+                    <p className="text-muted-foreground">{t('residentDetail.subscription')}</p>
                     <Badge variant={member?.subscription_status === 'active' ? 'default' : 'secondary'}>
-                      {member?.subscription_status || 'Unknown'}
+                      {member?.subscription_status || t('residentDetail.unknown')}
                     </Badge>
                   </div>
                 </CardContent>
@@ -202,7 +202,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <Heart className="h-4 w-4" />
-                    Medical Conditions
+                    {t('residentDetail.medicalConditions')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -220,7 +220,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                       ))}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground text-sm">No medical conditions recorded</p>
+                    <p className="text-muted-foreground text-sm">{t('residentDetail.noMedicalConditions')}</p>
                   )}
                 </CardContent>
               </Card>
@@ -229,7 +229,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <Pill className="h-4 w-4" />
-                    Current Medications
+                    {t('residentDetail.currentMedications')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -247,7 +247,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                       ))}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground text-sm">No medications recorded</p>
+                    <p className="text-muted-foreground text-sm">{t('residentDetail.noMedications')}</p>
                   )}
                 </CardContent>
               </Card>
@@ -256,12 +256,12 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium flex items-center gap-2">
                     <Activity className="h-4 w-4" />
-                    Care Notes
+                    {t('residentDetail.careNotes')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    {member?.notes || 'No additional care notes recorded'}
+                    {member?.notes || t('residentDetail.noCareNotes')}
                   </p>
                 </CardContent>
               </Card>
@@ -286,7 +286,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                               </span>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                              {device.device_type?.replace('_', ' ')} • Serial: {device.device_serial || 'N/A'}
+                              {device.device_type?.replace('_', ' ')} • {t('residentDetail.serial')}: {device.device_serial || t('residentDetail.na')}
                             </p>
                           </div>
                           <div className="text-right">
@@ -296,8 +296,8 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                             </div>
                             <p className="text-xs text-muted-foreground">
                               {device.last_sync_at 
-                                ? `Last sync: ${format(new Date(device.last_sync_at), 'MMM d, HH:mm')}`
-                                : 'Never synced'}
+                                ? `${t('residentDetail.lastSync')}: ${format(new Date(device.last_sync_at), 'MMM d, HH:mm')}`
+                                : t('residentDetail.neverSynced')}
                             </p>
                           </div>
                         </div>
@@ -309,7 +309,7 @@ export function ResidentDetailDialog({ open, onOpenChange, resident }: ResidentD
                 <Card>
                   <CardContent className="p-8 text-center">
                     <Smartphone className="h-12 w-12 mx-auto text-muted-foreground mb-3" />
-                    <p className="text-muted-foreground">No devices assigned to this resident</p>
+                    <p className="text-muted-foreground">{t('residentDetail.noDevices')}</p>
                   </CardContent>
                 </Card>
               )}
