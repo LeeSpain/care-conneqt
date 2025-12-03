@@ -1964,5 +1964,299 @@
       "viewFinance": "Finance Dashboard",
       "viewAI": "AI Analytics"
     }
+  },
+  "adminGuide": {
+    "title": "Guide",
+    "version": "v1.0",
+    "heroTitle": "Care Conneqt Admin Platform Guide",
+    "heroDescription": "Your complete reference for managing the Care Conneqt platform. This guide covers all administrative functions, workflows, and best practices.",
+    "tableOfContents": "Table of Contents",
+    "sections": {
+      "gettingStarted": "Getting Started",
+      "dashboard": "Dashboard Overview",
+      "people": "People Management",
+      "commercial": "Commercial Partners",
+      "catalog": "Catalog Management",
+      "finance": "Finance Control Centre",
+      "ai": "AI Management",
+      "analytics": "Analytics & Reports",
+      "sales": "Sales & Leads",
+      "communications": "Communications",
+      "system": "System Configuration",
+      "lee": "LEE \"The Brain\"",
+      "dailyReport": "Daily Report",
+      "bestPractices": "Best Practices",
+      "shortcuts": "Keyboard Shortcuts",
+      "faq": "FAQ"
+    },
+    "gettingStarted": {
+      "title": "Getting Started",
+      "description": "Essential information to begin using the admin platform",
+      "roleTitle": "Your Role as Administrator",
+      "roleDescription": "As a platform administrator, you have full access to manage all aspects of Care Conneqt including users, facilities, commercial partners, finances, AI agents, and system configuration.",
+      "keyAreasTitle": "Key Areas",
+      "areas": {
+        "people": "People",
+        "peopleDesc": "Manage users, staff, members, and families",
+        "commercial": "Commercial",
+        "commercialDesc": "Facilities, care companies, insurance partners",
+        "finance": "Finance",
+        "financeDesc": "Revenue, subscriptions, invoices, credits",
+        "ai": "AI",
+        "aiDesc": "Configure and monitor AI agents"
+      },
+      "tipTitle": "Pro Tip",
+      "tipDescription": "Use LEE \"The Brain\" in the header to execute administrative tasks using natural language commands. Just click on LEE and ask what you need!"
+    },
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "description": "Understanding your CEO control center",
+      "intro": "The admin dashboard provides executive-level visibility into all platform operations at a glance.",
+      "widgetsTitle": "Dashboard Widgets",
+      "widgets": {
+        "mrr": "MRR/ARR Cards",
+        "mrrDesc": "Monthly and Annual Recurring Revenue snapshots",
+        "alerts": "Critical Alerts",
+        "alertsDesc": "Pending alerts requiring immediate attention",
+        "activity": "Activity Panels",
+        "activityDesc": "Recent leads, orders, and signups",
+        "ai": "AI Metrics",
+        "aiDesc": "Conversation counts, satisfaction scores, escalations",
+        "health": "System Health",
+        "healthDesc": "Platform status and integration health"
+      }
+    },
+    "people": {
+      "title": "People Management",
+      "description": "Managing users, staff, members, and family carers",
+      "table": {
+        "feature": "Feature",
+        "description": "Description"
+      },
+      "features": {
+        "allUsers": "All Users",
+        "allUsersDesc": "View and manage all platform users",
+        "staff": "Staff",
+        "staffDesc": "Manage nurses and admin staff, roles, departments",
+        "members": "Members",
+        "membersDesc": "View and manage care recipients",
+        "family": "Family Carers",
+        "familyDesc": "Manage family member accounts and permissions",
+        "assignments": "Assignments Hub",
+        "assignmentsDesc": "Assign nurses to members, manage workloads"
+      },
+      "commonTasksTitle": "Common Tasks",
+      "tasks": {
+        "addUser": "Add new users via the \"Add User\" button on respective pages",
+        "editRoles": "Edit roles and permissions through user profile settings",
+        "deactivate": "Deactivate accounts rather than deleting to preserve history",
+        "assign": "Use Assignments Hub for nurse-member workload balancing"
+      }
+    },
+    "commercial": {
+      "title": "Commercial Partners",
+      "description": "Managing B2B relationships",
+      "types": {
+        "facilities": "Care Facilities",
+        "facilitiesDesc": "Nursing homes, assisted living, residential care",
+        "companies": "Care Companies",
+        "companiesDesc": "Home care agencies, domiciliary services",
+        "insurance": "Insurance",
+        "insuranceDesc": "Health and care insurance partners"
+      },
+      "management": "Each partner type has dedicated management pages where you can add, edit, and view details including staff, clients/residents, and financial tracking."
+    },
+    "catalog": {
+      "title": "Catalog Management",
+      "description": "Managing products, services, and pricing",
+      "products": {
+        "title": "Products (Devices)",
+        "desc": "Physical devices like smartwatches, medication dispensers, sensors"
+      },
+      "services": {
+        "title": "Services",
+        "desc": "Service add-ons like nurse support, family dashboard, emergency response"
+      },
+      "pricing": {
+        "title": "Pricing Plans",
+        "desc": "Subscription plans with bundled products and services"
+      }
+    },
+    "finance": {
+      "title": "Finance Control Centre",
+      "description": "Complete financial management",
+      "table": {
+        "area": "Area",
+        "purpose": "Purpose"
+      },
+      "areas": {
+        "dashboard": "Revenue Dashboard",
+        "dashboardDesc": "MRR, ARR, revenue by customer segment",
+        "subscriptions": "Subscriptions",
+        "subscriptionsDesc": "Active subscription management",
+        "invoices": "Invoices",
+        "invoicesDesc": "Invoice generation and tracking",
+        "transactions": "Transactions",
+        "transactionsDesc": "Payment history and details",
+        "credits": "Credits & Refunds",
+        "creditsDesc": "Issue credits, process refunds"
+      },
+      "noteTitle": "Important",
+      "noteDescription": "Finance data is segmented by customer type (Member, Facility, Care Company, Insurance). Use filters to view specific segments."
+    },
+    "ai": {
+      "title": "AI Management",
+      "description": "Configuring and monitoring AI agents",
+      "agentsTitle": "AI Agents",
+      "agents": {
+        "claraSales": "Public-facing sales assistant",
+        "claraMember": "Member wellbeing companion",
+        "claraFamily": "Family carer support",
+        "ineke": "Clinical nurse assistant",
+        "isabella": "Facility operations assistant",
+        "lee": "Master admin orchestrator"
+      },
+      "configNote": "Each agent can be configured with custom system prompts, knowledge bases, and enabled functions via AI Agents settings."
+    },
+    "analytics": {
+      "title": "Analytics & Reports",
+      "description": "Platform insights and monitoring",
+      "platform": "Platform Analytics",
+      "platformDesc": "User growth, engagement, activity trends",
+      "health": "System Health",
+      "healthDesc": "Server status, API performance, uptime",
+      "aiAnalytics": "AI Analytics",
+      "aiAnalyticsDesc": "Conversation metrics, satisfaction scores, escalations"
+    },
+    "sales": {
+      "title": "Sales & Leads",
+      "description": "Managing the sales pipeline",
+      "pipelineTitle": "Lead Pipeline Stages",
+      "sourcesTitle": "Lead Sources",
+      "sources": {
+        "pricing": "Personal care pricing page conversions",
+        "institutional": "Institutional registration form submissions",
+        "clara": "Clara AI conversation interactions"
+      }
+    },
+    "communications": {
+      "title": "Communications",
+      "description": "Platform messaging and announcements",
+      "messages": {
+        "title": "Messages",
+        "desc": "Direct messaging with users, broadcast to groups by role"
+      },
+      "announcements": {
+        "title": "Announcements",
+        "desc": "Platform-wide announcements with role targeting, scheduling, expiry"
+      },
+      "support": {
+        "title": "Support Tickets",
+        "desc": "Customer support ticket management and resolution"
+      }
+    },
+    "system": {
+      "title": "System Configuration",
+      "description": "Platform settings and integrations",
+      "settings": {
+        "title": "System Settings",
+        "items": {
+          "platform": "Platform name and branding",
+          "language": "Default language and timezone",
+          "security": "Security policies",
+          "maintenance": "Maintenance mode"
+        }
+      },
+      "integrations": {
+        "title": "Integrations",
+        "items": {
+          "stripe": "Stripe payment processing",
+          "webhooks": "Webhook configuration",
+          "api": "API connections"
+        }
+      }
+    },
+    "lee": {
+      "title": "LEE \"The Brain\"",
+      "description": "Your AI orchestrator assistant",
+      "intro": "LEE is your master AI orchestrator, capable of executing administrative tasks through natural language commands. Access LEE via the button in the header.",
+      "capabilitiesTitle": "Capabilities",
+      "capabilities": {
+        "read": "Read system data and generate reports",
+        "create": "Create and update records",
+        "schedule": "Schedule appointments and set reminders",
+        "message": "Send messages and notifications",
+        "leads": "Update lead statuses",
+        "alerts": "Manage alerts and escalations"
+      },
+      "examplesTitle": "Example Commands",
+      "examples": {
+        "stats": "\"Show me today's statistics\"",
+        "schedule": "\"Schedule a meeting with the nursing team for Wednesday at 3pm\"",
+        "leads": "\"Update lead status for John Smith to qualified\"",
+        "alerts": "\"Show me all critical alerts\""
+      }
+    },
+    "dailyReport": {
+      "title": "Daily Report",
+      "description": "Executive daily snapshot",
+      "intro": "The Daily Report provides a comprehensive snapshot of platform activity for the selected day. Navigate up to 7 days back to compare metrics.",
+      "sectionsTitle": "Report Sections",
+      "sections": {
+        "revenue": "Revenue metrics (orders, subscriptions)",
+        "users": "User activity (signups, active users)",
+        "alerts": "Alert summary and resolutions",
+        "ai": "AI conversation metrics",
+        "leads": "Lead pipeline activity"
+      }
+    },
+    "bestPractices": {
+      "title": "Best Practices",
+      "description": "Recommended workflows and routines",
+      "dailyTitle": "Daily Routine",
+      "daily": {
+        "dashboard": "Check dashboard for critical alerts",
+        "leads": "Review new leads and follow-ups",
+        "tickets": "Address pending support tickets",
+        "ai": "Monitor AI escalations"
+      },
+      "weeklyTitle": "Weekly Review",
+      "weekly": {
+        "analytics": "Review platform analytics trends",
+        "revenue": "Analyze revenue and conversion rates",
+        "assignments": "Review nurse-member assignments balance",
+        "ai": "Check AI agent performance metrics"
+      },
+      "tip": "Use the Daily Report feature to quickly review yesterday's metrics and compare week-over-week trends."
+    },
+    "shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "description": "Quick navigation and actions",
+      "table": {
+        "shortcut": "Shortcut",
+        "action": "Action"
+      },
+      "actions": {
+        "search": "Open search",
+        "sidebar": "Toggle sidebar",
+        "close": "Close dialogs/modals"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Common questions and answers",
+      "questions": {
+        "reset": "How do I reset a user's password?",
+        "export": "Can I export financial reports?",
+        "ai": "How do I configure AI agent responses?",
+        "maintenance": "What happens in maintenance mode?"
+      },
+      "answers": {
+        "reset": "Go to People > All Users, find the user, and use the \"Reset Password\" option in their profile menu.",
+        "export": "Yes, use the \"Export CSV\" button available on each Finance page to download data.",
+        "ai": "Navigate to AI Management > AI Agents, select the agent, and modify the system prompt or knowledge base.",
+        "maintenance": "Users see a maintenance message. Admin access remains available. Enable via System Settings > Maintenance."
+      }
+    }
   }
 }

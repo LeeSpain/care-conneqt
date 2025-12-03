@@ -1964,5 +1964,299 @@
       "viewFinance": "Panel de Finanzas",
       "viewAI": "Analytics de IA"
     }
+  },
+  "adminGuide": {
+    "title": "Guía",
+    "version": "v1.0",
+    "heroTitle": "Guía de la Plataforma Admin Care Conneqt",
+    "heroDescription": "Tu referencia completa para gestionar la plataforma Care Conneqt. Esta guía cubre todas las funciones administrativas, flujos de trabajo y mejores prácticas.",
+    "tableOfContents": "Tabla de Contenidos",
+    "sections": {
+      "gettingStarted": "Primeros Pasos",
+      "dashboard": "Resumen del Panel",
+      "people": "Gestión de Personas",
+      "commercial": "Socios Comerciales",
+      "catalog": "Gestión de Catálogo",
+      "finance": "Centro de Control Financiero",
+      "ai": "Gestión de IA",
+      "analytics": "Analytics e Informes",
+      "sales": "Ventas y Leads",
+      "communications": "Comunicaciones",
+      "system": "Configuración del Sistema",
+      "lee": "LEE \"The Brain\"",
+      "dailyReport": "Informe Diario",
+      "bestPractices": "Mejores Prácticas",
+      "shortcuts": "Atajos de Teclado",
+      "faq": "Preguntas Frecuentes"
+    },
+    "gettingStarted": {
+      "title": "Primeros Pasos",
+      "description": "Información esencial para comenzar a usar la plataforma de administración",
+      "roleTitle": "Tu Rol como Administrador",
+      "roleDescription": "Como administrador de la plataforma, tienes acceso completo para gestionar todos los aspectos de Care Conneqt incluyendo usuarios, instalaciones, socios comerciales, finanzas, agentes de IA y configuración del sistema.",
+      "keyAreasTitle": "Áreas Clave",
+      "areas": {
+        "people": "Personas",
+        "peopleDesc": "Gestionar usuarios, personal, miembros y familias",
+        "commercial": "Comercial",
+        "commercialDesc": "Instalaciones, empresas de cuidado, socios de seguros",
+        "finance": "Finanzas",
+        "financeDesc": "Ingresos, suscripciones, facturas, créditos",
+        "ai": "IA",
+        "aiDesc": "Configurar y monitorear agentes de IA"
+      },
+      "tipTitle": "Consejo Pro",
+      "tipDescription": "Usa LEE \"The Brain\" en el encabezado para ejecutar tareas administrativas usando comandos en lenguaje natural. ¡Solo haz clic en LEE y pregunta lo que necesites!"
+    },
+    "dashboard": {
+      "title": "Resumen del Panel",
+      "description": "Entendiendo tu centro de control ejecutivo",
+      "intro": "El panel de administración proporciona visibilidad a nivel ejecutivo de todas las operaciones de la plataforma de un vistazo.",
+      "widgetsTitle": "Widgets del Panel",
+      "widgets": {
+        "mrr": "Tarjetas MRR/ARR",
+        "mrrDesc": "Instantáneas de Ingresos Recurrentes Mensuales y Anuales",
+        "alerts": "Alertas Críticas",
+        "alertsDesc": "Alertas pendientes que requieren atención inmediata",
+        "activity": "Paneles de Actividad",
+        "activityDesc": "Leads recientes, pedidos y registros",
+        "ai": "Métricas de IA",
+        "aiDesc": "Conteos de conversaciones, puntuaciones de satisfacción, escalaciones",
+        "health": "Salud del Sistema",
+        "healthDesc": "Estado de la plataforma y salud de integraciones"
+      }
+    },
+    "people": {
+      "title": "Gestión de Personas",
+      "description": "Gestionar usuarios, personal, miembros y cuidadores familiares",
+      "table": {
+        "feature": "Función",
+        "description": "Descripción"
+      },
+      "features": {
+        "allUsers": "Todos los Usuarios",
+        "allUsersDesc": "Ver y gestionar todos los usuarios de la plataforma",
+        "staff": "Personal",
+        "staffDesc": "Gestionar enfermeros y personal administrativo, roles, departamentos",
+        "members": "Miembros",
+        "membersDesc": "Ver y gestionar receptores de cuidado",
+        "family": "Cuidadores Familiares",
+        "familyDesc": "Gestionar cuentas de familiares y permisos",
+        "assignments": "Centro de Asignaciones",
+        "assignmentsDesc": "Asignar enfermeros a miembros, gestionar cargas de trabajo"
+      },
+      "commonTasksTitle": "Tareas Comunes",
+      "tasks": {
+        "addUser": "Agregar nuevos usuarios mediante el botón \"Agregar Usuario\" en las páginas respectivas",
+        "editRoles": "Editar roles y permisos a través de la configuración del perfil de usuario",
+        "deactivate": "Desactivar cuentas en lugar de eliminarlas para preservar el historial",
+        "assign": "Usar Centro de Asignaciones para balancear la carga de trabajo enfermero-miembro"
+      }
+    },
+    "commercial": {
+      "title": "Socios Comerciales",
+      "description": "Gestionar relaciones B2B",
+      "types": {
+        "facilities": "Instalaciones de Cuidado",
+        "facilitiesDesc": "Residencias de ancianos, vida asistida, cuidado residencial",
+        "companies": "Empresas de Cuidado",
+        "companiesDesc": "Agencias de atención domiciliaria, servicios domiciliarios",
+        "insurance": "Seguros",
+        "insuranceDesc": "Socios de seguros de salud y cuidado"
+      },
+      "management": "Cada tipo de socio tiene páginas de gestión dedicadas donde puedes agregar, editar y ver detalles incluyendo personal, clientes/residentes y seguimiento financiero."
+    },
+    "catalog": {
+      "title": "Gestión de Catálogo",
+      "description": "Gestionar productos, servicios y precios",
+      "products": {
+        "title": "Productos (Dispositivos)",
+        "desc": "Dispositivos físicos como relojes inteligentes, dispensadores de medicamentos, sensores"
+      },
+      "services": {
+        "title": "Servicios",
+        "desc": "Complementos de servicio como soporte de enfermería, panel familiar, respuesta de emergencia"
+      },
+      "pricing": {
+        "title": "Planes de Precios",
+        "desc": "Planes de suscripción con productos y servicios incluidos"
+      }
+    },
+    "finance": {
+      "title": "Centro de Control Financiero",
+      "description": "Gestión financiera completa",
+      "table": {
+        "area": "Área",
+        "purpose": "Propósito"
+      },
+      "areas": {
+        "dashboard": "Panel de Ingresos",
+        "dashboardDesc": "MRR, ARR, ingresos por segmento de cliente",
+        "subscriptions": "Suscripciones",
+        "subscriptionsDesc": "Gestión de suscripciones activas",
+        "invoices": "Facturas",
+        "invoicesDesc": "Generación y seguimiento de facturas",
+        "transactions": "Transacciones",
+        "transactionsDesc": "Historial de pagos y detalles",
+        "credits": "Créditos y Reembolsos",
+        "creditsDesc": "Emitir créditos, procesar reembolsos"
+      },
+      "noteTitle": "Importante",
+      "noteDescription": "Los datos financieros están segmentados por tipo de cliente (Miembro, Instalación, Empresa de Cuidado, Seguro). Usa filtros para ver segmentos específicos."
+    },
+    "ai": {
+      "title": "Gestión de IA",
+      "description": "Configurar y monitorear agentes de IA",
+      "agentsTitle": "Agentes de IA",
+      "agents": {
+        "claraSales": "Asistente de ventas público",
+        "claraMember": "Compañero de bienestar del miembro",
+        "claraFamily": "Soporte para cuidadores familiares",
+        "ineke": "Asistente clínico de enfermería",
+        "isabella": "Asistente de operaciones de instalaciones",
+        "lee": "Orquestador maestro de administración"
+      },
+      "configNote": "Cada agente puede configurarse con prompts de sistema personalizados, bases de conocimiento y funciones habilitadas a través de la configuración de Agentes de IA."
+    },
+    "analytics": {
+      "title": "Analytics e Informes",
+      "description": "Perspectivas de la plataforma y monitoreo",
+      "platform": "Analytics de Plataforma",
+      "platformDesc": "Crecimiento de usuarios, engagement, tendencias de actividad",
+      "health": "Salud del Sistema",
+      "healthDesc": "Estado del servidor, rendimiento de API, tiempo activo",
+      "aiAnalytics": "Analytics de IA",
+      "aiAnalyticsDesc": "Métricas de conversación, puntuaciones de satisfacción, escalaciones"
+    },
+    "sales": {
+      "title": "Ventas y Leads",
+      "description": "Gestionar el pipeline de ventas",
+      "pipelineTitle": "Etapas del Pipeline de Leads",
+      "sourcesTitle": "Fuentes de Leads",
+      "sources": {
+        "pricing": "Conversiones de página de precios de cuidado personal",
+        "institutional": "Envíos de formulario de registro institucional",
+        "clara": "Interacciones de conversación con Clara IA"
+      }
+    },
+    "communications": {
+      "title": "Comunicaciones",
+      "description": "Mensajería de plataforma y anuncios",
+      "messages": {
+        "title": "Mensajes",
+        "desc": "Mensajería directa con usuarios, difusión a grupos por rol"
+      },
+      "announcements": {
+        "title": "Anuncios",
+        "desc": "Anuncios de toda la plataforma con segmentación por rol, programación, expiración"
+      },
+      "support": {
+        "title": "Tickets de Soporte",
+        "desc": "Gestión y resolución de tickets de soporte al cliente"
+      }
+    },
+    "system": {
+      "title": "Configuración del Sistema",
+      "description": "Configuración de plataforma e integraciones",
+      "settings": {
+        "title": "Configuración del Sistema",
+        "items": {
+          "platform": "Nombre de plataforma y marca",
+          "language": "Idioma y zona horaria predeterminados",
+          "security": "Políticas de seguridad",
+          "maintenance": "Modo de mantenimiento"
+        }
+      },
+      "integrations": {
+        "title": "Integraciones",
+        "items": {
+          "stripe": "Procesamiento de pagos Stripe",
+          "webhooks": "Configuración de webhooks",
+          "api": "Conexiones API"
+        }
+      }
+    },
+    "lee": {
+      "title": "LEE \"The Brain\"",
+      "description": "Tu asistente orquestador de IA",
+      "intro": "LEE es tu orquestador maestro de IA, capaz de ejecutar tareas administrativas a través de comandos en lenguaje natural. Accede a LEE mediante el botón en el encabezado.",
+      "capabilitiesTitle": "Capacidades",
+      "capabilities": {
+        "read": "Leer datos del sistema y generar informes",
+        "create": "Crear y actualizar registros",
+        "schedule": "Programar citas y establecer recordatorios",
+        "message": "Enviar mensajes y notificaciones",
+        "leads": "Actualizar estados de leads",
+        "alerts": "Gestionar alertas y escalaciones"
+      },
+      "examplesTitle": "Comandos de Ejemplo",
+      "examples": {
+        "stats": "\"Muéstrame las estadísticas de hoy\"",
+        "schedule": "\"Programa una reunión con el equipo de enfermería para el miércoles a las 3pm\"",
+        "leads": "\"Actualiza el estado del lead de Juan García a calificado\"",
+        "alerts": "\"Muéstrame todas las alertas críticas\""
+      }
+    },
+    "dailyReport": {
+      "title": "Informe Diario",
+      "description": "Instantánea diaria ejecutiva",
+      "intro": "El Informe Diario proporciona una instantánea completa de la actividad de la plataforma para el día seleccionado. Navega hasta 7 días atrás para comparar métricas.",
+      "sectionsTitle": "Secciones del Informe",
+      "sections": {
+        "revenue": "Métricas de ingresos (pedidos, suscripciones)",
+        "users": "Actividad de usuarios (registros, usuarios activos)",
+        "alerts": "Resumen de alertas y resoluciones",
+        "ai": "Métricas de conversaciones de IA",
+        "leads": "Actividad del pipeline de leads"
+      }
+    },
+    "bestPractices": {
+      "title": "Mejores Prácticas",
+      "description": "Flujos de trabajo y rutinas recomendadas",
+      "dailyTitle": "Rutina Diaria",
+      "daily": {
+        "dashboard": "Revisar el panel para alertas críticas",
+        "leads": "Revisar nuevos leads y seguimientos",
+        "tickets": "Atender tickets de soporte pendientes",
+        "ai": "Monitorear escalaciones de IA"
+      },
+      "weeklyTitle": "Revisión Semanal",
+      "weekly": {
+        "analytics": "Revisar tendencias de analytics de plataforma",
+        "revenue": "Analizar ingresos y tasas de conversión",
+        "assignments": "Revisar balance de asignaciones enfermero-miembro",
+        "ai": "Verificar métricas de rendimiento de agentes de IA"
+      },
+      "tip": "Usa la función de Informe Diario para revisar rápidamente las métricas de ayer y comparar tendencias semana a semana."
+    },
+    "shortcuts": {
+      "title": "Atajos de Teclado",
+      "description": "Navegación y acciones rápidas",
+      "table": {
+        "shortcut": "Atajo",
+        "action": "Acción"
+      },
+      "actions": {
+        "search": "Abrir búsqueda",
+        "sidebar": "Alternar barra lateral",
+        "close": "Cerrar diálogos/modales"
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "description": "Preguntas y respuestas comunes",
+      "questions": {
+        "reset": "¿Cómo restablezco la contraseña de un usuario?",
+        "export": "¿Puedo exportar informes financieros?",
+        "ai": "¿Cómo configuro las respuestas de los agentes de IA?",
+        "maintenance": "¿Qué pasa en modo de mantenimiento?"
+      },
+      "answers": {
+        "reset": "Ve a Personas > Todos los Usuarios, encuentra el usuario y usa la opción \"Restablecer Contraseña\" en su menú de perfil.",
+        "export": "Sí, usa el botón \"Exportar CSV\" disponible en cada página de Finanzas para descargar datos.",
+        "ai": "Navega a Gestión de IA > Agentes de IA, selecciona el agente y modifica el prompt del sistema o la base de conocimiento.",
+        "maintenance": "Los usuarios ven un mensaje de mantenimiento. El acceso de administrador permanece disponible. Habilita via Configuración del Sistema > Mantenimiento."
+      }
+    }
   }
 }
