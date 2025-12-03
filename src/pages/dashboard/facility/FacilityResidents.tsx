@@ -17,12 +17,15 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
+import { ResidentDetailDialog } from "@/components/admin/ResidentDetailDialog";
 
 export default function FacilityResidents() {
   const { user } = useAuth();
   const [residents, setResidents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedResident, setSelectedResident] = useState<any>(null);
+  const [detailDialogOpen, setDetailDialogOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -213,7 +216,21 @@ export default function FacilityResidents() {
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => {
+                                const member = resident.members;
+                                setSelectedResident({
+                                  ...resident,
+                                  member: member ? {
+                                    ...member,
+                                    profile: member.profiles
+                                  } : null
+                                });
+                                setDetailDialogOpen(true);
+                              }}
+                            >
                               View
                             </Button>
                             <Button variant="outline" size="sm">
@@ -229,6 +246,12 @@ export default function FacilityResidents() {
             )}
           </CardContent>
         </Card>
+
+        <ResidentDetailDialog
+          open={detailDialogOpen}
+          onOpenChange={setDetailDialogOpen}
+          resident={selectedResident}
+        />
       </div>
     </FacilityDashboardLayout>
   );
