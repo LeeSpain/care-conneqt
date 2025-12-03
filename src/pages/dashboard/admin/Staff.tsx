@@ -11,9 +11,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Search, UserPlus, MoreVertical, Stethoscope, Building2, Users, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AddStaffDialog } from "@/components/admin/AddStaffDialog";
 
 export default function Staff() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
   const { t } = useTranslation("dashboard-admin");
 
   const { data: nurses, isLoading: nursesLoading } = useQuery({
@@ -137,7 +139,7 @@ export default function Staff() {
             <h2 className="text-2xl font-bold">{t("staff.title")}</h2>
             <p className="text-muted-foreground">{t("staff.subtitle")}</p>
           </div>
-          <Button>
+          <Button onClick={() => setAddDialogOpen(true)}>
             <UserPlus className="h-4 w-4 mr-2" />
             {t("staff.addStaff")}
           </Button>
@@ -357,6 +359,8 @@ export default function Staff() {
             </div>
           </TabsContent>
         </Tabs>
+
+        <AddStaffDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />
       </div>
     </AdminDashboardLayout>
   );
