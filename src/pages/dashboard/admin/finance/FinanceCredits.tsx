@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { useTranslation } from "react-i18next";
-import { useCredits } from "@/hooks/useFinance";
+import { useCredits, getCustomerName, getCustomerEmail, type CustomerType } from "@/hooks/useFinance";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,22 +46,27 @@ import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
+import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
 
 export default function FinanceCredits() {
   const { t } = useTranslation('dashboard-admin');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [issueCreditOpen, setIssueCreditOpen] = useState(false);
   const [newCredit, setNewCredit] = useState({
-    memberId: '',
+    customerId: '',
+    customerType: 'member' as CustomerType,
     amount: '',
     reason: '',
     expiresAt: ''
   });
 
-  const { data: credits, isLoading, refetch } = useCredits(
-    statusFilter !== 'all' ? { status: statusFilter } : undefined
-  );
+  const { data: credits, isLoading, refetch } = useCredits({
+    status: statusFilter !== 'all' ? statusFilter : undefined,
+    customerType: customerTypeFilter !== 'all' ? customerTypeFilter as CustomerType : undefined,
+  });
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, { class: string; icon: React.ReactNode }> = {
@@ -82,8 +87,8 @@ export default function FinanceCredits() {
 
   const filteredCredits = credits?.filter((credit: any) => {
     if (!searchTerm) return true;
-    const memberName = `${credit.members?.profiles?.first_name || ''} ${credit.members?.profiles?.last_name || ''}`.toLowerCase();
-    return memberName.includes(searchTerm.toLowerCase());
+    const customerName = getCustomerName(credit).toLowerCase();
+    return customerName.includes(searchTerm.toLowerCase());
   });
 
   const stats = {
@@ -96,19 +101,36 @@ export default function FinanceCredits() {
   };
 
   const handleIssueCredit = async () => {
-    if (!newCredit.memberId || !newCredit.amount || !newCredit.reason) {
+    if (!newCredit.customerId || !newCredit.amount || !newCredit.reason) {
       toast.error(t('finance.credits.fillRequired'));
       return;
     }
 
-    const { error } = await supabase.from('credits').insert({
-      member_id: newCredit.memberId,
+    const insertData: any = {
       amount: parseFloat(newCredit.amount),
       remaining_amount: parseFloat(newCredit.amount),
       reason: newCredit.reason,
       expires_at: newCredit.expiresAt || null,
-      status: 'active'
-    });
+      status: 'active',
+      customer_type: newCredit.customerType
+    };
+
+    // Set the appropriate ID based on customer type
+    switch (newCredit.customerType) {
+      case 'facility':
+        insertData.facility_id = newCredit.customerId;
+        break;
+      case 'care_company':
+        insertData.care_company_id = newCredit.customerId;
+        break;
+      case 'insurance_company':
+        insertData.insurance_company_id = newCredit.customerId;
+        break;
+      default:
+        insertData.member_id = newCredit.customerId;
+    }
+
+    const { error } = await supabase.from('credits').insert(insertData);
 
     if (error) {
       toast.error(t('finance.credits.issueFailed'));
@@ -117,7 +139,7 @@ export default function FinanceCredits() {
 
     toast.success(t('finance.credits.issueSuccess'));
     setIssueCreditOpen(false);
-    setNewCredit({ memberId: '', amount: '', reason: '', expiresAt: '' });
+    setNewCredit({ customerId: '', customerType: 'member', amount: '', reason: '', expiresAt: '' });
     refetch();
   };
 
@@ -200,6 +222,7 @@ export default function FinanceCredits() {
                   className="pl-9"
                 />
               </div>
+              <CustomerTypeFilter value={customerTypeFilter} onChange={setCustomerTypeFilter} />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder={t('finance.credits.filterByStatus')} />
@@ -233,7 +256,8 @@ export default function FinanceCredits() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t('finance.credits.member')}</TableHead>
+                    <TableHead>{t('finance.customerType')}</TableHead>
+                    <TableHead>{t('finance.credits.customer')}</TableHead>
                     <TableHead>{t('finance.credits.originalAmount')}</TableHead>
                     <TableHead>{t('finance.credits.remaining')}</TableHead>
                     <TableHead>{t('finance.credits.reason')}</TableHead>
@@ -246,13 +270,12 @@ export default function FinanceCredits() {
                   {filteredCredits.map((credit: any) => (
                     <TableRow key={credit.id}>
                       <TableCell>
+                        <CustomerTypeBadge customerType={credit.customer_type} showLabel={false} />
+                      </TableCell>
+                      <TableCell>
                         <div>
-                          <p className="font-medium">
-                            {credit.members?.profiles?.first_name} {credit.members?.profiles?.last_name}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {credit.members?.profiles?.email}
-                          </p>
+                          <p className="font-medium">{getCustomerName(credit)}</p>
+                          <p className="text-sm text-muted-foreground">{getCustomerEmail(credit)}</p>
                         </div>
                       </TableCell>
                       <TableCell className="font-medium">€{Number(credit.amount).toFixed(2)}</TableCell>
@@ -302,11 +325,28 @@ export default function FinanceCredits() {
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>{t('finance.credits.memberId')}</Label>
+                <Label>{t('finance.customerType')}</Label>
+                <Select 
+                  value={newCredit.customerType} 
+                  onValueChange={(v) => setNewCredit({ ...newCredit, customerType: v as CustomerType, customerId: '' })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="member">{t('finance.customerTypes.member')}</SelectItem>
+                    <SelectItem value="facility">{t('finance.customerTypes.facility')}</SelectItem>
+                    <SelectItem value="care_company">{t('finance.customerTypes.careCompany')}</SelectItem>
+                    <SelectItem value="insurance_company">{t('finance.customerTypes.insurance')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>{t('finance.credits.customerId')}</Label>
                 <Input
-                  placeholder={t('finance.credits.memberIdPlaceholder')}
-                  value={newCredit.memberId}
-                  onChange={(e) => setNewCredit({ ...newCredit, memberId: e.target.value })}
+                  placeholder={t('finance.credits.customerIdPlaceholder')}
+                  value={newCredit.customerId}
+                  onChange={(e) => setNewCredit({ ...newCredit, customerId: e.target.value })}
                 />
               </div>
               <div className="space-y-2">

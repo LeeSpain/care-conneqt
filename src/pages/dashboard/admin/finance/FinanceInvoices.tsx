@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { useTranslation } from "react-i18next";
-import { useInvoices } from "@/hooks/useFinance";
+import { useInvoices, getCustomerName, getCustomerEmail, type CustomerType } from "@/hooks/useFinance";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,16 +42,20 @@ import {
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
+import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
+import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
 
 export default function FinanceInvoices() {
   const { t } = useTranslation('dashboard-admin');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedInvoice, setSelectedInvoice] = useState<any>(null);
 
-  const { data: invoices, isLoading, refetch } = useInvoices(
-    statusFilter !== 'all' ? { status: statusFilter } : undefined
-  );
+  const { data: invoices, isLoading, refetch } = useInvoices({
+    status: statusFilter !== 'all' ? statusFilter : undefined,
+    customerType: customerTypeFilter !== 'all' ? customerTypeFilter as CustomerType : undefined,
+  });
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, { class: string; icon: React.ReactNode }> = {
@@ -73,9 +77,9 @@ export default function FinanceInvoices() {
 
   const filteredInvoices = invoices?.filter((inv: any) => {
     if (!searchTerm) return true;
-    const memberName = `${inv.members?.profiles?.first_name || ''} ${inv.members?.profiles?.last_name || ''}`.toLowerCase();
+    const customerName = getCustomerName(inv).toLowerCase();
     const invoiceNum = (inv.invoice_number || '').toLowerCase();
-    return memberName.includes(searchTerm.toLowerCase()) || invoiceNum.includes(searchTerm.toLowerCase());
+    return customerName.includes(searchTerm.toLowerCase()) || invoiceNum.includes(searchTerm.toLowerCase());
   });
 
   const stats = {
@@ -163,6 +167,7 @@ export default function FinanceInvoices() {
                   className="pl-9"
                 />
               </div>
+              <CustomerTypeFilter value={customerTypeFilter} onChange={setCustomerTypeFilter} />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder={t('finance.invoices.filterByStatus')} />
@@ -197,6 +202,7 @@ export default function FinanceInvoices() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('finance.invoices.invoiceNumber')}</TableHead>
+                    <TableHead>{t('finance.customerType')}</TableHead>
                     <TableHead>{t('finance.invoices.customer')}</TableHead>
                     <TableHead>{t('finance.invoices.amount')}</TableHead>
                     <TableHead>{t('finance.invoices.dueDate')}</TableHead>
@@ -209,13 +215,12 @@ export default function FinanceInvoices() {
                     <TableRow key={inv.id}>
                       <TableCell className="font-mono font-medium">{inv.invoice_number}</TableCell>
                       <TableCell>
+                        <CustomerTypeBadge customerType={inv.customer_type} showLabel={false} />
+                      </TableCell>
+                      <TableCell>
                         <div>
-                          <p className="font-medium">
-                            {inv.members?.profiles?.first_name} {inv.members?.profiles?.last_name}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {inv.members?.profiles?.email}
-                          </p>
+                          <p className="font-medium">{getCustomerName(inv)}</p>
+                          <p className="text-sm text-muted-foreground">{getCustomerEmail(inv)}</p>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -275,7 +280,10 @@ export default function FinanceInvoices() {
                       {t('finance.invoices.created')}: {format(new Date(selectedInvoice.created_at), 'PPP')}
                     </p>
                   </div>
-                  {getStatusBadge(selectedInvoice.status)}
+                  <div className="flex items-center gap-2">
+                    <CustomerTypeBadge customerType={selectedInvoice.customer_type} />
+                    {getStatusBadge(selectedInvoice.status)}
+                  </div>
                 </div>
 
                 <Separator />
@@ -283,10 +291,8 @@ export default function FinanceInvoices() {
                 {/* Customer Info */}
                 <div>
                   <p className="text-sm font-medium text-muted-foreground mb-2">{t('finance.invoices.billTo')}</p>
-                  <p className="font-medium">
-                    {selectedInvoice.members?.profiles?.first_name} {selectedInvoice.members?.profiles?.last_name}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{selectedInvoice.members?.profiles?.email}</p>
+                  <p className="font-medium">{getCustomerName(selectedInvoice)}</p>
+                  <p className="text-sm text-muted-foreground">{getCustomerEmail(selectedInvoice)}</p>
                 </div>
 
                 {/* Line Items */}

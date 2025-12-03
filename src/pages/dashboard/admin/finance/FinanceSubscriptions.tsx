@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { useTranslation } from "react-i18next";
-import { useSubscriptions } from "@/hooks/useFinance";
+import { useSubscriptions, getCustomerName, getCustomerEmail, type CustomerType } from "@/hooks/useFinance";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,16 +40,20 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
+import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
 
 export default function FinanceSubscriptions() {
   const { t } = useTranslation('dashboard-admin');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubscription, setSelectedSubscription] = useState<any>(null);
 
-  const { data: subscriptions, isLoading, refetch } = useSubscriptions(
-    statusFilter !== 'all' ? { status: statusFilter } : undefined
-  );
+  const { data: subscriptions, isLoading, refetch } = useSubscriptions({
+    status: statusFilter !== 'all' ? statusFilter : undefined,
+    customerType: customerTypeFilter !== 'all' ? customerTypeFilter as CustomerType : undefined,
+  });
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
@@ -68,9 +72,9 @@ export default function FinanceSubscriptions() {
 
   const filteredSubscriptions = subscriptions?.filter((sub: any) => {
     if (!searchTerm) return true;
-    const memberName = `${sub.members?.profiles?.first_name || ''} ${sub.members?.profiles?.last_name || ''}`.toLowerCase();
-    const email = (sub.members?.profiles?.email || '').toLowerCase();
-    return memberName.includes(searchTerm.toLowerCase()) || email.includes(searchTerm.toLowerCase());
+    const customerName = getCustomerName(sub).toLowerCase();
+    const email = getCustomerEmail(sub).toLowerCase();
+    return customerName.includes(searchTerm.toLowerCase()) || email.includes(searchTerm.toLowerCase());
   });
 
   const stats = {
@@ -148,6 +152,7 @@ export default function FinanceSubscriptions() {
                   className="pl-9"
                 />
               </div>
+              <CustomerTypeFilter value={customerTypeFilter} onChange={setCustomerTypeFilter} />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder={t('finance.subscriptions.filterByStatus')} />
@@ -180,7 +185,8 @@ export default function FinanceSubscriptions() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t('finance.subscriptions.member')}</TableHead>
+                    <TableHead>{t('finance.customerType')}</TableHead>
+                    <TableHead>{t('finance.subscriptions.customer')}</TableHead>
                     <TableHead>{t('finance.subscriptions.plan')}</TableHead>
                     <TableHead>{t('finance.subscriptions.amount')}</TableHead>
                     <TableHead>{t('finance.subscriptions.billing')}</TableHead>
@@ -193,13 +199,12 @@ export default function FinanceSubscriptions() {
                   {filteredSubscriptions.map((sub: any) => (
                     <TableRow key={sub.id}>
                       <TableCell>
+                        <CustomerTypeBadge customerType={sub.customer_type} showLabel={false} />
+                      </TableCell>
+                      <TableCell>
                         <div>
-                          <p className="font-medium">
-                            {sub.members?.profiles?.first_name} {sub.members?.profiles?.last_name}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {sub.members?.profiles?.email}
-                          </p>
+                          <p className="font-medium">{getCustomerName(sub)}</p>
+                          <p className="text-sm text-muted-foreground">{getCustomerEmail(sub)}</p>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -248,20 +253,17 @@ export default function FinanceSubscriptions() {
             </DialogHeader>
             {selectedSubscription && (
               <div className="space-y-6">
-                {/* Member Info */}
+                {/* Customer Info */}
                 <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
                   <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
                     <Users className="h-6 w-6 text-primary" />
                   </div>
-                  <div>
-                    <p className="font-semibold">
-                      {selectedSubscription.members?.profiles?.first_name} {selectedSubscription.members?.profiles?.last_name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {selectedSubscription.members?.profiles?.email}
-                    </p>
+                  <div className="flex-1">
+                    <p className="font-semibold">{getCustomerName(selectedSubscription)}</p>
+                    <p className="text-sm text-muted-foreground">{getCustomerEmail(selectedSubscription)}</p>
                   </div>
-                  <div className="ml-auto">
+                  <div className="flex items-center gap-2">
+                    <CustomerTypeBadge customerType={selectedSubscription.customer_type} />
                     {getStatusBadge(selectedSubscription.status)}
                   </div>
                 </div>

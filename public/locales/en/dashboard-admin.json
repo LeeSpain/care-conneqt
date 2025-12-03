@@ -45,6 +45,24 @@
     "creditsRefunds": "Credits & Refunds",
     "financialReports": "Financial Reports"
   },
+  "finance": {
+    "customerType": "Customer Type",
+    "filterByCustomerType": "Filter by customer",
+    "customerTypes": {
+      "member": "Member",
+      "facility": "Facility",
+      "careCompany": "Care Company",
+      "insurance": "Insurance"
+    },
+    "subscriptions": {
+      "customer": "Customer"
+    },
+    "credits": {
+      "customer": "Customer",
+      "customerId": "Customer ID",
+      "customerIdPlaceholder": "Enter customer ID..."
+    }
+  },
   "home": {
     "title": "Admin Dashboard",
     "welcome": "Welcome, Admin",

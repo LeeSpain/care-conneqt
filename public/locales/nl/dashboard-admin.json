@@ -45,6 +45,23 @@
     "creditsRefunds": "Tegoeden & Terugbetalingen",
     "financialReports": "Financiële Rapporten"
   },
+  "finance": {
+    "customerType": "Klanttype",
+    "filterByCustomerType": "Filter op klant",
+    "customerTypes": {
+      "member": "Lid",
+      "facility": "Faciliteit",
+      "careCompany": "Zorgbedrijf",
+      "insurance": "Verzekering"
+    },
+    "subscriptions": {
+      "customer": "Klant"
+    },
+    "credits": {
+      "customer": "Klant",
+      "customerId": "Klant ID",
+      "customerIdPlaceholder": "Voer klant ID in..."
+    }
   "home": {
     "title": "Admin Dashboard",
     "welcome": "Welkom, Admin",

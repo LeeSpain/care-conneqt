@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { useTranslation } from "react-i18next";
-import { useTransactions } from "@/hooks/useFinance";
+import { useTransactions, getCustomerName, getCustomerEmail, type CustomerType } from "@/hooks/useFinance";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,17 +42,21 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
+import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
 
 export default function FinanceTransactions() {
   const { t } = useTranslation('dashboard-admin');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTransaction, setSelectedTransaction] = useState<any>(null);
 
   const { data: transactions, isLoading, refetch } = useTransactions({
     type: typeFilter !== 'all' ? typeFilter : undefined,
     status: statusFilter !== 'all' ? statusFilter : undefined,
+    customerType: customerTypeFilter !== 'all' ? customerTypeFilter as CustomerType : undefined,
   });
 
   const getTypeBadge = (type: string) => {
@@ -91,8 +95,8 @@ export default function FinanceTransactions() {
 
   const filteredTransactions = transactions?.filter((tx: any) => {
     if (!searchTerm) return true;
-    const memberName = `${tx.members?.profiles?.first_name || ''} ${tx.members?.profiles?.last_name || ''}`.toLowerCase();
-    return memberName.includes(searchTerm.toLowerCase());
+    const customerName = getCustomerName(tx).toLowerCase();
+    return customerName.includes(searchTerm.toLowerCase());
   });
 
   const stats = {
@@ -178,6 +182,7 @@ export default function FinanceTransactions() {
                   className="pl-9"
                 />
               </div>
+              <CustomerTypeFilter value={customerTypeFilter} onChange={setCustomerTypeFilter} />
               <Select value={typeFilter} onValueChange={setTypeFilter}>
                 <SelectTrigger className="w-full md:w-[180px]">
                   <SelectValue placeholder={t('finance.transactions.filterByType')} />
@@ -224,6 +229,7 @@ export default function FinanceTransactions() {
                   <TableRow>
                     <TableHead>{t('finance.transactions.date')}</TableHead>
                     <TableHead>{t('finance.transactions.type')}</TableHead>
+                    <TableHead>{t('finance.customerType')}</TableHead>
                     <TableHead>{t('finance.transactions.customer')}</TableHead>
                     <TableHead>{t('finance.transactions.amount')}</TableHead>
                     <TableHead>{t('finance.transactions.method')}</TableHead>
@@ -242,10 +248,11 @@ export default function FinanceTransactions() {
                       </TableCell>
                       <TableCell>{getTypeBadge(tx.transaction_type)}</TableCell>
                       <TableCell>
+                        <CustomerTypeBadge customerType={tx.customer_type} showLabel={false} />
+                      </TableCell>
+                      <TableCell>
                         <div>
-                          <p className="font-medium">
-                            {tx.members?.profiles?.first_name} {tx.members?.profiles?.last_name}
-                          </p>
+                          <p className="font-medium">{getCustomerName(tx)}</p>
                           {tx.invoices?.invoice_number && (
                             <p className="text-xs text-muted-foreground font-mono">
                               {tx.invoices.invoice_number}
@@ -316,13 +323,16 @@ export default function FinanceTransactions() {
                   </div>
                 </div>
 
+                {/* Customer Type & Details */}
+                <div className="flex items-center gap-2 justify-center">
+                  <CustomerTypeBadge customerType={selectedTransaction.customer_type} />
+                </div>
+
                 {/* Details Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">{t('finance.transactions.customer')}</p>
-                    <p className="font-medium">
-                      {selectedTransaction.members?.profiles?.first_name} {selectedTransaction.members?.profiles?.last_name}
-                    </p>
+                    <p className="font-medium">{getCustomerName(selectedTransaction)}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">{t('finance.transactions.date')}</p>

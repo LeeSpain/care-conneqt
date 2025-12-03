@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export type CustomerType = 'member' | 'facility' | 'care_company' | 'insurance_company';
+
 export interface RevenueStats {
   mrr: number;
   arr: number;
@@ -15,6 +17,11 @@ export interface RevenueStats {
   failedTransactions: number;
   totalCredits: number;
   activeCredits: number;
+  // By customer type
+  memberMrr: number;
+  facilityMrr: number;
+  companyMrr: number;
+  insuranceMrr: number;
 }
 
 export function useRevenueStats() {
@@ -24,7 +31,7 @@ export function useRevenueStats() {
       // Fetch subscriptions
       const { data: subscriptions } = await supabase
         .from('subscriptions')
-        .select('monthly_amount, status')
+        .select('monthly_amount, status, customer_type')
         .eq('status', 'active');
 
       // Fetch invoices
@@ -52,6 +59,16 @@ export function useRevenueStats() {
       const ordersMrr = orders?.reduce((sum, o) => sum + Number(o.total_monthly || 0), 0) || 0;
       const mrr = activeSubscriptionsMrr + ordersMrr;
 
+      // Calculate MRR by customer type
+      const memberMrr = subscriptions?.filter(s => s.customer_type === 'member' || !s.customer_type)
+        .reduce((sum, s) => sum + Number(s.monthly_amount || 0), 0) || 0;
+      const facilityMrr = subscriptions?.filter(s => s.customer_type === 'facility')
+        .reduce((sum, s) => sum + Number(s.monthly_amount || 0), 0) || 0;
+      const companyMrr = subscriptions?.filter(s => s.customer_type === 'care_company')
+        .reduce((sum, s) => sum + Number(s.monthly_amount || 0), 0) || 0;
+      const insuranceMrr = subscriptions?.filter(s => s.customer_type === 'insurance_company')
+        .reduce((sum, s) => sum + Number(s.monthly_amount || 0), 0) || 0;
+
       return {
         mrr,
         arr: mrr * 12,
@@ -66,12 +83,16 @@ export function useRevenueStats() {
         failedTransactions: transactions?.filter(t => t.status === 'failed').length || 0,
         totalCredits: credits?.reduce((sum, c) => sum + Number(c.amount || 0), 0) || 0,
         activeCredits: credits?.filter(c => c.status === 'active').reduce((sum, c) => sum + Number(c.remaining_amount || 0), 0) || 0,
+        memberMrr: memberMrr + ordersMrr,
+        facilityMrr,
+        companyMrr,
+        insuranceMrr,
       };
     }
   });
 }
 
-export function useSubscriptions(filters?: { status?: string }) {
+export function useSubscriptions(filters?: { status?: string; customerType?: CustomerType }) {
   return useQuery({
     queryKey: ['finance-subscriptions', filters],
     queryFn: async () => {
@@ -83,6 +104,9 @@ export function useSubscriptions(filters?: { status?: string }) {
             id,
             profiles (first_name, last_name, email)
           ),
+          facilities (id, name, email),
+          care_companies (id, name, email),
+          insurance_companies (id, name, email),
           pricing_plans (slug),
           subscription_items (*)
         `)
@@ -90,6 +114,9 @@ export function useSubscriptions(filters?: { status?: string }) {
 
       if (filters?.status) {
         query = query.eq('status', filters.status);
+      }
+      if (filters?.customerType) {
+        query = query.eq('customer_type', filters.customerType);
       }
 
       const { data, error } = await query;
@@ -99,7 +126,7 @@ export function useSubscriptions(filters?: { status?: string }) {
   });
 }
 
-export function useInvoices(filters?: { status?: string }) {
+export function useInvoices(filters?: { status?: string; customerType?: CustomerType }) {
   return useQuery({
     queryKey: ['finance-invoices', filters],
     queryFn: async () => {
@@ -111,12 +138,18 @@ export function useInvoices(filters?: { status?: string }) {
             id,
             profiles (first_name, last_name, email)
           ),
+          facilities (id, name, email),
+          care_companies (id, name, email),
+          insurance_companies (id, name, email),
           invoice_items (*)
         `)
         .order('created_at', { ascending: false });
 
       if (filters?.status) {
         query = query.eq('status', filters.status);
+      }
+      if (filters?.customerType) {
+        query = query.eq('customer_type', filters.customerType);
       }
 
       const { data, error } = await query;
@@ -126,7 +159,7 @@ export function useInvoices(filters?: { status?: string }) {
   });
 }
 
-export function useTransactions(filters?: { type?: string; status?: string }) {
+export function useTransactions(filters?: { type?: string; status?: string; customerType?: CustomerType }) {
   return useQuery({
     queryKey: ['finance-transactions', filters],
     queryFn: async () => {
@@ -138,6 +171,9 @@ export function useTransactions(filters?: { type?: string; status?: string }) {
             id,
             profiles (first_name, last_name, email)
           ),
+          facilities (id, name, email),
+          care_companies (id, name, email),
+          insurance_companies (id, name, email),
           invoices (invoice_number)
         `)
         .order('created_at', { ascending: false });
@@ -148,6 +184,9 @@ export function useTransactions(filters?: { type?: string; status?: string }) {
       if (filters?.status) {
         query = query.eq('status', filters.status);
       }
+      if (filters?.customerType) {
+        query = query.eq('customer_type', filters.customerType);
+      }
 
       const { data, error } = await query;
       if (error) throw error;
@@ -156,7 +195,7 @@ export function useTransactions(filters?: { type?: string; status?: string }) {
   });
 }
 
-export function useCredits(filters?: { status?: string }) {
+export function useCredits(filters?: { status?: string; customerType?: CustomerType }) {
   return useQuery({
     queryKey: ['finance-credits', filters],
     queryFn: async () => {
@@ -167,12 +206,18 @@ export function useCredits(filters?: { status?: string }) {
           members (
             id,
             profiles (first_name, last_name, email)
-          )
+          ),
+          facilities (id, name, email),
+          care_companies (id, name, email),
+          insurance_companies (id, name, email)
         `)
         .order('created_at', { ascending: false });
 
       if (filters?.status) {
         query = query.eq('status', filters.status);
+      }
+      if (filters?.customerType) {
+        query = query.eq('customer_type', filters.customerType);
       }
 
       const { data, error } = await query;
@@ -197,4 +242,39 @@ export function useRevenueSnapshots(periodType: 'daily' | 'monthly' = 'monthly',
       return data?.reverse() || [];
     }
   });
+}
+
+// Helper function to get customer display name
+export function getCustomerName(record: any): string {
+  const customerType = record.customer_type || 'member';
+  
+  switch (customerType) {
+    case 'facility':
+      return record.facilities?.name || 'Unknown Facility';
+    case 'care_company':
+      return record.care_companies?.name || 'Unknown Company';
+    case 'insurance_company':
+      return record.insurance_companies?.name || 'Unknown Insurance';
+    default:
+      const profile = record.members?.profiles;
+      if (profile) {
+        return `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'Unknown Member';
+      }
+      return 'Unknown Member';
+  }
+}
+
+export function getCustomerEmail(record: any): string {
+  const customerType = record.customer_type || 'member';
+  
+  switch (customerType) {
+    case 'facility':
+      return record.facilities?.email || '';
+    case 'care_company':
+      return record.care_companies?.email || '';
+    case 'insurance_company':
+      return record.insurance_companies?.email || '';
+    default:
+      return record.members?.profiles?.email || '';
+  }
 }
