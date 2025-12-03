@@ -76,9 +76,9 @@ const agentConfigs: Record<string, AgentConfig> = {
   },
   'lee-the-brain': {
     icon: Brain,
-    iconColor: 'text-amber-500',
-    bgGradient: 'from-amber-500/20 to-orange-500/20',
-    borderHover: 'hover:border-amber-500/40',
+    iconColor: 'text-white',
+    bgGradient: 'bg-secondary',
+    borderHover: 'hover:border-secondary/60',
     section: 'management',
     settingsPath: '/dashboard/admin/ai-agents/lee',
   },
@@ -168,7 +168,7 @@ export default function AIAgentsSettings() {
       <Card className={`border transition-all ${config.borderHover} overflow-hidden`}>
         <CardContent className="p-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className={`p-2.5 rounded-lg bg-gradient-to-br ${config.bgGradient} shrink-0`}>
+            <div className={`p-2.5 rounded-lg shrink-0 ${config.bgGradient.startsWith('from-') ? `bg-gradient-to-br ${config.bgGradient}` : config.bgGradient}`}>
               <Icon className={`h-4 w-4 ${config.iconColor}`} />
             </div>
             <div className="min-w-0 flex-1">

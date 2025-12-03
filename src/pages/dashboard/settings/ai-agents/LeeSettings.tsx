@@ -11,16 +11,16 @@ export default function LeeSettings() {
       title={t('aiAgents.agents.lee.title')}
       subtitle={t('aiAgents.agents.lee.subtitle')}
       icon={Brain}
-      iconColorClass="text-amber-500"
-      gradientClass="bg-gradient-to-br from-amber-500/20 to-orange-500/20"
+      iconColorClass="text-white"
+      gradientClass="bg-secondary"
       specificSettings={
         <div className="pt-4 border-t space-y-3">
           <h4 className="font-semibold">{t('aiAgents.agents.lee.settingsTitle')}</h4>
           <p className="text-sm text-muted-foreground">
             {t('aiAgents.agents.lee.settingsDescription')}
           </p>
-          <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-            <p className="text-xs text-amber-600 dark:text-amber-400">
+          <div className="p-3 rounded-lg bg-secondary/10 border border-secondary/30">
+            <p className="text-xs text-secondary dark:text-secondary">
               {t('aiAgents.agents.lee.warning')}
             </p>
           </div>
