@@ -139,12 +139,19 @@ Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 31. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
 32. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
 
+=== FINANCE ACTIONS ===
+33. get_revenue_stats: {} - Get MRR, ARR, total revenue, invoice stats, and financial overview
+34. get_subscription_details: {subscription_id?:string, member_id?:string, status?:"active|past_due|canceled|trialing"} - Query subscriptions
+35. issue_credit: {member_id:string, amount:number, reason:string, expires_at?:string} - Issue credit to member account
+36. process_refund: {invoice_id:string, amount?:number, reason:string} - Process full or partial refund
+
 RULES:
 - Use READ actions first to get IDs before modifying data
 - Use lookup_user to find user/nurse IDs before assignments
 - Put action blocks at END of response
 - Keep text brief - action results display automatically
 - For assignments, first verify the nurse exists and member exists
+- For finance actions, verify member/invoice exists before issuing credits or refunds
 === END COMMANDS ===\n`;
 
     systemPrompt += `\n\nRespond in ${languageName}. Be concise. NEVER repeat action results in your text - they are shown automatically. Just acknowledge the action briefly (e.g., "Here are the nurses:" or "Done.") then put the action block. Keep responses under 50 words.`;
@@ -295,6 +302,19 @@ RULES:
             break;
           case 'update_lead':
             result = await executeUpdateLead(supabase, user.id, actionData);
+            break;
+          // FINANCE actions
+          case 'get_revenue_stats':
+            result = await executeGetRevenueStats(supabase);
+            break;
+          case 'get_subscription_details':
+            result = await executeGetSubscriptionDetails(supabase, actionData);
+            break;
+          case 'issue_credit':
+            result = await executeIssueCredit(supabase, user.id, actionData);
+            break;
+          case 'process_refund':
+            result = await executeProcessRefund(supabase, user.id, actionData);
             break;
         }
         
@@ -1996,6 +2016,316 @@ async function executeToggleUserStatus(
     };
   } catch (error: any) {
     console.error('Error toggling user status:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==================== FINANCE ACTION EXECUTORS ====================
+
+async function executeGetRevenueStats(supabase: any) {
+  try {
+    // Fetch all finance data in parallel
+    const [
+      subscriptionsResult,
+      invoicesResult,
+      transactionsResult,
+      creditsResult
+    ] = await Promise.all([
+      supabase.from('subscriptions').select('*').eq('status', 'active'),
+      supabase.from('invoices').select('*'),
+      supabase.from('transactions').select('*'),
+      supabase.from('credits').select('*').eq('status', 'active')
+    ]);
+
+    const activeSubscriptions = subscriptionsResult.data || [];
+    const invoices = invoicesResult.data || [];
+    const transactions = transactionsResult.data || [];
+    const credits = creditsResult.data || [];
+
+    // Calculate MRR from active subscriptions
+    const mrr = activeSubscriptions.reduce((sum: number, sub: any) => {
+      let monthlyAmount = sub.amount || 0;
+      if (sub.billing_interval === 'year') {
+        monthlyAmount = monthlyAmount / 12;
+      }
+      return sum + monthlyAmount;
+    }, 0);
+
+    // Calculate total revenue from paid invoices
+    const paidInvoices = invoices.filter((inv: any) => inv.status === 'paid');
+    const totalRevenue = paidInvoices.reduce((sum: number, inv: any) => sum + (inv.total || 0), 0);
+
+    // Calculate outstanding amount
+    const pendingInvoices = invoices.filter((inv: any) => ['pending', 'overdue'].includes(inv.status));
+    const outstandingAmount = pendingInvoices.reduce((sum: number, inv: any) => sum + (inv.amount_due || 0), 0);
+
+    // Calculate total credits balance
+    const totalCredits = credits.reduce((sum: number, c: any) => sum + (c.remaining_amount || 0), 0);
+
+    // Transaction stats
+    const successfulTransactions = transactions.filter((t: any) => t.status === 'completed');
+    const failedTransactions = transactions.filter((t: any) => t.status === 'failed');
+
+    return {
+      success: true,
+      revenue: {
+        mrr: Math.round(mrr * 100) / 100,
+        arr: Math.round(mrr * 12 * 100) / 100,
+        total_revenue: Math.round(totalRevenue * 100) / 100,
+        outstanding: Math.round(outstandingAmount * 100) / 100,
+        currency: 'EUR'
+      },
+      subscriptions: {
+        active: activeSubscriptions.length,
+        total: subscriptionsResult.data?.length || 0
+      },
+      invoices: {
+        total: invoices.length,
+        paid: paidInvoices.length,
+        pending: pendingInvoices.length,
+        overdue: invoices.filter((inv: any) => inv.status === 'overdue').length
+      },
+      transactions: {
+        total: transactions.length,
+        successful: successfulTransactions.length,
+        failed: failedTransactions.length
+      },
+      credits: {
+        active_count: credits.length,
+        total_balance: Math.round(totalCredits * 100) / 100
+      }
+    };
+  } catch (error: any) {
+    console.error('Error getting revenue stats:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeGetSubscriptionDetails(
+  supabase: any,
+  actionData: { subscription_id?: string; member_id?: string; status?: string }
+) {
+  try {
+    let query = supabase
+      .from('subscriptions')
+      .select(`
+        *,
+        members:member_id (
+          id,
+          profiles:user_id (first_name, last_name, email)
+        ),
+        pricing_plans:pricing_plan_id (name, billing_interval)
+      `)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    if (actionData.subscription_id) {
+      query = query.eq('id', actionData.subscription_id);
+    }
+    if (actionData.member_id) {
+      query = query.eq('member_id', actionData.member_id);
+    }
+    if (actionData.status) {
+      query = query.eq('status', actionData.status);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const subscriptions = data?.map((sub: any) => ({
+      id: sub.id,
+      member: sub.members?.profiles 
+        ? `${sub.members.profiles.first_name || ''} ${sub.members.profiles.last_name || ''}`.trim()
+        : 'Unknown',
+      email: sub.members?.profiles?.email || '',
+      plan: sub.pricing_plans?.name || sub.plan_name || 'Unknown',
+      status: sub.status,
+      amount: sub.amount,
+      currency: sub.currency,
+      billing_interval: sub.billing_interval,
+      current_period_start: sub.current_period_start?.split('T')[0],
+      current_period_end: sub.current_period_end?.split('T')[0],
+      cancel_at_period_end: sub.cancel_at_period_end
+    })) || [];
+
+    return { success: true, count: subscriptions.length, subscriptions };
+  } catch (error: any) {
+    console.error('Error getting subscription details:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeIssueCredit(
+  supabase: any,
+  adminUserId: string,
+  actionData: { member_id: string; amount: number; reason: string; expires_at?: string }
+) {
+  try {
+    if (!actionData.member_id || !actionData.amount || !actionData.reason) {
+      return { success: false, error: 'member_id, amount, and reason are required' };
+    }
+
+    if (actionData.amount <= 0) {
+      return { success: false, error: 'Amount must be greater than 0' };
+    }
+
+    // Verify member exists
+    const { data: member, error: memberError } = await supabase
+      .from('members')
+      .select('id, profiles:user_id (first_name, last_name, email)')
+      .eq('id', actionData.member_id)
+      .single();
+
+    if (memberError || !member) {
+      return { success: false, error: 'Member not found' };
+    }
+
+    // Create the credit
+    const { data: credit, error: creditError } = await supabase
+      .from('credits')
+      .insert({
+        member_id: actionData.member_id,
+        amount: actionData.amount,
+        remaining_amount: actionData.amount,
+        reason: actionData.reason,
+        status: 'active',
+        currency: 'EUR',
+        created_by: adminUserId,
+        expires_at: actionData.expires_at || null
+      })
+      .select()
+      .single();
+
+    if (creditError) throw creditError;
+
+    // Log the transaction
+    await supabase.from('transactions').insert({
+      member_id: actionData.member_id,
+      type: 'credit',
+      amount: actionData.amount,
+      currency: 'EUR',
+      status: 'completed',
+      description: `Credit issued: ${actionData.reason}`,
+      metadata: { credit_id: credit.id, issued_by: adminUserId }
+    });
+
+    const memberName = member.profiles 
+      ? `${member.profiles.first_name || ''} ${member.profiles.last_name || ''}`.trim()
+      : 'Unknown';
+
+    return {
+      success: true,
+      credit: {
+        id: credit.id,
+        member: memberName,
+        email: member.profiles?.email,
+        amount: credit.amount,
+        currency: credit.currency,
+        reason: credit.reason,
+        expires_at: credit.expires_at?.split('T')[0] || 'Never'
+      }
+    };
+  } catch (error: any) {
+    console.error('Error issuing credit:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeProcessRefund(
+  supabase: any,
+  adminUserId: string,
+  actionData: { invoice_id: string; amount?: number; reason: string }
+) {
+  try {
+    if (!actionData.invoice_id || !actionData.reason) {
+      return { success: false, error: 'invoice_id and reason are required' };
+    }
+
+    // Get the invoice
+    const { data: invoice, error: invoiceError } = await supabase
+      .from('invoices')
+      .select(`
+        *,
+        members:member_id (
+          id,
+          profiles:user_id (first_name, last_name, email)
+        )
+      `)
+      .eq('id', actionData.invoice_id)
+      .single();
+
+    if (invoiceError || !invoice) {
+      return { success: false, error: 'Invoice not found' };
+    }
+
+    if (invoice.status !== 'paid') {
+      return { success: false, error: 'Can only refund paid invoices' };
+    }
+
+    const refundAmount = actionData.amount || invoice.amount_paid || invoice.total;
+
+    if (refundAmount <= 0) {
+      return { success: false, error: 'Refund amount must be greater than 0' };
+    }
+
+    if (refundAmount > (invoice.amount_paid || invoice.total)) {
+      return { success: false, error: 'Refund amount exceeds paid amount' };
+    }
+
+    // Create refund transaction
+    const { data: transaction, error: transactionError } = await supabase
+      .from('transactions')
+      .insert({
+        member_id: invoice.member_id,
+        invoice_id: invoice.id,
+        type: 'refund',
+        amount: -refundAmount,
+        currency: invoice.currency,
+        status: 'completed',
+        description: `Refund: ${actionData.reason}`,
+        metadata: { 
+          original_invoice: invoice.invoice_number,
+          refund_reason: actionData.reason,
+          processed_by: adminUserId
+        }
+      })
+      .select()
+      .single();
+
+    if (transactionError) throw transactionError;
+
+    // Update invoice status if full refund
+    const isFullRefund = refundAmount >= (invoice.amount_paid || invoice.total);
+    if (isFullRefund) {
+      await supabase
+        .from('invoices')
+        .update({ 
+          status: 'refunded',
+          notes: `Refunded on ${new Date().toISOString().split('T')[0]}: ${actionData.reason}`
+        })
+        .eq('id', invoice.id);
+    }
+
+    const memberName = invoice.members?.profiles 
+      ? `${invoice.members.profiles.first_name || ''} ${invoice.members.profiles.last_name || ''}`.trim()
+      : 'Unknown';
+
+    return {
+      success: true,
+      refund: {
+        transaction_id: transaction.id,
+        invoice_number: invoice.invoice_number,
+        member: memberName,
+        email: invoice.members?.profiles?.email,
+        amount: refundAmount,
+        currency: invoice.currency,
+        type: isFullRefund ? 'full' : 'partial',
+        reason: actionData.reason,
+        new_invoice_status: isFullRefund ? 'refunded' : 'paid'
+      }
+    };
+  } catch (error: any) {
+    console.error('Error processing refund:', error);
     return { success: false, error: error.message };
   }
 }
