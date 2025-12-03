@@ -44,9 +44,12 @@ import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
 import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
+import { exportTransactionsToCSV } from "@/lib/exportUtils";
+import { useToast } from "@/hooks/use-toast";
 
 export default function FinanceTransactions() {
   const { t } = useTranslation('dashboard-admin');
+  const { toast } = useToast();
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
@@ -122,7 +125,18 @@ export default function FinanceTransactions() {
               <RefreshCw className="h-4 w-4 mr-2" />
               {t('common:buttons.refresh')}
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => {
+                if (transactions && transactions.length > 0) {
+                  exportTransactionsToCSV(transactions);
+                  toast({ title: t('finance.exportSuccess') });
+                } else {
+                  toast({ title: t('finance.noDataToExport'), variant: "destructive" });
+                }
+              }}
+            >
               <Download className="h-4 w-4 mr-2" />
               {t('finance.transactions.export')}
             </Button>

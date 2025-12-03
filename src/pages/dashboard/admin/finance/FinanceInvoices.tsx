@@ -44,9 +44,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { CustomerTypeBadge } from "@/components/finance/CustomerTypeBadge";
 import { CustomerTypeFilter } from "@/components/finance/CustomerTypeFilter";
+import { exportInvoicesToCSV } from "@/lib/exportUtils";
+import { useToast } from "@/hooks/use-toast";
 
 export default function FinanceInvoices() {
   const { t } = useTranslation('dashboard-admin');
+  const { toast } = useToast();
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [customerTypeFilter, setCustomerTypeFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -104,6 +107,21 @@ export default function FinanceInvoices() {
             <Button variant="outline" size="sm" onClick={() => refetch()}>
               <RefreshCw className="h-4 w-4 mr-2" />
               {t('common:buttons.refresh')}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => {
+                if (invoices && invoices.length > 0) {
+                  exportInvoicesToCSV(invoices);
+                  toast({ title: t('finance.exportSuccess') });
+                } else {
+                  toast({ title: t('finance.noDataToExport'), variant: "destructive" });
+                }
+              }}
+            >
+              <Download className="h-4 w-4 mr-2" />
+              {t('finance.export')}
             </Button>
             <Button size="sm">
               <Plus className="h-4 w-4 mr-2" />

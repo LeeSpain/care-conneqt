@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Megaphone, Plus, Calendar } from "lucide-react";
+import { Megaphone, Plus, Calendar, Edit, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { CreateAnnouncementDialog } from "@/components/admin/CreateAnnouncementDialog";
 
 export default function Announcements() {
   const { t } = useTranslation('dashboard-admin');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editData, setEditData] = useState<any>(null);
 
   const { data: announcements, isLoading } = useQuery({
     queryKey: ["platform-announcements"],
@@ -23,6 +27,16 @@ export default function Announcements() {
     }
   });
 
+  const handleCreate = () => {
+    setEditData(null);
+    setDialogOpen(true);
+  };
+
+  const handleEdit = (announcement: any) => {
+    setEditData(announcement);
+    setDialogOpen(true);
+  };
+
   return (
     <AdminDashboardLayout title={t('announcements.title')}>
       <div className="space-y-6">
@@ -33,7 +47,7 @@ export default function Announcements() {
               {t('announcements.subtitle')}
             </p>
           </div>
-          <Button>
+          <Button onClick={handleCreate}>
             <Plus className="h-4 w-4 mr-2" />
             {t('announcements.createButton')}
           </Button>
@@ -79,9 +93,17 @@ export default function Announcements() {
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     {announcement.content}
                   </p>
-                  <div className="flex gap-2 mt-4">
-                    <Button variant="outline" size="sm">{t('announcements.edit')}</Button>
-                    <Button variant="ghost" size="sm">{t('announcements.viewDetails')}</Button>
+                  <div className="flex items-center gap-2 mt-4">
+                    <Button variant="outline" size="sm" onClick={() => handleEdit(announcement)}>
+                      <Edit className="h-3 w-3 mr-1" />
+                      {t('announcements.edit')}
+                    </Button>
+                    {announcement.target_roles && (
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Users className="h-3 w-3" />
+                        {announcement.target_roles.length} {t('announcements.roles')}
+                      </span>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -91,7 +113,7 @@ export default function Announcements() {
               <CardContent className="p-12 text-center">
                 <Megaphone className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <p className="text-muted-foreground mb-4">{t('announcements.noAnnouncements')}</p>
-                <Button>
+                <Button onClick={handleCreate}>
                   <Plus className="h-4 w-4 mr-2" />
                   {t('announcements.createFirst')}
                 </Button>
@@ -100,6 +122,12 @@ export default function Announcements() {
           )}
         </div>
       </div>
+
+      <CreateAnnouncementDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        editData={editData}
+      />
     </AdminDashboardLayout>
   );
 }
