@@ -403,17 +403,71 @@
     "title": "Systeemconfiguratie",
     "subtitle": "Globale systeeminstellingen en configuratie",
     "comingSoon": "Binnenkort beschikbaar",
+    "saveChanges": "Wijzigingen Opslaan",
+    "saving": "Opslaan...",
+    "saveSuccess": "Instellingen succesvol opgeslagen",
+    "saveFailed": "Opslaan van instellingen mislukt",
+    "unsavedChanges": "Je hebt niet-opgeslagen wijzigingen",
+    "tabs": {
+      "general": "Algemeen",
+      "security": "Beveiliging",
+      "notifications": "Notificaties",
+      "business": "Bedrijf",
+      "maintenance": "Onderhoud"
+    },
     "general": {
       "title": "Algemene Instellingen",
-      "description": "Platformbrede configuratie-opties"
+      "description": "Platformbrede configuratie-opties",
+      "platformName": "Platformnaam",
+      "defaultLanguage": "Standaardtaal",
+      "defaultTimezone": "Standaard Tijdzone",
+      "dateFormat": "Datumformaat",
+      "timeFormat": "Tijdformaat",
+      "hour": "uur"
     },
     "security": {
       "title": "Beveiligingsinstellingen",
-      "description": "Authenticatie- en beveiligingsbeleid"
+      "description": "Authenticatie- en beveiligingsbeleid",
+      "sessionSettings": "Sessie-instellingen",
+      "sessionTimeout": "Sessie Time-out",
+      "minutes": "minuten",
+      "maxLoginAttempts": "Max. Inlogpogingen",
+      "lockoutDuration": "Vergrendelingsduur",
+      "passwordPolicy": "Wachtwoordbeleid",
+      "minLength": "Minimale Lengte",
+      "requireSpecialChar": "Speciaal Teken Vereist",
+      "requireNumber": "Nummer Vereist"
     },
     "notifications": {
       "title": "Notificatie-instellingen",
-      "description": "Systeembrede notificatievoorkeuren"
+      "description": "Systeembrede notificatievoorkeuren",
+      "emailEnabled": "E-mailnotificaties",
+      "emailEnabledDesc": "Stuur e-mailnotificaties voor belangrijke gebeurtenissen",
+      "alertThresholds": "Waarschuwingsdrempels",
+      "lowBattery": "Lage Batterij Drempel",
+      "inactivityAlert": "Inactiviteitswaarschuwing Na",
+      "hours": "uur"
+    },
+    "business": {
+      "title": "Bedrijfsinstellingen",
+      "description": "Openingstijden en contactinformatie",
+      "operatingHours": "Openingstijden",
+      "startTime": "Starttijd",
+      "endTime": "Eindtijd",
+      "emergencyContact": "Noodcontact",
+      "contactName": "Contactnaam",
+      "contactPhone": "Contacttelefoon"
+    },
+    "maintenance": {
+      "title": "Onderhoudsinstellingen",
+      "description": "Gegevensbehoud en systeemonderhoud",
+      "maintenanceMode": "Onderhoudsmodus",
+      "maintenanceModeDesc": "Wanneer actief, zien gebruikers een onderhoudspagina",
+      "dataRetention": "Gegevensbehoud",
+      "retentionPeriod": "Bewaarperiode Activiteitenlogboek",
+      "days": "dagen",
+      "autoBackup": "Automatische Back-ups",
+      "autoBackupDesc": "Schakel automatische dagelijkse back-ups in"
     }
   },
   "integrations": {

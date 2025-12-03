@@ -403,17 +403,71 @@
     "title": "System Configuration",
     "subtitle": "Global system settings and configuration",
     "comingSoon": "Coming soon",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "saveSuccess": "Settings saved successfully",
+    "saveFailed": "Failed to save settings",
+    "unsavedChanges": "You have unsaved changes",
+    "tabs": {
+      "general": "General",
+      "security": "Security",
+      "notifications": "Notifications",
+      "business": "Business",
+      "maintenance": "Maintenance"
+    },
     "general": {
       "title": "General Settings",
-      "description": "Platform-wide configuration options"
+      "description": "Platform-wide configuration options",
+      "platformName": "Platform Name",
+      "defaultLanguage": "Default Language",
+      "defaultTimezone": "Default Timezone",
+      "dateFormat": "Date Format",
+      "timeFormat": "Time Format",
+      "hour": "hour"
     },
     "security": {
       "title": "Security Settings",
-      "description": "Authentication and security policies"
+      "description": "Authentication and security policies",
+      "sessionSettings": "Session Settings",
+      "sessionTimeout": "Session Timeout",
+      "minutes": "minutes",
+      "maxLoginAttempts": "Max Login Attempts",
+      "lockoutDuration": "Lockout Duration",
+      "passwordPolicy": "Password Policy",
+      "minLength": "Minimum Length",
+      "requireSpecialChar": "Require Special Character",
+      "requireNumber": "Require Number"
     },
     "notifications": {
       "title": "Notification Settings",
-      "description": "System-wide notification preferences"
+      "description": "System-wide notification preferences",
+      "emailEnabled": "Email Notifications",
+      "emailEnabledDesc": "Send email notifications for important events",
+      "alertThresholds": "Alert Thresholds",
+      "lowBattery": "Low Battery Threshold",
+      "inactivityAlert": "Inactivity Alert After",
+      "hours": "hours"
+    },
+    "business": {
+      "title": "Business Settings",
+      "description": "Operating hours and contact information",
+      "operatingHours": "Operating Hours",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "emergencyContact": "Emergency Contact",
+      "contactName": "Contact Name",
+      "contactPhone": "Contact Phone"
+    },
+    "maintenance": {
+      "title": "Maintenance Settings",
+      "description": "Data retention and system maintenance",
+      "maintenanceMode": "Maintenance Mode",
+      "maintenanceModeDesc": "When enabled, users will see a maintenance page",
+      "dataRetention": "Data Retention",
+      "retentionPeriod": "Activity Log Retention",
+      "days": "days",
+      "autoBackup": "Automatic Backups",
+      "autoBackupDesc": "Enable automatic daily backups"
     }
   },
   "integrations": {
