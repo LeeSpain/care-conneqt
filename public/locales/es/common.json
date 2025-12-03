@@ -167,6 +167,7 @@
     "subtitle": "Orquestador Maestro de IA • Acceso Completo",
     "thinking": "Lee está pensando...",
     "placeholder": "Pregunta a Lee cualquier cosa sobre el sistema...",
+    "error": "Lo siento, pero encontré un error. Por favor, intenta de nuevo.",
     "actions": {
       "categories": {
         "read": "Consultar Datos",
@@ -263,5 +264,8 @@
   },
   "adminGuide": {
     "title": "Guía"
+  },
+  "dailyReport": {
+    "title": "Informe Diario"
   }
 }

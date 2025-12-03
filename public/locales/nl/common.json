@@ -167,6 +167,7 @@
     "subtitle": "Meester AI-orkestrator • Volledige Toegang",
     "thinking": "Lee is aan het denken...",
     "placeholder": "Vraag Lee alles over het systeem...",
+    "error": "Excuses, maar ik ondervond een fout. Probeer het opnieuw.",
     "actions": {
       "categories": {
         "read": "Gegevens Opvragen",
@@ -263,5 +264,8 @@
   },
   "adminGuide": {
     "title": "Gids"
+  },
+  "dailyReport": {
+    "title": "Dagelijks Rapport"
   }
 }
