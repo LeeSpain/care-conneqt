@@ -36,7 +36,14 @@
     "announcements": "Aankondigingen",
     "supportTickets": "Supporttickets",
     "systemSettings": "Systeeminstellingen",
-    "integrations": "Integraties"
+    "integrations": "Integraties",
+    "finance": "Financiën",
+    "revenueDashboard": "Omzet Dashboard",
+    "subscriptions": "Abonnementen",
+    "invoices": "Facturen",
+    "transactions": "Transacties",
+    "creditsRefunds": "Tegoeden & Terugbetalingen",
+    "financialReports": "Financiële Rapporten"
   },
   "home": {
     "title": "Admin Dashboard",
