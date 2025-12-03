@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { PricingWizard } from "@/components/pricing/PricingWizard";
+import { PickAndMixWizard } from "@/components/pricing/PickAndMixWizard";
 import { useTranslation } from "react-i18next";
 import { Shield, Users, Heart, Package, Puzzle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -116,24 +117,7 @@ const Pricing = () => {
       {pricingType === 'subscription' ? (
         <PricingWizard />
       ) : (
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-md mx-auto">
-              <div className="p-4 rounded-full bg-primary/10 w-fit mx-auto mb-6">
-                <Puzzle className="h-12 w-12 text-primary" />
-              </div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                {t('pricingType.pickAndMix.title')}
-              </h2>
-              <Badge variant="outline" className="mb-4">
-                {t('pricingType.pickAndMix.comingSoon')}
-              </Badge>
-              <p className="text-muted-foreground">
-                {t('pricingType.pickAndMix.description')}
-              </p>
-            </div>
-          </div>
-        </section>
+        <PickAndMixWizard />
       )}
 
       <Footer />

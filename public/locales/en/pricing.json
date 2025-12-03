@@ -14,9 +14,27 @@
     "pickAndMix": {
       "title": "Pick & Mix",
       "description": "Build your own custom package by selecting individual devices and services",
-      "badge": "Flexible",
-      "comingSoon": "Coming Soon"
+      "badge": "Flexible"
     }
+  },
+  "pickAndMix": {
+    "step1Title": "Step 1: Choose Your Platform & Base Device",
+    "step1Subtitle": "Start with our care platform and select your primary monitoring device",
+    "step2Title": "Step 2: Add Extra Devices & Services",
+    "step2Subtitle": "Customize your package with additional monitoring and care services",
+    "platformTitle": "Care Conneqt Platform",
+    "platformDescription": "Complete care management with 1 device included",
+    "feature1": "AI Guardian monitoring",
+    "feature2": "24/7 nurse support line",
+    "feature3": "Emergency response system",
+    "feature4": "Family dashboard access",
+    "selectBaseDevice": "Select Your Included Device",
+    "baseDeviceIncluded": "Choose which device is included with your platform",
+    "includes1Device": "Includes 1 device",
+    "included": "Included",
+    "addons": "Add-on Devices & Services",
+    "orderSuccess": "Order created successfully!",
+    "orderError": "Failed to create order"
   },
   "steps": {
     "plan": "Choose Plan",
