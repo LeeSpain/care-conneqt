@@ -295,7 +295,7 @@ export const PricingWizard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2 text-sm">
-                    <div><span className="font-semibold">Email:</span> {userEmail}</div>
+                    <div><span className="font-semibold">{t('review.emailLabel')}:</span> {userEmail}</div>
                   </div>
                 </CardContent>
               </Card>
