@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/AdminSidebar";
 import { Button } from "@/components/ui/button";
-import { Bell, Brain, Send, Sparkles } from "lucide-react";
+import { Bell, Brain, Send, Sparkles, FileText } from "lucide-react";
 import leeAvatar from "@/assets/lee-avatar.png";
 import {
   DropdownMenu,
@@ -152,8 +152,8 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
             <SidebarTrigger />
             <h1 className="text-xl font-semibold">{title}</h1>
             
-            {/* Lee Assistant - centered in header */}
-            <div className="flex-1 flex justify-center">
+            {/* Lee Assistant + Daily Report - centered in header */}
+            <div className="flex-1 flex justify-center items-center gap-3">
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
                   <button 
@@ -264,6 +264,17 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                   </div>
                 </SheetContent>
               </Sheet>
+              
+              {/* Daily Report Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/dashboard/admin/daily-report')}
+                className="h-10 px-4 rounded-full border-border/50 bg-background/50 hover:bg-muted/80 shadow-sm transition-all duration-200"
+              >
+                <FileText className="h-4 w-4 mr-2 text-secondary" />
+                <span className="font-medium">{t('dailyReport.title', 'Daily Report')}</span>
+              </Button>
             </div>
             
             <LanguageSwitcher />

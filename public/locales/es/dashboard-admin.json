@@ -1898,5 +1898,69 @@
       "transactionLog": "Registro de Transacciones",
       "taxReport": "Informe de Impuestos"
     }
+  },
+  "dailyReport": {
+    "title": "Informe Diario",
+    "subtitle": "Resumen Ejecutivo",
+    "todaysDate": "Fecha de Hoy",
+    "print": "Imprimir",
+    "export": "Exportar PDF",
+    "refresh": "Actualizar",
+    "revenue": {
+      "title": "Resumen de Ingresos",
+      "todayRevenue": "Ingresos de Hoy",
+      "mrr": "MRR",
+      "arr": "ARR",
+      "mrrChange": "Cambio MRR"
+    },
+    "alerts": {
+      "title": "Alertas Críticas",
+      "noAlerts": "Sin alertas críticas",
+      "viewAll": "Ver Todo"
+    },
+    "activity": {
+      "title": "Resumen de Actividad",
+      "today": "Hoy",
+      "thisWeek": "Esta Semana",
+      "thisMonth": "Este Mes",
+      "leads": "Nuevos Leads",
+      "orders": "Pedidos",
+      "signups": "Registros",
+      "conversations": "Conversaciones IA"
+    },
+    "pipeline": {
+      "title": "Resumen del Pipeline",
+      "conversion": "Tasa de Conversión",
+      "highValue": "Oportunidades de Alto Valor"
+    },
+    "ai": {
+      "title": "Rendimiento de IA",
+      "conversations": "Conversaciones",
+      "satisfaction": "Satisfacción",
+      "escalations": "Escalaciones",
+      "byAgent": "Por Agente"
+    },
+    "operations": {
+      "title": "Salud Operacional",
+      "systemStatus": "Estado del Sistema",
+      "activeNurses": "Enfermeros Activos",
+      "openTickets": "Tickets Abiertos",
+      "deviceAlerts": "Alertas de Dispositivos",
+      "pendingTasks": "Tareas Pendientes"
+    },
+    "finance": {
+      "title": "Resumen Financiero",
+      "outstanding": "Facturas Pendientes",
+      "pending": "Pagos Pendientes",
+      "recentTransactions": "Transacciones Recientes",
+      "subscriptions": "Suscripciones Activas"
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "viewAlerts": "Ver Todas las Alertas",
+      "viewLeads": "Ver Todos los Leads",
+      "viewFinance": "Panel de Finanzas",
+      "viewAI": "Analytics de IA"
+    }
   }
 }
