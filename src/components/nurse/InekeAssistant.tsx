@@ -148,7 +148,7 @@ export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }
           <HeartPulse className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 h-3 w-3 bg-green-400 rounded-full border-2 border-white animate-pulse" />
         </div>
-        <span className="hidden sm:inline">Chat with Ineke</span>
+        <span className="hidden sm:inline">{t('ineke.chatWith')}</span>
       </Button>
     );
   }
@@ -295,7 +295,7 @@ export const InekeAssistant = ({ context, isOpen: externalIsOpen, onOpenChange }
               </div>
               <div>
                 <h2 className="text-xl font-semibold">Ineke</h2>
-                <p className="text-sm text-muted-foreground">{t('ineke.available')} • Your AI Nursing Assistant</p>
+                <p className="text-sm text-muted-foreground">{t('ineke.available')} • {t('ineke.subtitle')}</p>
               </div>
             </div>
           </div>

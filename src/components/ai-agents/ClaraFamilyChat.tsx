@@ -168,7 +168,7 @@ export function ClaraFamilyChat({ memberId }: ClaraFamilyChatProps) {
               <h3 className="font-bold text-base">Clara</h3>
               <Sparkles className="h-4 w-4 text-fuchsia-500 animate-pulse" />
             </div>
-            <p className="text-xs text-muted-foreground">Family Support • Available 24/7</p>
+            <p className="text-xs text-muted-foreground">{t('claraFamily.subtitle')}</p>
           </div>
         </div>
         <div className="flex gap-1">
@@ -227,7 +227,7 @@ export function ClaraFamilyChat({ memberId }: ClaraFamilyChatProps) {
                   <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-2xl p-4 border border-secondary/20">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin text-fuchsia-500" />
-                      <span className="text-xs text-muted-foreground">Clara is typing...</span>
+                      <span className="text-xs text-muted-foreground">{t('claraFamily.typing')}</span>
                     </div>
                   </div>
                 </div>
@@ -241,7 +241,7 @@ export function ClaraFamilyChat({ memberId }: ClaraFamilyChatProps) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-                placeholder="Ask about your loved one's care..."
+                placeholder={t('claraFamily.placeholder')}
                 disabled={isLoading}
                 className="flex-1 rounded-full border-fuchsia-500/20 focus:border-fuchsia-500/40 bg-background"
               />
@@ -255,7 +255,7 @@ export function ClaraFamilyChat({ memberId }: ClaraFamilyChatProps) {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground text-center mt-2">
-              Powered by Conneqtivity AI
+              {t('clara.powered')}
             </p>
           </div>
         </>

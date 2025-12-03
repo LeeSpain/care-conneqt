@@ -120,24 +120,36 @@
     "greeting": "¡Hola! Soy Clara, tu asistente de Care Conneqt. ¿Cómo puedo ayudarte hoy?",
     "chatWith": "Hablar con Clara",
     "available": "Asistente IA • Disponible Ahora",
+    "subtitle": "Tu Compañera de Cuidado • Disponible 24/7",
     "typing": "Clara está escribiendo...",
     "placeholder": "Pregúntame cualquier cosa sobre nuestros servicios de atención...",
-    "powered": "Impulsado por IA • Respuestas instantáneas"
+    "powered": "Impulsado por Conneqtivity IA",
+    "expandView": "Expandir a vista completa",
+    "availableNow": "Disponible 24/7 para ayudarte"
   },
   "ineke": {
     "greeting": "¡Hola! Soy Ineke, tu asistente de enfermería. Puedo ayudarte a acceder a datos de miembros, encontrar protocolos de atención, verificar el estado de dispositivos y más. ¿Cómo puedo ayudarte?",
     "available": "IA de Apoyo de Enfermería",
+    "chatWith": "Hablar con Ineke",
+    "subtitle": "Tu Asistente de Enfermería IA",
     "typing": "Ineke está escribiendo...",
     "placeholder": "Pregúntame lo que quieras..."
   },
   "claraMember": {
-    "greeting": "¡Hola! Soy Clara, tu compañera de cuidado personal. ¿Cómo puedo ayudarte hoy?"
+    "greeting": "¡Hola! Soy Clara, tu compañera de cuidado personal. ¿Cómo puedo ayudarte hoy?",
+    "subtitle": "Tu Compañera de Cuidado • Disponible 24/7"
   },
   "claraFamily": {
-    "greeting": "¡Hola! Soy Clara, aquí para ayudarte a mantenerte conectado con el cuidado de tu ser querido. ¿Qué te gustaría saber?"
+    "greeting": "¡Hola! Soy Clara, aquí para ayudarte a mantenerte conectado con el cuidado de tu ser querido. ¿Qué te gustaría saber?",
+    "subtitle": "Apoyo Familiar • Disponible 24/7",
+    "typing": "Clara está escribiendo...",
+    "placeholder": "Pregunta sobre el cuidado de tu ser querido..."
   },
   "isabella": {
-    "greeting": "¡Hola! Soy Isabella, tu asistente de gestión de instalaciones. ¿Cómo puedo ayudarte con las operaciones hoy?"
+    "greeting": "¡Hola! Soy Isabella, tu asistente de gestión de instalaciones. ¿Cómo puedo ayudarte con las operaciones hoy?",
+    "subtitle": "Asistente de Instalaciones • Disponible 24/7",
+    "typing": "Isabella está escribiendo...",
+    "placeholder": "Pregunta sobre operaciones..."
   },
   "lee": {
     "greeting": "Saludos. Soy Lee \"El Cerebro\", orquestador maestro de IA. Tengo acceso completo al sistema y puedo proporcionar información a nivel ejecutivo. ¿Cómo puedo ayudarte?",

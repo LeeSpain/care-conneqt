@@ -120,24 +120,36 @@
     "greeting": "Hi! I'm Clara, your Care Conneqt assistant. How can I help you today?",
     "chatWith": "Chat with Clara",
     "available": "AI Assistant • Available Now",
+    "subtitle": "Your Care Companion • Available 24/7",
     "typing": "Clara is typing...",
     "placeholder": "Ask me anything about our care services...",
-    "powered": "Powered by AI • Instant responses"
+    "powered": "Powered by Conneqtivity AI",
+    "expandView": "Expand to full view",
+    "availableNow": "Available 24/7 to help you"
   },
   "ineke": {
     "greeting": "Hello! I'm Ineke, your nursing assistant. I can help you access member data, find care protocols, check device status, and more. How can I assist you?",
     "available": "Nurse Support AI",
+    "chatWith": "Chat with Ineke",
+    "subtitle": "Your AI Nursing Assistant",
     "typing": "Ineke is typing...",
     "placeholder": "Ask me anything..."
   },
   "claraMember": {
-    "greeting": "Hello! I'm Clara, your personal care companion. How can I help you today?"
+    "greeting": "Hello! I'm Clara, your personal care companion. How can I help you today?",
+    "subtitle": "Your Care Companion • Available 24/7"
   },
   "claraFamily": {
-    "greeting": "Hello! I'm Clara, here to help you stay connected with your loved one's care. What would you like to know?"
+    "greeting": "Hello! I'm Clara, here to help you stay connected with your loved one's care. What would you like to know?",
+    "subtitle": "Family Support • Available 24/7",
+    "typing": "Clara is typing...",
+    "placeholder": "Ask about your loved one's care..."
   },
   "isabella": {
-    "greeting": "Hello! I'm Isabella, your facility management assistant. How can I help with operations today?"
+    "greeting": "Hello! I'm Isabella, your facility management assistant. How can I help with operations today?",
+    "subtitle": "Facility Assistant • Available 24/7",
+    "typing": "Isabella is typing...",
+    "placeholder": "Ask about operations..."
   },
   "lee": {
     "greeting": "Greetings. I am Lee \"The Brain\", master AI orchestrator. I have full system access and can provide executive-level insights. How may I assist you?",

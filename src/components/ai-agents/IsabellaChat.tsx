@@ -149,7 +149,7 @@ export function IsabellaChat({ facilityId, companyId }: IsabellaChatProps) {
               <h3 className="font-bold text-base">Isabella</h3>
               <Sparkles className="h-4 w-4 text-blue-500 animate-pulse" />
             </div>
-            <p className="text-xs text-muted-foreground">Facility Assistant • Available 24/7</p>
+            <p className="text-xs text-muted-foreground">{t('isabella.subtitle')}</p>
           </div>
         </div>
         <div className="flex gap-1">
@@ -196,7 +196,7 @@ export function IsabellaChat({ facilityId, companyId }: IsabellaChatProps) {
                   <div className="bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-2xl p-4 border border-secondary/20">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                      <span className="text-xs text-muted-foreground">Isabella is typing...</span>
+                      <span className="text-xs text-muted-foreground">{t('isabella.typing')}</span>
                     </div>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export function IsabellaChat({ facilityId, companyId }: IsabellaChatProps) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
-                placeholder="Ask about operations..."
+                placeholder={t('isabella.placeholder')}
                 disabled={isLoading}
                 className="flex-1 rounded-full border-blue-500/20 focus:border-blue-500/40 bg-background"
               />
@@ -224,7 +224,7 @@ export function IsabellaChat({ facilityId, companyId }: IsabellaChatProps) {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground text-center mt-2">
-              Powered by Conneqtivity AI
+              {t('clara.powered')}
             </p>
           </div>
         </>
