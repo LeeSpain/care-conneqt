@@ -59,12 +59,17 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
   
   const [isOpen, setIsOpen] = useState(false);
   const [agent, setAgent] = useState<AgentData | null>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: t('lee.greeting', 'Greetings. I am LEE The Brain, master AI orchestrator. How may I assist you today?') }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Reset greeting message when language changes
+  useEffect(() => {
+    setMessages([
+      { role: 'assistant', content: t('lee.greeting', 'Greetings. I am LEE The Brain, master AI orchestrator. How may I assist you today?') }
+    ]);
+  }, [currentLanguage, t]);
 
   useEffect(() => {
     const fetchAgent = async () => {
