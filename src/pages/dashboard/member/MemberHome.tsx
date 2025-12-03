@@ -8,7 +8,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Activity, Heart, MessageSquare, Shield, Calendar, Package } from 'lucide-react';
 import { formatDate } from '@/lib/intl';
 import { useTranslation } from 'react-i18next';
-import { ClaraMemberChat } from '@/components/ai-agents/ClaraMemberChat';
 
 export default function MemberHome() {
   const { user, profile } = useAuth();
@@ -245,8 +244,6 @@ export default function MemberHome() {
           </CardContent>
         </Card>
       </div>
-      
-      <ClaraMemberChat memberId={member?.id} />
     </MemberDashboardLayout>
   );
 }

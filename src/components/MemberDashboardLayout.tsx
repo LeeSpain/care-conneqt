@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,9 @@ import {
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { MemberSidebar } from '@/components/MemberSidebar';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { ClaraHeaderChat } from '@/components/ai-agents/ClaraHeaderChat';
 import { Bell, LogOut, Settings, User } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface MemberDashboardLayoutProps {
   children: ReactNode;
@@ -22,8 +24,22 @@ interface MemberDashboardLayoutProps {
 }
 
 export const MemberDashboardLayout = ({ children, title }: MemberDashboardLayoutProps) => {
-  const { profile, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const [memberId, setMemberId] = useState<string | undefined>();
+
+  useEffect(() => {
+    const fetchMemberId = async () => {
+      if (!user) return;
+      const { data } = await supabase
+        .from('members')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (data) setMemberId(data.id);
+    };
+    fetchMemberId();
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -44,8 +60,8 @@ export const MemberDashboardLayout = ({ children, title }: MemberDashboardLayout
             <div className="flex h-16 items-center px-4 gap-4">
               <SidebarTrigger className="md:mr-2" />
               
-              <div className="flex-1">
-                <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+              <div className="flex-1 flex items-center justify-center">
+                <ClaraHeaderChat memberId={memberId} />
               </div>
 
               <LanguageSwitcher />
