@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, DollarSign } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { formatNumber } from "@/lib/intl";
 import heroImage from "@/assets/personal-care-hero.jpg";
 
@@ -53,10 +54,10 @@ export const PersonalCareHero = () => {
                 className="bg-secondary hover:bg-secondary/90 text-white font-semibold group"
                 asChild
               >
-                <a href="/pricing">
+                <Link to="/pricing">
                   {t('hero.getStarted')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </Button>
             </div>
 
