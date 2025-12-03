@@ -23,7 +23,7 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Building2, Users, Bed, Settings, AlertCircle, MoreVertical, Eye, DoorOpen, Trash2, UserCog } from "lucide-react";
+import { ArrowLeft, Building2, Users, Bed, Settings, AlertCircle, MoreVertical, Eye, DoorOpen, Trash2, UserCog, Pencil } from "lucide-react";
 import { useState } from "react";
 import { AdmitResidentDialog } from "@/components/admin/AdmitResidentDialog";
 import { AddFacilityStaffDialog } from "@/components/admin/AddFacilityStaffDialog";
@@ -31,6 +31,7 @@ import { AddFacilityDialog } from "@/components/admin/AddFacilityDialog";
 import { DischargeResidentDialog } from "@/components/admin/DischargeResidentDialog";
 import { ChangeRoomDialog } from "@/components/admin/ChangeRoomDialog";
 import { EditStaffRoleDialog } from "@/components/admin/EditStaffRoleDialog";
+import { ResidentDetailDialog } from "@/components/admin/ResidentDetailDialog";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
@@ -46,6 +47,7 @@ export default function FacilityDetail() {
   const [changeRoomDialogOpen, setChangeRoomDialogOpen] = useState(false);
   const [editStaffRoleDialogOpen, setEditStaffRoleDialogOpen] = useState(false);
   const [removeStaffDialogOpen, setRemoveStaffDialogOpen] = useState(false);
+  const [residentDetailOpen, setResidentDetailOpen] = useState(false);
   const [selectedResident, setSelectedResident] = useState<any>(null);
   const [selectedStaff, setSelectedStaff] = useState<any>(null);
 
@@ -288,9 +290,16 @@ export default function FacilityDetail() {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/members`)}>
+                            <DropdownMenuItem onClick={() => {
+                              setSelectedResident(resident);
+                              setResidentDetailOpen(true);
+                            }}>
                               <Eye className="h-4 w-4 mr-2" />
                               {t('facilityDetail.viewProfile')}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/members/${resident.member?.id}`)}>
+                              <Pencil className="h-4 w-4 mr-2" />
+                              {t('facilityDetail.editProfile')}
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => {
                               setSelectedResident(resident);
@@ -493,6 +502,12 @@ export default function FacilityDetail() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <ResidentDetailDialog
+        open={residentDetailOpen}
+        onOpenChange={setResidentDetailOpen}
+        resident={selectedResident}
+      />
     </AdminDashboardLayout>
   );
 }

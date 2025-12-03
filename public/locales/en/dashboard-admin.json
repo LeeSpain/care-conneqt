@@ -325,6 +325,7 @@
     "room": "Room",
     "admitted": "Admitted",
     "viewProfile": "View Profile",
+    "editProfile": "Edit Profile",
     "changeRoom": "Change Room",
     "dischargeResident": "Discharge Resident",
     "noResidents": "No residents currently in this facility",
