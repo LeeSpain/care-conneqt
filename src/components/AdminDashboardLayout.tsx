@@ -156,61 +156,83 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
             <div className="flex-1 flex justify-center">
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className="h-10 px-4 gap-2.5 bg-secondary hover:bg-secondary/90 border-secondary text-white transition-all"
+                  <button 
+                    className="group relative flex items-center gap-3 h-11 pl-1.5 pr-4 rounded-full bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 border border-secondary/50 shadow-lg shadow-secondary/20 hover:shadow-secondary/30 transition-all duration-300"
                   >
                     <div className="relative">
-                      <Avatar className="h-6 w-6 ring-2 ring-white/30">
-                        <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
-                        <AvatarFallback className="bg-white/20 text-white text-xs">
-                          <Brain className="h-3 w-3" />
+                      <Avatar className="h-8 w-8 ring-2 ring-white/40 shadow-md">
+                        <AvatarImage src={avatarSrc} alt={agent?.display_name || "Lee The Brain"} className="object-cover" />
+                        <AvatarFallback className="bg-secondary-foreground/20 text-white text-xs">
+                          <Brain className="h-4 w-4" />
                         </AvatarFallback>
                       </Avatar>
-                      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-success rounded-full border-2 border-secondary" />
+                      <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 bg-success rounded-full border-2 border-secondary animate-pulse" />
                     </div>
-                    <span className="font-medium text-sm text-white">Lee "The Brain"</span>
-                    <Sparkles className="h-3.5 w-3.5 text-white/80" />
-                  </Button>
+                    <div className="flex flex-col items-start">
+                      <span className="font-semibold text-sm text-white leading-tight">{agent?.display_name || 'Lee "The Brain"'}</span>
+                      <span className="text-[10px] text-white/70 leading-tight">{t('lee.subtitle', 'AI Orchestrator')}</span>
+                    </div>
+                    <Sparkles className="h-4 w-4 text-white/60 group-hover:text-white/90 transition-colors ml-1" />
+                  </button>
                 </SheetTrigger>
-                <SheetContent className="w-[400px] sm:w-[450px] flex flex-col p-0">
-                  <SheetHeader className="px-4 py-3 border-b bg-gradient-to-r from-secondary to-primary">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-10 w-10 ring-2 ring-white/30">
-                        <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
-                        <AvatarFallback className="bg-primary text-white">
-                          <Brain className="h-5 w-5" />
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <SheetTitle className="text-white text-left">Lee "The Brain"</SheetTitle>
-                        <p className="text-xs text-white/80">{t('lee.subtitle', 'Master AI Orchestrator')}</p>
+                <SheetContent className="w-[420px] sm:w-[480px] flex flex-col p-0 border-l-secondary/30">
+                  <SheetHeader className="px-5 py-4 border-b bg-gradient-to-br from-secondary via-secondary/95 to-primary/80">
+                    <div className="flex items-center gap-4">
+                      <div className="relative">
+                        <Avatar className="h-12 w-12 ring-2 ring-white/40 shadow-lg">
+                          <AvatarImage src={avatarSrc} alt={agent?.display_name || "Lee The Brain"} className="object-cover" />
+                          <AvatarFallback className="bg-secondary-foreground/20 text-white">
+                            <Brain className="h-6 w-6" />
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-success rounded-full border-2 border-secondary" />
                       </div>
+                      <div className="flex-1">
+                        <SheetTitle className="text-white text-left text-lg">{agent?.display_name || 'Lee "The Brain"'}</SheetTitle>
+                        <p className="text-xs text-white/70 mt-0.5">{t('lee.subtitle', 'Master AI Orchestrator')}</p>
+                      </div>
+                      <Sparkles className="h-5 w-5 text-white/40" />
                     </div>
                   </SheetHeader>
                   
-                  <ScrollArea ref={scrollRef} className="flex-1 p-4">
+                  <ScrollArea ref={scrollRef} className="flex-1 p-4 bg-muted/30">
                     <div className="space-y-4">
                       {messages.map((msg, i) => (
-                        <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                          <div className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
-                            msg.role === 'user' 
-                              ? 'bg-primary text-primary-foreground' 
-                              : 'bg-muted'
-                          }`}>
-                            {msg.content}
-                          </div>
-                          {msg.actionResults && msg.actionResults.length > 0 && (
-                            <div className="w-full mt-2">
-                              <LeeActionResults results={msg.actionResults} />
-                            </div>
+                        <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start gap-2'}`}>
+                          {msg.role === 'assistant' && (
+                            <Avatar className="h-7 w-7 mt-1 shrink-0">
+                              <AvatarImage src={avatarSrc} alt="Lee" className="object-cover" />
+                              <AvatarFallback className="bg-secondary text-white text-xs">
+                                <Brain className="h-3 w-3" />
+                              </AvatarFallback>
+                            </Avatar>
                           )}
+                          <div className="flex flex-col max-w-[80%]">
+                            <div className={`rounded-2xl px-4 py-2.5 text-sm ${
+                              msg.role === 'user' 
+                                ? 'bg-primary text-primary-foreground rounded-br-md' 
+                                : 'bg-background border border-border shadow-sm rounded-bl-md'
+                            }`}>
+                              {msg.content}
+                            </div>
+                            {msg.actionResults && msg.actionResults.length > 0 && (
+                              <div className="mt-2">
+                                <LeeActionResults results={msg.actionResults} />
+                              </div>
+                            )}
+                          </div>
                         </div>
                       ))}
                       {isLoading && (
-                        <div className="flex justify-start">
-                          <div className="bg-muted rounded-lg px-3 py-2">
-                            <div className="flex gap-1">
+                        <div className="flex justify-start gap-2">
+                          <Avatar className="h-7 w-7 mt-1 shrink-0">
+                            <AvatarImage src={avatarSrc} alt="Lee" className="object-cover" />
+                            <AvatarFallback className="bg-secondary text-white text-xs">
+                              <Brain className="h-3 w-3" />
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="bg-background border border-border rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+                            <div className="flex gap-1.5">
                               <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                               <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                               <span className="h-2 w-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
@@ -221,16 +243,21 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                     </div>
                   </ScrollArea>
                   
-                  <div className="p-4 border-t">
+                  <div className="p-4 border-t bg-background">
                     <form onSubmit={(e) => { e.preventDefault(); sendMessage(); }} className="flex gap-2">
                       <Input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder={t('lee.placeholder', 'Ask Lee anything...')}
                         disabled={isLoading}
-                        className="flex-1"
+                        className="flex-1 rounded-full bg-muted/50 border-border/50 focus-visible:ring-secondary"
                       />
-                      <Button type="submit" size="icon" disabled={isLoading || !input.trim()} className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                      <Button 
+                        type="submit" 
+                        size="icon" 
+                        disabled={isLoading || !input.trim()} 
+                        className="rounded-full bg-secondary hover:bg-secondary/90 text-white shadow-md"
+                      >
                         <Send className="h-4 w-4" />
                       </Button>
                     </form>
