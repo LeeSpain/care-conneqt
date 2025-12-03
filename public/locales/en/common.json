@@ -254,5 +254,14 @@
     "analytics": "Loading analytics...",
     "functions": "Loading functions...",
     "knowledgeBase": "Loading knowledge base..."
+  },
+  "profile": {
+    "settings": "Profile Settings"
+  },
+  "auth": {
+    "signOut": "Sign Out"
+  },
+  "adminGuide": {
+    "title": "Guide"
   }
 }

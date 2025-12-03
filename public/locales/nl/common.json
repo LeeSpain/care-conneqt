@@ -254,5 +254,14 @@
     "analytics": "Analytics laden...",
     "functions": "Functies laden...",
     "knowledgeBase": "Kennisbank laden..."
+  },
+  "profile": {
+    "settings": "Profielinstellingen"
+  },
+  "auth": {
+    "signOut": "Uitloggen"
+  },
+  "adminGuide": {
+    "title": "Gids"
   }
 }
