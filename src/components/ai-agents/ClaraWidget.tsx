@@ -167,13 +167,21 @@ export const ClaraWidget = () => {
 
   if (!isOpen) {
     return (
-      <Button
+      <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50"
-        size="icon"
+        className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg z-50 bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all hover:scale-105 flex items-center justify-center ring-4 ring-white/20"
       >
-        <MessageSquare className="h-6 w-6" />
-      </Button>
+        {agent?.avatar_url ? (
+          <Avatar className="h-14 w-14 border-2 border-white/30">
+            <AvatarImage src={agent.avatar_url} alt={agent.display_name} />
+            <AvatarFallback className="bg-purple-600 text-white text-lg font-semibold">
+              C
+            </AvatarFallback>
+          </Avatar>
+        ) : (
+          <MessageSquare className="h-7 w-7 text-white" />
+        )}
+      </button>
     );
   }
 
