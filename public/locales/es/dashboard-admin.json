@@ -403,17 +403,71 @@
     "title": "Configuración del Sistema",
     "subtitle": "Configuración global del sistema",
     "comingSoon": "Próximamente",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saveSuccess": "Configuración guardada exitosamente",
+    "saveFailed": "Error al guardar configuración",
+    "unsavedChanges": "Tienes cambios sin guardar",
+    "tabs": {
+      "general": "General",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "business": "Negocio",
+      "maintenance": "Mantenimiento"
+    },
     "general": {
       "title": "Configuración General",
-      "description": "Opciones de configuración de toda la plataforma"
+      "description": "Opciones de configuración de toda la plataforma",
+      "platformName": "Nombre de la Plataforma",
+      "defaultLanguage": "Idioma Predeterminado",
+      "defaultTimezone": "Zona Horaria Predeterminada",
+      "dateFormat": "Formato de Fecha",
+      "timeFormat": "Formato de Hora",
+      "hour": "hora"
     },
     "security": {
       "title": "Configuración de Seguridad",
-      "description": "Políticas de autenticación y seguridad"
+      "description": "Políticas de autenticación y seguridad",
+      "sessionSettings": "Configuración de Sesión",
+      "sessionTimeout": "Tiempo de Espera de Sesión",
+      "minutes": "minutos",
+      "maxLoginAttempts": "Máx. Intentos de Inicio",
+      "lockoutDuration": "Duración del Bloqueo",
+      "passwordPolicy": "Política de Contraseñas",
+      "minLength": "Longitud Mínima",
+      "requireSpecialChar": "Requerir Carácter Especial",
+      "requireNumber": "Requerir Número"
     },
     "notifications": {
       "title": "Configuración de Notificaciones",
-      "description": "Preferencias de notificación del sistema"
+      "description": "Preferencias de notificación del sistema",
+      "emailEnabled": "Notificaciones por Correo",
+      "emailEnabledDesc": "Enviar notificaciones por correo para eventos importantes",
+      "alertThresholds": "Umbrales de Alerta",
+      "lowBattery": "Umbral de Batería Baja",
+      "inactivityAlert": "Alerta de Inactividad Después de",
+      "hours": "horas"
+    },
+    "business": {
+      "title": "Configuración de Negocio",
+      "description": "Horarios de operación e información de contacto",
+      "operatingHours": "Horario de Operación",
+      "startTime": "Hora de Inicio",
+      "endTime": "Hora de Cierre",
+      "emergencyContact": "Contacto de Emergencia",
+      "contactName": "Nombre del Contacto",
+      "contactPhone": "Teléfono del Contacto"
+    },
+    "maintenance": {
+      "title": "Configuración de Mantenimiento",
+      "description": "Retención de datos y mantenimiento del sistema",
+      "maintenanceMode": "Modo de Mantenimiento",
+      "maintenanceModeDesc": "Cuando está activo, los usuarios verán una página de mantenimiento",
+      "dataRetention": "Retención de Datos",
+      "retentionPeriod": "Retención de Registros de Actividad",
+      "days": "días",
+      "autoBackup": "Copias de Seguridad Automáticas",
+      "autoBackupDesc": "Habilitar copias de seguridad diarias automáticas"
     }
   },
   "integrations": {
