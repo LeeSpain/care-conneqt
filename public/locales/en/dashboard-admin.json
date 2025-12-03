@@ -68,6 +68,11 @@
     "welcome": "Welcome, Admin",
     "subtitle": "Overview of your platform's key metrics and quick actions",
     "refresh": "Refresh",
+    "greetings": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
     "stats": {
       "totalUsers": "Total Users",
       "registered": "All registered users",

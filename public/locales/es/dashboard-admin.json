@@ -67,6 +67,11 @@
     "welcome": "Bienvenido, Admin",
     "subtitle": "Resumen de las métricas clave de tu plataforma y acciones rápidas",
     "refresh": "Actualizar",
+    "greetings": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas noches"
+    },
     "stats": {
       "totalUsers": "Usuarios Totales",
       "registered": "Todos los usuarios registrados",
