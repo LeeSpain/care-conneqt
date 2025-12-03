@@ -2,17 +2,32 @@ import { useNavigate } from "react-router-dom";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Users, Building2, Activity, UserCheck, RefreshCw } from "lucide-react";
+import { Users, Building2, Activity, UserCheck, RefreshCw, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminStats } from "@/hooks/useAdminStats";
 import { useTranslation } from 'react-i18next';
+import { useAuth } from "@/hooks/useAuth";
+import { format } from "date-fns";
 
 export default function AdminHome() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useTranslation('dashboard-admin');
+  const { profile } = useAuth();
   const { data: stats, isLoading, isError, error, refetch } = useAdminStats();
+  
+  const firstName = profile?.first_name || 'Admin';
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, 'EEEE, MMMM d, yyyy');
+  const formattedTime = format(currentDate, 'h:mm a');
+  const hour = currentDate.getHours();
+  
+  const getGreeting = () => {
+    if (hour < 12) return t('home.greetings.morning');
+    if (hour < 17) return t('home.greetings.afternoon');
+    return t('home.greetings.evening');
+  };
 
   const handleRefresh = () => {
     refetch();
@@ -39,8 +54,14 @@ export default function AdminHome() {
       <div className="space-y-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">{t('home.welcome')}</h2>
-            <p className="text-muted-foreground">
+            <p className="text-sm text-muted-foreground flex items-center gap-2 mb-1">
+              <Calendar className="h-4 w-4" />
+              {formattedDate} • {formattedTime}
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight">
+              {getGreeting()}, {firstName}!
+            </h2>
+            <p className="text-muted-foreground mt-1">
               {t('home.subtitle')}
             </p>
           </div>

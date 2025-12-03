@@ -67,6 +67,11 @@
     "welcome": "Welkom, Admin",
     "subtitle": "Overzicht van de belangrijkste statistieken en snelle acties van je platform",
     "refresh": "Vernieuwen",
+    "greetings": {
+      "morning": "Goedemorgen",
+      "afternoon": "Goedemiddag",
+      "evening": "Goedenavond"
+    },
     "stats": {
       "totalUsers": "Totaal Gebruikers",
       "registered": "Alle geregistreerde gebruikers",
