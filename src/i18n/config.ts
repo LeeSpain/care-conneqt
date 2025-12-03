@@ -19,7 +19,7 @@ i18n
 
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
-      queryStringParams: { v: '1.0.3' }, // Cache buster
+      queryStringParams: { v: '1.0.4' }, // Cache buster
     },
 
     // Load critical namespaces initially - others load on demand
