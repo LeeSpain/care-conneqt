@@ -14,9 +14,27 @@
     "pickAndMix": {
       "title": "Pick & Mix",
       "description": "Stel uw eigen pakket samen door individuele apparaten en diensten te selecteren",
-      "badge": "Flexibel",
-      "comingSoon": "Binnenkort Beschikbaar"
+      "badge": "Flexibel"
     }
+  },
+  "pickAndMix": {
+    "step1Title": "Stap 1: Kies Uw Platform & Basisapparaat",
+    "step1Subtitle": "Begin met ons zorgplatform en selecteer uw primaire monitoring apparaat",
+    "step2Title": "Stap 2: Voeg Extra Apparaten & Diensten Toe",
+    "step2Subtitle": "Pas uw pakket aan met extra monitoring en zorgdiensten",
+    "platformTitle": "Care Conneqt Platform",
+    "platformDescription": "Complete zorgbeheer met 1 apparaat inbegrepen",
+    "feature1": "AI Guardian monitoring",
+    "feature2": "24/7 verpleegkundige ondersteuning",
+    "feature3": "Noodrespons systeem",
+    "feature4": "Familiedashboard toegang",
+    "selectBaseDevice": "Selecteer Uw Inbegrepen Apparaat",
+    "baseDeviceIncluded": "Kies welk apparaat is inbegrepen bij uw platform",
+    "includes1Device": "Inclusief 1 apparaat",
+    "included": "Inbegrepen",
+    "addons": "Extra Apparaten & Diensten",
+    "orderSuccess": "Bestelling succesvol aangemaakt!",
+    "orderError": "Bestelling aanmaken mislukt"
   },
   "steps": {
     "plan": "Kies Plan",

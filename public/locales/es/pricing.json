@@ -14,9 +14,27 @@
     "pickAndMix": {
       "title": "Arma Tu Paquete",
       "description": "Cree su propio paquete personalizado seleccionando dispositivos y servicios individuales",
-      "badge": "Flexible",
-      "comingSoon": "Próximamente"
+      "badge": "Flexible"
     }
+  },
+  "pickAndMix": {
+    "step1Title": "Paso 1: Elija Su Plataforma y Dispositivo Base",
+    "step1Subtitle": "Comience con nuestra plataforma de cuidado y seleccione su dispositivo de monitoreo principal",
+    "step2Title": "Paso 2: Agregue Dispositivos y Servicios Extras",
+    "step2Subtitle": "Personalice su paquete con monitoreo adicional y servicios de cuidado",
+    "platformTitle": "Plataforma Care Conneqt",
+    "platformDescription": "Gestión completa del cuidado con 1 dispositivo incluido",
+    "feature1": "Monitoreo AI Guardian",
+    "feature2": "Línea de soporte de enfermería 24/7",
+    "feature3": "Sistema de respuesta de emergencia",
+    "feature4": "Acceso al panel familiar",
+    "selectBaseDevice": "Seleccione Su Dispositivo Incluido",
+    "baseDeviceIncluded": "Elija qué dispositivo está incluido con su plataforma",
+    "includes1Device": "Incluye 1 dispositivo",
+    "included": "Incluido",
+    "addons": "Dispositivos y Servicios Adicionales",
+    "orderSuccess": "¡Pedido creado exitosamente!",
+    "orderError": "Error al crear el pedido"
   },
   "steps": {
     "plan": "Elegir Plan",
