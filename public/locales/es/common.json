@@ -254,5 +254,14 @@
     "analytics": "Cargando analíticas...",
     "functions": "Cargando funciones...",
     "knowledgeBase": "Cargando base de conocimientos..."
+  },
+  "profile": {
+    "settings": "Configuración del Perfil"
+  },
+  "auth": {
+    "signOut": "Cerrar Sesión"
+  },
+  "adminGuide": {
+    "title": "Guía"
   }
 }

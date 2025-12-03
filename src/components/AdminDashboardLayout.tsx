@@ -306,11 +306,11 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                   {profile?.first_name} {profile?.last_name}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => navigate("/settings/profile")}>
-                  Profile Settings
+              <DropdownMenuItem onClick={() => navigate("/settings/profile")}>
+                  {t('profile.settings')}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSignOut}>
-                  Sign Out
+                  {t('auth.signOut')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -1966,11 +1966,18 @@
     }
   },
   "adminGuide": {
+    "pageTitle": "Admin Platform Guide",
     "title": "Guide",
-    "version": "v1.0",
-    "heroTitle": "Care Conneqt Admin Platform Guide",
-    "heroDescription": "Your complete reference for managing the Care Conneqt platform. This guide covers all administrative functions, workflows, and best practices.",
-    "tableOfContents": "Table of Contents",
+    "contents": "Contents",
+    "searchPlaceholder": "Search guide...",
+    "categories": {
+      "introduction": "Introduction",
+      "coreFeatures": "Core Features",
+      "advanced": "Advanced",
+      "administration": "Administration",
+      "tools": "Tools",
+      "reference": "Reference"
+    },
     "sections": {
       "gettingStarted": "Getting Started",
       "dashboard": "Dashboard Overview",
@@ -1983,112 +1990,243 @@
       "sales": "Sales & Leads",
       "communications": "Communications",
       "system": "System Configuration",
+      "security": "Security & Compliance",
       "lee": "LEE \"The Brain\"",
       "dailyReport": "Daily Report",
+      "workflows": "Workflows & Automation",
       "bestPractices": "Best Practices",
       "shortcuts": "Keyboard Shortcuts",
+      "glossary": "Glossary",
       "faq": "FAQ"
+    },
+    "table": {
+      "feature": "Feature",
+      "description": "Description",
+      "path": "Navigation Path"
+    },
+    "hero": {
+      "version": "Version 2.0",
+      "title": "Care Conneqt Admin Platform Guide",
+      "description": "Your comprehensive reference for mastering the Care Conneqt platform. From basic operations to advanced configurations, everything you need is here.",
+      "readTime": "~45 min read",
+      "sections": "19 sections",
+      "lastUpdated": "Last updated: Dec 2025"
+    },
+    "quickNav": {
+      "title": "Quick Navigation",
+      "gettingStarted": "Getting Started",
+      "gettingStartedDesc": "New to the platform? Start here",
+      "lee": "LEE AI Assistant",
+      "leeDesc": "Use natural language commands",
+      "finance": "Finance Centre",
+      "financeDesc": "Revenue, invoices, subscriptions",
+      "faq": "FAQ",
+      "faqDesc": "Common questions answered"
     },
     "gettingStarted": {
       "title": "Getting Started",
-      "description": "Essential information to begin using the admin platform",
+      "description": "Essential information to begin using the admin platform effectively",
+      "badge": "Start Here",
       "roleTitle": "Your Role as Administrator",
-      "roleDescription": "As a platform administrator, you have full access to manage all aspects of Care Conneqt including users, facilities, commercial partners, finances, AI agents, and system configuration.",
-      "keyAreasTitle": "Key Areas",
-      "areas": {
-        "people": "People",
-        "peopleDesc": "Manage users, staff, members, and families",
-        "commercial": "Commercial",
-        "commercialDesc": "Facilities, care companies, insurance partners",
-        "finance": "Finance",
-        "financeDesc": "Revenue, subscriptions, invoices, credits",
-        "ai": "AI",
-        "aiDesc": "Configure and monitor AI agents"
+      "roleDescription": "As a platform administrator, you have full access to manage all aspects of Care Conneqt. This includes user management, facility oversight, financial operations, AI configuration, and system settings. Your decisions directly impact the platform's operation and user experience.",
+      "keyAreas": {
+        "users": "Manage all users, staff, and members",
+        "facilities": "Oversee facilities and commercial partners",
+        "finance": "Control financial operations and billing",
+        "ai": "Configure AI agents and automation",
+        "security": "Ensure security and compliance"
       },
-      "tipTitle": "Pro Tip",
-      "tipDescription": "Use LEE \"The Brain\" in the header to execute administrative tasks using natural language commands. Just click on LEE and ask what you need!"
+      "architectureTitle": "Platform Architecture",
+      "architecture": {
+        "frontend": "Frontend",
+        "frontendValue": "React + TypeScript",
+        "backend": "Backend",
+        "backendValue": "Supabase (PostgreSQL)",
+        "ai": "AI",
+        "aiValue": "Multiple specialized agents",
+        "payments": "Payments",
+        "paymentsValue": "Stripe integration"
+      },
+      "firstSteps": {
+        "title": "First Steps (Recommended Order)",
+        "step1": {
+          "title": "Explore the Dashboard",
+          "description": "Familiarize yourself with the main dashboard. Review the MRR/ARR cards, check any pending alerts, and understand the activity panels showing recent leads, orders, and signups.",
+          "tip1": "Click on any metric card to drill down",
+          "tip2": "Use the Daily Report button for executive summaries"
+        },
+        "step2": {
+          "title": "Review Current Users",
+          "description": "Navigate to People → All Users to see who has access to the platform. Understand the different roles (admin, nurse, member, family_carer, facility_admin, company_admin, insurance_admin).",
+          "tip1": "Filter users by role to understand distribution",
+          "tip2": "Check for any pending invitations"
+        },
+        "step3": {
+          "title": "Configure AI Agents",
+          "description": "Visit AI Management → AI Agents to review and customize the AI assistants. Each agent serves a specific purpose - Clara for members, Ineke for nurses, Isabella for facilities, and LEE for you.",
+          "tip1": "Update system prompts to match your organization tone",
+          "tip2": "Review and enable relevant functions for each agent"
+        },
+        "step4": {
+          "title": "Set Up Integrations",
+          "description": "Go to System Settings → Integrations to configure Stripe for payments. Ensure webhooks are properly set up for real-time payment processing.",
+          "tip1": "Test payment flow in Stripe test mode first",
+          "tip2": "Verify webhook endpoints are receiving events"
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip: Use LEE for Everything",
+        "description": "LEE \"The Brain\" is your AI orchestrator. Instead of navigating through menus, just click on LEE in the header and ask what you need. For example: \"Show me all critical alerts\" or \"Schedule a meeting with the nursing team for tomorrow at 2pm\". LEE can execute over 36 different administrative actions!"
+      }
     },
     "dashboard": {
       "title": "Dashboard Overview",
-      "description": "Understanding your CEO control center",
-      "intro": "The admin dashboard provides executive-level visibility into all platform operations at a glance.",
-      "widgetsTitle": "Dashboard Widgets",
-      "widgets": {
-        "mrr": "MRR/ARR Cards",
-        "mrrDesc": "Monthly and Annual Recurring Revenue snapshots",
-        "alerts": "Critical Alerts",
-        "alertsDesc": "Pending alerts requiring immediate attention",
-        "activity": "Activity Panels",
-        "activityDesc": "Recent leads, orders, and signups",
-        "ai": "AI Metrics",
-        "aiDesc": "Conversation counts, satisfaction scores, escalations",
-        "health": "System Health",
-        "healthDesc": "Platform status and integration health"
+      "description": "Understanding your CEO control center and key metrics",
+      "intro": "The admin dashboard is designed as an executive control center, providing real-time visibility into all platform operations. Every widget is clickable and leads to more detailed information.",
+      "financial": {
+        "title": "Financial Widgets",
+        "widgets": {
+          "mrr": "MRR Card",
+          "mrrDesc": "Monthly Recurring Revenue with trend indicator",
+          "arr": "ARR Card",
+          "arrDesc": "Annual Recurring Revenue projection",
+          "invoices": "Outstanding Invoices",
+          "invoicesDesc": "Unpaid invoices requiring attention",
+          "todayRevenue": "Today's Revenue",
+          "todayRevenueDesc": "Real-time revenue for current day"
+        }
+      },
+      "operational": {
+        "title": "Operational Widgets",
+        "widgets": {
+          "alerts": "Critical Alerts",
+          "alertsDesc": "Urgent alerts needing immediate action",
+          "leads": "Recent Leads",
+          "leadsDesc": "Latest sales leads from all sources",
+          "aiConversations": "AI Conversations",
+          "aiConversationsDesc": "Today's AI interactions with satisfaction scores",
+          "health": "System Health",
+          "healthDesc": "Platform uptime and integration status"
+        }
+      },
+      "customization": {
+        "title": "Dashboard Customization",
+        "description": "The dashboard automatically adjusts based on the time of day and shows relevant greeting messages. Critical alerts always appear prominently regardless of other content. Widget data refreshes every 30 seconds for real-time accuracy."
       }
     },
     "people": {
       "title": "People Management",
-      "description": "Managing users, staff, members, and family carers",
-      "table": {
-        "feature": "Feature",
-        "description": "Description"
-      },
+      "description": "Comprehensive user, staff, and member administration",
       "features": {
         "allUsers": "All Users",
-        "allUsersDesc": "View and manage all platform users",
+        "allUsersDesc": "Complete user directory with search and filters",
         "staff": "Staff",
-        "staffDesc": "Manage nurses and admin staff, roles, departments",
+        "staffDesc": "Nurses and admin personnel management",
         "members": "Members",
-        "membersDesc": "View and manage care recipients",
+        "membersDesc": "Care recipient profiles and subscriptions",
         "family": "Family Carers",
-        "familyDesc": "Manage family member accounts and permissions",
+        "familyDesc": "Family member accounts linked to members",
         "assignments": "Assignments Hub",
-        "assignmentsDesc": "Assign nurses to members, manage workloads"
+        "assignmentsDesc": "Nurse-member assignment workload balancing"
       },
-      "commonTasksTitle": "Common Tasks",
-      "tasks": {
-        "addUser": "Add new users via the \"Add User\" button on respective pages",
-        "editRoles": "Edit roles and permissions through user profile settings",
-        "deactivate": "Deactivate accounts rather than deleting to preserve history",
-        "assign": "Use Assignments Hub for nurse-member workload balancing"
+      "roles": {
+        "title": "User Roles Explained",
+        "admin": "Full platform access (you)",
+        "nurse": "Care providers managing members",
+        "member": "Care recipients using services",
+        "family_carer": "Family members monitoring loved ones",
+        "facility_admin": "Care facility administrators",
+        "company_admin": "Care company managers",
+        "insurance_admin": "Insurance company staff"
+      },
+      "actions": {
+        "title": "Common Actions",
+        "addUsers": "Add users via \"Add User\" button on each page",
+        "editRoles": "Edit roles through user profile dropdown",
+        "deactivate": "Deactivate (don't delete) to preserve audit trail",
+        "bulkAssign": "Bulk assign nurses via Assignments Hub",
+        "sendInvitations": "Send invitations to new family carers",
+        "resetPasswords": "Reset passwords from user profile menu"
+      },
+      "warning": {
+        "title": "Important: Account Deletion",
+        "description": "Never delete user accounts unless absolutely necessary. Deactivation preserves all historical data, audit trails, and maintains data integrity for compliance. Deleted accounts cannot be recovered and may cause orphaned records."
       }
     },
     "commercial": {
       "title": "Commercial Partners",
-      "description": "Managing B2B relationships",
+      "description": "Managing B2B relationships with facilities, companies, and insurers",
       "types": {
-        "facilities": "Care Facilities",
-        "facilitiesDesc": "Nursing homes, assisted living, residential care",
-        "companies": "Care Companies",
-        "companiesDesc": "Home care agencies, domiciliary services",
-        "insurance": "Insurance",
-        "insuranceDesc": "Health and care insurance partners"
+        "facilities": {
+          "title": "Care Facilities",
+          "description": "Nursing homes, assisted living facilities, residential care centers. Manage residents, staff, rooms, and facility-specific billing.",
+          "path": "Commercial → Care Facilities"
+        },
+        "companies": {
+          "title": "Care Companies",
+          "description": "Home care agencies, domiciliary services, care providers. Track clients, assign carers, manage service areas.",
+          "path": "Commercial → Care Companies"
+        },
+        "insurance": {
+          "title": "Insurance Companies",
+          "description": "Health and care insurers. Manage policies, covered members, claims processing, and premium tracking.",
+          "path": "Commercial → Insurance"
+        }
       },
-      "management": "Each partner type has dedicated management pages where you can add, edit, and view details including staff, clients/residents, and financial tracking."
+      "details": {
+        "title": "Partner Detail Pages Include:",
+        "staff": "Staff management with roles and permissions",
+        "clients": "Client/resident assignment and tracking",
+        "financial": "Financial overview and billing history",
+        "serviceArea": "Service area and coverage configuration",
+        "contracts": "Contract and subscription management",
+        "audit": "Activity logs and audit trail"
+      }
     },
     "catalog": {
       "title": "Catalog Management",
-      "description": "Managing products, services, and pricing",
+      "description": "Products, services, and pricing plan configuration",
       "products": {
         "title": "Products (Devices)",
-        "desc": "Physical devices like smartwatches, medication dispensers, sensors"
+        "description": "Physical devices shipped to members:",
+        "items": {
+          "watches": "Vivago smartwatches",
+          "dispensers": "Dosell medication dispensers",
+          "scales": "Smart scales & thermometers",
+          "pendants": "SOS pendants & fall detectors",
+          "monitors": "Health monitors"
+        }
       },
       "services": {
-        "title": "Services",
-        "desc": "Service add-ons like nurse support, family dashboard, emergency response"
+        "title": "Services (Add-ons)",
+        "description": "Value-added services for members:",
+        "items": {
+          "familyDashboard": "Family dashboard access",
+          "nurseSupport": "24/7 nurse support",
+          "emergency": "Emergency response",
+          "coordinator": "Care coordinator",
+          "medication": "Medication management"
+        }
       },
       "pricing": {
         "title": "Pricing Plans",
-        "desc": "Subscription plans with bundled products and services"
+        "description": "Subscription plan bundles:",
+        "items": {
+          "essential": "Essential (basic monitoring)",
+          "plus": "Plus (with family access)",
+          "premium": "Premium (full features)",
+          "pickMix": "Pick & Mix (custom)",
+          "enterprise": "Enterprise (facilities)"
+        }
+      },
+      "tip": {
+        "title": "Adding New Products",
+        "description": "When adding products, always include all three language translations (EN/ES/NL). Upload high-quality product images and set appropriate pricing. New products appear immediately in the pricing wizard."
       }
     },
     "finance": {
       "title": "Finance Control Centre",
-      "description": "Complete financial management",
-      "table": {
-        "area": "Area",
-        "purpose": "Purpose"
-      },
+      "description": "Complete financial management across all customer segments",
       "areas": {
         "dashboard": "Revenue Dashboard",
         "dashboardDesc": "MRR, ARR, revenue by customer segment",
@@ -2101,70 +2239,101 @@
         "credits": "Credits & Refunds",
         "creditsDesc": "Issue credits, process refunds"
       },
-      "noteTitle": "Important",
-      "noteDescription": "Finance data is segmented by customer type (Member, Facility, Care Company, Insurance). Use filters to view specific segments."
+      "note": {
+        "title": "Important",
+        "description": "Finance data is segmented by customer type (Member, Facility, Care Company, Insurance). Use filters to view specific segments. All financial reports can be exported to CSV."
+      }
     },
     "ai": {
       "title": "AI Management",
-      "description": "Configuring and monitoring AI agents",
-      "agentsTitle": "AI Agents",
+      "description": "Configuring and monitoring AI agents across the platform",
       "agents": {
         "claraSales": "Public-facing sales assistant",
         "claraMember": "Member wellbeing companion",
-        "claraFamily": "Family carer support",
+        "claraFamily": "Family carer support assistant",
         "ineke": "Clinical nurse assistant",
         "isabella": "Facility operations assistant",
-        "lee": "Master admin orchestrator"
+        "lee": "Master admin orchestrator (you)"
       },
-      "configNote": "Each agent can be configured with custom system prompts, knowledge bases, and enabled functions via AI Agents settings."
+      "config": {
+        "title": "Agent Configuration",
+        "description": "Each agent can be configured with custom system prompts, knowledge bases, and enabled functions via AI Agents settings. Monitor performance through AI Analytics."
+      }
     },
     "analytics": {
       "title": "Analytics & Reports",
-      "description": "Platform insights and monitoring",
-      "platform": "Platform Analytics",
-      "platformDesc": "User growth, engagement, activity trends",
-      "health": "System Health",
-      "healthDesc": "Server status, API performance, uptime",
-      "aiAnalytics": "AI Analytics",
-      "aiAnalyticsDesc": "Conversation metrics, satisfaction scores, escalations"
+      "description": "Platform insights and performance monitoring",
+      "platform": {
+        "title": "Platform Analytics",
+        "description": "User growth, engagement, activity trends, and conversion metrics"
+      },
+      "health": {
+        "title": "System Health",
+        "description": "Server status, API performance, uptime, and error rates"
+      },
+      "aiAnalytics": {
+        "title": "AI Analytics",
+        "description": "Conversation metrics, satisfaction scores, escalation rates by agent"
+      }
     },
     "sales": {
       "title": "Sales & Leads",
-      "description": "Managing the sales pipeline",
-      "pipelineTitle": "Lead Pipeline Stages",
-      "sourcesTitle": "Lead Sources",
+      "description": "Managing the complete sales pipeline from lead to conversion",
+      "pipeline": {
+        "title": "Lead Pipeline Stages",
+        "stages": {
+          "new": "New",
+          "contacted": "Contacted",
+          "qualified": "Qualified",
+          "proposal": "Proposal",
+          "won": "Won",
+          "lost": "Lost"
+        }
+      },
       "sources": {
-        "pricing": "Personal care pricing page conversions",
-        "institutional": "Institutional registration form submissions",
-        "clara": "Clara AI conversation interactions"
+        "pricing": {
+          "title": "Pricing Page Leads",
+          "description": "Captured when visitors complete the pricing wizard checkout process"
+        },
+        "institutional": {
+          "title": "Institutional Registrations",
+          "description": "B2B leads from the institutional care registration form"
+        },
+        "clara": {
+          "title": "Clara Conversations",
+          "description": "Leads captured from Clara AI chat interactions"
+        }
       }
     },
     "communications": {
       "title": "Communications",
-      "description": "Platform messaging and announcements",
-      "messages": {
-        "title": "Messages",
-        "desc": "Direct messaging with users, broadcast to groups by role"
+      "description": "Platform messaging, announcements, and support",
+      "features": {
+        "messages": "Messages",
+        "messagesDesc": "Direct messaging with any platform user",
+        "broadcasts": "Broadcasts",
+        "broadcastsDesc": "Send messages to multiple users by role",
+        "announcements": "Announcements",
+        "announcementsDesc": "Platform-wide announcements with targeting",
+        "support": "Support Tickets",
+        "supportDesc": "Customer support ticket management"
       },
-      "announcements": {
-        "title": "Announcements",
-        "desc": "Platform-wide announcements with role targeting, scheduling, expiry"
-      },
-      "support": {
-        "title": "Support Tickets",
-        "desc": "Customer support ticket management and resolution"
+      "tip": {
+        "title": "Broadcast Messages",
+        "description": "Use broadcasts sparingly and target appropriately. You can filter recipients by role (all nurses, all members, etc.) or by facility. Broadcast messages appear in recipients' message inbox with a special indicator."
       }
     },
     "system": {
       "title": "System Configuration",
-      "description": "Platform settings and integrations",
+      "description": "Platform-wide settings and integration management",
       "settings": {
-        "title": "System Settings",
+        "title": "General Settings",
         "items": {
           "platform": "Platform name and branding",
-          "language": "Default language and timezone",
-          "security": "Security policies",
-          "maintenance": "Maintenance mode"
+          "language": "Default language (EN/ES/NL)",
+          "timezone": "Timezone configuration",
+          "dateFormat": "Date/time format preferences",
+          "email": "Email notification settings"
         }
       },
       "integrations": {
@@ -2172,66 +2341,146 @@
         "items": {
           "stripe": "Stripe payment processing",
           "webhooks": "Webhook configuration",
-          "api": "API connections"
+          "apiKeys": "API key management",
+          "thirdParty": "Third-party connections"
         }
+      }
+    },
+    "security": {
+      "title": "Security & Compliance",
+      "description": "Data protection, access control, and regulatory compliance",
+      "badge": "Important",
+      "features": {
+        "title": "Security Features",
+        "items": {
+          "rls": "Row-Level Security (RLS) on all tables",
+          "rbac": "Role-based access control (RBAC)",
+          "session": "Session timeout configuration",
+          "password": "Password policy enforcement",
+          "audit": "Audit logging for all actions",
+          "encryption": "Data encryption at rest and in transit"
+        }
+      },
+      "data": {
+        "title": "Data Handling",
+        "items": {
+          "gdpr": "GDPR compliant data processing",
+          "retention": "Data retention policies",
+          "deletion": "Right to deletion support",
+          "export": "Data export capabilities",
+          "consent": "Consent management"
+        }
+      },
+      "warning": {
+        "title": "Healthcare Data Compliance",
+        "description": "Care Conneqt handles sensitive healthcare data. Ensure all staff understand their responsibilities under GDPR and relevant healthcare regulations. Never share login credentials, and always use secure channels for sensitive communications."
       }
     },
     "lee": {
       "title": "LEE \"The Brain\"",
-      "description": "Your AI orchestrator assistant",
-      "intro": "LEE is your master AI orchestrator, capable of executing administrative tasks through natural language commands. Access LEE via the button in the header.",
-      "capabilitiesTitle": "Capabilities",
+      "subtitle": "Your AI-powered administrative command center",
+      "intro": "LEE is the most powerful tool in your admin arsenal. Instead of clicking through menus, simply tell LEE what you need in natural language. LEE can execute over 36 different actions across all platform areas.",
       "capabilities": {
+        "title": "What LEE Can Do",
         "read": "Read system data and generate reports",
-        "create": "Create and update records",
-        "schedule": "Schedule appointments and set reminders",
-        "message": "Send messages and notifications",
-        "leads": "Update lead statuses",
-        "alerts": "Manage alerts and escalations"
+        "create": "Create, update, and manage records",
+        "schedule": "Schedule appointments with confirmations",
+        "reminders": "Set reminders and follow-ups",
+        "messages": "Send messages and notifications",
+        "leads": "Update lead and alert statuses",
+        "users": "Look up users by name or role",
+        "finance": "Query financial data"
       },
-      "examplesTitle": "Example Commands",
       "examples": {
+        "title": "Example Commands",
         "stats": "\"Show me today's statistics\"",
-        "schedule": "\"Schedule a meeting with the nursing team for Wednesday at 3pm\"",
-        "leads": "\"Update lead status for John Smith to qualified\"",
-        "alerts": "\"Show me all critical alerts\""
+        "schedule": "\"Schedule a meeting with nurse Sarah tomorrow at 2pm\"",
+        "updateLead": "\"Update the lead for John Smith to qualified\"",
+        "sendMessage": "\"Send a message to all facility admins about the new update\"",
+        "alerts": "\"What are the current critical alerts?\"",
+        "reminder": "\"Create a reminder to follow up with ABC Facility next Monday\""
+      },
+      "access": {
+        "title": "Access LEE Anytime",
+        "description": "LEE is always available in the admin header bar. Click the LEE button to open the chat panel. Your conversation persists during your session, so you can refer back to previous queries and results."
       }
     },
     "dailyReport": {
       "title": "Daily Report",
-      "description": "Executive daily snapshot",
-      "intro": "The Daily Report provides a comprehensive snapshot of platform activity for the selected day. Navigate up to 7 days back to compare metrics.",
-      "sectionsTitle": "Report Sections",
+      "description": "Executive daily snapshot with historical comparison",
+      "intro": "The Daily Report provides a comprehensive executive summary of platform activity. Access it via the \"Daily Report\" button in the admin header.",
       "sections": {
-        "revenue": "Revenue metrics (orders, subscriptions)",
-        "users": "User activity (signups, active users)",
-        "alerts": "Alert summary and resolutions",
-        "ai": "AI conversation metrics",
-        "leads": "Lead pipeline activity"
+        "title": "Report Sections",
+        "revenue": "Revenue snapshot (today, MRR, ARR)",
+        "alerts": "Critical alerts summary",
+        "activity": "Activity metrics (leads, orders, signups)",
+        "ai": "AI conversation analytics",
+        "pipeline": "Pipeline overview",
+        "health": "Operational health indicators"
+      },
+      "features": {
+        "title": "Features",
+        "navigate": "Navigate up to 7 days back",
+        "compare": "Compare day-over-day metrics",
+        "quickActions": "Quick actions for common tasks",
+        "print": "Print-friendly format",
+        "autoRefresh": "Auto-refresh on current day"
+      }
+    },
+    "workflows": {
+      "title": "Workflows & Automation",
+      "description": "Automated processes and system triggers",
+      "automations": {
+        "title": "Built-in Automations",
+        "newOrder": {
+          "trigger": "New Order",
+          "action": "Creates lead, sends confirmation email, notifies admin"
+        },
+        "memberSignup": {
+          "trigger": "Member Signup",
+          "action": "Creates profile, triggers onboarding flow, assigns nurse"
+        },
+        "criticalAlert": {
+          "trigger": "Critical Alert",
+          "action": "Notifies assigned nurse, escalates after timeout"
+        },
+        "renewal": {
+          "trigger": "Subscription Renewal",
+          "action": "Generates invoice, processes payment, sends receipt"
+        },
+        "aiEscalation": {
+          "trigger": "AI Escalation",
+          "action": "Creates support ticket, notifies human staff"
+        }
       }
     },
     "bestPractices": {
       "title": "Best Practices",
-      "description": "Recommended workflows and routines",
-      "dailyTitle": "Daily Routine",
+      "description": "Recommended workflows and administrative routines",
       "daily": {
+        "title": "Daily Routine (10-15 min)",
         "dashboard": "Check dashboard for critical alerts",
-        "leads": "Review new leads and follow-ups",
+        "dailyReport": "Review the Daily Report",
+        "leads": "Process new leads and follow-ups",
         "tickets": "Address pending support tickets",
-        "ai": "Monitor AI escalations"
+        "aiEscalations": "Review AI escalations"
       },
-      "weeklyTitle": "Weekly Review",
       "weekly": {
-        "analytics": "Review platform analytics trends",
-        "revenue": "Analyze revenue and conversion rates",
-        "assignments": "Review nurse-member assignments balance",
-        "ai": "Check AI agent performance metrics"
+        "title": "Weekly Review (30-45 min)",
+        "analytics": "Analyze platform analytics trends",
+        "revenue": "Review revenue and conversion metrics",
+        "assignments": "Check nurse-member assignment balance",
+        "aiPerformance": "Evaluate AI agent performance",
+        "catalog": "Update pricing or catalog if needed"
       },
-      "tip": "Use the Daily Report feature to quickly review yesterday's metrics and compare week-over-week trends."
+      "tip": {
+        "title": "Weekly Tip",
+        "description": "Block 30 minutes every Friday afternoon for weekly review. Use the Daily Report's historical navigation to compare the week's metrics against the previous week. This helps identify trends before they become problems."
+      }
     },
     "shortcuts": {
       "title": "Keyboard Shortcuts",
-      "description": "Quick navigation and actions",
+      "description": "Quick navigation and productivity shortcuts",
       "table": {
         "shortcut": "Shortcut",
         "action": "Action"
@@ -2239,7 +2488,47 @@
       "actions": {
         "search": "Open search",
         "sidebar": "Toggle sidebar",
-        "close": "Close dialogs/modals"
+        "close": "Close dialogs/modals",
+        "submit": "Submit form",
+        "help": "Open help"
+      }
+    },
+    "glossary": {
+      "title": "Glossary",
+      "description": "Key terms and definitions used in the platform",
+      "terms": {
+        "mrr": {
+          "term": "MRR",
+          "definition": "Monthly Recurring Revenue - the predictable revenue from active subscriptions each month"
+        },
+        "arr": {
+          "term": "ARR",
+          "definition": "Annual Recurring Revenue - MRR multiplied by 12, representing yearly subscription value"
+        },
+        "rls": {
+          "term": "RLS",
+          "definition": "Row-Level Security - database security ensuring users only access authorized data"
+        },
+        "rbac": {
+          "term": "RBAC",
+          "definition": "Role-Based Access Control - permissions system based on user roles"
+        },
+        "aiAgent": {
+          "term": "AI Agent",
+          "definition": "Specialized AI assistant configured for specific roles (Clara, Ineke, Isabella, LEE)"
+        },
+        "lead": {
+          "term": "Lead",
+          "definition": "Potential customer tracked through the sales pipeline"
+        },
+        "member": {
+          "term": "Member",
+          "definition": "Care recipient with an active subscription"
+        },
+        "familyCarer": {
+          "term": "Family Carer",
+          "definition": "Family member with access to monitor a member's care"
+        }
       }
     },
     "faq": {
@@ -2249,14 +2538,22 @@
         "reset": "How do I reset a user's password?",
         "export": "Can I export financial reports?",
         "ai": "How do I configure AI agent responses?",
-        "maintenance": "What happens in maintenance mode?"
+        "maintenance": "What happens in maintenance mode?",
+        "roles": "How do I change a user's role?",
+        "billing": "How do I issue a refund?"
       },
       "answers": {
-        "reset": "Go to People > All Users, find the user, and use the \"Reset Password\" option in their profile menu.",
+        "reset": "Go to People → All Users, find the user, and use the \"Reset Password\" option in their profile menu.",
         "export": "Yes, use the \"Export CSV\" button available on each Finance page to download data.",
-        "ai": "Navigate to AI Management > AI Agents, select the agent, and modify the system prompt or knowledge base.",
-        "maintenance": "Users see a maintenance message. Admin access remains available. Enable via System Settings > Maintenance."
+        "ai": "Navigate to AI Management → AI Agents, select the agent, and modify the system prompt or knowledge base.",
+        "maintenance": "Users see a maintenance message. Admin access remains available. Enable via System Settings → Maintenance.",
+        "roles": "Go to People → All Users, find the user, click their menu and select \"Edit Role\" to modify their permissions.",
+        "billing": "Go to Finance → Credits & Refunds, click \"Issue Credit\" and enter the customer details and amount."
       }
+    },
+    "footer": {
+      "text": "This guide is regularly updated. Check back for new features and best practices.",
+      "contact": "Need more help? Contact support@careconneqt.com"
     }
   }
 }
