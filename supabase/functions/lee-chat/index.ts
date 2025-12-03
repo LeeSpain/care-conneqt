@@ -162,7 +162,7 @@ Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
           ...messages
         ],
         temperature: parseFloat(config.temperature),
-        max_tokens: Math.min(config.max_tokens, 500), // Cap at 500 for faster responses
+        max_tokens: Math.min(config.max_tokens, 1000), // Allow fuller responses
       }),
     });
 
