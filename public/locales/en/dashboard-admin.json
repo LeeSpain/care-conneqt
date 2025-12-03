@@ -1394,5 +1394,55 @@
       "activityAdded": "Activity added",
       "assignmentUpdated": "Assignment updated"
     }
+  },
+  "appointments": {
+    "title": "Appointments",
+    "schedule": "Schedule Appointment",
+    "upcoming": "Upcoming Appointments",
+    "past": "Past Appointments",
+    "types": {
+      "meeting": "Meeting",
+      "call": "Call",
+      "video": "Video Call"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    },
+    "confirmRequest": "Confirmation Request",
+    "pendingConfirmation": "Pending Confirmation",
+    "createdByAI": "Created by AI",
+    "organizer": "Organizer",
+    "participants": "Participants",
+    "noAppointments": "No appointments scheduled"
+  },
+  "reminders": {
+    "title": "Reminders",
+    "create": "Create Reminder",
+    "upcoming": "Upcoming Reminders",
+    "completed": "Completed",
+    "priority": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "markComplete": "Mark Complete",
+    "createdByAI": "Created by LEE",
+    "noReminders": "No reminders"
+  },
+  "leeCapabilities": {
+    "title": "LEE Capabilities",
+    "sendMessage": "Send Message",
+    "scheduleAppointment": "Schedule Appointment",
+    "createTask": "Create Task",
+    "createReminder": "Create Reminder",
+    "manageAlert": "Manage Alert",
+    "updateLead": "Update Lead",
+    "lookupUser": "Lookup User",
+    "actionExecuted": "Action executed successfully",
+    "actionFailed": "Action failed"
   }
 }

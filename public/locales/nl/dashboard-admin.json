@@ -1394,5 +1394,55 @@
       "activityAdded": "Activiteit toegevoegd",
       "assignmentUpdated": "Toewijzing bijgewerkt"
     }
+  },
+  "appointments": {
+    "title": "Afspraken",
+    "schedule": "Afspraak Plannen",
+    "upcoming": "Komende Afspraken",
+    "past": "Vorige Afspraken",
+    "types": {
+      "meeting": "Vergadering",
+      "call": "Telefoongesprek",
+      "video": "Videogesprek"
+    },
+    "status": {
+      "scheduled": "Gepland",
+      "confirmed": "Bevestigd",
+      "cancelled": "Geannuleerd",
+      "completed": "Voltooid"
+    },
+    "confirmRequest": "Bevestigingsverzoek",
+    "pendingConfirmation": "Wacht op Bevestiging",
+    "createdByAI": "Aangemaakt door AI",
+    "organizer": "Organisator",
+    "participants": "Deelnemers",
+    "noAppointments": "Geen afspraken gepland"
+  },
+  "reminders": {
+    "title": "Herinneringen",
+    "create": "Herinnering Maken",
+    "upcoming": "Komende Herinneringen",
+    "completed": "Voltooid",
+    "priority": {
+      "low": "Laag",
+      "normal": "Normaal",
+      "high": "Hoog",
+      "urgent": "Urgent"
+    },
+    "markComplete": "Markeer Voltooid",
+    "createdByAI": "Aangemaakt door LEE",
+    "noReminders": "Geen herinneringen"
+  },
+  "leeCapabilities": {
+    "title": "LEE Mogelijkheden",
+    "sendMessage": "Bericht Versturen",
+    "scheduleAppointment": "Afspraak Plannen",
+    "createTask": "Taak Maken",
+    "createReminder": "Herinnering Maken",
+    "manageAlert": "Alert Beheren",
+    "updateLead": "Lead Bijwerken",
+    "lookupUser": "Gebruiker Zoeken",
+    "actionExecuted": "Actie succesvol uitgevoerd",
+    "actionFailed": "Actie mislukt"
   }
 }
