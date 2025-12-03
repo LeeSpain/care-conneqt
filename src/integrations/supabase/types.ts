@@ -1020,6 +1020,66 @@ export type Database = {
           },
         ]
       }
+      credits: {
+        Row: {
+          amount: number
+          applied_to_invoice_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          expires_at: string | null
+          id: string
+          member_id: string
+          reason: string
+          remaining_amount: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          applied_to_invoice_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          member_id: string
+          reason: string
+          remaining_amount: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          applied_to_invoice_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          member_id?: string
+          reason?: string
+          remaining_amount?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credits_applied_to_invoice_id_fkey"
+            columns: ["applied_to_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credits_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_requests: {
         Row: {
           contact_email: string
@@ -1631,6 +1691,160 @@ export type Database = {
             columns: ["insurance_company_id"]
             isOneToOne: false
             referencedRelation: "insurance_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_items: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          invoice_id: string
+          product_id: string | null
+          product_type: string | null
+          quantity: number
+          total: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          invoice_id: string
+          product_id?: string | null
+          product_type?: string | null
+          quantity?: number
+          total: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          invoice_id?: string
+          product_id?: string | null
+          product_type?: string | null
+          quantity?: number
+          total?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          amount_due: number
+          amount_paid: number | null
+          billing_period_end: string | null
+          billing_period_start: string | null
+          created_at: string
+          currency: string
+          discount_amount: number | null
+          due_date: string | null
+          id: string
+          invoice_number: string
+          member_id: string
+          metadata: Json | null
+          notes: string | null
+          order_id: string | null
+          paid_at: string | null
+          pdf_url: string | null
+          status: string
+          stripe_invoice_id: string | null
+          subscription_id: string | null
+          subtotal: number
+          tax_amount: number | null
+          tax_rate: number | null
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          amount_due?: number
+          amount_paid?: number | null
+          billing_period_end?: string | null
+          billing_period_start?: string | null
+          created_at?: string
+          currency?: string
+          discount_amount?: number | null
+          due_date?: string | null
+          id?: string
+          invoice_number: string
+          member_id: string
+          metadata?: Json | null
+          notes?: string | null
+          order_id?: string | null
+          paid_at?: string | null
+          pdf_url?: string | null
+          status?: string
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          tax_rate?: number | null
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          amount_due?: number
+          amount_paid?: number | null
+          billing_period_end?: string | null
+          billing_period_start?: string | null
+          created_at?: string
+          currency?: string
+          discount_amount?: number | null
+          due_date?: string | null
+          id?: string
+          invoice_number?: string
+          member_id?: string
+          metadata?: Json | null
+          notes?: string | null
+          order_id?: string | null
+          paid_at?: string | null
+          pdf_url?: string | null
+          status?: string
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          tax_rate?: number | null
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
             referencedColumns: ["id"]
           },
         ]
@@ -2551,6 +2765,198 @@ export type Database = {
         }
         Relationships: []
       }
+      revenue_snapshots: {
+        Row: {
+          active_members: number | null
+          arr: number | null
+          avg_revenue_per_user: number | null
+          churn_rate: number | null
+          churned_mrr: number | null
+          churned_subscriptions: number | null
+          contraction_mrr: number | null
+          created_at: string
+          expansion_mrr: number | null
+          id: string
+          metadata: Json | null
+          mrr: number | null
+          net_mrr_change: number | null
+          new_mrr: number | null
+          new_subscriptions: number | null
+          payment_success_rate: number | null
+          period_type: string
+          snapshot_date: string
+          total_revenue: number | null
+          total_subscriptions: number | null
+        }
+        Insert: {
+          active_members?: number | null
+          arr?: number | null
+          avg_revenue_per_user?: number | null
+          churn_rate?: number | null
+          churned_mrr?: number | null
+          churned_subscriptions?: number | null
+          contraction_mrr?: number | null
+          created_at?: string
+          expansion_mrr?: number | null
+          id?: string
+          metadata?: Json | null
+          mrr?: number | null
+          net_mrr_change?: number | null
+          new_mrr?: number | null
+          new_subscriptions?: number | null
+          payment_success_rate?: number | null
+          period_type: string
+          snapshot_date: string
+          total_revenue?: number | null
+          total_subscriptions?: number | null
+        }
+        Update: {
+          active_members?: number | null
+          arr?: number | null
+          avg_revenue_per_user?: number | null
+          churn_rate?: number | null
+          churned_mrr?: number | null
+          churned_subscriptions?: number | null
+          contraction_mrr?: number | null
+          created_at?: string
+          expansion_mrr?: number | null
+          id?: string
+          metadata?: Json | null
+          mrr?: number | null
+          net_mrr_change?: number | null
+          new_mrr?: number | null
+          new_subscriptions?: number | null
+          payment_success_rate?: number | null
+          period_type?: string
+          snapshot_date?: string
+          total_revenue?: number | null
+          total_subscriptions?: number | null
+        }
+        Relationships: []
+      }
+      subscription_items: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          product_id: string | null
+          product_type: string
+          quantity: number
+          subscription_id: string
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          product_id?: string | null
+          product_type: string
+          quantity?: number
+          subscription_id: string
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          product_id?: string | null
+          product_type?: string
+          quantity?: number
+          subscription_id?: string
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_items_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          billing_interval: string
+          cancel_at_period_end: boolean | null
+          cancelled_at: string | null
+          created_at: string
+          currency: string
+          current_period_end: string
+          current_period_start: string
+          id: string
+          member_id: string
+          metadata: Json | null
+          monthly_amount: number
+          paused_at: string | null
+          plan_id: string | null
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean | null
+          cancelled_at?: string | null
+          created_at?: string
+          currency?: string
+          current_period_end: string
+          current_period_start?: string
+          id?: string
+          member_id: string
+          metadata?: Json | null
+          monthly_amount?: number
+          paused_at?: string | null
+          plan_id?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          billing_interval?: string
+          cancel_at_period_end?: boolean | null
+          cancelled_at?: string | null
+          created_at?: string
+          currency?: string
+          current_period_end?: string
+          current_period_start?: string
+          id?: string
+          member_id?: string
+          metadata?: Json | null
+          monthly_amount?: number
+          paused_at?: string | null
+          plan_id?: string | null
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "pricing_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       support_tickets: {
         Row: {
           assigned_to: string | null
@@ -2650,6 +3056,94 @@ export type Database = {
           },
         ]
       }
+      transactions: {
+        Row: {
+          amount: number
+          card_brand: string | null
+          card_last_four: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          failure_reason: string | null
+          id: string
+          invoice_id: string | null
+          member_id: string | null
+          metadata: Json | null
+          payment_method: string | null
+          processed_at: string | null
+          status: string
+          stripe_charge_id: string | null
+          stripe_payment_intent_id: string | null
+          stripe_refund_id: string | null
+          subscription_id: string | null
+          transaction_type: string
+        }
+        Insert: {
+          amount: number
+          card_brand?: string | null
+          card_last_four?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          failure_reason?: string | null
+          id?: string
+          invoice_id?: string | null
+          member_id?: string | null
+          metadata?: Json | null
+          payment_method?: string | null
+          processed_at?: string | null
+          status?: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_refund_id?: string | null
+          subscription_id?: string | null
+          transaction_type: string
+        }
+        Update: {
+          amount?: number
+          card_brand?: string | null
+          card_last_four?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          failure_reason?: string | null
+          id?: string
+          invoice_id?: string | null
+          member_id?: string | null
+          metadata?: Json | null
+          payment_method?: string | null
+          processed_at?: string | null
+          status?: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_refund_id?: string | null
+          subscription_id?: string | null
+          transaction_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_consents: {
         Row: {
           consent_type: Database["public"]["Enums"]["consent_type"]
@@ -2715,6 +3209,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_invoice_number: { Args: never; Returns: string }
       get_user_company_id: { Args: { _user_id: string }; Returns: string }
       get_user_facility_id: { Args: { _user_id: string }; Returns: string }
       get_user_insurance_company_id: {

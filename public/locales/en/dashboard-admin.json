@@ -36,7 +36,14 @@
     "announcements": "Announcements",
     "supportTickets": "Support Tickets",
     "systemSettings": "System Settings",
-    "integrations": "Integrations"
+    "integrations": "Integrations",
+    "finance": "Finance",
+    "revenueDashboard": "Revenue Dashboard",
+    "subscriptions": "Subscriptions",
+    "invoices": "Invoices",
+    "transactions": "Transactions",
+    "creditsRefunds": "Credits & Refunds",
+    "financialReports": "Financial Reports"
   },
   "home": {
     "title": "Admin Dashboard",

@@ -36,7 +36,14 @@
     "announcements": "Anuncios",
     "supportTickets": "Tickets de Soporte",
     "systemSettings": "Configuración del Sistema",
-    "integrations": "Integraciones"
+    "integrations": "Integraciones",
+    "finance": "Finanzas",
+    "revenueDashboard": "Panel de Ingresos",
+    "subscriptions": "Suscripciones",
+    "invoices": "Facturas",
+    "transactions": "Transacciones",
+    "creditsRefunds": "Créditos y Reembolsos",
+    "financialReports": "Informes Financieros"
   },
   "home": {
     "title": "Panel de Administración",

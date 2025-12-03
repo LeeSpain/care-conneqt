@@ -1,4 +1,4 @@
-import { Home, Users, Settings, Bot, BarChart3, MessageSquare, ChevronDown, Briefcase, TrendingUp, Mail } from "lucide-react";
+import { Home, Users, Settings, Bot, BarChart3, MessageSquare, ChevronDown, Briefcase, TrendingUp, Mail, Wallet } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -59,6 +59,18 @@ export function AdminSidebar() {
         { title: t('sidebar.products'), url: "/dashboard/admin/products" },
         { title: t('sidebar.services'), url: "/dashboard/admin/services" },
         { title: t('sidebar.pricingPlans'), url: "/dashboard/admin/pricing-plans" },
+      ]
+    },
+    {
+      title: t('sidebar.finance'),
+      icon: Wallet,
+      items: [
+        { title: t('sidebar.revenueDashboard'), url: "/dashboard/admin/finance" },
+        { title: t('sidebar.subscriptions'), url: "/dashboard/admin/finance/subscriptions" },
+        { title: t('sidebar.invoices'), url: "/dashboard/admin/finance/invoices" },
+        { title: t('sidebar.transactions'), url: "/dashboard/admin/finance/transactions" },
+        { title: t('sidebar.creditsRefunds'), url: "/dashboard/admin/finance/credits" },
+        { title: t('sidebar.financialReports'), url: "/dashboard/admin/finance/reports" },
       ]
     },
     { 
