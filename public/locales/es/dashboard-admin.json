@@ -1394,5 +1394,55 @@
       "activityAdded": "Actividad añadida",
       "assignmentUpdated": "Asignación actualizada"
     }
+  },
+  "appointments": {
+    "title": "Citas",
+    "schedule": "Programar Cita",
+    "upcoming": "Próximas Citas",
+    "past": "Citas Pasadas",
+    "types": {
+      "meeting": "Reunión",
+      "call": "Llamada",
+      "video": "Videollamada"
+    },
+    "status": {
+      "scheduled": "Programada",
+      "confirmed": "Confirmada",
+      "cancelled": "Cancelada",
+      "completed": "Completada"
+    },
+    "confirmRequest": "Solicitud de Confirmación",
+    "pendingConfirmation": "Confirmación Pendiente",
+    "createdByAI": "Creado por IA",
+    "organizer": "Organizador",
+    "participants": "Participantes",
+    "noAppointments": "No hay citas programadas"
+  },
+  "reminders": {
+    "title": "Recordatorios",
+    "create": "Crear Recordatorio",
+    "upcoming": "Próximos Recordatorios",
+    "completed": "Completados",
+    "priority": {
+      "low": "Baja",
+      "normal": "Normal",
+      "high": "Alta",
+      "urgent": "Urgente"
+    },
+    "markComplete": "Marcar Completado",
+    "createdByAI": "Creado por LEE",
+    "noReminders": "Sin recordatorios"
+  },
+  "leeCapabilities": {
+    "title": "Capacidades de LEE",
+    "sendMessage": "Enviar Mensaje",
+    "scheduleAppointment": "Programar Cita",
+    "createTask": "Crear Tarea",
+    "createReminder": "Crear Recordatorio",
+    "manageAlert": "Gestionar Alerta",
+    "updateLead": "Actualizar Prospecto",
+    "lookupUser": "Buscar Usuario",
+    "actionExecuted": "Acción ejecutada con éxito",
+    "actionFailed": "Acción fallida"
   }
 }

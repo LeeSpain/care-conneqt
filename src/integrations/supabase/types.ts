@@ -49,6 +49,60 @@ export type Database = {
           },
         ]
       }
+      admin_reminders: {
+        Row: {
+          ai_agent_name: string | null
+          completed_at: string | null
+          created_at: string
+          created_by_ai: boolean | null
+          description: string | null
+          id: string
+          is_completed: boolean | null
+          metadata: Json | null
+          priority: string | null
+          related_entity_id: string | null
+          related_entity_type: string | null
+          reminder_time: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_agent_name?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by_ai?: boolean | null
+          description?: string | null
+          id?: string
+          is_completed?: boolean | null
+          metadata?: Json | null
+          priority?: string | null
+          related_entity_id?: string | null
+          related_entity_type?: string | null
+          reminder_time: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_agent_name?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by_ai?: boolean | null
+          description?: string | null
+          id?: string
+          is_completed?: boolean | null
+          metadata?: Json | null
+          priority?: string | null
+          related_entity_id?: string | null
+          related_entity_type?: string | null
+          reminder_time?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       ai_agent_analytics: {
         Row: {
           agent_id: string
@@ -385,6 +439,125 @@ export type Database = {
           },
           {
             foreignKeyName: "alerts_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_participants: {
+        Row: {
+          appointment_id: string
+          created_at: string
+          id: string
+          notes: string | null
+          notified_at: string | null
+          responded_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          appointment_id: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          responded_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          appointment_id?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          responded_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_participants_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointments: {
+        Row: {
+          ai_agent_name: string | null
+          appointment_type: string
+          confirmation_deadline: string | null
+          created_at: string
+          created_by_ai: boolean | null
+          description: string | null
+          end_time: string
+          facility_id: string | null
+          id: string
+          location: string | null
+          member_id: string | null
+          metadata: Json | null
+          organizer_id: string
+          requires_confirmation: boolean | null
+          start_time: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          ai_agent_name?: string | null
+          appointment_type?: string
+          confirmation_deadline?: string | null
+          created_at?: string
+          created_by_ai?: boolean | null
+          description?: string | null
+          end_time: string
+          facility_id?: string | null
+          id?: string
+          location?: string | null
+          member_id?: string | null
+          metadata?: Json | null
+          organizer_id: string
+          requires_confirmation?: boolean | null
+          start_time: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          ai_agent_name?: string | null
+          appointment_type?: string
+          confirmation_deadline?: string | null
+          created_at?: string
+          created_by_ai?: boolean | null
+          description?: string | null
+          end_time?: string
+          facility_id?: string | null
+          id?: string
+          location?: string | null
+          member_id?: string | null
+          metadata?: Json | null
+          organizer_id?: string
+          requires_confirmation?: boolean | null
+          start_time?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_member_id_fkey"
             columns: ["member_id"]
             isOneToOne: false
             referencedRelation: "members"
