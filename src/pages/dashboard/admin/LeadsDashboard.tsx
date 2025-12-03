@@ -92,7 +92,7 @@ export default function LeadsDashboard() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.new_today || 0}</div>
-                  <p className="text-xs text-muted-foreground">Last 24 hours</p>
+                  <p className="text-xs text-muted-foreground">{t('leads.last24Hours')}</p>
                 </>
               )}
             </CardContent>
@@ -126,7 +126,7 @@ export default function LeadsDashboard() {
               ) : (
                 <>
                   <div className="text-2xl font-bold">{stats?.conversion_rate?.toFixed(1) || 0}%</div>
-                  <p className="text-xs text-muted-foreground">Lead to conversion</p>
+                  <p className="text-xs text-muted-foreground">{t('leads.leadToConversion')}</p>
                 </>
               )}
             </CardContent>

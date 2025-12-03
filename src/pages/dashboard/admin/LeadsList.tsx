@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 export default function LeadsList() {
+  const { t } = useTranslation('dashboard-admin');
   const navigate = useNavigate();
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -129,32 +131,32 @@ export default function LeadsList() {
   };
 
   return (
-    <AdminDashboardLayout title="All Leads">
+    <AdminDashboardLayout title={t('leads.allLeads')}>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">All Leads</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('leads.allLeads')}</h2>
             <p className="text-muted-foreground">
-              Manage and track all sales prospects
+              {t('leads.description')}
             </p>
           </div>
           <Button onClick={() => setShowAddDialog(true)}>
             <Plus className="mr-2 h-4 w-4" />
-            Add Lead
+            {t('leads.addLead')}
           </Button>
         </div>
 
         {/* Filters */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Filters & Search</CardTitle>
+            <CardTitle className="text-base">{t('leads.filtersAndSearch')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search name, email, org..."
+                  placeholder={t('leads.searchPlaceholder')}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="pl-9"
@@ -162,34 +164,34 @@ export default function LeadsList() {
               </div>
               <Select value={statusFilter || "all"} onValueChange={(value) => setStatusFilter(value === "all" ? "" : value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All Statuses" />
+                  <SelectValue placeholder={t('leads.allStatuses')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Statuses</SelectItem>
-                  <SelectItem value="new">New</SelectItem>
-                  <SelectItem value="contacted">Contacted</SelectItem>
-                  <SelectItem value="qualified">Qualified</SelectItem>
-                  <SelectItem value="proposal">Proposal</SelectItem>
-                  <SelectItem value="won">Won</SelectItem>
-                  <SelectItem value="lost">Lost</SelectItem>
+                  <SelectItem value="all">{t('leads.allStatuses')}</SelectItem>
+                  <SelectItem value="new">{t('leads.status.new')}</SelectItem>
+                  <SelectItem value="contacted">{t('leads.status.contacted')}</SelectItem>
+                  <SelectItem value="qualified">{t('leads.status.qualified')}</SelectItem>
+                  <SelectItem value="proposal">{t('leads.status.proposal')}</SelectItem>
+                  <SelectItem value="won">{t('leads.status.won')}</SelectItem>
+                  <SelectItem value="lost">{t('leads.status.lost')}</SelectItem>
                 </SelectContent>
               </Select>
               <Select value={typeFilter || "all"} onValueChange={(value) => setTypeFilter(value === "all" ? "" : value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="All Types" />
+                  <SelectValue placeholder={t('leads.allTypes')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="personal">Personal</SelectItem>
-                  <SelectItem value="facility">Facility</SelectItem>
-                  <SelectItem value="care_company">Care Company</SelectItem>
-                  <SelectItem value="insurance">Insurance</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="all">{t('leads.allTypes')}</SelectItem>
+                  <SelectItem value="personal">{t('leads.types.personal')}</SelectItem>
+                  <SelectItem value="facility">{t('leads.types.facility')}</SelectItem>
+                  <SelectItem value="care_company">{t('leads.types.care_company')}</SelectItem>
+                  <SelectItem value="insurance">{t('leads.types.insurance')}</SelectItem>
+                  <SelectItem value="other">{t('leads.types.other')}</SelectItem>
                 </SelectContent>
               </Select>
               <Button variant="outline">
                 <Download className="mr-2 h-4 w-4" />
-                Export
+                {t('leads.export')}
               </Button>
             </div>
           </CardContent>
@@ -207,14 +209,14 @@ export default function LeadsList() {
                 <table className="w-full">
                    <thead className="border-b">
                     <tr className="text-left text-sm">
-                      <th className="p-4 font-medium">Name</th>
-                      <th className="p-4 font-medium">Organization</th>
-                      <th className="p-4 font-medium">Type</th>
-                      <th className="p-4 font-medium">Status</th>
-                      <th className="p-4 font-medium">Assigned To</th>
-                      <th className="p-4 font-medium">Source</th>
-                      <th className="p-4 font-medium">Created</th>
-                      <th className="p-4 font-medium">Actions</th>
+                      <th className="p-4 font-medium">{t('leads.fields.name')}</th>
+                      <th className="p-4 font-medium">{t('leads.fields.organization')}</th>
+                      <th className="p-4 font-medium">{t('leads.fields.type')}</th>
+                      <th className="p-4 font-medium">{t('leads.fields.status')}</th>
+                      <th className="p-4 font-medium">{t('leads.assignedTo')}</th>
+                      <th className="p-4 font-medium">{t('leads.fields.source')}</th>
+                      <th className="p-4 font-medium">{t('leads.fields.created')}</th>
+                      <th className="p-4 font-medium">{t('institutionalRegistrations.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -240,7 +242,7 @@ export default function LeadsList() {
                         </td>
                         <td className="p-4">
                           <Badge className={`text-xs ${getStatusColor(lead.status || 'new')}`}>
-                            {lead.status}
+                            {t(`leads.status.${lead.status}`, { defaultValue: lead.status })}
                           </Badge>
                         </td>
                         <td className="p-4 text-sm">
@@ -262,15 +264,15 @@ export default function LeadsList() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem onClick={() => navigate(`/dashboard/admin/leads/${lead.id}`)}>
                                 <Eye className="mr-2 h-4 w-4" />
-                                View Details
+                                {t('leads.actions.viewDetails')}
                               </DropdownMenuItem>
                               <DropdownMenuItem onClick={() => setAssigningLeadId(lead.id)}>
                                 <UserCircle className="mr-2 h-4 w-4" />
-                                Assign
+                                {t('dialogs.editStaffRole.assign')}
                               </DropdownMenuItem>
                               <DropdownMenuItem onClick={() => setDeleteLeadId(lead.id)}>
                                 <Trash className="mr-2 h-4 w-4" />
-                                Delete
+                                {t('leads.actions.delete')}
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -282,9 +284,9 @@ export default function LeadsList() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No leads found</p>
+                <p className="text-muted-foreground">{t('leads.messages.noLeads')}</p>
                 <Button variant="link" onClick={() => setShowAddDialog(true)}>
-                  Add a lead
+                  {t('leads.addLead')}
                 </Button>
               </div>
             )}

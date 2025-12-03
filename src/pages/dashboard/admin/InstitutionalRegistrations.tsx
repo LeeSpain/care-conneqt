@@ -182,7 +182,7 @@ export default function InstitutionalRegistrations() {
           </CardHeader>
           <CardContent>
             {isLoading ? (
-              <p className="text-muted-foreground">Loading registrations...</p>
+              <p className="text-muted-foreground">{t('institutionalRegistrations.loading')}</p>
             ) : filteredRegistrations && filteredRegistrations.length > 0 ? (
               <Table>
                 <TableHeader>
@@ -283,18 +283,18 @@ export default function InstitutionalRegistrations() {
                       <p className="font-medium">{selectedRegistration.organization_type}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Registration Number</Label>
-                      <p className="font-medium">{selectedRegistration.registration_number || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.registrationNumber')}</Label>
+                      <p className="font-medium">{selectedRegistration.registration_number || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Website</Label>
-                      <p className="font-medium">{selectedRegistration.website || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.website')}</Label>
+                      <p className="font-medium">{selectedRegistration.website || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                   </div>
                   
                   {selectedRegistration.address_line1 && (
                     <div>
-                      <Label className="text-muted-foreground">Address</Label>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.address')}</Label>
                       <p className="font-medium">
                         {selectedRegistration.address_line1}
                         {selectedRegistration.address_line2 && `, ${selectedRegistration.address_line2}`}
@@ -316,8 +316,8 @@ export default function InstitutionalRegistrations() {
                       <p className="font-medium">{selectedRegistration.contact_name}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Job Title</Label>
-                      <p className="font-medium">{selectedRegistration.contact_job_title || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.jobTitle')}</Label>
+                      <p className="font-medium">{selectedRegistration.contact_job_title || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                     <div>
                       <Label className="text-muted-foreground">{t('leads.fields.email')}</Label>
@@ -325,7 +325,7 @@ export default function InstitutionalRegistrations() {
                     </div>
                     <div>
                       <Label className="text-muted-foreground">{t('leads.fields.phone')}</Label>
-                      <p className="font-medium">{selectedRegistration.contact_phone || 'N/A'}</p>
+                      <p className="font-medium">{selectedRegistration.contact_phone || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                   </div>
                 </div>
@@ -335,26 +335,26 @@ export default function InstitutionalRegistrations() {
                   <h3 className="font-semibold text-lg">{t('institutionalRegistrations.serviceRequirements')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-muted-foreground">Residents/Employees</Label>
-                      <p className="font-medium">{selectedRegistration.resident_count || selectedRegistration.employee_count || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.residentsEmployees')}</Label>
+                      <p className="font-medium">{selectedRegistration.resident_count || selectedRegistration.employee_count || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Implementation Timeline</Label>
-                      <p className="font-medium">{selectedRegistration.implementation_timeline || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.implementationTimeline')}</Label>
+                      <p className="font-medium">{selectedRegistration.implementation_timeline || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Budget Range</Label>
-                      <p className="font-medium">{selectedRegistration.budget_range || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.budgetRange')}</Label>
+                      <p className="font-medium">{selectedRegistration.budget_range || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                     <div>
-                      <Label className="text-muted-foreground">Preferred Agreement</Label>
-                      <p className="font-medium">{selectedRegistration.preferred_agreement_length || 'N/A'}</p>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.preferredAgreement')}</Label>
+                      <p className="font-medium">{selectedRegistration.preferred_agreement_length || t('institutionalRegistrations.notAvailable')}</p>
                     </div>
                   </div>
                   
                   {selectedRegistration.service_interests && selectedRegistration.service_interests.length > 0 && (
                     <div>
-                      <Label className="text-muted-foreground">Services of Interest</Label>
+                      <Label className="text-muted-foreground">{t('institutionalRegistrations.servicesOfInterest')}</Label>
                       <div className="flex flex-wrap gap-2 mt-2">
                         {selectedRegistration.service_interests.map((service: string) => (
                           <Badge key={service} variant="secondary">{service}</Badge>
@@ -367,15 +367,15 @@ export default function InstitutionalRegistrations() {
                 {/* Additional Information */}
                 {selectedRegistration.additional_notes && (
                   <div>
-                    <Label className="text-muted-foreground">Additional Notes</Label>
+                    <Label className="text-muted-foreground">{t('institutionalRegistrations.additionalNotes')}</Label>
                     <Textarea value={selectedRegistration.additional_notes} readOnly className="mt-2" />
                   </div>
                 )}
 
                 {/* Metadata */}
                 <div className="border-t pt-4 text-sm text-muted-foreground">
-                  <p>Created: {format(new Date(selectedRegistration.created_at), 'PPpp')}</p>
-                  <p>Updated: {format(new Date(selectedRegistration.updated_at), 'PPpp')}</p>
+                  <p>{t('institutionalRegistrations.created')}: {format(new Date(selectedRegistration.created_at), 'PPpp')}</p>
+                  <p>{t('institutionalRegistrations.updated')}: {format(new Date(selectedRegistration.updated_at), 'PPpp')}</p>
                 </div>
               </div>
             )}
