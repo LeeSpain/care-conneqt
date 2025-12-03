@@ -30,13 +30,19 @@ interface AgentData {
   display_name: string;
 }
 
+// Default Clara avatar URL (pre-loaded for instant display)
+const CLARA_DEFAULT_AVATAR = 'https://xuyokixtlmchqwibntep.supabase.co/storage/v1/object/public/ai-agent-avatars/ee465c27-998b-4683-84de-382aa1cbaba4/avatar.png';
+
 export const ClaraWidget = () => {
   const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
   
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [agent, setAgent] = useState<AgentData | null>(null);
+  const [agent, setAgent] = useState<AgentData>({
+    avatar_url: CLARA_DEFAULT_AVATAR,
+    display_name: 'Clara'
+  });
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
