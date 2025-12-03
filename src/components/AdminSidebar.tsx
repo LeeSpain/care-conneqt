@@ -57,6 +57,7 @@ export function AdminSidebar() {
       icon: MessageSquare,
       items: [
         { title: t('sidebar.products'), url: "/dashboard/admin/products" },
+        { title: t('sidebar.services'), url: "/dashboard/admin/services" },
         { title: t('sidebar.pricingPlans'), url: "/dashboard/admin/pricing-plans" },
       ]
     },

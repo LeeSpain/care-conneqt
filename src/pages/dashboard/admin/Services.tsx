@@ -29,7 +29,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export default function Products() {
+export default function Services() {
   const { t } = useTranslation('dashboard-admin');
   const { data: products, isLoading, refetch } = useAllProducts();
   const navigate = useNavigate();
@@ -47,40 +47,40 @@ export default function Products() {
       toast.error(t('toast.error.deleteFailed', { error: error.message }));
       console.error(error);
     } else {
-      toast.success(t('toast.success.productDeleted'));
+      toast.success(t('services.deleted'));
       refetch();
     }
     setDeleteId(null);
   };
 
-  // Filter to only show devices (product_type = 'device' or null for backwards compatibility)
+  // Filter to only show services (product_type = 'service')
   const filteredProducts = products?.filter((product) => {
-    const enTranslation = product.product_translations?.find((t: any) => t.language === "en");
+    const enTranslation = product.product_translations?.find((tr: any) => tr.language === "en");
     const name = enTranslation?.name || "";
     
-    const isDevice = product.product_type === 'device' || !product.product_type;
+    const isService = product.product_type === 'service';
     const matchesSearch = name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === "all" || product.category === categoryFilter;
     const matchesStatus = statusFilter === "all" || 
       (statusFilter === "active" && product.is_active) ||
       (statusFilter === "inactive" && !product.is_active);
 
-    return isDevice && matchesSearch && matchesCategory && matchesStatus;
+    return isService && matchesSearch && matchesCategory && matchesStatus;
   });
 
   return (
-    <AdminDashboardLayout title={t('products.title')}>
+    <AdminDashboardLayout title={t('services.title')}>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">{t('products.title')}</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t('services.title')}</h2>
             <p className="text-muted-foreground">
-              {t('products.subtitleDevices')}
+              {t('services.subtitle')}
             </p>
           </div>
-          <Button onClick={() => navigate("/dashboard/admin/products/new")}>
+          <Button onClick={() => navigate("/dashboard/admin/services/new")}>
             <Plus className="h-4 w-4 mr-2" />
-            {t('products.addProduct')}
+            {t('services.addService')}
           </Button>
         </div>
 
@@ -91,22 +91,20 @@ export default function Products() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Input
-                placeholder={t('products.searchPlaceholder')}
+                placeholder={t('services.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t('products.filterByCategory')} />
+                  <SelectValue placeholder={t('services.filterByCategory')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t('products.allCategories')}</SelectItem>
-                  <SelectItem value="wearable">{t('products.wearables')}</SelectItem>
-                  <SelectItem value="emergency">{t('products.safetyDevices')}</SelectItem>
-                  <SelectItem value="health">{t('products.healthMonitoring')}</SelectItem>
-                  <SelectItem value="medication">Medication</SelectItem>
-                  <SelectItem value="cognitive">Cognitive</SelectItem>
-                  <SelectItem value="home-monitoring">{t('products.smartHome')}</SelectItem>
+                  <SelectItem value="all">{t('services.allCategories')}</SelectItem>
+                  <SelectItem value="service">{t('services.generalService')}</SelectItem>
+                  <SelectItem value="support">{t('services.support')}</SelectItem>
+                  <SelectItem value="monitoring">{t('services.monitoring')}</SelectItem>
+                  <SelectItem value="care">{t('services.care')}</SelectItem>
                 </SelectContent>
               </Select>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -114,9 +112,9 @@ export default function Products() {
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t('products.allCategories')}</SelectItem>
-                  <SelectItem value="active">{t('products.active')}</SelectItem>
-                  <SelectItem value="inactive">{t('products.inactive')}</SelectItem>
+                  <SelectItem value="all">{t('services.allStatuses')}</SelectItem>
+                  <SelectItem value="active">{t('services.active')}</SelectItem>
+                  <SelectItem value="inactive">{t('services.inactive')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -126,12 +124,12 @@ export default function Products() {
         <Card>
           <CardContent className="p-0">
             {isLoading ? (
-              <div className="p-8 text-center text-muted-foreground">{t('common:loading.devices')}</div>
+              <div className="p-8 text-center text-muted-foreground">{t('common:loading.services', { defaultValue: 'Loading services...' })}</div>
             ) : filteredProducts && filteredProducts.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>{t('common:product', { defaultValue: 'Product' })}</TableHead>
+                    <TableHead>{t('common:service', { defaultValue: 'Service' })}</TableHead>
                     <TableHead>{t('common:category', { defaultValue: 'Category' })}</TableHead>
                     <TableHead>{t('common:price', { defaultValue: 'Price' })}</TableHead>
                     <TableHead>{t('common:status', { defaultValue: 'Status' })}</TableHead>
@@ -141,7 +139,7 @@ export default function Products() {
                 </TableHeader>
                 <TableBody>
                   {filteredProducts.map((product) => {
-                    const enTranslation = product.product_translations?.find((t: any) => t.language === "en");
+                    const enTranslation = product.product_translations?.find((tr: any) => tr.language === "en");
                     return (
                       <TableRow key={product.id}>
                         <TableCell>
@@ -163,14 +161,13 @@ export default function Products() {
                           <Badge variant="secondary">{product.category}</Badge>
                         </TableCell>
                         <TableCell>
-                          {product.monthly_price ? `€${product.monthly_price}${t('products.perMonth')}` : t('common:included', { defaultValue: 'Included' })}
+                          {product.monthly_price ? `€${product.monthly_price}${t('services.perMonth')}` : t('common:included', { defaultValue: 'Included' })}
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-1">
-                            {product.is_active && <Badge variant="default">{t('products.active')}</Badge>}
-                            {!product.is_active && <Badge variant="secondary">{t('products.inactive')}</Badge>}
-                            {product.is_popular && <Badge>{t('products.popular')}</Badge>}
-                            {product.is_base_device && <Badge variant="outline">{t('common:base', { defaultValue: 'Base' })}</Badge>}
+                            {product.is_active && <Badge variant="default">{t('services.active')}</Badge>}
+                            {!product.is_active && <Badge variant="secondary">{t('services.inactive')}</Badge>}
+                            {product.is_popular && <Badge>{t('services.popular')}</Badge>}
                           </div>
                         </TableCell>
                         <TableCell>{product.sort_order}</TableCell>
@@ -179,7 +176,7 @@ export default function Products() {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => navigate(`/dashboard/admin/products/${product.id}`)}
+                              onClick={() => navigate(`/dashboard/admin/services/${product.id}`)}
                             >
                               <Pencil className="h-4 w-4" />
                             </Button>
@@ -199,7 +196,7 @@ export default function Products() {
               </Table>
             ) : (
               <div className="p-8 text-center text-muted-foreground">
-                {t('products.noProducts')}
+                {t('services.noServices')}
               </div>
             )}
           </CardContent>
@@ -209,9 +206,9 @@ export default function Products() {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('products.actions.delete')}</AlertDialogTitle>
+            <AlertDialogTitle>{t('services.actions.delete')}</AlertDialogTitle>
             <AlertDialogDescription>
-              {t('common:deleteConfirm', { defaultValue: 'Are you sure you want to delete this product? This action cannot be undone.' })}
+              {t('common:deleteConfirm', { defaultValue: 'Are you sure you want to delete this service? This action cannot be undone.' })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

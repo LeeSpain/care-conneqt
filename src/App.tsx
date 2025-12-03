@@ -96,6 +96,7 @@ const ClaraFamilySettings = lazy(() => import("./pages/dashboard/settings/ai-age
 const IsabellaSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/IsabellaSettings"));
 const LeeSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/LeeSettings"));
 const Products = lazy(() => import("./pages/dashboard/admin/Products"));
+const Services = lazy(() => import("./pages/dashboard/admin/Services"));
 const ProductForm = lazy(() => import("./pages/dashboard/admin/ProductForm"));
 const PricingPlans = lazy(() => import("./pages/dashboard/admin/PricingPlans"));
 const PricingPlanForm = lazy(() => import("./pages/dashboard/admin/PricingPlanForm"));
@@ -654,6 +655,27 @@ const App = () => (
               </ProtectedRoute>
             } />
             <Route path="/dashboard/admin/products/:id" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ProductForm />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/services" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <Services />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/services/new" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <ProductForm />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/services/:id" element={
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <ProductForm />
