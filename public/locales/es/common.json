@@ -96,7 +96,17 @@
     "back": "Atrás",
     "next": "Siguiente",
     "loading": "Cargando...",
-    "viewAll": "Ver Todo"
+    "viewAll": "Ver Todo",
+    "refresh": "Actualizar",
+    "export": "Exportar",
+    "download": "Descargar",
+    "create": "Crear",
+    "add": "Añadir",
+    "view": "Ver",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "apply": "Aplicar"
   },
   "status": {
     "online": "En Línea",
