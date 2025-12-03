@@ -93,6 +93,7 @@ const Announcements = lazy(() => import("./pages/dashboard/admin/Announcements")
 const SupportTickets = lazy(() => import("./pages/dashboard/admin/SupportTickets"));
 const SystemSettings = lazy(() => import("./pages/dashboard/admin/SystemSettings"));
 const SystemHealth = lazy(() => import("./pages/dashboard/admin/SystemHealth"));
+const DailyReport = lazy(() => import("./pages/dashboard/admin/DailyReport"));
 const UserManagement = lazy(() => import("./pages/dashboard/settings/UserManagement"));
 const AIAgentsSettings = lazy(() => import("./pages/dashboard/settings/AIAgentsSettings"));
 const ClaraSettings = lazy(() => import("./pages/dashboard/settings/ai-agents/ClaraSettings"));
@@ -567,6 +568,13 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <SystemHealth />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/daily-report" element={
+              <ProtectedRoute requiredRole="admin">
+                <Suspense fallback={<PageLoader />}>
+                  <DailyReport />
                 </Suspense>
               </ProtectedRoute>
             } />

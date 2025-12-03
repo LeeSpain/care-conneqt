@@ -1898,5 +1898,69 @@
       "transactionLog": "Transaction Log",
       "taxReport": "Tax Report"
     }
+  },
+  "dailyReport": {
+    "title": "Daily Report",
+    "subtitle": "Executive Overview",
+    "todaysDate": "Today's Date",
+    "print": "Print",
+    "export": "Export PDF",
+    "refresh": "Refresh",
+    "revenue": {
+      "title": "Revenue Snapshot",
+      "todayRevenue": "Today's Revenue",
+      "mrr": "MRR",
+      "arr": "ARR",
+      "mrrChange": "MRR Change"
+    },
+    "alerts": {
+      "title": "Critical Alerts",
+      "noAlerts": "No critical alerts",
+      "viewAll": "View All"
+    },
+    "activity": {
+      "title": "Activity Summary",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "leads": "New Leads",
+      "orders": "Orders",
+      "signups": "Signups",
+      "conversations": "AI Conversations"
+    },
+    "pipeline": {
+      "title": "Pipeline Overview",
+      "conversion": "Conversion Rate",
+      "highValue": "High-Value Opportunities"
+    },
+    "ai": {
+      "title": "AI Performance",
+      "conversations": "Conversations",
+      "satisfaction": "Satisfaction",
+      "escalations": "Escalations",
+      "byAgent": "By Agent"
+    },
+    "operations": {
+      "title": "Operational Health",
+      "systemStatus": "System Status",
+      "activeNurses": "Active Nurses",
+      "openTickets": "Open Tickets",
+      "deviceAlerts": "Device Alerts",
+      "pendingTasks": "Pending Tasks"
+    },
+    "finance": {
+      "title": "Financial Summary",
+      "outstanding": "Outstanding Invoices",
+      "pending": "Pending Payments",
+      "recentTransactions": "Recent Transactions",
+      "subscriptions": "Active Subscriptions"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "viewAlerts": "View All Alerts",
+      "viewLeads": "View All Leads",
+      "viewFinance": "Finance Dashboard",
+      "viewAI": "AI Analytics"
+    }
   }
 }

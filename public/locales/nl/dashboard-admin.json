@@ -1898,5 +1898,69 @@
       "transactionLog": "Transactie Log",
       "taxReport": "BTW Rapport"
     }
+  },
+  "dailyReport": {
+    "title": "Dagelijks Rapport",
+    "subtitle": "Directie Overzicht",
+    "todaysDate": "Datum van Vandaag",
+    "print": "Afdrukken",
+    "export": "PDF Exporteren",
+    "refresh": "Vernieuwen",
+    "revenue": {
+      "title": "Omzet Overzicht",
+      "todayRevenue": "Omzet Vandaag",
+      "mrr": "MRR",
+      "arr": "ARR",
+      "mrrChange": "MRR Wijziging"
+    },
+    "alerts": {
+      "title": "Kritieke Alerts",
+      "noAlerts": "Geen kritieke alerts",
+      "viewAll": "Alles Bekijken"
+    },
+    "activity": {
+      "title": "Activiteiten Overzicht",
+      "today": "Vandaag",
+      "thisWeek": "Deze Week",
+      "thisMonth": "Deze Maand",
+      "leads": "Nieuwe Leads",
+      "orders": "Bestellingen",
+      "signups": "Registraties",
+      "conversations": "AI Gesprekken"
+    },
+    "pipeline": {
+      "title": "Pipeline Overzicht",
+      "conversion": "Conversieratio",
+      "highValue": "Hoogwaardige Kansen"
+    },
+    "ai": {
+      "title": "AI Prestaties",
+      "conversations": "Gesprekken",
+      "satisfaction": "Tevredenheid",
+      "escalations": "Escalaties",
+      "byAgent": "Per Agent"
+    },
+    "operations": {
+      "title": "Operationele Gezondheid",
+      "systemStatus": "Systeemstatus",
+      "activeNurses": "Actieve Verpleegkundigen",
+      "openTickets": "Open Tickets",
+      "deviceAlerts": "Apparaat Alerts",
+      "pendingTasks": "Openstaande Taken"
+    },
+    "finance": {
+      "title": "Financieel Overzicht",
+      "outstanding": "Openstaande Facturen",
+      "pending": "Openstaande Betalingen",
+      "recentTransactions": "Recente Transacties",
+      "subscriptions": "Actieve Abonnementen"
+    },
+    "quickActions": {
+      "title": "Snelle Acties",
+      "viewAlerts": "Alle Alerts Bekijken",
+      "viewLeads": "Alle Leads Bekijken",
+      "viewFinance": "Financiën Dashboard",
+      "viewAI": "AI Analytics"
+    }
   }
 }
