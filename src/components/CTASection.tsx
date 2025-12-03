@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const CTASection = () => {
   const { t } = useTranslation('home');
@@ -27,10 +28,10 @@ export const CTASection = () => {
                   className="bg-white text-primary hover:bg-white/90 font-semibold group"
                   asChild
                 >
-                  <a href="/pricing">
+                  <Link to="/pricing">
                     {t('cta.button')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
 

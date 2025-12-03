@@ -18,8 +18,7 @@ i18n
     },
 
     backend: {
-      // Cache busting to ensure fresh translations are loaded
-      loadPath: '/locales/{{lng}}/{{ns}}.json?v=' + Date.now(),
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
 
     // Load critical namespaces initially - others load on demand

@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
 
@@ -25,17 +26,17 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">{t('footer.solutions')}</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="/personal-care" className="hover:text-secondary transition-colors">{t('footer.forFamilies')}</a></li>
-              <li><a href="/institutional-care" className="hover:text-secondary transition-colors">{t('footer.forInstitutions')}</a></li>
+              <li><Link to="/personal-care" className="hover:text-secondary transition-colors">{t('footer.forFamilies')}</Link></li>
+              <li><Link to="/institutional-care" className="hover:text-secondary transition-colors">{t('footer.forInstitutions')}</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="font-semibold mb-4">{t('footer.resources')}</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="/guide" className="hover:text-secondary transition-colors">{t('footer.guide')}</a></li>
-              <li><a href="/devices" className="hover:text-secondary transition-colors">{t('footer.devices')}</a></li>
-              <li><a href="/our-nurses" className="hover:text-secondary transition-colors">{t('footer.ourNurses')}</a></li>
+              <li><Link to="/guide" className="hover:text-secondary transition-colors">{t('footer.guide')}</Link></li>
+              <li><Link to="/devices" className="hover:text-secondary transition-colors">{t('footer.devices')}</Link></li>
+              <li><Link to="/our-nurses" className="hover:text-secondary transition-colors">{t('footer.ourNurses')}</Link></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.helpCenter')}</a></li>
             </ul>
           </div>
@@ -43,7 +44,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">{t('footer.company')}</h3>
             <ul className="space-y-2 text-sm text-white/80">
-              <li><a href="/conneqtivity" className="hover:text-secondary transition-colors">{t('footer.conneqtivity')}</a></li>
+              <li><Link to="/conneqtivity" className="hover:text-secondary transition-colors">{t('footer.conneqtivity')}</Link></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.about')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.careers')}</a></li>
               <li><a href="#" className="hover:text-secondary transition-colors">{t('footer.contact')}</a></li>

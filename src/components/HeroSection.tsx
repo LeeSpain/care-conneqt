@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Heart, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-care.jpg";
 
 export const HeroSection = () => {
@@ -48,10 +49,10 @@ export const HeroSection = () => {
                 className="bg-secondary hover:bg-secondary/90 text-white font-semibold group"
                 asChild
               >
-                <a href="/pricing">
+                <Link to="/pricing">
                   {t('hero.benefits.getStarted', { defaultValue: 'Get Started' })}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </Button>
               <Button 
                 size="lg" 
@@ -59,7 +60,7 @@ export const HeroSection = () => {
                 className="border-primary text-primary hover:bg-primary/5"
                 asChild
               >
-                <a href="/institutional-care">{t('common:nav.forInstitutions')}</a>
+                <Link to="/institutional-care">{t('common:nav.forInstitutions')}</Link>
               </Button>
             </div>
 

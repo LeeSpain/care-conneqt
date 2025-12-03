@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Users, Building2, Heart, TrendingUp, Shield, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const SolutionsSection = () => {
   const { t } = useTranslation('home');
@@ -68,10 +69,10 @@ export const SolutionsSection = () => {
               </div>
 
               <Button className="w-full bg-secondary hover:bg-secondary/90 group" asChild>
-                <a href="/personal-care">
+                <Link to="/personal-care">
                   {t('solutions.families.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -125,10 +126,10 @@ export const SolutionsSection = () => {
               </div>
 
               <Button className="w-full bg-primary hover:bg-primary/90 group" asChild>
-                <a href="/institutional-care">
+                <Link to="/institutional-care">
                   {t('solutions.institutions.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </Button>
             </CardContent>
           </Card>

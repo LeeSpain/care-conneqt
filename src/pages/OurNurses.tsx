@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { ClaraWidget } from '@/components/ai-agents/ClaraWidget';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -285,10 +285,10 @@ export default function OurNurses() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-secondary hover:bg-secondary/90" asChild>
-                  <a href="/personal-care">{t('common:buttons.learnMore')}</a>
+                  <Link to="/personal-care">{t('common:buttons.learnMore')}</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <a href="/pricing">{t('common:buttons.getStarted')}</a>
+                  <Link to="/pricing">{t('common:buttons.getStarted')}</Link>
                 </Button>
               </div>
             </CardContent>
@@ -297,7 +297,6 @@ export default function OurNurses() {
       </section>
 
       <Footer />
-      <ClaraWidget />
     </div>
   );
 }
