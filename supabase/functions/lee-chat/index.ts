@@ -145,7 +145,7 @@ Today: ${new Date().toISOString().split('T')[0]}
 Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
 === END COMMANDS ===\n`;
 
-    systemPrompt += `\n\nRespond in ${languageName}. Be concise. No markdown. Keep responses under 100 words unless detailed info requested. Put action blocks at the END.`;
+    systemPrompt += `\n\nRespond in ${languageName}. Be concise. NEVER repeat action results in your text - they are shown automatically. Just acknowledge the action briefly (e.g., "Here are the nurses:" or "Done.") then put the action block. Keep responses under 50 words.`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 

@@ -181,8 +181,13 @@ export function LeeChat() {
         return;
       }
 
-      // Clean up the message by removing action blocks from display
-      const cleanMessage = data.message.replace(/```action[\s\S]*?```/g, '').trim();
+      // Clean up the message by removing action blocks from display (multiple formats)
+      let cleanMessage = data.message
+        .replace(/```action[\s\S]*?```/gi, '')
+        .replace(/```json[\s\S]*?```/gi, '')
+        .replace(/\{[\s\S]*?"action"[\s\S]*?\}/g, '') // Remove any stray JSON action objects
+        .replace(/\n{3,}/g, '\n\n') // Clean up extra newlines
+        .trim();
       
       setMessages(prev => [...prev, { 
         role: 'assistant', 
