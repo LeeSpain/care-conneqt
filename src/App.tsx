@@ -9,6 +9,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ClaraPublicChat } from "@/components/ClaraPublicChat";
 
 // Public pages (lazy loaded for performance)
 const Index = lazy(() => import("./pages/Index"));
@@ -146,6 +147,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
             <ScrollToTop />
+            <ClaraPublicChat />
             <Routes>
             {/* Public routes - lazy loaded with suspense */}
             <Route path="/" element={<Suspense fallback={<PageLoader />}><Index /></Suspense>} />
