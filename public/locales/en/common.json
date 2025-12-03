@@ -96,7 +96,17 @@
     "back": "Back",
     "next": "Next",
     "loading": "Loading...",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "refresh": "Refresh",
+    "export": "Export",
+    "download": "Download",
+    "create": "Create",
+    "add": "Add",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply"
   },
   "status": {
     "online": "Online",

@@ -96,7 +96,17 @@
     "back": "Terug",
     "next": "Volgende",
     "loading": "Laden...",
-    "viewAll": "Alles Bekijken"
+    "viewAll": "Alles Bekijken",
+    "refresh": "Vernieuwen",
+    "export": "Exporteren",
+    "download": "Downloaden",
+    "create": "Maken",
+    "add": "Toevoegen",
+    "view": "Bekijken",
+    "search": "Zoeken",
+    "filter": "Filteren",
+    "clear": "Wissen",
+    "apply": "Toepassen"
   },
   "status": {
     "online": "Online",
