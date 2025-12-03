@@ -6,6 +6,7 @@ export type Product = {
   id: string;
   slug: string;
   category: string;
+  product_type: 'device' | 'service';
   monthly_price: number | null;
   image_url: string | null;
   icon_name: string | null;

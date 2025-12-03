@@ -2195,6 +2195,7 @@ export type Database = {
           is_base_device: boolean | null
           is_popular: boolean | null
           monthly_price: number | null
+          product_type: string | null
           slug: string
           sort_order: number | null
           updated_at: string | null
@@ -2211,6 +2212,7 @@ export type Database = {
           is_base_device?: boolean | null
           is_popular?: boolean | null
           monthly_price?: number | null
+          product_type?: string | null
           slug: string
           sort_order?: number | null
           updated_at?: string | null
@@ -2227,6 +2229,7 @@ export type Database = {
           is_base_device?: boolean | null
           is_popular?: boolean | null
           monthly_price?: number | null
+          product_type?: string | null
           slug?: string
           sort_order?: number | null
           updated_at?: string | null
