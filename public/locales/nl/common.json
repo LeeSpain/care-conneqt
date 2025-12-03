@@ -120,24 +120,36 @@
     "greeting": "Hallo! Ik ben Clara, je Care Conneqt assistent. Hoe kan ik je vandaag helpen?",
     "chatWith": "Chat met Clara",
     "available": "AI Assistent • Nu Beschikbaar",
+    "subtitle": "Je Zorgmetgezel • 24/7 Beschikbaar",
     "typing": "Clara is aan het typen...",
     "placeholder": "Vraag me alles over onze zorgdiensten...",
-    "powered": "Aangedreven door AI • Directe reacties"
+    "powered": "Aangedreven door Conneqtivity AI",
+    "expandView": "Uitbreiden naar volledig scherm",
+    "availableNow": "24/7 beschikbaar om je te helpen"
   },
   "ineke": {
     "greeting": "Hallo! Ik ben Ineke, je verpleegassistent. Ik kan je helpen met toegang tot ledengegevens, zorgprotocollen vinden, apparaatstatus controleren en meer. Hoe kan ik je helpen?",
     "available": "Verpleegkundige Ondersteuning AI",
+    "chatWith": "Chat met Ineke",
+    "subtitle": "Je AI Verpleegassistent",
     "typing": "Ineke is aan het typen...",
     "placeholder": "Vraag me wat je wilt..."
   },
   "claraMember": {
-    "greeting": "Hallo! Ik ben Clara, je persoonlijke zorgmetgezel. Hoe kan ik je vandaag helpen?"
+    "greeting": "Hallo! Ik ben Clara, je persoonlijke zorgmetgezel. Hoe kan ik je vandaag helpen?",
+    "subtitle": "Je Zorgmetgezel • 24/7 Beschikbaar"
   },
   "claraFamily": {
-    "greeting": "Hallo! Ik ben Clara, hier om je verbonden te houden met de zorg voor je dierbare. Wat wil je weten?"
+    "greeting": "Hallo! Ik ben Clara, hier om je verbonden te houden met de zorg voor je dierbare. Wat wil je weten?",
+    "subtitle": "Familie Ondersteuning • 24/7 Beschikbaar",
+    "typing": "Clara is aan het typen...",
+    "placeholder": "Vraag over de zorg voor je dierbare..."
   },
   "isabella": {
-    "greeting": "Hallo! Ik ben Isabella, je faciliteitbeheer assistent. Hoe kan ik helpen met de operaties vandaag?"
+    "greeting": "Hallo! Ik ben Isabella, je faciliteitbeheer assistent. Hoe kan ik helpen met de operaties vandaag?",
+    "subtitle": "Faciliteitassistent • 24/7 Beschikbaar",
+    "typing": "Isabella is aan het typen...",
+    "placeholder": "Vraag over operaties..."
   },
   "lee": {
     "greeting": "Groeten. Ik ben Lee \"The Brain\", meester AI-orkestrator. Ik heb volledige systeemtoegang en kan inzichten op directieniveau bieden. Hoe kan ik u helpen?",

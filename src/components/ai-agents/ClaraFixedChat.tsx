@@ -221,7 +221,7 @@ export const ClaraFixedChat = () => {
               <h3 className="font-bold text-base">Clara</h3>
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
             </div>
-            <p className="text-xs text-muted-foreground">AI Care Assistant • Available 24/7</p>
+            <p className="text-xs text-muted-foreground">{t('clara.subtitle')}</p>
           </div>
         </div>
         
@@ -352,7 +352,7 @@ export const ClaraFixedChat = () => {
                   <DialogTitle className="text-xl">Clara</DialogTitle>
                   <Sparkles className="h-5 w-5 text-primary animate-pulse" />
                 </div>
-                <p className="text-sm text-muted-foreground">AI Care Assistant • Available 24/7</p>
+                <p className="text-sm text-muted-foreground">{t('clara.subtitle')}</p>
               </div>
             </div>
           </DialogHeader>

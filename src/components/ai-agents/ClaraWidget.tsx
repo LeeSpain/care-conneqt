@@ -194,7 +194,7 @@ export const ClaraWidget = () => {
             </Avatar>
             <div>
               <h3 className="font-semibold">Clara</h3>
-              <p className="text-xs text-muted-foreground">AI Care Assistant • 24/7</p>
+              <p className="text-xs text-muted-foreground">{t('clara.subtitle')}</p>
             </div>
           </div>
           <div className="flex gap-1">
@@ -252,14 +252,14 @@ export const ClaraWidget = () => {
         {/* Input */}
         <div className="p-4 border-t">
           <div className="flex gap-2">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              disabled={isLoading}
-              className="flex-1"
-            />
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={t('clara.placeholder')}
+                disabled={isLoading}
+                className="flex-1"
+              />
             <Button
               onClick={sendMessage}
               disabled={isLoading || !input.trim()}
@@ -286,8 +286,8 @@ export const ClaraWidget = () => {
                 )}
               </Avatar>
               <div>
-                <DialogTitle className="text-xl">Clara - AI Care Assistant</DialogTitle>
-                <p className="text-sm text-muted-foreground">Available 24/7 to help you</p>
+                <DialogTitle className="text-xl">Clara</DialogTitle>
+                <p className="text-sm text-muted-foreground">{t('clara.availableNow')}</p>
               </div>
             </div>
           </DialogHeader>
@@ -320,7 +320,7 @@ export const ClaraWidget = () => {
                   <div className="bg-secondary text-secondary-foreground rounded-2xl p-4">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      <span className="text-sm">Clara is typing...</span>
+                      <span className="text-sm">{t('clara.typing')}</span>
                     </div>
                   </div>
                 </div>
@@ -335,7 +335,7 @@ export const ClaraWidget = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
+                placeholder={t('clara.placeholder')}
                 disabled={isLoading}
                 className="flex-1 h-12 text-base"
               />
