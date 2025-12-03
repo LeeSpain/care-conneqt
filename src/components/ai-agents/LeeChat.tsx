@@ -14,6 +14,7 @@ import leeAvatar from '@/assets/lee-avatar.png';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  actionResults?: any[];
 }
 
 interface AgentData {
@@ -180,7 +181,14 @@ export function LeeChat() {
         return;
       }
 
-      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+      // Clean up the message by removing action blocks from display
+      const cleanMessage = data.message.replace(/```action[\s\S]*?```/g, '').trim();
+      
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: cleanMessage,
+        actionResults: data.action_results 
+      }]);
     } catch (error) {
       console.error('Error:', error);
       toast.error('Failed to send message');
@@ -291,6 +299,49 @@ export function LeeChat() {
                       </div>
                     )}
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                    {/* Display action results */}
+                    {message.actionResults && message.actionResults.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-amber-500/20">
+                        {message.actionResults.map((result: any, idx: number) => (
+                          <div key={idx} className="text-xs bg-background/50 rounded-lg p-2 mt-1">
+                            {result.action === 'lookup_user' && result.result?.users && (
+                              <div>
+                                <span className="font-semibold text-amber-600">Found {result.result.users_found} user(s):</span>
+                                <ul className="mt-1 space-y-1">
+                                  {result.result.users.map((user: any, i: number) => (
+                                    <li key={i} className="flex items-center gap-2">
+                                      <span>{user.first_name} {user.last_name}</span>
+                                      <span className="text-muted-foreground">({user.roles?.join(', ')})</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {result.action === 'send_message' && result.result?.success && (
+                              <span className="text-green-600">✓ Message sent to {result.result.recipients_count} recipient(s)</span>
+                            )}
+                            {result.action === 'schedule_appointment' && result.result?.success && (
+                              <span className="text-green-600">✓ Appointment scheduled, {result.result.participants_notified} notified</span>
+                            )}
+                            {result.action === 'create_task' && result.result?.success && (
+                              <span className="text-green-600">✓ Task created</span>
+                            )}
+                            {result.action === 'create_reminder' && result.result?.success && (
+                              <span className="text-green-600">✓ Reminder set</span>
+                            )}
+                            {result.action === 'manage_alert' && result.result?.success && (
+                              <span className="text-green-600">✓ Alert {result.result.operation}d</span>
+                            )}
+                            {result.action === 'update_lead' && result.result?.success && (
+                              <span className="text-green-600">✓ Lead updated to {result.result.new_status}</span>
+                            )}
+                            {result.result?.error && (
+                              <span className="text-red-500">✗ {result.result.error}</span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
