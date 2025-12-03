@@ -1906,6 +1906,8 @@
     "print": "Afdrukken",
     "export": "PDF Exporteren",
     "refresh": "Vernieuwen",
+    "today": "Vandaag",
+    "historicalData": "Historische gegevens",
     "revenue": {
       "title": "Omzet Overzicht",
       "todayRevenue": "Omzet Vandaag",

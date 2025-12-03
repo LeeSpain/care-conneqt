@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDailyReport } from "@/hooks/useDailyReport";
 import { useTranslation } from "react-i18next";
-import { format } from "date-fns";
+import { format, subDays, isToday, startOfDay } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import {
   RefreshCw,
@@ -24,12 +25,42 @@ import {
   Clock,
   Target,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
 } from "lucide-react";
 
 const DailyReport = () => {
   const { t } = useTranslation('dashboard-admin');
-  const { data, isLoading, refetch, isFetching } = useDailyReport();
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const { data, isLoading, refetch, isFetching } = useDailyReport(selectedDate);
+
+  const minDate = subDays(new Date(), 7);
+  const maxDate = new Date();
+  
+  const canGoBack = startOfDay(selectedDate) > startOfDay(minDate);
+  const canGoForward = startOfDay(selectedDate) < startOfDay(maxDate);
+
+  const goToPreviousDay = () => {
+    if (canGoBack) {
+      setSelectedDate(subDays(selectedDate, 1));
+    }
+  };
+
+  const goToNextDay = () => {
+    if (canGoForward) {
+      setSelectedDate(prev => {
+        const next = new Date(prev);
+        next.setDate(next.getDate() + 1);
+        return next;
+      });
+    }
+  };
+
+  const goToToday = () => {
+    setSelectedDate(new Date());
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-EU', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -57,32 +88,79 @@ const DailyReport = () => {
   return (
     <AdminDashboardLayout title={t('dailyReport.title', 'Daily Report')}>
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <p className="text-muted-foreground">{t('dailyReport.subtitle', 'Executive Overview')}</p>
-            <p className="text-lg font-medium mt-1">
-              📅 {format(new Date(), 'EEEE, MMMM d, yyyy')}
-            </p>
+        {/* Header with Date Navigation */}
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <p className="text-muted-foreground">{t('dailyReport.subtitle', 'Executive Overview')}</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => window.print()}>
+                <Printer className="h-4 w-4 mr-2" />
+                {t('dailyReport.print', 'Print')}
+              </Button>
+              <Button variant="outline" size="sm">
+                <Download className="h-4 w-4 mr-2" />
+                {t('dailyReport.export', 'Export PDF')}
+              </Button>
+              <Button 
+                variant="default" 
+                size="sm" 
+                onClick={() => refetch()}
+                disabled={isFetching}
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
+                {t('dailyReport.refresh', 'Refresh')}
+              </Button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => window.print()}>
-              <Printer className="h-4 w-4 mr-2" />
-              {t('dailyReport.print', 'Print')}
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              {t('dailyReport.export', 'Export PDF')}
-            </Button>
+          
+          {/* Date Navigation */}
+          <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-muted/50 border">
             <Button 
-              variant="default" 
-              size="sm" 
-              onClick={() => refetch()}
-              disabled={isFetching}
+              variant="ghost" 
+              size="icon" 
+              onClick={goToPreviousDay}
+              disabled={!canGoBack}
+              className="h-8 w-8"
             >
-              <RefreshCw className={`h-4 w-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
-              {t('dailyReport.refresh', 'Refresh')}
+              <ChevronLeft className="h-4 w-4" />
             </Button>
+            
+            <div className="flex items-center gap-3 px-4">
+              <Calendar className="h-5 w-5 text-muted-foreground" />
+              <div className="text-center min-w-[200px]">
+                <p className="text-lg font-semibold">
+                  {format(selectedDate, 'EEEE, MMMM d, yyyy')}
+                </p>
+                {!isToday(selectedDate) && (
+                  <p className="text-xs text-muted-foreground">
+                    {t('dailyReport.historicalData', 'Historical data')}
+                  </p>
+                )}
+              </div>
+            </div>
+            
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={goToNextDay}
+              disabled={!canGoForward}
+              className="h-8 w-8"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+            
+            {!isToday(selectedDate) && (
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                onClick={goToToday}
+                className="ml-2"
+              >
+                {t('dailyReport.today', 'Today')}
+              </Button>
+            )}
           </div>
         </div>
 
