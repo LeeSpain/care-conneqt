@@ -80,12 +80,12 @@ export const AccountForm = ({ onSuccess, onSignIn }: AccountFormProps) => {
           })
           .eq('id', data.user.id);
 
-        toast.success("Account created successfully!");
+        toast.success(t('pickAndMix.accountSuccess'));
         onSuccess(data.user.id, values.email);
       }
     } catch (error: any) {
       console.error('Signup error:', error);
-      toast.error(error.message || "Failed to create account");
+      toast.error(error.message || t('pickAndMix.accountError'));
     } finally {
       setIsLoading(false);
     }

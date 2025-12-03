@@ -34,7 +34,9 @@
     "included": "Inbegrepen",
     "addons": "Extra Apparaten & Diensten",
     "orderSuccess": "Bestelling succesvol aangemaakt!",
-    "orderError": "Bestelling aanmaken mislukt"
+    "orderError": "Bestelling aanmaken mislukt",
+    "accountSuccess": "Account succesvol aangemaakt!",
+    "accountError": "Kon account niet aanmaken"
   },
   "steps": {
     "plan": "Kies Plan",

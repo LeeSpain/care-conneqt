@@ -34,7 +34,9 @@
     "included": "Included",
     "addons": "Add-on Devices & Services",
     "orderSuccess": "Order created successfully!",
-    "orderError": "Failed to create order"
+    "orderError": "Failed to create order",
+    "accountSuccess": "Account created successfully!",
+    "accountError": "Failed to create account"
   },
   "steps": {
     "plan": "Choose Plan",
