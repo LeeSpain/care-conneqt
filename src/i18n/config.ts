@@ -11,7 +11,7 @@ i18n
     fallbackLng: 'en',
     
     supportedLngs: ['en', 'es', 'nl'],
-    debug: false,
+    debug: true, // Enable debug to see loading issues
     
     interpolation: {
       escapeValue: false,
@@ -19,6 +19,7 @@ i18n
 
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
+      queryStringParams: { v: '1.0.2' }, // Cache buster
     },
 
     // Load critical namespaces initially - others load on demand

@@ -109,6 +109,7 @@
     "apply": "Toepassen"
   },
   "status": {
+    "all": "Alle",
     "online": "Online",
     "offline": "Offline",
     "active": "Actief",
