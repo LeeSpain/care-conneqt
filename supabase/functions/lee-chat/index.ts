@@ -79,149 +79,73 @@ serve(async (req) => {
 
     let systemPrompt = config.system_prompt;
     
+    // Add condensed knowledge base (top 5 entries only for speed)
     if (knowledge && knowledge.length > 0) {
-      systemPrompt += '\n\nKnowledge Base:\n';
-      knowledge.forEach((item: any) => {
-        systemPrompt += `\n[${item.category}] ${item.title}:\n${item.content}\n`;
+      systemPrompt += '\n\nKey Knowledge:\n';
+      knowledge.slice(0, 5).forEach((item: any) => {
+        systemPrompt += `[${item.category}] ${item.title}\n`;
       });
     }
 
-    // Add system-wide analytics
-    systemPrompt += '\n\n=== SYSTEM OVERVIEW ===\n';
+    // Parallel fetch all stats for speed
+    const [
+      memberResult,
+      facilityResult,
+      companyResult,
+      insuranceResult,
+      leadResult,
+      alertResult,
+      agentsResult,
+      staffResult,
+      rolesResult
+    ] = await Promise.all([
+      supabase.from('members').select('*', { count: 'exact', head: true }),
+      supabase.from('facilities').select('*', { count: 'exact', head: true }),
+      supabase.from('care_companies').select('*', { count: 'exact', head: true }),
+      supabase.from('insurance_companies').select('*', { count: 'exact', head: true }),
+      supabase.from('leads').select('status'),
+      supabase.from('alerts').select('*', { count: 'exact', head: true }).eq('status', 'active'),
+      supabase.from('ai_agents').select('display_name, status'),
+      supabase.from('profiles').select('id, first_name, last_name, email').limit(50),
+      supabase.from('user_roles').select('user_id, role')
+    ]);
 
-    // Get member count
-    const { count: memberCount } = await supabase
-      .from('members')
-      .select('*', { count: 'exact', head: true });
-    systemPrompt += `Total Members: ${memberCount || 0}\n`;
+    const newLeads = leadResult.data?.filter((l: any) => l.status === 'new').length || 0;
+    const qualifiedLeads = leadResult.data?.filter((l: any) => l.status === 'qualified').length || 0;
 
-    // Get facility count
-    const { count: facilityCount } = await supabase
-      .from('facilities')
-      .select('*', { count: 'exact', head: true });
-    systemPrompt += `Facilities: ${facilityCount || 0}\n`;
+    // Compact system overview
+    systemPrompt += `\n\n=== SYSTEM STATS ===
+Members: ${memberResult.count || 0} | Facilities: ${facilityResult.count || 0} | Companies: ${companyResult.count || 0} | Insurance: ${insuranceResult.count || 0}
+Leads: ${newLeads} new, ${qualifiedLeads} qualified | Active Alerts: ${alertResult.count || 0}
+Agents: ${agentsResult.data?.map((a: any) => a.display_name).join(', ')}
+=== END STATS ===\n`;
 
-    // Get care company count
-    const { count: companyCount } = await supabase
-      .from('care_companies')
-      .select('*', { count: 'exact', head: true });
-    systemPrompt += `Care Companies: ${companyCount || 0}\n`;
+    // Compact staff list
+    systemPrompt += '\n=== STAFF (use lookup_user for details) ===\n';
+    staffResult.data?.slice(0, 20).forEach((s: any) => {
+      const roles = rolesResult.data?.filter((r: any) => r.user_id === s.id).map((r: any) => r.role) || [];
+      systemPrompt += `${s.first_name || ''} ${s.last_name || ''} (${roles.join(',')}) ID:${s.id}\n`;
+    });
+    systemPrompt += '=== END STAFF ===\n';
 
-    // Get insurance company count
-    const { count: insuranceCount } = await supabase
-      .from('insurance_companies')
-      .select('*', { count: 'exact', head: true });
-    systemPrompt += `Insurance Companies: ${insuranceCount || 0}\n`;
+    // Condensed capability instructions
+    systemPrompt += `\n\n=== COMMANDS ===
+Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 
-    // Get lead stats
-    const { data: leadStats } = await supabase
-      .from('leads')
-      .select('status');
-    
-    const newLeads = leadStats?.filter(l => l.status === 'new').length || 0;
-    const qualifiedLeads = leadStats?.filter(l => l.status === 'qualified').length || 0;
-    systemPrompt += `New Leads: ${newLeads}, Qualified: ${qualifiedLeads}\n`;
+Actions:
+1. send_message: {recipient_type:"user|role|broadcast", recipient_id, message, priority:"normal|urgent"}
+2. schedule_appointment: {title, start_time, end_time, appointment_type:"meeting|call|video", participant_ids:[], requires_confirmation:true}
+3. create_task: {title, member_id, nurse_id, task_type:"check_in|medication|assessment|other", priority, due_date}
+4. create_reminder: {title, reminder_time, priority:"low|normal|high|urgent", related_entity_type, related_entity_id}
+5. manage_alert: {alert_id, operation:"acknowledge|escalate|resolve", notes}
+6. update_lead: {lead_id, status:"new|contacted|qualified|proposal|won|lost", notes}
+7. lookup_user: {query, search_type:"name|email|role"}
 
-    // Get active alerts
-    const { count: alertCount } = await supabase
-      .from('alerts')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'active');
-    systemPrompt += `Active Alerts: ${alertCount || 0}\n`;
+Today: ${new Date().toISOString().split('T')[0]}
+Rules: Use lookup_user first to find IDs. Put action blocks at END of response.
+=== END COMMANDS ===\n`;
 
-    // Get AI agent stats
-    const { data: agents } = await supabase
-      .from('ai_agents')
-      .select('name, display_name, status');
-    
-    systemPrompt += `\nAI Agents: ${agents?.map(a => `${a.display_name} (${a.status})`).join(', ')}\n`;
-
-    // Get staff list for scheduling
-    const { data: staffList } = await supabase
-      .from('profiles')
-      .select('id, first_name, last_name, email')
-      .limit(100);
-    
-    systemPrompt += '\n=== AVAILABLE STAFF FOR SCHEDULING ===\n';
-    if (staffList && staffList.length > 0) {
-      const { data: staffRoles } = await supabase
-        .from('user_roles')
-        .select('user_id, role');
-      
-      staffList.forEach((staff: any) => {
-        const roles = staffRoles?.filter(r => r.user_id === staff.id).map(r => r.role) || [];
-        systemPrompt += `${staff.first_name || ''} ${staff.last_name || ''} (${staff.email}) - ID: ${staff.id} - Roles: ${roles.join(', ')}\n`;
-      });
-    }
-    systemPrompt += '=== END STAFF LIST ===\n';
-
-    systemPrompt += '=== END SYSTEM OVERVIEW ===\n';
-
-    // Add comprehensive capability instructions
-    systemPrompt += `\n\n=== LEE COMMAND CAPABILITIES ===
-You can execute various commands. When performing an action, respond with a JSON block like this:
-\`\`\`action
-{"action": "action_name", ...parameters}
-\`\`\`
-
-AVAILABLE ACTIONS:
-
-1. SEND MESSAGE
-{"action": "send_message", "recipient_type": "user|role|broadcast", "recipient_id": "user_id_or_role_name", "message": "content", "priority": "normal|urgent"}
-Examples:
-- Message specific user: {"action": "send_message", "recipient_type": "user", "recipient_id": "uuid", "message": "Hello!", "priority": "normal"}
-- Message all nurses: {"action": "send_message", "recipient_type": "role", "recipient_id": "nurse", "message": "Update...", "priority": "normal"}
-- Broadcast to all: {"action": "send_message", "recipient_type": "broadcast", "recipient_id": "all", "message": "Announcement", "priority": "urgent"}
-
-2. SCHEDULE APPOINTMENT
-{"action": "schedule_appointment", "title": "Meeting title", "description": "Optional description", "start_time": "ISO datetime", "end_time": "ISO datetime", "appointment_type": "meeting|call|video", "participant_ids": ["user_id1", "user_id2"], "requires_confirmation": true, "member_id": "optional_member_uuid"}
-When user mentions a day like "Wednesday at 3pm", calculate the actual date from today.
-Today's date is: ${new Date().toISOString().split('T')[0]}
-Example: {"action": "schedule_appointment", "title": "Check-in with Nurse Daisy", "start_time": "2024-01-10T15:00:00Z", "end_time": "2024-01-10T15:30:00Z", "appointment_type": "video", "participant_ids": ["nurse-uuid"], "requires_confirmation": true}
-
-3. CREATE TASK
-{"action": "create_task", "title": "Task title", "description": "Description", "member_id": "member_uuid", "nurse_id": "nurse_uuid", "task_type": "check_in|medication|assessment|other", "priority": "low|medium|high|urgent", "due_date": "ISO datetime"}
-Example: {"action": "create_task", "title": "Weekly check-in", "member_id": "uuid", "nurse_id": "uuid", "task_type": "check_in", "priority": "medium", "due_date": "2024-01-15T10:00:00Z"}
-
-4. CREATE REMINDER
-{"action": "create_reminder", "title": "Reminder title", "description": "Details", "reminder_time": "ISO datetime", "priority": "low|normal|high|urgent", "related_entity_type": "member|lead|facility", "related_entity_id": "optional_uuid"}
-Example: {"action": "create_reminder", "title": "Follow up with lead", "reminder_time": "2024-01-12T09:00:00Z", "priority": "high", "related_entity_type": "lead", "related_entity_id": "lead-uuid"}
-
-5. MANAGE ALERT
-{"action": "manage_alert", "alert_id": "uuid", "operation": "acknowledge|escalate|resolve", "notes": "Optional notes"}
-Example: {"action": "manage_alert", "alert_id": "uuid", "operation": "acknowledge", "notes": "Will review shortly"}
-
-6. UPDATE LEAD STATUS
-{"action": "update_lead", "lead_id": "uuid", "status": "new|contacted|qualified|proposal|won|lost", "notes": "Optional notes"}
-Example: {"action": "update_lead", "lead_id": "uuid", "status": "qualified", "notes": "Ready for proposal"}
-
-7. LOOKUP USER
-{"action": "lookup_user", "query": "name or email or role", "search_type": "name|email|role"}
-Example: {"action": "lookup_user", "query": "Daisy", "search_type": "name"}
-
-IMPORTANT RULES:
-- When asked to schedule something with a person, first use lookup_user to find their ID, then schedule_appointment
-- When scheduling requires confirmation, the system will send a confirmation request to participants
-- Always confirm details with admin before executing actions
-- For natural date references (next Wednesday, tomorrow, etc.), calculate the actual date
-- Include action blocks at the END of your response after your explanation
-
-=== END CAPABILITIES ===\n`;
-
-    systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights.
-
-CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
-1. NEVER use markdown (no **, *, #, - symbols)
-2. ALWAYS separate ideas into SHORT paragraphs (2-3 sentences max per paragraph)
-3. ALWAYS add a blank line between paragraphs
-4. Start with a brief summary statement
-5. Then provide details in separate paragraphs
-6. For data points, put each on its own line like:
-   Alert Response Time: 4.2 minutes
-   Task Completion Rate: 94%
-7. End with a brief recommendation or next steps
-8. Keep total response under 150 words unless asked for detail
-9. Include action blocks at the END of your response after explanation`;
+    systemPrompt += `\n\nRespond in ${languageName}. Be concise. No markdown. Keep responses under 100 words unless detailed info requested. Put action blocks at the END.`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 
@@ -238,7 +162,7 @@ CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
           ...messages
         ],
         temperature: parseFloat(config.temperature),
-        max_tokens: config.max_tokens,
+        max_tokens: Math.min(config.max_tokens, 500), // Cap at 500 for faster responses
       }),
     });
 
