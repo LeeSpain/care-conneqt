@@ -4,6 +4,20 @@
     "subtitle": "Build a personalized care package in just a few steps",
     "trustBadge": "Trusted by 10,000+ families"
   },
+  "pricingType": {
+    "title": "How would you like to build your care package?",
+    "subscription": {
+      "title": "Subscription Plans",
+      "description": "Choose from our curated care packages with predictable monthly pricing",
+      "badge": "Most Popular"
+    },
+    "pickAndMix": {
+      "title": "Pick & Mix",
+      "description": "Build your own custom package by selecting individual devices and services",
+      "badge": "Flexible",
+      "comingSoon": "Coming Soon"
+    }
+  },
   "steps": {
     "plan": "Choose Plan",
     "customize": "Customize",
