@@ -1906,6 +1906,8 @@
     "print": "Print",
     "export": "Export PDF",
     "refresh": "Refresh",
+    "today": "Today",
+    "historicalData": "Historical data",
     "revenue": {
       "title": "Revenue Snapshot",
       "todayRevenue": "Today's Revenue",

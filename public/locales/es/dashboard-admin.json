@@ -1906,6 +1906,8 @@
     "print": "Imprimir",
     "export": "Exportar PDF",
     "refresh": "Actualizar",
+    "today": "Hoy",
+    "historicalData": "Datos históricos",
     "revenue": {
       "title": "Resumen de Ingresos",
       "todayRevenue": "Ingresos de Hoy",

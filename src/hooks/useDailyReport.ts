@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { startOfDay, startOfWeek, startOfMonth, endOfDay } from "date-fns";
+import { startOfDay, startOfWeek, startOfMonth, endOfDay, subDays } from "date-fns";
 
 export interface DailyReportData {
   revenue: {
@@ -60,28 +60,29 @@ export interface DailyReportData {
   };
 }
 
-export const useDailyReport = () => {
+export const useDailyReport = (selectedDate?: Date) => {
+  const reportDate = selectedDate || new Date();
+  
   return useQuery({
-    queryKey: ['daily-report'],
+    queryKey: ['daily-report', reportDate.toISOString().split('T')[0]],
     queryFn: async (): Promise<DailyReportData> => {
-      const now = new Date();
-      const todayStart = startOfDay(now).toISOString();
-      const todayEnd = endOfDay(now).toISOString();
-      const weekStart = startOfWeek(now, { weekStartsOn: 1 }).toISOString();
-      const monthStart = startOfMonth(now).toISOString();
+      const dayStart = startOfDay(reportDate).toISOString();
+      const dayEnd = endOfDay(reportDate).toISOString();
+      const weekStart = startOfWeek(reportDate, { weekStartsOn: 1 }).toISOString();
+      const monthStart = startOfMonth(reportDate).toISOString();
 
       // Fetch all data in parallel
       const [
-        todayOrders,
+        dayOrders,
         allSubscriptions,
         criticalAlerts,
         pendingAlerts,
-        todayLeads,
+        dayLeads,
         weekLeads,
         monthLeads,
         weekOrders,
         monthOrders,
-        todaySignups,
+        daySignups,
         weekSignups,
         monthSignups,
         aiAnalytics,
@@ -92,48 +93,48 @@ export const useDailyReport = () => {
         recentTransactions,
         allLeads,
       ] = await Promise.all([
-        // Today's orders/revenue
-        supabase.from('orders').select('total_monthly').gte('created_at', todayStart).lte('created_at', todayEnd),
-        // All active subscriptions for MRR
-        supabase.from('subscriptions').select('monthly_amount, status').eq('status', 'active'),
-        // Critical alerts (using 'new' status for unresolved critical alerts)
-        supabase.from('alerts').select('id, title, priority, created_at').eq('priority', 'critical').eq('status', 'new').order('created_at', { ascending: false }).limit(5),
+        // Day's orders/revenue
+        supabase.from('orders').select('total_monthly').gte('created_at', dayStart).lte('created_at', dayEnd),
+        // All active subscriptions for MRR (as of report date)
+        supabase.from('subscriptions').select('monthly_amount, status').eq('status', 'active').lte('created_at', dayEnd),
+        // Critical alerts (as of that day)
+        supabase.from('alerts').select('id, title, priority, created_at').eq('priority', 'critical').eq('status', 'new').lte('created_at', dayEnd).order('created_at', { ascending: false }).limit(5),
         // Pending alerts count (new or in_progress)
-        supabase.from('alerts').select('id', { count: 'exact' }).in('status', ['new', 'in_progress']),
-        // Today's leads
-        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', todayStart),
-        // Week's leads
-        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', weekStart),
-        // Month's leads
-        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', monthStart),
+        supabase.from('alerts').select('id', { count: 'exact' }).in('status', ['new', 'in_progress']).lte('created_at', dayEnd),
+        // Day's leads
+        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', dayStart).lte('created_at', dayEnd),
+        // Week's leads (up to that day)
+        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', weekStart).lte('created_at', dayEnd),
+        // Month's leads (up to that day)
+        supabase.from('leads').select('id', { count: 'exact' }).gte('created_at', monthStart).lte('created_at', dayEnd),
         // Week's orders
-        supabase.from('orders').select('id', { count: 'exact' }).gte('created_at', weekStart),
+        supabase.from('orders').select('id', { count: 'exact' }).gte('created_at', weekStart).lte('created_at', dayEnd),
         // Month's orders
-        supabase.from('orders').select('id', { count: 'exact' }).gte('created_at', monthStart),
-        // Today's signups
-        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', todayStart),
+        supabase.from('orders').select('id', { count: 'exact' }).gte('created_at', monthStart).lte('created_at', dayEnd),
+        // Day's signups
+        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', dayStart).lte('created_at', dayEnd),
         // Week's signups
-        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', weekStart),
+        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', weekStart).lte('created_at', dayEnd),
         // Month's signups
-        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', monthStart),
-        // AI Analytics - today
-        supabase.from('ai_agent_analytics').select('*').gte('date', todayStart.split('T')[0]),
-        // Nurses
+        supabase.from('profiles').select('id', { count: 'exact' }).gte('created_at', monthStart).lte('created_at', dayEnd),
+        // AI Analytics - that day
+        supabase.from('ai_agent_analytics').select('*').eq('date', dayStart.split('T')[0]),
+        // Nurses (as of that day)
         supabase.from('user_roles').select('user_id', { count: 'exact' }).eq('role', 'nurse'),
-        // Open tickets
-        supabase.from('support_tickets').select('id', { count: 'exact' }).eq('status', 'open'),
-        // Device alerts (new or in_progress)
-        supabase.from('alerts').select('id', { count: 'exact' }).eq('alert_type', 'device').in('status', ['new', 'in_progress']),
-        // Outstanding invoices
-        supabase.from('invoices').select('amount_due').eq('status', 'pending'),
-        // Recent transactions
-        supabase.from('transactions').select('id, amount, description, created_at').order('created_at', { ascending: false }).limit(5),
-        // All leads for pipeline
-        supabase.from('leads').select('status'),
+        // Open tickets (as of that day)
+        supabase.from('support_tickets').select('id', { count: 'exact' }).eq('status', 'open').lte('created_at', dayEnd),
+        // Device alerts (new or in_progress as of that day)
+        supabase.from('alerts').select('id', { count: 'exact' }).eq('alert_type', 'device').in('status', ['new', 'in_progress']).lte('created_at', dayEnd),
+        // Outstanding invoices (as of that day)
+        supabase.from('invoices').select('amount_due').eq('status', 'pending').lte('created_at', dayEnd),
+        // Recent transactions (up to that day)
+        supabase.from('transactions').select('id, amount, description, created_at').lte('created_at', dayEnd).order('created_at', { ascending: false }).limit(5),
+        // All leads for pipeline (up to that day)
+        supabase.from('leads').select('status').lte('created_at', dayEnd),
       ]);
 
       // Calculate revenue metrics
-      const todayRevenue = todayOrders.data?.reduce((sum, o) => sum + (o.total_monthly || 0), 0) || 0;
+      const dayRevenue = dayOrders.data?.reduce((sum, o) => sum + (o.total_monthly || 0), 0) || 0;
       const mrr = allSubscriptions.data?.reduce((sum, s) => sum + (s.monthly_amount || 0), 0) || 0;
       const arr = mrr * 12;
 
@@ -161,7 +162,7 @@ export const useDailyReport = () => {
 
       return {
         revenue: {
-          todayRevenue,
+          todayRevenue: dayRevenue,
           mrr,
           arr,
           mrrChange: 5.2, // Would need historical data to calculate
@@ -173,9 +174,9 @@ export const useDailyReport = () => {
         },
         activity: {
           today: {
-            leads: todayLeads.count || 0,
-            orders: todayOrders.data?.length || 0,
-            signups: todaySignups.count || 0,
+            leads: dayLeads.count || 0,
+            orders: dayOrders.data?.length || 0,
+            signups: daySignups.count || 0,
             conversations: totalConversations,
           },
           week: {
