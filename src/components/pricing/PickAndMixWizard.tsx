@@ -18,7 +18,7 @@ import { useProducts, Product } from "@/hooks/useProducts";
 import { formatCurrency } from "@/lib/intl";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { getProductImage } from "@/lib/productImages";
+import { ProductImage } from "@/components/ProductImage";
 
 const BASE_PLATFORM_PRICE = 49.99;
 
@@ -42,28 +42,12 @@ const deviceIconMap: Record<string, React.ElementType> = {
   'Thermometer': Thermometer,
 };
 
-// Product Image component with loading state
-const ProductImage = ({ product }: { product: Product }) => {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadImage = async () => {
-      setLoading(true);
-      const src = await getProductImage(product.slug, product.image_url);
-      setImageSrc(src);
-      setLoading(false);
-    };
-    loadImage();
-  }, [product.slug, product.image_url]);
-
-  if (loading) {
-    return <Skeleton className="w-full h-full rounded-lg" />;
-  }
-
+// Product Image wrapper component
+const ProductImageWrapper = ({ product }: { product: Product }) => {
   return (
-    <img
-      src={imageSrc || '/placeholder.svg'}
+    <ProductImage
+      slug={product.slug}
+      imageUrl={product.image_url}
       alt={product.translation?.name || product.slug}
       className="w-full h-full object-cover rounded-lg"
     />
@@ -278,7 +262,7 @@ export const PickAndMixWizard = () => {
                       >
                         <CardContent className="p-4">
                           <div className="aspect-square w-full mb-3 bg-muted/30 rounded-lg overflow-hidden">
-                            <ProductImage product={device} />
+                            <ProductImageWrapper product={device} />
                           </div>
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
@@ -443,9 +427,9 @@ export const PickAndMixWizard = () => {
                             <CardContent className="p-0">
                               <div className="flex gap-4 p-4">
                                 {/* Product Image */}
-                                <div className="relative shrink-0">
+                              <div className="relative shrink-0">
                                   <div className="w-24 h-24 rounded-xl overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 shadow-inner group-hover:shadow-md transition-shadow">
-                                    <ProductImage product={product} />
+                                    <ProductImageWrapper product={product} />
                                   </div>
                                   {product.is_popular && (
                                     <Badge className="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] px-2 py-0.5 shadow-md">
@@ -674,7 +658,7 @@ export const PickAndMixWizard = () => {
                 {selectedBaseDevice && (
                   <div className="flex items-center gap-3 text-sm p-2 rounded-lg bg-muted/50">
                     <div className="w-10 h-10 rounded-lg overflow-hidden bg-muted">
-                      <ProductImage product={selectedBaseDevice} />
+                      <ProductImageWrapper product={selectedBaseDevice} />
                     </div>
                     <div className="flex-1">
                       <span className="font-medium">{selectedBaseDevice.translation?.name}</span>

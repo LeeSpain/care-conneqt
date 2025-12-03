@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
-import { getProductImageSync } from "@/lib/productImages";
+import { ProductImage } from "@/components/ProductImage";
 import { getProductIcon } from "@/lib/productIcons";
 
 export const DevicesSection = () => {
@@ -42,11 +42,11 @@ export const DevicesSection = () => {
               <Card key={product.id} className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-secondary/50">
                 {/* Product Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
-                  <img 
-                    src={getProductImageSync(product.slug, product.image_url)} 
+                  <ProductImage 
+                    slug={product.slug}
+                    imageUrl={product.image_url}
                     alt={product.translation?.name || product.slug}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
                   />
                   {/* Care Connect Badge */}
                   <div className="absolute bottom-2 right-2 bg-background/95 backdrop-blur-sm px-2.5 py-1 rounded-full border border-primary/20 shadow-lg">

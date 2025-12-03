@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/intl";
 import { useTranslation } from "react-i18next";
 import { Check, Star } from "lucide-react";
-import { getProductImageSync } from "@/lib/productImages";
+import { ProductImage } from "@/components/ProductImage";
 import type { Product } from "@/hooks/useProducts";
 
 interface DeviceSelectorProps {
@@ -20,7 +20,6 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       {devices.map((device) => {
               const isSelected = selectedDeviceIds.includes(device.id);
-              const imageUrl = getProductImageSync(device.slug, device.image_url);
               const features = device.translation?.features || [];
               
               return (
@@ -35,9 +34,10 @@ export const DeviceSelector = ({ devices, selectedDeviceIds, onToggle }: DeviceS
                 >
                   {/* Image Section */}
                   <div className="relative h-40 overflow-hidden bg-gradient-to-br from-muted/50 to-muted">
-                    <img
-                      src={imageUrl}
-                      alt={device.translation?.name}
+                    <ProductImage
+                      slug={device.slug}
+                      imageUrl={device.image_url}
+                      alt={device.translation?.name || device.slug}
                       className="w-full h-full object-cover transition-transform group-hover:scale-105"
                     />
                     {device.is_popular && (

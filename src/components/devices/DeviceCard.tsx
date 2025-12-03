@@ -5,6 +5,7 @@ import { Check, LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { DeviceDetailsModal } from "./DeviceDetailsModal";
 import { Link } from "react-router-dom";
+import { ProductImage } from "@/components/ProductImage";
 
 interface DeviceCardProps {
   name: string;
@@ -13,7 +14,8 @@ interface DeviceCardProps {
   price: string;
   features: string[];
   specs: Record<string, string>;
-  image: string;
+  slug: string;
+  imageUrl: string | null;
   icon: LucideIcon;
   color: string;
   gradient: string;
@@ -27,7 +29,8 @@ export function DeviceCard({
   price,
   features,
   specs,
-  image,
+  slug,
+  imageUrl,
   icon: Icon,
   color,
   gradient,
@@ -46,11 +49,11 @@ export function DeviceCard({
 
         {/* Product Image with Care Connect Branding */}
         <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10">
-          <img 
-            src={image} 
+          <ProductImage 
+            slug={slug}
+            imageUrl={imageUrl}
             alt={name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
           />
           {/* Care Connect Badge Overlay */}
           <div className="absolute bottom-3 right-3 bg-background/95 backdrop-blur-sm px-3 py-1.5 rounded-full border border-primary/20 shadow-lg">
@@ -116,7 +119,8 @@ export function DeviceCard({
         price={price}
         features={features}
         specs={specs}
-        image={image}
+        slug={slug}
+        imageUrl={imageUrl}
         icon={Icon}
         color={color}
         gradient={gradient}
