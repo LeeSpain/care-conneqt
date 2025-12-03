@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Check, LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { ProductImage } from "@/components/ProductImage";
 
 interface DeviceDetailsModalProps {
   open: boolean;
@@ -18,7 +19,8 @@ interface DeviceDetailsModalProps {
   price: string;
   features: string[];
   specs: Record<string, string>;
-  image: string;
+  slug: string;
+  imageUrl: string | null;
   icon: LucideIcon;
   color: string;
   gradient: string;
@@ -33,7 +35,8 @@ export function DeviceDetailsModal({
   price,
   features,
   specs,
-  image,
+  slug,
+  imageUrl,
   icon: Icon,
   color,
   gradient,
@@ -58,11 +61,11 @@ export function DeviceDetailsModal({
         <div className="space-y-6">
           {/* Product Image */}
           <div className="relative aspect-video overflow-hidden rounded-lg bg-gradient-to-br from-muted/30 to-muted/10">
-            <img 
-              src={image} 
+            <ProductImage 
+              slug={slug}
+              imageUrl={imageUrl}
               alt={name}
               className="w-full h-full object-cover"
-              loading="lazy"
             />
             <div className="absolute bottom-4 right-4 bg-background/95 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/20 shadow-lg">
               <span className="text-sm font-semibold text-primary">Care Connect</span>
