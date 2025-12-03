@@ -22,6 +22,7 @@ import { ArrowLeft, Save, Languages } from "lucide-react";
 type ProductFormData = {
   slug: string;
   category: string;
+  product_type: 'device' | 'service';
   monthly_price: string;
   image_url: string;
   icon_name: string;
@@ -46,11 +47,14 @@ type ProductFormData = {
 export default function ProductForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = window.location.pathname;
+  const isServiceRoute = location.includes('/services');
   const isEdit = !!id;
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<ProductFormData>({
     slug: "",
-    category: "wearable",
+    category: isServiceRoute ? "service" : "wearable",
+    product_type: isServiceRoute ? "service" : "device",
     monthly_price: "",
     image_url: "",
     icon_name: "",
@@ -107,6 +111,7 @@ export default function ProductForm() {
     setFormData({
       slug: product.slug,
       category: product.category,
+      product_type: (product.product_type as 'device' | 'service') || 'device',
       monthly_price: product.monthly_price?.toString() || "",
       image_url: product.image_url || "",
       icon_name: product.icon_name || "",
@@ -209,6 +214,7 @@ export default function ProductForm() {
       const productData = {
         slug: formData.slug,
         category: formData.category,
+        product_type: formData.product_type,
         monthly_price: formData.monthly_price ? parseFloat(formData.monthly_price) : null,
         image_url: formData.image_url || null,
         icon_name: formData.icon_name || null,
@@ -216,7 +222,7 @@ export default function ProductForm() {
         gradient_class: formData.gradient_class,
         is_active: formData.is_active,
         is_popular: formData.is_popular,
-        is_base_device: formData.is_base_device,
+        is_base_device: formData.product_type === 'device' ? formData.is_base_device : false,
         sort_order: parseInt(formData.sort_order) || 0,
       };
 
@@ -275,7 +281,7 @@ export default function ProductForm() {
       }
 
       toast.success(isEdit ? "Product updated successfully" : "Product created successfully");
-      navigate("/dashboard/admin/products");
+      navigate(formData.product_type === 'service' ? "/dashboard/admin/services" : "/dashboard/admin/products");
     } catch (error) {
       console.error("Error saving product:", error);
       toast.error("Failed to save product");
@@ -284,21 +290,27 @@ export default function ProductForm() {
     }
   };
 
+  const backUrl = formData.product_type === 'service' ? "/dashboard/admin/services" : "/dashboard/admin/products";
+  const backLabel = formData.product_type === 'service' ? "Back to Services" : "Back to Products";
+  const pageTitle = isEdit 
+    ? (formData.product_type === 'service' ? "Edit Service" : "Edit Product")
+    : (formData.product_type === 'service' ? "Add Service" : "Add Product");
+
   return (
-    <AdminDashboardLayout title={isEdit ? "Edit Product" : "Add Product"}>
+    <AdminDashboardLayout title={pageTitle}>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex items-center justify-between">
           <Button
             type="button"
             variant="ghost"
-            onClick={() => navigate("/dashboard/admin/products")}
+            onClick={() => navigate(backUrl)}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Products
+            {backLabel}
           </Button>
           <Button type="submit" disabled={loading}>
             <Save className="h-4 w-4 mr-2" />
-            {loading ? "Saving..." : "Save Product"}
+            {loading ? "Saving..." : "Save"}
           </Button>
         </div>
 
@@ -319,18 +331,48 @@ export default function ProductForm() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="product_type">Product Type *</Label>
+                <Select 
+                  value={formData.product_type} 
+                  onValueChange={(value: 'device' | 'service') => setFormData({ 
+                    ...formData, 
+                    product_type: value,
+                    category: value === 'service' ? 'service' : (formData.category === 'service' ? 'wearable' : formData.category)
+                  })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="device">Device</SelectItem>
+                    <SelectItem value="service">Service</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="category">Category *</Label>
                 <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="wearable">Wearable</SelectItem>
-                    <SelectItem value="emergency">Emergency</SelectItem>
-                    <SelectItem value="health">Health</SelectItem>
-                    <SelectItem value="medication">Medication</SelectItem>
-                    <SelectItem value="cognitive">Cognitive</SelectItem>
-                    <SelectItem value="home-monitoring">Home Monitoring</SelectItem>
+                    {formData.product_type === 'device' ? (
+                      <>
+                        <SelectItem value="wearable">Wearable</SelectItem>
+                        <SelectItem value="emergency">Emergency</SelectItem>
+                        <SelectItem value="health">Health</SelectItem>
+                        <SelectItem value="medication">Medication</SelectItem>
+                        <SelectItem value="cognitive">Cognitive</SelectItem>
+                        <SelectItem value="home-monitoring">Home Monitoring</SelectItem>
+                      </>
+                    ) : (
+                      <>
+                        <SelectItem value="service">General Service</SelectItem>
+                        <SelectItem value="support">Support Service</SelectItem>
+                        <SelectItem value="monitoring">Monitoring Service</SelectItem>
+                        <SelectItem value="care">Care Service</SelectItem>
+                      </>
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -389,13 +431,15 @@ export default function ProductForm() {
                 />
                 <Label>Popular</Label>
               </div>
-              <div className="flex items-center space-x-2">
-                <Switch
-                  checked={formData.is_base_device}
-                  onCheckedChange={(checked) => setFormData({ ...formData, is_base_device: checked })}
-                />
-                <Label>Base Device</Label>
-              </div>
+              {formData.product_type === 'device' && (
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    checked={formData.is_base_device}
+                    onCheckedChange={(checked) => setFormData({ ...formData, is_base_device: checked })}
+                  />
+                  <Label>Base Device</Label>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

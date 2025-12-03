@@ -16,6 +16,7 @@
     "insuranceCompanies": "Insurance Companies",
     "catalog": "Catalog",
     "products": "Products",
+    "services": "Services",
     "pricingPlans": "Pricing Plans",
     "aiManagement": "AI Management",
     "aiAgents": "AI Agents",
@@ -493,6 +494,7 @@
   "products": {
     "title": "Products",
     "subtitle": "Manage smart home and health monitoring devices",
+    "subtitleDevices": "Manage smart home and health monitoring devices",
     "addProduct": "Add Product",
     "searchPlaceholder": "Search products...",
     "filterByCategory": "Filter by category",
@@ -516,6 +518,31 @@
       "duplicate": "Duplicate",
       "toggleStatus": "Toggle Status",
       "delete": "Delete Product"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Manage care services and add-on packages",
+    "addService": "Add Service",
+    "searchPlaceholder": "Search services...",
+    "filterByCategory": "Filter by category",
+    "allCategories": "All Categories",
+    "allStatuses": "All Statuses",
+    "generalService": "General Service",
+    "support": "Support Services",
+    "monitoring": "Monitoring Services",
+    "care": "Care Services",
+    "active": "Active",
+    "inactive": "Inactive",
+    "popular": "Popular",
+    "perMonth": "/month",
+    "noServices": "No services found",
+    "deleted": "Service deleted successfully",
+    "actions": {
+      "edit": "Edit Service",
+      "duplicate": "Duplicate",
+      "toggleStatus": "Toggle Status",
+      "delete": "Delete Service"
     }
   },
   "pricingPlans": {

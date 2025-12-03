@@ -16,6 +16,7 @@
     "insuranceCompanies": "Verzekeringsmaatschappijen",
     "catalog": "Catalogus",
     "products": "Producten",
+    "services": "Diensten",
     "pricingPlans": "Prijsplannen",
     "aiManagement": "AI Beheer",
     "aiAgents": "AI Agenten",
@@ -493,6 +494,7 @@
   "products": {
     "title": "Producten",
     "subtitle": "Beheer slimme huis- en gezondheidsmonitoringapparaten",
+    "subtitleDevices": "Beheer slimme huis- en gezondheidsmonitoringapparaten",
     "addProduct": "Product Toevoegen",
     "searchPlaceholder": "Zoek producten...",
     "filterByCategory": "Filter op categorie",
@@ -516,6 +518,31 @@
       "duplicate": "Dupliceren",
       "toggleStatus": "Status Wijzigen",
       "delete": "Product Verwijderen"
+    }
+  },
+  "services": {
+    "title": "Diensten",
+    "subtitle": "Beheer zorgdiensten en add-on pakketten",
+    "addService": "Dienst Toevoegen",
+    "searchPlaceholder": "Zoek diensten...",
+    "filterByCategory": "Filter op categorie",
+    "allCategories": "Alle Categorieën",
+    "allStatuses": "Alle Statussen",
+    "generalService": "Algemene Dienst",
+    "support": "Ondersteuningsdiensten",
+    "monitoring": "Monitoringdiensten",
+    "care": "Zorgdiensten",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "popular": "Populair",
+    "perMonth": "/maand",
+    "noServices": "Geen diensten gevonden",
+    "deleted": "Dienst succesvol verwijderd",
+    "actions": {
+      "edit": "Dienst Bewerken",
+      "duplicate": "Dupliceren",
+      "toggleStatus": "Status Wijzigen",
+      "delete": "Dienst Verwijderen"
     }
   },
   "pricingPlans": {

@@ -16,6 +16,7 @@
     "insuranceCompanies": "Compañías de Seguros",
     "catalog": "Catálogo",
     "products": "Productos",
+    "services": "Servicios",
     "pricingPlans": "Planes de Precios",
     "aiManagement": "Gestión de IA",
     "aiAgents": "Agentes de IA",
@@ -493,6 +494,7 @@
   "products": {
     "title": "Productos",
     "subtitle": "Gestionar dispositivos de hogar inteligente y monitoreo de salud",
+    "subtitleDevices": "Gestionar dispositivos de hogar inteligente y monitoreo de salud",
     "addProduct": "Agregar Producto",
     "searchPlaceholder": "Buscar productos...",
     "filterByCategory": "Filtrar por categoría",
@@ -516,6 +518,31 @@
       "duplicate": "Duplicar",
       "toggleStatus": "Cambiar Estado",
       "delete": "Eliminar Producto"
+    }
+  },
+  "services": {
+    "title": "Servicios",
+    "subtitle": "Gestionar servicios de atención y paquetes adicionales",
+    "addService": "Agregar Servicio",
+    "searchPlaceholder": "Buscar servicios...",
+    "filterByCategory": "Filtrar por categoría",
+    "allCategories": "Todas las Categorías",
+    "allStatuses": "Todos los Estados",
+    "generalService": "Servicio General",
+    "support": "Servicios de Soporte",
+    "monitoring": "Servicios de Monitoreo",
+    "care": "Servicios de Cuidado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "popular": "Popular",
+    "perMonth": "/mes",
+    "noServices": "No se encontraron servicios",
+    "deleted": "Servicio eliminado exitosamente",
+    "actions": {
+      "edit": "Editar Servicio",
+      "duplicate": "Duplicar",
+      "toggleStatus": "Cambiar Estado",
+      "delete": "Eliminar Servicio"
     }
   },
   "pricingPlans": {
