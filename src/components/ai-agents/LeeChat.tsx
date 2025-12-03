@@ -560,6 +560,47 @@ export function LeeChat() {
                             {result.action === 'update_lead' && result.result?.success && (
                               <span className="text-green-600">✓ Lead updated to {result.result.new_status}</span>
                             )}
+                            {/* Phase 4: ASSIGNMENT Actions */}
+                            {result.action === 'assign_nurse_to_member' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Nurse assigned: {result.result.nurse_name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  {result.result.is_primary ? 'Primary nurse' : 'Secondary nurse'}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'reassign_member' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Member reassigned</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  {result.result.old_nurse} → {result.result.new_nurse}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'admit_resident' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Resident admitted: {result.result.member_name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Facility: {result.result.facility_name} • Room: {result.result.room_number}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'discharge_resident' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Resident discharged: {result.result.member_name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  From: {result.result.facility_name} • Date: {result.result.discharge_date}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'toggle_user_status' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ User {result.result.action}d: {result.result.user_name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Status: {result.result.status}
+                                </div>
+                              </div>
+                            )}
                             {result.result?.error && (
                               <span className="text-red-500">✗ {result.result.error}</span>
                             )}
