@@ -8,19 +8,19 @@ import { useToast } from "@/hooks/use-toast";
 import { useAdminStats } from "@/hooks/useAdminStats";
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "@/hooks/useAuth";
-import { format } from "date-fns";
+import { formatDate } from "@/lib/intl";
 
 export default function AdminHome() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { t } = useTranslation('dashboard-admin');
+  const { t, i18n } = useTranslation('dashboard-admin');
   const { profile } = useAuth();
   const { data: stats, isLoading, isError, error, refetch } = useAdminStats();
   
   const firstName = profile?.first_name || 'Admin';
   const currentDate = new Date();
-  const formattedDate = format(currentDate, 'EEEE, MMMM d, yyyy');
-  const formattedTime = format(currentDate, 'h:mm a');
+  const formattedDate = formatDate(currentDate, 'EEEE, MMMM d, yyyy', i18n.language);
+  const formattedTime = formatDate(currentDate, 'h:mm a', i18n.language);
   const hour = currentDate.getHours();
   
   const getGreeting = () => {

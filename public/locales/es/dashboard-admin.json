@@ -62,6 +62,7 @@
       "customerId": "ID de Cliente",
       "customerIdPlaceholder": "Ingrese ID de cliente..."
     }
+  },
   "home": {
     "title": "Panel de Administración",
     "welcome": "Bienvenido, Admin",
