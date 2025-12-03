@@ -109,6 +109,7 @@
     "apply": "Aplicar"
   },
   "status": {
+    "all": "Todos",
     "online": "En Línea",
     "offline": "Desconectado",
     "active": "Activo",

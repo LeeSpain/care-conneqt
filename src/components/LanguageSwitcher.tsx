@@ -22,22 +22,30 @@ export const LanguageSwitcher = () => {
   const { user, profile } = useAuth();
 
   const changeLanguage = async (lng: string) => {
-    // Immediately update UI (non-blocking)
-    i18n.changeLanguage(lng);
-    localStorage.setItem('i18nextLng', lng);
-    
-    // Update user profile in background (don't wait)
-    if (user && profile) {
-      supabase
-        .from('profiles')
-        .update({ language: lng })
-        .eq('id', user.id)
-        .then(({ error }) => {
-          if (error) {
-            console.error('Failed to update language preference:', error);
-            toast.error('Failed to save language preference');
-          }
-        });
+    try {
+      // Wait for language change to complete
+      await i18n.changeLanguage(lng);
+      localStorage.setItem('i18nextLng', lng);
+      // Force update HTML lang attribute
+      document.documentElement.lang = lng;
+      
+      console.log('[LanguageSwitcher] Language changed to:', lng);
+      
+      // Update user profile in background (don't wait)
+      if (user && profile) {
+        supabase
+          .from('profiles')
+          .update({ language: lng })
+          .eq('id', user.id)
+          .then(({ error }) => {
+            if (error) {
+              console.error('Failed to update language preference:', error);
+            }
+          });
+      }
+    } catch (error) {
+      console.error('[LanguageSwitcher] Language change failed:', error);
+      toast.error('Failed to change language');
     }
   };
 
