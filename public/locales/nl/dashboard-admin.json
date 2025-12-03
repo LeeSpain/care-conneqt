@@ -97,7 +97,25 @@
     "systemHealth": {
       "title": "Systeemstatus",
       "subtitle": "Huidige status",
-      "operational": "Alle Systemen Operationeel"
+      "operational": "Alle Systemen Operationeel",
+      "viewDetails": "Details Bekijken",
+      "integrations": "Integratiestatus",
+      "configure": "Configureren"
+    },
+    "ceo": {
+      "mrr": "Maandelijkse Omzet",
+      "criticalAlerts": "Kritieke Meldingen",
+      "pending": "in behandeling totaal",
+      "aiConversations": "AI Gesprekken",
+      "escalations": "escalaties",
+      "satisfaction": "Tevredenheid",
+      "aiSatisfaction": "AI tevredenheidspercentage",
+      "recentLeads": "Recente Leads",
+      "recentOrders": "Recente Bestellingen",
+      "recentSignups": "Recente Registraties",
+      "noRecentLeads": "Geen recente leads",
+      "noRecentOrders": "Geen recente bestellingen",
+      "noRecentSignups": "Geen recente registraties"
     }
   },
   "commercial": {
@@ -503,6 +521,13 @@
   "integrations": {
     "title": "Integraties",
     "subtitle": "Verbind externe diensten om platformmogelijkheden uit te breiden",
+    "copied": "Gekopieerd naar klembord",
+    "status": {
+      "connected": "Verbonden",
+      "notConnected": "Niet Verbonden",
+      "checking": "Controleren...",
+      "refresh": "Status Vernieuwen"
+    },
     "stripe": {
       "title": "Stripe Betalingen",
       "description": "Verwerk betalingen en abonnementen",
@@ -513,6 +538,7 @@
       "benefit3": "Veilige betalingsverwerking",
       "benefit4": "Abonnementenbeheer",
       "setupButton": "Stripe Integratie Instellen",
+      "dashboard": "Stripe Dashboard",
       "note": "Je moet een Stripe-account aanmaken en je API-sleutels toevoegen in Lovable secrets management.",
       "configSaved": "Stripe configuratie succesvol opgeslagen"
     },
@@ -526,12 +552,34 @@
       "webhookSecret": "Webhook Ondertekeningsgeheim",
       "webhookSecretHelp": "Gegenereerd wanneer je het webhook-endpoint aanmaakt in Stripe (begint met whsec_)",
       "saveButton": "Stripe Configuratie Opslaan",
-      "comingSoon": "Configuratie wordt opgeslagen in beveiligde secrets opslag (binnenkort beschikbaar)"
+      "comingSoon": "Configuratie wordt opgeslagen in beveiligde secrets opslag (binnenkort beschikbaar)",
+      "setupInstructions": "Installatie-instructies",
+      "step1": "Maak een Stripe-account aan op stripe.com",
+      "step2": "Kopieer je API-sleutels uit het Stripe Dashboard",
+      "step3": "Voeg STRIPE_SECRET_KEY toe aan je Lovable project secrets",
+      "step4": "Configureer het webhook-endpoint in Stripe met bovenstaande URL"
+    },
+    "otherIntegrations": "Andere Integraties",
+    "twilio": {
+      "description": "SMS en spraakcommunicatie voor meldingen"
+    },
+    "sendgrid": {
+      "description": "E-mailnotificaties en nieuwsbrieven"
+    },
+    "googleCalendar": {
+      "description": "Afspraken en agenda synchronisatie"
     },
     "comingSoon": {
       "title": "Meer Integraties Binnenkort",
       "description": "Aanvullende integraties worden hier beschikbaar",
-      "details": "Toekomstige integraties kunnen e-mailmarketing, CRM-systemen en analytics-platforms omvatten."
+      "details": "Toekomstige integraties kunnen e-mailmarketing, CRM-systemen en analytics-platforms omvatten.",
+      "badge": "Binnenkort"
+    },
+    "api": {
+      "title": "API & Webhooks",
+      "description": "Bouw aangepaste integraties met onze API",
+      "details": "Krijg toegang tot onze REST API om aangepaste integraties te bouwen, workflows te automatiseren en platformfunctionaliteit uit te breiden.",
+      "viewDocs": "API Documentatie Bekijken"
     }
   },
   "aiAnalytics": {

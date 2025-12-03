@@ -97,7 +97,25 @@
     "systemHealth": {
       "title": "System Health",
       "subtitle": "Current status",
-      "operational": "All Systems Operational"
+      "operational": "All Systems Operational",
+      "viewDetails": "View Details",
+      "integrations": "Integrations Status",
+      "configure": "Configure"
+    },
+    "ceo": {
+      "mrr": "Monthly Revenue",
+      "criticalAlerts": "Critical Alerts",
+      "pending": "pending total",
+      "aiConversations": "AI Conversations",
+      "escalations": "escalations",
+      "satisfaction": "Satisfaction",
+      "aiSatisfaction": "AI satisfaction rate",
+      "recentLeads": "Recent Leads",
+      "recentOrders": "Recent Orders",
+      "recentSignups": "Recent Signups",
+      "noRecentLeads": "No recent leads",
+      "noRecentOrders": "No recent orders",
+      "noRecentSignups": "No recent signups"
     }
   },
   "commercial": {
@@ -503,6 +521,13 @@
   "integrations": {
     "title": "Integrations",
     "subtitle": "Connect external services to extend platform capabilities",
+    "copied": "Copied to clipboard",
+    "status": {
+      "connected": "Connected",
+      "notConnected": "Not Connected",
+      "checking": "Checking...",
+      "refresh": "Refresh Status"
+    },
     "stripe": {
       "title": "Stripe Payments",
       "description": "Process payments and subscriptions",
@@ -513,6 +538,7 @@
       "benefit3": "Secure payment processing",
       "benefit4": "Subscription management",
       "setupButton": "Set Up Stripe Integration",
+      "dashboard": "Stripe Dashboard",
       "note": "You'll need to create a Stripe account and add your API keys in Lovable secrets management.",
       "configSaved": "Stripe configuration saved successfully"
     },
@@ -526,12 +552,34 @@
       "webhookSecret": "Webhook Signing Secret",
       "webhookSecretHelp": "Generated when you create the webhook endpoint in Stripe (starts with whsec_)",
       "saveButton": "Save Stripe Configuration",
-      "comingSoon": "Configuration will be saved to secure secrets storage (coming soon)"
+      "comingSoon": "Configuration will be saved to secure secrets storage (coming soon)",
+      "setupInstructions": "Setup Instructions",
+      "step1": "Create a Stripe account at stripe.com",
+      "step2": "Copy your API keys from the Stripe Dashboard",
+      "step3": "Add STRIPE_SECRET_KEY to your Lovable project secrets",
+      "step4": "Configure the webhook endpoint in Stripe with the URL above"
+    },
+    "otherIntegrations": "Other Integrations",
+    "twilio": {
+      "description": "SMS and voice communication for alerts"
+    },
+    "sendgrid": {
+      "description": "Email notifications and newsletters"
+    },
+    "googleCalendar": {
+      "description": "Appointment and schedule sync"
     },
     "comingSoon": {
       "title": "More Integrations Coming Soon",
       "description": "Additional integrations will be available here",
-      "details": "Future integrations may include email marketing, CRM systems, and analytics platforms."
+      "details": "Future integrations may include email marketing, CRM systems, and analytics platforms.",
+      "badge": "Coming Soon"
+    },
+    "api": {
+      "title": "API & Webhooks",
+      "description": "Build custom integrations with our API",
+      "details": "Access our REST API to build custom integrations, automate workflows, and extend platform functionality.",
+      "viewDocs": "View API Documentation"
     }
   },
   "aiAnalytics": {

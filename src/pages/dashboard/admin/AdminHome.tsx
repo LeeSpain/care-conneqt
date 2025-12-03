@@ -2,13 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { AdminDashboardLayout } from "@/components/AdminDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Users, Building2, Activity, UserCheck, RefreshCw, Calendar } from "lucide-react";
+import { 
+  Users, Building2, Activity, UserCheck, RefreshCw, Calendar, 
+  DollarSign, AlertTriangle, TrendingUp, Bot, ArrowRight, Bell
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAdminStats } from "@/hooks/useAdminStats";
+import { useCEODashboard } from "@/hooks/useCEODashboard";
 import { useTranslation } from 'react-i18next';
 import { useAuth } from "@/hooks/useAuth";
 import { formatDate } from "@/lib/intl";
+import { Badge } from "@/components/ui/badge";
 
 export default function AdminHome() {
   const navigate = useNavigate();
@@ -16,6 +21,7 @@ export default function AdminHome() {
   const { t, i18n } = useTranslation('dashboard-admin');
   const { profile } = useAuth();
   const { data: stats, isLoading, isError, error, refetch } = useAdminStats();
+  const { data: ceoStats, isLoading: ceoLoading, refetch: refetchCeo } = useCEODashboard();
   
   const firstName = profile?.first_name || 'Admin';
   const currentDate = new Date();
@@ -31,6 +37,29 @@ export default function AdminHome() {
 
   const handleRefresh = () => {
     refetch();
+    refetchCeo();
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat(i18n.language, {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
+
+  const formatTimeAgo = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 60) return `${diffMins}m`;
+    if (diffHours < 24) return `${diffHours}h`;
+    return `${diffDays}d`;
   };
 
   if (isError) {
@@ -52,6 +81,7 @@ export default function AdminHome() {
   return (
     <AdminDashboardLayout title={t('home.title')}>
       <div className="space-y-6">
+        {/* Header */}
         <div className="flex justify-between items-start">
           <div>
             <p className="text-sm text-muted-foreground flex items-center gap-2 mb-1">
@@ -65,11 +95,97 @@ export default function AdminHome() {
               {t('home.subtitle')}
             </p>
           </div>
-          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading}>
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <Button variant="outline" size="icon" onClick={handleRefresh} disabled={isLoading || ceoLoading}>
+            <RefreshCw className={`h-4 w-4 ${(isLoading || ceoLoading) ? 'animate-spin' : ''}`} />
           </Button>
         </div>
 
+        {/* CEO Revenue & Alerts Row */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {/* MRR Card */}
+          <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{t('home.ceo.mrr')}</CardTitle>
+              <DollarSign className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              {ceoLoading ? (
+                <Skeleton className="h-8 w-24" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold text-primary">{formatCurrency(ceoStats?.mrr || 0)}</div>
+                  <p className="text-xs text-muted-foreground">
+                    ARR: {formatCurrency(ceoStats?.arr || 0)}
+                  </p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Critical Alerts Card */}
+          <Card className={ceoStats?.criticalAlerts ? "border-destructive/50 bg-destructive/5" : ""}>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{t('home.ceo.criticalAlerts')}</CardTitle>
+              <AlertTriangle className={`h-4 w-4 ${ceoStats?.criticalAlerts ? 'text-destructive' : 'text-muted-foreground'}`} />
+            </CardHeader>
+            <CardContent>
+              {ceoLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className={`text-2xl font-bold ${ceoStats?.criticalAlerts ? 'text-destructive' : ''}`}>
+                    {ceoStats?.criticalAlerts || 0}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {ceoStats?.pendingAlerts || 0} {t('home.ceo.pending')}
+                  </p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* AI Conversations Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{t('home.ceo.aiConversations')}</CardTitle>
+              <Bot className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              {ceoLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">{ceoStats?.todayConversations || 0}</div>
+                  <p className="text-xs text-muted-foreground">
+                    {ceoStats?.totalEscalations || 0} {t('home.ceo.escalations')}
+                  </p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Satisfaction Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{t('home.ceo.satisfaction')}</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              {ceoLoading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <>
+                  <div className="text-2xl font-bold">
+                    {ceoStats?.avgSatisfaction ? `${(ceoStats.avgSatisfaction * 20).toFixed(0)}%` : 'N/A'}
+                  </div>
+                  <p className="text-xs text-muted-foreground">{t('home.ceo.aiSatisfaction')}</p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Platform Stats Row */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -140,6 +256,91 @@ export default function AdminHome() {
           </Card>
         </div>
 
+        {/* Activity & Actions Row */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {/* Recent Leads */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-medium">{t('home.ceo.recentLeads')}</CardTitle>
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/admin/leads')}>
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {ceoLoading ? (
+                Array(3).fill(0).map((_, i) => <Skeleton key={i} className="h-8 w-full" />)
+              ) : ceoStats?.recentLeads?.length ? (
+                ceoStats.recentLeads.slice(0, 4).map((lead) => (
+                  <div key={lead.id} className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium truncate max-w-[120px]">{lead.name}</span>
+                      <Badge variant="outline" className="text-xs">{lead.source}</Badge>
+                    </div>
+                    <span className="text-muted-foreground text-xs">{formatTimeAgo(lead.created_at)}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-muted-foreground">{t('home.ceo.noRecentLeads')}</p>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Recent Orders */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-medium">{t('home.ceo.recentOrders')}</CardTitle>
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/admin/finance')}>
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {ceoLoading ? (
+                Array(3).fill(0).map((_, i) => <Skeleton key={i} className="h-8 w-full" />)
+              ) : ceoStats?.recentOrders?.length ? (
+                ceoStats.recentOrders.slice(0, 4).map((order) => (
+                  <div key={order.id} className="flex items-center justify-between text-sm">
+                    <span className="font-medium truncate max-w-[140px]">{order.customer_name}</span>
+                    <span className="text-primary font-medium">{formatCurrency(order.total)}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-muted-foreground">{t('home.ceo.noRecentOrders')}</p>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Recent Signups */}
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-medium">{t('home.ceo.recentSignups')}</CardTitle>
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/admin/users')}>
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {ceoLoading ? (
+                Array(3).fill(0).map((_, i) => <Skeleton key={i} className="h-8 w-full" />)
+              ) : ceoStats?.recentSignups?.length ? (
+                ceoStats.recentSignups.slice(0, 4).map((signup) => (
+                  <div key={signup.id} className="flex items-center justify-between text-sm">
+                    <span className="font-medium truncate max-w-[140px]">{signup.name}</span>
+                    <span className="text-muted-foreground text-xs">{formatTimeAgo(signup.created_at)}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-muted-foreground">{t('home.ceo.noRecentSignups')}</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Actions & System Health */}
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
@@ -183,10 +384,21 @@ export default function AdminHome() {
               <CardTitle>{t('home.systemHealth.title')}</CardTitle>
               <CardDescription>{t('home.systemHealth.subtitle')}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-green-500" />
-                <span className="text-sm">{t('home.systemHealth.operational')}</span>
+            <CardContent className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-green-500" />
+                  <span className="text-sm">{t('home.systemHealth.operational')}</span>
+                </div>
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard/admin/system-health')}>
+                  {t('home.systemHealth.viewDetails')}
+                </Button>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">{t('home.systemHealth.integrations')}</span>
+                <Button variant="link" size="sm" className="h-auto p-0" onClick={() => navigate('/dashboard/admin/integrations')}>
+                  {t('home.systemHealth.configure')}
+                </Button>
               </div>
             </CardContent>
           </Card>
