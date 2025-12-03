@@ -66,36 +66,78 @@ export default function FacilityDetail() {
   const { data: residents } = useQuery({
     queryKey: ["facility-residents", id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // First get facility residents
+      const { data: residentsData, error: residentsError } = await supabase
         .from("facility_residents")
-        .select(`
-          *,
-          member:members (
-            *,
-            profile:profiles (*)
-          )
-        `)
+        .select("*")
         .eq("facility_id", id)
         .is("discharge_date", null);
 
-      if (error) throw error;
-      return data;
+      if (residentsError) throw residentsError;
+      if (!residentsData?.length) return [];
+
+      // Get member IDs
+      const memberIds = residentsData.map(r => r.member_id);
+      
+      // Fetch members
+      const { data: membersData, error: membersError } = await supabase
+        .from("members")
+        .select("*")
+        .in("id", memberIds);
+
+      if (membersError) throw membersError;
+
+      // Get user IDs from members
+      const userIds = membersData?.map(m => m.user_id).filter(Boolean) || [];
+      
+      // Fetch profiles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from("profiles")
+        .select("*")
+        .in("id", userIds);
+
+      if (profilesError) throw profilesError;
+
+      // Combine data
+      return residentsData.map(resident => {
+        const member = membersData?.find(m => m.id === resident.member_id);
+        const profile = member ? profilesData?.find(p => p.id === member.user_id) : null;
+        return {
+          ...resident,
+          member: member ? { ...member, profile } : null
+        };
+      });
     }
   });
 
   const { data: staff } = useQuery({
     queryKey: ["facility-staff", id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // First get facility staff
+      const { data: staffData, error: staffError } = await supabase
         .from("facility_staff")
-        .select(`
-          *,
-          profile:profiles (*)
-        `)
+        .select("*")
         .eq("facility_id", id);
 
-      if (error) throw error;
-      return data;
+      if (staffError) throw staffError;
+      if (!staffData?.length) return [];
+
+      // Get user IDs
+      const userIds = staffData.map(s => s.user_id).filter(Boolean);
+      
+      // Fetch profiles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from("profiles")
+        .select("*")
+        .in("id", userIds);
+
+      if (profilesError) throw profilesError;
+
+      // Combine data
+      return staffData.map(staffMember => ({
+        ...staffMember,
+        profile: profilesData?.find(p => p.id === staffMember.user_id) || null
+      }));
     }
   });
 

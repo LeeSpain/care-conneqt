@@ -32,26 +32,43 @@ export default function FamilyMembers() {
         // Get connected members
         const { data: connections } = await supabase
           .from("member_carers")
-          .select(`
-            id,
-            accepted_at,
-            members (
-              id,
-              user_id,
-              care_level,
-              mobility_level,
-              medical_conditions,
-              profiles (
-                first_name,
-                last_name,
-                avatar_url,
-                phone
-              )
-            )
-          `)
+          .select("*")
           .eq("carer_id", carerData.id);
 
-        setMembers(connections || []);
+        if (!connections?.length) {
+          setMembers([]);
+          return;
+        }
+
+        // Get member IDs
+        const memberIds = connections.map(c => c.member_id).filter(Boolean);
+        
+        // Fetch members
+        const { data: membersData } = await supabase
+          .from("members")
+          .select("*")
+          .in("id", memberIds);
+
+        // Get user IDs from members
+        const userIds = membersData?.map(m => m.user_id).filter(Boolean) || [];
+        
+        // Fetch profiles
+        const { data: profilesData } = await supabase
+          .from("profiles")
+          .select("*")
+          .in("id", userIds);
+
+        // Combine data
+        const combinedData = connections.map(connection => {
+          const member = membersData?.find(m => m.id === connection.member_id);
+          const profile = member ? profilesData?.find(p => p.id === member.user_id) : null;
+          return {
+            ...connection,
+            members: member ? { ...member, profiles: profile } : null
+          };
+        });
+
+        setMembers(combinedData);
       }
     } catch (error) {
       console.error("Error fetching family members:", error);
