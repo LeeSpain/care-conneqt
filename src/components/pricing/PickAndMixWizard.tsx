@@ -313,77 +313,93 @@ export const PickAndMixWizard = () => {
 
           {/* Step 2: Add-on Services & Devices */}
           {currentStep === 2 && (
-            <div className="space-y-8">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold font-['Poppins'] mb-2">
+            <div className="space-y-10">
+              <div className="text-center mb-8">
+                <Badge variant="outline" className="mb-4 px-4 py-1.5 text-sm font-medium border-primary/30 text-primary">
+                  {t('pickAndMix.step2Badge') || 'Optional Add-ons'}
+                </Badge>
+                <h2 className="text-3xl font-bold font-['Poppins'] mb-3">
                   {t('pickAndMix.step2Title')}
                 </h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
                   {t('pickAndMix.step2Subtitle')}
                 </p>
               </div>
 
               {/* Care Services Section */}
               {services.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-primary/10">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 border-b border-border pb-4">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 shadow-sm">
                       <HeartPulse className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold">{t('pickAndMix.servicesTitle')}</h3>
+                    <div>
+                      <h3 className="text-xl font-semibold">{t('pickAndMix.servicesTitle')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('pickAndMix.servicesSubtitle') || 'Professional care support for your loved ones'}</p>
+                    </div>
                   </div>
                   
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid md:grid-cols-2 gap-5">
                     {services.map(service => (
                       <Card
                         key={service.id}
-                        className={`cursor-pointer transition-all hover:shadow-md ${
+                        className={`cursor-pointer transition-all duration-300 overflow-hidden group ${
                           selectedAddonIds.includes(service.id)
-                            ? 'ring-2 ring-secondary bg-secondary/5'
-                            : 'hover:border-secondary/50'
+                            ? 'ring-2 ring-secondary shadow-lg bg-gradient-to-br from-secondary/10 to-secondary/5'
+                            : 'hover:shadow-lg hover:border-secondary/40 border-border/60'
                         }`}
                         onClick={() => toggleAddon(service.id)}
                       >
-                        <CardContent className="p-5">
-                          <div className="flex items-start gap-4">
-                            <div className={`p-3 rounded-xl ${service.gradient_class} shrink-0`}>
-                              <ServiceIcon iconName={service.icon_name} className={`h-6 w-6 ${service.color_class}`} />
+                        <CardContent className="p-0">
+                          <div className="flex flex-col h-full">
+                            {/* Header with icon and price */}
+                            <div className={`p-5 ${selectedAddonIds.includes(service.id) ? 'bg-secondary/5' : 'bg-muted/20'} border-b border-border/40`}>
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex items-start gap-4">
+                                  <div className={`p-3 rounded-xl ${service.gradient_class || 'bg-gradient-to-br from-primary/20 to-primary/5'} shadow-sm group-hover:scale-105 transition-transform`}>
+                                    <ServiceIcon iconName={service.icon_name} className={`h-6 w-6 ${service.color_class || 'text-primary'}`} />
+                                  </div>
+                                  <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <h4 className="font-semibold text-base">{service.translation?.name}</h4>
+                                      {service.is_popular && (
+                                        <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] px-2 py-0.5 shadow-sm">
+                                          {t('planSelection.mostPopular')}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                      {service.translation?.tagline}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col items-end shrink-0">
+                                  <Checkbox
+                                    checked={selectedAddonIds.includes(service.id)}
+                                    onCheckedChange={() => toggleAddon(service.id)}
+                                    className="h-5 w-5 mb-2"
+                                  />
+                                  <div className="text-right">
+                                    <span className="font-bold text-lg text-primary">
+                                      +{formatCurrency(service.monthly_price || 0, 'EUR', i18n.language)}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground block">{t('planSelection.perMonth')}</span>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center justify-between mb-1">
-                                <div className="flex items-center gap-2">
-                                  <h4 className="font-semibold">{service.translation?.name}</h4>
-                                  {service.is_popular && (
-                                    <Badge variant="secondary" className="text-xs">
-                                      {t('planSelection.mostPopular')}
-                                    </Badge>
-                                  )}
-                                </div>
-                                <Checkbox
-                                  checked={selectedAddonIds.includes(service.id)}
-                                  onCheckedChange={() => toggleAddon(service.id)}
-                                  className="shrink-0"
-                                />
-                              </div>
-                              <p className="text-sm text-muted-foreground mb-3">
-                                {service.translation?.tagline}
-                              </p>
-                              <div className="flex items-center justify-between">
-                                <ul className="space-y-1">
-                                  {service.translation?.features?.slice(0, 2).map((feature, idx) => (
-                                    <li key={idx} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                            {/* Features */}
+                            <div className="p-5 flex-1">
+                              <ul className="space-y-2.5">
+                                {service.translation?.features?.slice(0, 3).map((feature, idx) => (
+                                  <li key={idx} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                                    <div className="w-5 h-5 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5">
                                       <Check className="h-3 w-3 text-secondary" />
-                                      {feature}
-                                    </li>
-                                  ))}
-                                </ul>
-                                <div className="text-right">
-                                  <span className="font-bold text-primary">
-                                    +{formatCurrency(service.monthly_price || 0, 'EUR', i18n.language)}
-                                  </span>
-                                  <span className="text-xs text-muted-foreground">{t('planSelection.perMonth')}</span>
-                                </div>
-                              </div>
+                                    </div>
+                                    <span>{feature}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
                           </div>
                         </CardContent>
@@ -395,72 +411,90 @@ export const PickAndMixWizard = () => {
 
               {/* Health Devices Section */}
               {Object.keys(addonsByCategory).length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-secondary/10">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3 border-b border-border pb-4">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-secondary/20 to-secondary/5 shadow-sm">
                       <Activity className="h-5 w-5 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-semibold">{t('pickAndMix.devicesTitle')}</h3>
+                    <div>
+                      <h3 className="text-xl font-semibold">{t('pickAndMix.devicesTitle')}</h3>
+                      <p className="text-sm text-muted-foreground">{t('pickAndMix.devicesSubtitle') || 'Smart monitoring devices for peace of mind'}</p>
+                    </div>
                   </div>
 
                   {Object.entries(addonsByCategory).map(([category, categoryProducts]) => (
-                    <Card key={category}>
-                      <CardHeader className="pb-3">
-                        <CardTitle className="text-base font-medium text-muted-foreground">
-                          {getCategoryLabel(category)}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid md:grid-cols-2 gap-4">
-                          {categoryProducts.map(product => (
-                            <div
-                              key={product.id}
-                              className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all cursor-pointer ${
-                                selectedAddonIds.includes(product.id)
-                                  ? 'border-secondary bg-secondary/5 shadow-sm'
-                                  : 'border-border hover:border-secondary/50'
-                              }`}
-                              onClick={() => toggleAddon(product.id)}
-                            >
-                              <Checkbox
-                                checked={selectedAddonIds.includes(product.id)}
-                                onCheckedChange={() => toggleAddon(product.id)}
-                                className="shrink-0"
-                              />
-                              <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted/30 shrink-0">
-                                <ProductImage product={product} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <h4 className="font-semibold text-sm">{product.translation?.name}</h4>
+                    <div key={category} className="space-y-4">
+                      <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-8 h-px bg-border"></span>
+                        {getCategoryLabel(category)}
+                        <span className="flex-1 h-px bg-border"></span>
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {categoryProducts.map(product => (
+                          <Card
+                            key={product.id}
+                            className={`cursor-pointer transition-all duration-300 overflow-hidden group ${
+                              selectedAddonIds.includes(product.id)
+                                ? 'ring-2 ring-secondary shadow-lg bg-gradient-to-br from-secondary/10 to-secondary/5'
+                                : 'hover:shadow-lg hover:border-secondary/40 border-border/60'
+                            }`}
+                            onClick={() => toggleAddon(product.id)}
+                          >
+                            <CardContent className="p-0">
+                              <div className="flex gap-4 p-4">
+                                {/* Product Image */}
+                                <div className="relative shrink-0">
+                                  <div className="w-24 h-24 rounded-xl overflow-hidden bg-gradient-to-br from-muted/50 to-muted/20 shadow-inner group-hover:shadow-md transition-shadow">
+                                    <ProductImage product={product} />
+                                  </div>
                                   {product.is_popular && (
-                                    <Badge variant="secondary" className="text-xs">
-                                      {t('planSelection.mostPopular')}
+                                    <Badge className="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] px-2 py-0.5 shadow-md">
+                                      {t('planSelection.popular') || 'Popular'}
                                     </Badge>
                                   )}
                                 </div>
-                                <p className="text-xs text-muted-foreground line-clamp-1 mb-1">
-                                  {product.translation?.tagline}
-                                </p>
-                                <span className="font-semibold text-primary text-sm">
-                                  +{formatCurrency(product.monthly_price || 0, 'EUR', i18n.language)}
-                                  <span className="text-xs text-muted-foreground font-normal">{t('planSelection.perMonth')}</span>
-                                </span>
+                                {/* Product Info */}
+                                <div className="flex-1 min-w-0 flex flex-col justify-between">
+                                  <div>
+                                    <div className="flex items-start justify-between gap-2 mb-2">
+                                      <h4 className="font-semibold text-base leading-tight">{product.translation?.name}</h4>
+                                      <Checkbox
+                                        checked={selectedAddonIds.includes(product.id)}
+                                        onCheckedChange={() => toggleAddon(product.id)}
+                                        className="h-5 w-5 shrink-0"
+                                      />
+                                    </div>
+                                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                                      {product.translation?.tagline}
+                                    </p>
+                                  </div>
+                                  <div className="flex items-center justify-between">
+                                    <Badge variant="outline" className="text-xs font-normal">
+                                      {getCategoryLabel(product.category || 'health')}
+                                    </Badge>
+                                    <div className="text-right">
+                                      <span className="font-bold text-primary">
+                                        +{formatCurrency(product.monthly_price || 0, 'EUR', i18n.language)}
+                                      </span>
+                                      <span className="text-xs text-muted-foreground ml-1">{t('planSelection.perMonth')}</span>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
 
-              <div className="flex justify-between">
-                <Button variant="outline" onClick={handleBack}>
+              <div className="flex justify-between pt-4">
+                <Button variant="outline" size="lg" onClick={handleBack} className="px-6">
                   <ArrowLeft className="mr-2 h-4 w-4" /> {t('buttons.back')}
                 </Button>
-                <Button size="lg" onClick={handleNext}>
+                <Button size="lg" onClick={handleNext} className="px-8 shadow-lg hover:shadow-xl transition-shadow">
                   {t('buttons.continue')} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
