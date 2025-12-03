@@ -137,7 +137,15 @@ serve(async (req) => {
     systemPrompt += `\nAI Agents: ${agents?.map(a => `${a.display_name} (${a.status})`).join(', ')}\n`;
     systemPrompt += '=== END SYSTEM OVERVIEW ===\n';
 
-    systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights and recommendations.`;
+    systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights and recommendations.
+
+FORMATTING RULES:
+- Never use markdown formatting (no **, *, #, -, or bullet points)
+- Use clean, professional prose with proper sentence structure
+- Present numbers and data naturally within sentences
+- For lists, use numbered format (1. 2. 3.) or write as flowing paragraphs
+- Keep responses concise, direct, and executive-appropriate
+- Avoid unnecessary elaboration unless specifically requested`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 
