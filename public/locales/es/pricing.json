@@ -34,7 +34,9 @@
     "included": "Incluido",
     "addons": "Dispositivos y Servicios Adicionales",
     "orderSuccess": "¡Pedido creado exitosamente!",
-    "orderError": "Error al crear el pedido"
+    "orderError": "Error al crear el pedido",
+    "accountSuccess": "¡Cuenta creada exitosamente!",
+    "accountError": "Error al crear la cuenta"
   },
   "steps": {
     "plan": "Elegir Plan",
