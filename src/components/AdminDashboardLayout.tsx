@@ -135,19 +135,19 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
                 <SheetTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="h-10 px-4 gap-2.5 bg-gradient-to-r from-secondary/10 to-secondary/5 dark:from-secondary/20 dark:to-secondary/10 border-secondary/30 dark:border-secondary/40 hover:from-secondary/20 hover:to-secondary/10 dark:hover:from-secondary/30 dark:hover:to-secondary/20 transition-all"
+                    className="h-10 px-4 gap-2.5 bg-secondary hover:bg-secondary/90 border-secondary text-white transition-all"
                   >
                     <div className="relative">
-                      <Avatar className="h-6 w-6 ring-1 ring-secondary/50 dark:ring-secondary/60">
+                      <Avatar className="h-6 w-6 ring-2 ring-white/30">
                         <AvatarImage src={avatarSrc} alt="Lee The Brain" className="object-cover" />
-                        <AvatarFallback className="bg-gradient-to-br from-secondary to-primary text-white text-xs">
+                        <AvatarFallback className="bg-white/20 text-white text-xs">
                           <Brain className="h-3 w-3" />
                         </AvatarFallback>
                       </Avatar>
-                      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-success rounded-full border border-white dark:border-gray-900" />
+                      <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-success rounded-full border-2 border-secondary" />
                     </div>
-                    <span className="font-medium text-sm text-secondary-foreground dark:text-secondary">Lee "The Brain"</span>
-                    <Sparkles className="h-3.5 w-3.5 text-secondary" />
+                    <span className="font-medium text-sm text-white">Lee "The Brain"</span>
+                    <Sparkles className="h-3.5 w-3.5 text-white/80" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent className="w-[400px] sm:w-[450px] flex flex-col p-0">
