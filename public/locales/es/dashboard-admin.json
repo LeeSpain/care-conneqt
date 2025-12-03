@@ -1966,11 +1966,18 @@
     }
   },
   "adminGuide": {
+    "pageTitle": "Guía de Plataforma Admin",
     "title": "Guía",
-    "version": "v1.0",
-    "heroTitle": "Guía de la Plataforma Admin Care Conneqt",
-    "heroDescription": "Tu referencia completa para gestionar la plataforma Care Conneqt. Esta guía cubre todas las funciones administrativas, flujos de trabajo y mejores prácticas.",
-    "tableOfContents": "Tabla de Contenidos",
+    "contents": "Contenidos",
+    "searchPlaceholder": "Buscar en la guía...",
+    "categories": {
+      "introduction": "Introducción",
+      "coreFeatures": "Funciones Principales",
+      "advanced": "Avanzado",
+      "administration": "Administración",
+      "tools": "Herramientas",
+      "reference": "Referencia"
+    },
     "sections": {
       "gettingStarted": "Primeros Pasos",
       "dashboard": "Resumen del Panel",
@@ -1983,112 +1990,243 @@
       "sales": "Ventas y Leads",
       "communications": "Comunicaciones",
       "system": "Configuración del Sistema",
+      "security": "Seguridad y Cumplimiento",
       "lee": "LEE \"The Brain\"",
       "dailyReport": "Informe Diario",
+      "workflows": "Flujos de Trabajo y Automatización",
       "bestPractices": "Mejores Prácticas",
       "shortcuts": "Atajos de Teclado",
+      "glossary": "Glosario",
       "faq": "Preguntas Frecuentes"
+    },
+    "table": {
+      "feature": "Función",
+      "description": "Descripción",
+      "path": "Ruta de Navegación"
+    },
+    "hero": {
+      "version": "Versión 2.0",
+      "title": "Guía de la Plataforma Admin Care Conneqt",
+      "description": "Tu referencia completa para dominar la plataforma Care Conneqt. Desde operaciones básicas hasta configuraciones avanzadas, todo lo que necesitas está aquí.",
+      "readTime": "~45 min de lectura",
+      "sections": "19 secciones",
+      "lastUpdated": "Última actualización: Dic 2025"
+    },
+    "quickNav": {
+      "title": "Navegación Rápida",
+      "gettingStarted": "Primeros Pasos",
+      "gettingStartedDesc": "¿Nuevo en la plataforma? Empieza aquí",
+      "lee": "Asistente IA LEE",
+      "leeDesc": "Usa comandos en lenguaje natural",
+      "finance": "Centro Financiero",
+      "financeDesc": "Ingresos, facturas, suscripciones",
+      "faq": "FAQ",
+      "faqDesc": "Preguntas comunes respondidas"
     },
     "gettingStarted": {
       "title": "Primeros Pasos",
-      "description": "Información esencial para comenzar a usar la plataforma de administración",
+      "description": "Información esencial para comenzar a usar la plataforma de administración efectivamente",
+      "badge": "Empieza Aquí",
       "roleTitle": "Tu Rol como Administrador",
-      "roleDescription": "Como administrador de la plataforma, tienes acceso completo para gestionar todos los aspectos de Care Conneqt incluyendo usuarios, instalaciones, socios comerciales, finanzas, agentes de IA y configuración del sistema.",
-      "keyAreasTitle": "Áreas Clave",
-      "areas": {
-        "people": "Personas",
-        "peopleDesc": "Gestionar usuarios, personal, miembros y familias",
-        "commercial": "Comercial",
-        "commercialDesc": "Instalaciones, empresas de cuidado, socios de seguros",
-        "finance": "Finanzas",
-        "financeDesc": "Ingresos, suscripciones, facturas, créditos",
-        "ai": "IA",
-        "aiDesc": "Configurar y monitorear agentes de IA"
+      "roleDescription": "Como administrador de la plataforma, tienes acceso completo para gestionar todos los aspectos de Care Conneqt. Esto incluye gestión de usuarios, supervisión de instalaciones, operaciones financieras, configuración de IA y ajustes del sistema. Tus decisiones impactan directamente en la operación de la plataforma y la experiencia del usuario.",
+      "keyAreas": {
+        "users": "Gestionar todos los usuarios, personal y miembros",
+        "facilities": "Supervisar instalaciones y socios comerciales",
+        "finance": "Controlar operaciones financieras y facturación",
+        "ai": "Configurar agentes de IA y automatización",
+        "security": "Garantizar seguridad y cumplimiento"
       },
-      "tipTitle": "Consejo Pro",
-      "tipDescription": "Usa LEE \"The Brain\" en el encabezado para ejecutar tareas administrativas usando comandos en lenguaje natural. ¡Solo haz clic en LEE y pregunta lo que necesites!"
+      "architectureTitle": "Arquitectura de la Plataforma",
+      "architecture": {
+        "frontend": "Frontend",
+        "frontendValue": "React + TypeScript",
+        "backend": "Backend",
+        "backendValue": "Supabase (PostgreSQL)",
+        "ai": "IA",
+        "aiValue": "Múltiples agentes especializados",
+        "payments": "Pagos",
+        "paymentsValue": "Integración Stripe"
+      },
+      "firstSteps": {
+        "title": "Primeros Pasos (Orden Recomendado)",
+        "step1": {
+          "title": "Explora el Panel",
+          "description": "Familiarízate con el panel principal. Revisa las tarjetas MRR/ARR, verifica alertas pendientes y comprende los paneles de actividad que muestran leads recientes, pedidos y registros.",
+          "tip1": "Haz clic en cualquier tarjeta de métricas para profundizar",
+          "tip2": "Usa el botón de Informe Diario para resúmenes ejecutivos"
+        },
+        "step2": {
+          "title": "Revisa los Usuarios Actuales",
+          "description": "Navega a Personas → Todos los Usuarios para ver quién tiene acceso a la plataforma. Comprende los diferentes roles (admin, enfermero, miembro, cuidador_familiar, admin_instalación, admin_empresa, admin_seguro).",
+          "tip1": "Filtra usuarios por rol para entender la distribución",
+          "tip2": "Verifica si hay invitaciones pendientes"
+        },
+        "step3": {
+          "title": "Configura los Agentes de IA",
+          "description": "Visita Gestión de IA → Agentes de IA para revisar y personalizar los asistentes de IA. Cada agente tiene un propósito específico - Clara para miembros, Ineke para enfermeros, Isabella para instalaciones, y LEE para ti.",
+          "tip1": "Actualiza los prompts del sistema para que coincidan con el tono de tu organización",
+          "tip2": "Revisa y habilita las funciones relevantes para cada agente"
+        },
+        "step4": {
+          "title": "Configura las Integraciones",
+          "description": "Ve a Configuración del Sistema → Integraciones para configurar Stripe para pagos. Asegúrate de que los webhooks estén correctamente configurados para el procesamiento de pagos en tiempo real.",
+          "tip1": "Prueba el flujo de pagos primero en modo de prueba de Stripe",
+          "tip2": "Verifica que los endpoints de webhook estén recibiendo eventos"
+        }
+      },
+      "proTip": {
+        "title": "Consejo Pro: Usa LEE para Todo",
+        "description": "LEE \"The Brain\" es tu orquestador de IA. En lugar de navegar por menús, simplemente haz clic en LEE en el encabezado y pregunta lo que necesitas. Por ejemplo: \"Muéstrame todas las alertas críticas\" o \"Programa una reunión con el equipo de enfermería para mañana a las 2pm\". ¡LEE puede ejecutar más de 36 acciones administrativas diferentes!"
+      }
     },
     "dashboard": {
       "title": "Resumen del Panel",
-      "description": "Entendiendo tu centro de control ejecutivo",
-      "intro": "El panel de administración proporciona visibilidad a nivel ejecutivo de todas las operaciones de la plataforma de un vistazo.",
-      "widgetsTitle": "Widgets del Panel",
-      "widgets": {
-        "mrr": "Tarjetas MRR/ARR",
-        "mrrDesc": "Instantáneas de Ingresos Recurrentes Mensuales y Anuales",
-        "alerts": "Alertas Críticas",
-        "alertsDesc": "Alertas pendientes que requieren atención inmediata",
-        "activity": "Paneles de Actividad",
-        "activityDesc": "Leads recientes, pedidos y registros",
-        "ai": "Métricas de IA",
-        "aiDesc": "Conteos de conversaciones, puntuaciones de satisfacción, escalaciones",
-        "health": "Salud del Sistema",
-        "healthDesc": "Estado de la plataforma y salud de integraciones"
+      "description": "Entendiendo tu centro de control CEO y métricas clave",
+      "intro": "El panel de administración está diseñado como un centro de control ejecutivo, proporcionando visibilidad en tiempo real de todas las operaciones de la plataforma. Cada widget es clickeable y lleva a información más detallada.",
+      "financial": {
+        "title": "Widgets Financieros",
+        "widgets": {
+          "mrr": "Tarjeta MRR",
+          "mrrDesc": "Ingresos Recurrentes Mensuales con indicador de tendencia",
+          "arr": "Tarjeta ARR",
+          "arrDesc": "Proyección de Ingresos Recurrentes Anuales",
+          "invoices": "Facturas Pendientes",
+          "invoicesDesc": "Facturas sin pagar que requieren atención",
+          "todayRevenue": "Ingresos de Hoy",
+          "todayRevenueDesc": "Ingresos en tiempo real del día actual"
+        }
+      },
+      "operational": {
+        "title": "Widgets Operacionales",
+        "widgets": {
+          "alerts": "Alertas Críticas",
+          "alertsDesc": "Alertas urgentes que necesitan acción inmediata",
+          "leads": "Leads Recientes",
+          "leadsDesc": "Últimos leads de ventas de todas las fuentes",
+          "aiConversations": "Conversaciones IA",
+          "aiConversationsDesc": "Interacciones de IA de hoy con puntuaciones de satisfacción",
+          "health": "Salud del Sistema",
+          "healthDesc": "Tiempo activo de la plataforma y estado de integraciones"
+        }
+      },
+      "customization": {
+        "title": "Personalización del Panel",
+        "description": "El panel se ajusta automáticamente según la hora del día y muestra mensajes de saludo relevantes. Las alertas críticas siempre aparecen prominentemente independientemente de otro contenido. Los datos de widgets se actualizan cada 30 segundos para precisión en tiempo real."
       }
     },
     "people": {
       "title": "Gestión de Personas",
-      "description": "Gestionar usuarios, personal, miembros y cuidadores familiares",
-      "table": {
-        "feature": "Función",
-        "description": "Descripción"
-      },
+      "description": "Administración completa de usuarios, personal y miembros",
       "features": {
         "allUsers": "Todos los Usuarios",
-        "allUsersDesc": "Ver y gestionar todos los usuarios de la plataforma",
+        "allUsersDesc": "Directorio completo de usuarios con búsqueda y filtros",
         "staff": "Personal",
-        "staffDesc": "Gestionar enfermeros y personal administrativo, roles, departamentos",
+        "staffDesc": "Gestión de enfermeros y personal administrativo",
         "members": "Miembros",
-        "membersDesc": "Ver y gestionar receptores de cuidado",
+        "membersDesc": "Perfiles de receptores de cuidado y suscripciones",
         "family": "Cuidadores Familiares",
-        "familyDesc": "Gestionar cuentas de familiares y permisos",
+        "familyDesc": "Cuentas de familiares vinculadas a miembros",
         "assignments": "Centro de Asignaciones",
-        "assignmentsDesc": "Asignar enfermeros a miembros, gestionar cargas de trabajo"
+        "assignmentsDesc": "Balanceo de carga de trabajo enfermero-miembro"
       },
-      "commonTasksTitle": "Tareas Comunes",
-      "tasks": {
-        "addUser": "Agregar nuevos usuarios mediante el botón \"Agregar Usuario\" en las páginas respectivas",
-        "editRoles": "Editar roles y permisos a través de la configuración del perfil de usuario",
-        "deactivate": "Desactivar cuentas en lugar de eliminarlas para preservar el historial",
-        "assign": "Usar Centro de Asignaciones para balancear la carga de trabajo enfermero-miembro"
+      "roles": {
+        "title": "Roles de Usuario Explicados",
+        "admin": "Acceso completo a la plataforma (tú)",
+        "nurse": "Proveedores de cuidado que gestionan miembros",
+        "member": "Receptores de cuidado que usan servicios",
+        "family_carer": "Familiares que monitorean seres queridos",
+        "facility_admin": "Administradores de instalaciones de cuidado",
+        "company_admin": "Gestores de empresas de cuidado",
+        "insurance_admin": "Personal de compañías de seguros"
+      },
+      "actions": {
+        "title": "Acciones Comunes",
+        "addUsers": "Agregar usuarios mediante el botón \"Agregar Usuario\" en cada página",
+        "editRoles": "Editar roles a través del menú desplegable del perfil de usuario",
+        "deactivate": "Desactivar (no eliminar) para preservar el registro de auditoría",
+        "bulkAssign": "Asignación masiva de enfermeros mediante Centro de Asignaciones",
+        "sendInvitations": "Enviar invitaciones a nuevos cuidadores familiares",
+        "resetPasswords": "Restablecer contraseñas desde el menú del perfil de usuario"
+      },
+      "warning": {
+        "title": "Importante: Eliminación de Cuentas",
+        "description": "Nunca elimines cuentas de usuario a menos que sea absolutamente necesario. La desactivación preserva todos los datos históricos, registros de auditoría y mantiene la integridad de datos para cumplimiento. Las cuentas eliminadas no pueden recuperarse y pueden causar registros huérfanos."
       }
     },
     "commercial": {
       "title": "Socios Comerciales",
-      "description": "Gestionar relaciones B2B",
+      "description": "Gestión de relaciones B2B con instalaciones, empresas y aseguradoras",
       "types": {
-        "facilities": "Instalaciones de Cuidado",
-        "facilitiesDesc": "Residencias de ancianos, vida asistida, cuidado residencial",
-        "companies": "Empresas de Cuidado",
-        "companiesDesc": "Agencias de atención domiciliaria, servicios domiciliarios",
-        "insurance": "Seguros",
-        "insuranceDesc": "Socios de seguros de salud y cuidado"
+        "facilities": {
+          "title": "Instalaciones de Cuidado",
+          "description": "Residencias de ancianos, instalaciones de vida asistida, centros de cuidado residencial. Gestiona residentes, personal, habitaciones y facturación específica de la instalación.",
+          "path": "Comercial → Instalaciones de Cuidado"
+        },
+        "companies": {
+          "title": "Empresas de Cuidado",
+          "description": "Agencias de cuidado en el hogar, servicios domiciliarios, proveedores de cuidado. Rastrea clientes, asigna cuidadores, gestiona áreas de servicio.",
+          "path": "Comercial → Empresas de Cuidado"
+        },
+        "insurance": {
+          "title": "Compañías de Seguros",
+          "description": "Aseguradoras de salud y cuidado. Gestiona pólizas, miembros cubiertos, procesamiento de reclamaciones y seguimiento de primas.",
+          "path": "Comercial → Seguros"
+        }
       },
-      "management": "Cada tipo de socio tiene páginas de gestión dedicadas donde puedes agregar, editar y ver detalles incluyendo personal, clientes/residentes y seguimiento financiero."
+      "details": {
+        "title": "Las Páginas de Detalle de Socios Incluyen:",
+        "staff": "Gestión de personal con roles y permisos",
+        "clients": "Asignación y seguimiento de clientes/residentes",
+        "financial": "Resumen financiero e historial de facturación",
+        "serviceArea": "Configuración de área de servicio y cobertura",
+        "contracts": "Gestión de contratos y suscripciones",
+        "audit": "Registros de actividad y auditoría"
+      }
     },
     "catalog": {
       "title": "Gestión de Catálogo",
-      "description": "Gestionar productos, servicios y precios",
+      "description": "Configuración de productos, servicios y planes de precios",
       "products": {
         "title": "Productos (Dispositivos)",
-        "desc": "Dispositivos físicos como relojes inteligentes, dispensadores de medicamentos, sensores"
+        "description": "Dispositivos físicos enviados a miembros:",
+        "items": {
+          "watches": "Relojes inteligentes Vivago",
+          "dispensers": "Dispensadores de medicamentos Dosell",
+          "scales": "Básculas y termómetros inteligentes",
+          "pendants": "Colgantes SOS y detectores de caídas",
+          "monitors": "Monitores de salud"
+        }
       },
       "services": {
-        "title": "Servicios",
-        "desc": "Complementos de servicio como soporte de enfermería, panel familiar, respuesta de emergencia"
+        "title": "Servicios (Complementos)",
+        "description": "Servicios de valor añadido para miembros:",
+        "items": {
+          "familyDashboard": "Acceso al panel familiar",
+          "nurseSupport": "Soporte de enfermería 24/7",
+          "emergency": "Respuesta de emergencia",
+          "coordinator": "Coordinador de cuidado",
+          "medication": "Gestión de medicamentos"
+        }
       },
       "pricing": {
         "title": "Planes de Precios",
-        "desc": "Planes de suscripción con productos y servicios incluidos"
+        "description": "Paquetes de planes de suscripción:",
+        "items": {
+          "essential": "Esencial (monitoreo básico)",
+          "plus": "Plus (con acceso familiar)",
+          "premium": "Premium (funciones completas)",
+          "pickMix": "Pick & Mix (personalizado)",
+          "enterprise": "Enterprise (instalaciones)"
+        }
+      },
+      "tip": {
+        "title": "Agregar Nuevos Productos",
+        "description": "Al agregar productos, siempre incluye las tres traducciones de idioma (EN/ES/NL). Sube imágenes de productos de alta calidad y establece precios apropiados. Los nuevos productos aparecen inmediatamente en el asistente de precios."
       }
     },
     "finance": {
       "title": "Centro de Control Financiero",
-      "description": "Gestión financiera completa",
-      "table": {
-        "area": "Área",
-        "purpose": "Propósito"
-      },
+      "description": "Gestión financiera completa en todos los segmentos de clientes",
       "areas": {
         "dashboard": "Panel de Ingresos",
         "dashboardDesc": "MRR, ARR, ingresos por segmento de cliente",
@@ -2101,70 +2239,101 @@
         "credits": "Créditos y Reembolsos",
         "creditsDesc": "Emitir créditos, procesar reembolsos"
       },
-      "noteTitle": "Importante",
-      "noteDescription": "Los datos financieros están segmentados por tipo de cliente (Miembro, Instalación, Empresa de Cuidado, Seguro). Usa filtros para ver segmentos específicos."
+      "note": {
+        "title": "Importante",
+        "description": "Los datos financieros están segmentados por tipo de cliente (Miembro, Instalación, Empresa de Cuidado, Seguro). Usa filtros para ver segmentos específicos. Todos los informes financieros pueden exportarse a CSV."
+      }
     },
     "ai": {
       "title": "Gestión de IA",
-      "description": "Configurar y monitorear agentes de IA",
-      "agentsTitle": "Agentes de IA",
+      "description": "Configuración y monitoreo de agentes de IA en toda la plataforma",
       "agents": {
         "claraSales": "Asistente de ventas público",
         "claraMember": "Compañero de bienestar del miembro",
-        "claraFamily": "Soporte para cuidadores familiares",
+        "claraFamily": "Asistente de soporte para cuidadores familiares",
         "ineke": "Asistente clínico de enfermería",
         "isabella": "Asistente de operaciones de instalaciones",
-        "lee": "Orquestador maestro de administración"
+        "lee": "Orquestador maestro de administración (tú)"
       },
-      "configNote": "Cada agente puede configurarse con prompts de sistema personalizados, bases de conocimiento y funciones habilitadas a través de la configuración de Agentes de IA."
+      "config": {
+        "title": "Configuración de Agentes",
+        "description": "Cada agente puede configurarse con prompts de sistema personalizados, bases de conocimiento y funciones habilitadas a través de la configuración de Agentes de IA. Monitorea el rendimiento a través de Analytics de IA."
+      }
     },
     "analytics": {
       "title": "Analytics e Informes",
-      "description": "Perspectivas de la plataforma y monitoreo",
-      "platform": "Analytics de Plataforma",
-      "platformDesc": "Crecimiento de usuarios, engagement, tendencias de actividad",
-      "health": "Salud del Sistema",
-      "healthDesc": "Estado del servidor, rendimiento de API, tiempo activo",
-      "aiAnalytics": "Analytics de IA",
-      "aiAnalyticsDesc": "Métricas de conversación, puntuaciones de satisfacción, escalaciones"
+      "description": "Información de la plataforma y monitoreo de rendimiento",
+      "platform": {
+        "title": "Analytics de Plataforma",
+        "description": "Crecimiento de usuarios, engagement, tendencias de actividad y métricas de conversión"
+      },
+      "health": {
+        "title": "Salud del Sistema",
+        "description": "Estado del servidor, rendimiento de API, tiempo activo y tasas de error"
+      },
+      "aiAnalytics": {
+        "title": "Analytics de IA",
+        "description": "Métricas de conversación, puntuaciones de satisfacción, tasas de escalación por agente"
+      }
     },
     "sales": {
       "title": "Ventas y Leads",
-      "description": "Gestionar el pipeline de ventas",
-      "pipelineTitle": "Etapas del Pipeline de Leads",
-      "sourcesTitle": "Fuentes de Leads",
+      "description": "Gestión del pipeline de ventas completo desde lead hasta conversión",
+      "pipeline": {
+        "title": "Etapas del Pipeline de Leads",
+        "stages": {
+          "new": "Nuevo",
+          "contacted": "Contactado",
+          "qualified": "Calificado",
+          "proposal": "Propuesta",
+          "won": "Ganado",
+          "lost": "Perdido"
+        }
+      },
       "sources": {
-        "pricing": "Conversiones de página de precios de cuidado personal",
-        "institutional": "Envíos de formulario de registro institucional",
-        "clara": "Interacciones de conversación con Clara IA"
+        "pricing": {
+          "title": "Leads de Página de Precios",
+          "description": "Capturados cuando los visitantes completan el proceso de checkout del asistente de precios"
+        },
+        "institutional": {
+          "title": "Registros Institucionales",
+          "description": "Leads B2B del formulario de registro de cuidado institucional"
+        },
+        "clara": {
+          "title": "Conversaciones Clara",
+          "description": "Leads capturados de interacciones de chat con Clara IA"
+        }
       }
     },
     "communications": {
       "title": "Comunicaciones",
-      "description": "Mensajería de plataforma y anuncios",
-      "messages": {
-        "title": "Mensajes",
-        "desc": "Mensajería directa con usuarios, difusión a grupos por rol"
+      "description": "Mensajería de plataforma, anuncios y soporte",
+      "features": {
+        "messages": "Mensajes",
+        "messagesDesc": "Mensajería directa con cualquier usuario de la plataforma",
+        "broadcasts": "Difusiones",
+        "broadcastsDesc": "Enviar mensajes a múltiples usuarios por rol",
+        "announcements": "Anuncios",
+        "announcementsDesc": "Anuncios de toda la plataforma con segmentación",
+        "support": "Tickets de Soporte",
+        "supportDesc": "Gestión de tickets de soporte al cliente"
       },
-      "announcements": {
-        "title": "Anuncios",
-        "desc": "Anuncios de toda la plataforma con segmentación por rol, programación, expiración"
-      },
-      "support": {
-        "title": "Tickets de Soporte",
-        "desc": "Gestión y resolución de tickets de soporte al cliente"
+      "tip": {
+        "title": "Mensajes de Difusión",
+        "description": "Usa las difusiones con moderación y segmenta apropiadamente. Puedes filtrar destinatarios por rol (todos los enfermeros, todos los miembros, etc.) o por instalación. Los mensajes de difusión aparecen en la bandeja de entrada de los destinatarios con un indicador especial."
       }
     },
     "system": {
       "title": "Configuración del Sistema",
-      "description": "Configuración de plataforma e integraciones",
+      "description": "Ajustes de toda la plataforma y gestión de integraciones",
       "settings": {
-        "title": "Configuración del Sistema",
+        "title": "Ajustes Generales",
         "items": {
           "platform": "Nombre de plataforma y marca",
-          "language": "Idioma y zona horaria predeterminados",
-          "security": "Políticas de seguridad",
-          "maintenance": "Modo de mantenimiento"
+          "language": "Idioma predeterminado (EN/ES/NL)",
+          "timezone": "Configuración de zona horaria",
+          "dateFormat": "Preferencias de formato de fecha/hora",
+          "email": "Configuración de notificaciones por correo"
         }
       },
       "integrations": {
@@ -2172,66 +2341,146 @@
         "items": {
           "stripe": "Procesamiento de pagos Stripe",
           "webhooks": "Configuración de webhooks",
-          "api": "Conexiones API"
+          "apiKeys": "Gestión de claves API",
+          "thirdParty": "Conexiones de terceros"
         }
+      }
+    },
+    "security": {
+      "title": "Seguridad y Cumplimiento",
+      "description": "Protección de datos, control de acceso y cumplimiento regulatorio",
+      "badge": "Importante",
+      "features": {
+        "title": "Funciones de Seguridad",
+        "items": {
+          "rls": "Seguridad a Nivel de Fila (RLS) en todas las tablas",
+          "rbac": "Control de acceso basado en roles (RBAC)",
+          "session": "Configuración de tiempo de espera de sesión",
+          "password": "Aplicación de políticas de contraseñas",
+          "audit": "Registro de auditoría para todas las acciones",
+          "encryption": "Cifrado de datos en reposo y en tránsito"
+        }
+      },
+      "data": {
+        "title": "Manejo de Datos",
+        "items": {
+          "gdpr": "Procesamiento de datos conforme al RGPD",
+          "retention": "Políticas de retención de datos",
+          "deletion": "Soporte al derecho de eliminación",
+          "export": "Capacidades de exportación de datos",
+          "consent": "Gestión del consentimiento"
+        }
+      },
+      "warning": {
+        "title": "Cumplimiento de Datos de Salud",
+        "description": "Care Conneqt maneja datos sensibles de salud. Asegúrate de que todo el personal comprenda sus responsabilidades bajo el RGPD y las regulaciones de salud relevantes. Nunca compartas credenciales de inicio de sesión y siempre usa canales seguros para comunicaciones sensibles."
       }
     },
     "lee": {
       "title": "LEE \"The Brain\"",
-      "description": "Tu asistente orquestador de IA",
-      "intro": "LEE es tu orquestador maestro de IA, capaz de ejecutar tareas administrativas a través de comandos en lenguaje natural. Accede a LEE mediante el botón en el encabezado.",
-      "capabilitiesTitle": "Capacidades",
+      "subtitle": "Tu centro de comando administrativo impulsado por IA",
+      "intro": "LEE es la herramienta más poderosa en tu arsenal de administración. En lugar de hacer clic a través de menús, simplemente dile a LEE lo que necesitas en lenguaje natural. LEE puede ejecutar más de 36 acciones diferentes en todas las áreas de la plataforma.",
       "capabilities": {
+        "title": "Lo Que LEE Puede Hacer",
         "read": "Leer datos del sistema y generar informes",
-        "create": "Crear y actualizar registros",
-        "schedule": "Programar citas y establecer recordatorios",
-        "message": "Enviar mensajes y notificaciones",
-        "leads": "Actualizar estados de leads",
-        "alerts": "Gestionar alertas y escalaciones"
+        "create": "Crear, actualizar y gestionar registros",
+        "schedule": "Programar citas con confirmaciones",
+        "reminders": "Establecer recordatorios y seguimientos",
+        "messages": "Enviar mensajes y notificaciones",
+        "leads": "Actualizar estados de leads y alertas",
+        "users": "Buscar usuarios por nombre o rol",
+        "finance": "Consultar datos financieros"
       },
-      "examplesTitle": "Comandos de Ejemplo",
       "examples": {
+        "title": "Comandos de Ejemplo",
         "stats": "\"Muéstrame las estadísticas de hoy\"",
-        "schedule": "\"Programa una reunión con el equipo de enfermería para el miércoles a las 3pm\"",
-        "leads": "\"Actualiza el estado del lead de Juan García a calificado\"",
-        "alerts": "\"Muéstrame todas las alertas críticas\""
+        "schedule": "\"Programa una reunión con la enfermera Sara para mañana a las 2pm\"",
+        "updateLead": "\"Actualiza el lead de Juan Pérez a calificado\"",
+        "sendMessage": "\"Envía un mensaje a todos los administradores de instalaciones sobre la nueva actualización\"",
+        "alerts": "\"¿Cuáles son las alertas críticas actuales?\"",
+        "reminder": "\"Crea un recordatorio para hacer seguimiento con Instalación ABC el próximo lunes\""
+      },
+      "access": {
+        "title": "Accede a LEE en Cualquier Momento",
+        "description": "LEE siempre está disponible en la barra de encabezado de administración. Haz clic en el botón LEE para abrir el panel de chat. Tu conversación persiste durante tu sesión, para que puedas referirte a consultas y resultados anteriores."
       }
     },
     "dailyReport": {
       "title": "Informe Diario",
-      "description": "Instantánea diaria ejecutiva",
-      "intro": "El Informe Diario proporciona una instantánea completa de la actividad de la plataforma para el día seleccionado. Navega hasta 7 días atrás para comparar métricas.",
-      "sectionsTitle": "Secciones del Informe",
+      "description": "Instantánea diaria ejecutiva con comparación histórica",
+      "intro": "El Informe Diario proporciona un resumen ejecutivo completo de la actividad de la plataforma. Accede a él mediante el botón \"Informe Diario\" en el encabezado de administración.",
       "sections": {
-        "revenue": "Métricas de ingresos (pedidos, suscripciones)",
-        "users": "Actividad de usuarios (registros, usuarios activos)",
-        "alerts": "Resumen de alertas y resoluciones",
-        "ai": "Métricas de conversaciones de IA",
-        "leads": "Actividad del pipeline de leads"
+        "title": "Secciones del Informe",
+        "revenue": "Instantánea de ingresos (hoy, MRR, ARR)",
+        "alerts": "Resumen de alertas críticas",
+        "activity": "Métricas de actividad (leads, pedidos, registros)",
+        "ai": "Analytics de conversaciones de IA",
+        "pipeline": "Resumen del pipeline",
+        "health": "Indicadores de salud operacional"
+      },
+      "features": {
+        "title": "Funcionalidades",
+        "navigate": "Navega hasta 7 días atrás",
+        "compare": "Compara métricas día a día",
+        "quickActions": "Acciones rápidas para tareas comunes",
+        "print": "Formato listo para imprimir",
+        "autoRefresh": "Auto-actualización en el día actual"
+      }
+    },
+    "workflows": {
+      "title": "Flujos de Trabajo y Automatización",
+      "description": "Procesos automatizados y disparadores del sistema",
+      "automations": {
+        "title": "Automatizaciones Integradas",
+        "newOrder": {
+          "trigger": "Nuevo Pedido",
+          "action": "Crea lead, envía correo de confirmación, notifica al admin"
+        },
+        "memberSignup": {
+          "trigger": "Registro de Miembro",
+          "action": "Crea perfil, activa flujo de onboarding, asigna enfermero"
+        },
+        "criticalAlert": {
+          "trigger": "Alerta Crítica",
+          "action": "Notifica al enfermero asignado, escala después del tiempo de espera"
+        },
+        "renewal": {
+          "trigger": "Renovación de Suscripción",
+          "action": "Genera factura, procesa pago, envía recibo"
+        },
+        "aiEscalation": {
+          "trigger": "Escalación de IA",
+          "action": "Crea ticket de soporte, notifica al personal humano"
+        }
       }
     },
     "bestPractices": {
       "title": "Mejores Prácticas",
-      "description": "Flujos de trabajo y rutinas recomendadas",
-      "dailyTitle": "Rutina Diaria",
+      "description": "Flujos de trabajo recomendados y rutinas administrativas",
       "daily": {
+        "title": "Rutina Diaria (10-15 min)",
         "dashboard": "Revisar el panel para alertas críticas",
-        "leads": "Revisar nuevos leads y seguimientos",
+        "dailyReport": "Revisar el Informe Diario",
+        "leads": "Procesar nuevos leads y seguimientos",
         "tickets": "Atender tickets de soporte pendientes",
-        "ai": "Monitorear escalaciones de IA"
+        "aiEscalations": "Revisar escalaciones de IA"
       },
-      "weeklyTitle": "Revisión Semanal",
       "weekly": {
-        "analytics": "Revisar tendencias de analytics de plataforma",
-        "revenue": "Analizar ingresos y tasas de conversión",
-        "assignments": "Revisar balance de asignaciones enfermero-miembro",
-        "ai": "Verificar métricas de rendimiento de agentes de IA"
+        "title": "Revisión Semanal (30-45 min)",
+        "analytics": "Analizar tendencias de analytics de plataforma",
+        "revenue": "Revisar métricas de ingresos y conversión",
+        "assignments": "Verificar balance de asignaciones enfermero-miembro",
+        "aiPerformance": "Evaluar rendimiento de agentes de IA",
+        "catalog": "Actualizar precios o catálogo si es necesario"
       },
-      "tip": "Usa la función de Informe Diario para revisar rápidamente las métricas de ayer y comparar tendencias semana a semana."
+      "tip": {
+        "title": "Consejo Semanal",
+        "description": "Bloquea 30 minutos cada viernes por la tarde para la revisión semanal. Usa la navegación histórica del Informe Diario para comparar las métricas de la semana con la semana anterior. Esto ayuda a identificar tendencias antes de que se conviertan en problemas."
+      }
     },
     "shortcuts": {
       "title": "Atajos de Teclado",
-      "description": "Navegación y acciones rápidas",
+      "description": "Navegación rápida y atajos de productividad",
       "table": {
         "shortcut": "Atajo",
         "action": "Acción"
@@ -2239,7 +2488,47 @@
       "actions": {
         "search": "Abrir búsqueda",
         "sidebar": "Alternar barra lateral",
-        "close": "Cerrar diálogos/modales"
+        "close": "Cerrar diálogos/modales",
+        "submit": "Enviar formulario",
+        "help": "Abrir ayuda"
+      }
+    },
+    "glossary": {
+      "title": "Glosario",
+      "description": "Términos clave y definiciones usadas en la plataforma",
+      "terms": {
+        "mrr": {
+          "term": "MRR",
+          "definition": "Ingresos Recurrentes Mensuales - los ingresos predecibles de suscripciones activas cada mes"
+        },
+        "arr": {
+          "term": "ARR",
+          "definition": "Ingresos Recurrentes Anuales - MRR multiplicado por 12, representando el valor anual de suscripciones"
+        },
+        "rls": {
+          "term": "RLS",
+          "definition": "Seguridad a Nivel de Fila - seguridad de base de datos que asegura que los usuarios solo accedan a datos autorizados"
+        },
+        "rbac": {
+          "term": "RBAC",
+          "definition": "Control de Acceso Basado en Roles - sistema de permisos basado en roles de usuario"
+        },
+        "aiAgent": {
+          "term": "Agente de IA",
+          "definition": "Asistente de IA especializado configurado para roles específicos (Clara, Ineke, Isabella, LEE)"
+        },
+        "lead": {
+          "term": "Lead",
+          "definition": "Cliente potencial rastreado a través del pipeline de ventas"
+        },
+        "member": {
+          "term": "Miembro",
+          "definition": "Receptor de cuidado con una suscripción activa"
+        },
+        "familyCarer": {
+          "term": "Cuidador Familiar",
+          "definition": "Miembro de la familia con acceso para monitorear el cuidado de un miembro"
+        }
       }
     },
     "faq": {
@@ -2249,14 +2538,22 @@
         "reset": "¿Cómo restablezco la contraseña de un usuario?",
         "export": "¿Puedo exportar informes financieros?",
         "ai": "¿Cómo configuro las respuestas de los agentes de IA?",
-        "maintenance": "¿Qué pasa en modo de mantenimiento?"
+        "maintenance": "¿Qué pasa en modo de mantenimiento?",
+        "roles": "¿Cómo cambio el rol de un usuario?",
+        "billing": "¿Cómo emito un reembolso?"
       },
       "answers": {
-        "reset": "Ve a Personas > Todos los Usuarios, encuentra el usuario y usa la opción \"Restablecer Contraseña\" en su menú de perfil.",
+        "reset": "Ve a Personas → Todos los Usuarios, encuentra el usuario y usa la opción \"Restablecer Contraseña\" en su menú de perfil.",
         "export": "Sí, usa el botón \"Exportar CSV\" disponible en cada página de Finanzas para descargar datos.",
-        "ai": "Navega a Gestión de IA > Agentes de IA, selecciona el agente y modifica el prompt del sistema o la base de conocimiento.",
-        "maintenance": "Los usuarios ven un mensaje de mantenimiento. El acceso de administrador permanece disponible. Habilita via Configuración del Sistema > Mantenimiento."
+        "ai": "Navega a Gestión de IA → Agentes de IA, selecciona el agente y modifica el prompt del sistema o la base de conocimiento.",
+        "maintenance": "Los usuarios ven un mensaje de mantenimiento. El acceso de administrador permanece disponible. Habilita via Configuración del Sistema → Mantenimiento.",
+        "roles": "Ve a Personas → Todos los Usuarios, encuentra el usuario, haz clic en su menú y selecciona \"Editar Rol\" para modificar sus permisos.",
+        "billing": "Ve a Finanzas → Créditos y Reembolsos, haz clic en \"Emitir Crédito\" e ingresa los detalles del cliente y el monto."
       }
+    },
+    "footer": {
+      "text": "Esta guía se actualiza regularmente. Vuelve a consultar para nuevas funcionalidades y mejores prácticas.",
+      "contact": "¿Necesitas más ayuda? Contacta a support@careconneqt.com"
     }
   }
 }
