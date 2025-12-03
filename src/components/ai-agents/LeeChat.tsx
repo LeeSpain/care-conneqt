@@ -480,6 +480,67 @@ export function LeeChat() {
                                 </ul>
                               </div>
                             )}
+                            {/* CREATE Actions (Phase 2) */}
+                            {result.action === 'create_user' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ User created: {result.result.name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  {result.result.email} • Role: {result.result.role}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'create_facility' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Facility created: {result.result.name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Type: {result.result.type}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'create_company' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ {result.result.type === 'care' ? 'Care' : 'Insurance'} company created: {result.result.name}</span>
+                              </div>
+                            )}
+                            {result.action === 'create_announcement' && result.result?.success && (
+                              <span className="text-green-600">✓ Announcement created: {result.result.title}</span>
+                            )}
+                            {/* UPDATE Actions (Phase 3) */}
+                            {result.action === 'update_user_role' && result.result?.success && (
+                              <span className="text-green-600">✓ Role {result.result.operation}: {result.result.role}</span>
+                            )}
+                            {result.action === 'update_member' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Member updated</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Care: {result.result.care_level} • Status: {result.result.status}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'update_facility' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Facility updated: {result.result.name}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Capacity: {result.result.capacity} • Status: {result.result.status}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'update_product' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Product updated: {result.result.slug}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  €{result.result.price} • {result.result.is_active ? 'Active' : 'Inactive'} • {result.result.is_featured ? 'Featured' : 'Standard'}
+                                </div>
+                              </div>
+                            )}
+                            {result.action === 'update_ticket_status' && result.result?.success && (
+                              <div className="text-green-600">
+                                <span>✓ Ticket updated: {result.result.title}</span>
+                                <div className="text-muted-foreground text-xs mt-0.5">
+                                  Status: {result.result.status} • Priority: {result.result.priority}
+                                </div>
+                              </div>
+                            )}
                             {/* WRITE Actions */}
                             {result.action === 'send_message' && result.result?.success && (
                               <span className="text-green-600">✓ Message sent to {result.result.recipients_count} recipient(s)</span>

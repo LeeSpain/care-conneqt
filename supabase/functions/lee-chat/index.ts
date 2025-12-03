@@ -98,7 +98,7 @@ Today: ${new Date().toISOString().split('T')[0]}
 Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 
 === READ ACTIONS (Query Data) ===
-1. get_members: {status?:"active|inactive", care_level?:"low|medium|high", limit?:number, search?:string}
+1. get_members: {status?:"active|inactive", care_level?:"low|medium|high", limit?:number}
 2. get_member_details: {member_id:string} - Full profile with devices, alerts, nurses
 3. get_nurses: {limit?:number} - List nurses with workload stats
 4. get_facilities: {limit?:number} - List facilities with occupancy
@@ -111,13 +111,26 @@ Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 11. get_companies: {type?:"care|insurance", limit?:number}
 12. lookup_user: {query:string, search_type:"name|email|role"}
 
-=== WRITE ACTIONS ===
-13. send_message: {recipient_type:"user|role|broadcast", recipient_id:string, message:string, priority?:"normal|urgent"}
-14. schedule_appointment: {title:string, start_time:string, end_time:string, appointment_type?:"meeting|call|video", participant_ids?:[], requires_confirmation?:boolean}
-15. create_task: {title:string, member_id:string, nurse_id:string, task_type?:"check_in|medication|assessment|other", priority?:string, due_date?:string}
-16. create_reminder: {title:string, reminder_time:string, priority?:"low|normal|high|urgent", related_entity_type?:string, related_entity_id?:string}
-17. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
-18. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
+=== CREATE ACTIONS ===
+13. create_user: {email:string, first_name:string, last_name:string, role:"member|nurse|family_carer|facility_admin|company_admin|insurance_admin", phone?:string}
+14. create_facility: {name:string, facility_type?:"nursing_home|assisted_living|hospital|clinic", bed_capacity?:number, city?:string, country?:string, email?:string, phone?:string}
+15. create_company: {name:string, type:"care|insurance", company_type?:string, city?:string, country?:string, email?:string, phone?:string}
+16. create_announcement: {title:string, content:string, priority?:"low|normal|high|urgent", target_roles?:["member","nurse","family_carer","facility_admin"], expires_at?:string}
+
+=== UPDATE ACTIONS ===
+17. update_user_role: {user_id:string, operation:"add|remove", role:"member|nurse|family_carer|facility_admin|company_admin|insurance_admin|admin"}
+18. update_member: {member_id:string, care_level?:"low|medium|high", subscription_status?:"trial|active|inactive|cancelled", city?:string, country?:string}
+19. update_facility: {facility_id:string, name?:string, bed_capacity?:number, subscription_status?:"trial|active|inactive", city?:string, email?:string, phone?:string}
+20. update_product: {product_id:string, is_active?:boolean, is_featured?:boolean, price?:number}
+21. update_ticket_status: {ticket_id:string, status:"open|in_progress|resolved|closed", priority?:"low|medium|high|urgent"}
+
+=== EXISTING WRITE ACTIONS ===
+22. send_message: {recipient_type:"user|role|broadcast", recipient_id:string, message:string, priority?:"normal|urgent"}
+23. schedule_appointment: {title:string, start_time:string, end_time:string, appointment_type?:"meeting|call|video", participant_ids?:[], requires_confirmation?:boolean}
+24. create_task: {title:string, member_id:string, nurse_id:string, task_type?:"check_in|medication|assessment|other", priority?:string, due_date?:string}
+25. create_reminder: {title:string, reminder_time:string, priority?:"low|normal|high|urgent", related_entity_type?:string, related_entity_id?:string}
+26. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
+27. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
 
 Rules:
 - Use READ actions to answer questions about the system
@@ -211,7 +224,36 @@ Rules:
           case 'lookup_user':
             result = await executeLookupUser(supabase, actionData);
             break;
-          // WRITE actions
+          // CREATE actions (Phase 2)
+          case 'create_user':
+            result = await executeCreateUser(supabase, actionData);
+            break;
+          case 'create_facility':
+            result = await executeCreateFacility(supabase, actionData);
+            break;
+          case 'create_company':
+            result = await executeCreateCompany(supabase, actionData);
+            break;
+          case 'create_announcement':
+            result = await executeCreateAnnouncement(supabase, user.id, actionData);
+            break;
+          // UPDATE actions (Phase 3)
+          case 'update_user_role':
+            result = await executeUpdateUserRole(supabase, actionData);
+            break;
+          case 'update_member':
+            result = await executeUpdateMember(supabase, actionData);
+            break;
+          case 'update_facility':
+            result = await executeUpdateFacility(supabase, actionData);
+            break;
+          case 'update_product':
+            result = await executeUpdateProduct(supabase, actionData);
+            break;
+          case 'update_ticket_status':
+            result = await executeUpdateTicketStatus(supabase, actionData);
+            break;
+          // Existing WRITE actions
           case 'send_message':
             result = await executeSendMessage(supabase, user.id, actionData);
             break;
@@ -1185,6 +1227,417 @@ async function executeLookupUser(
     };
   } catch (error: any) {
     console.error('Error looking up user:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==================== PHASE 2: CREATE ACTION EXECUTORS ====================
+
+async function executeCreateUser(
+  supabase: any,
+  actionData: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    role: string;
+    phone?: string;
+  }
+) {
+  try {
+    // Create auth user
+    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+      email: actionData.email,
+      email_confirm: true,
+      user_metadata: {
+        first_name: actionData.first_name,
+        last_name: actionData.last_name
+      }
+    });
+
+    if (authError) throw authError;
+
+    const userId = authData.user.id;
+
+    // Update profile with phone if provided
+    if (actionData.phone) {
+      await supabase.from('profiles').update({ phone: actionData.phone }).eq('id', userId);
+    }
+
+    // Add role
+    if (actionData.role && actionData.role !== 'member') {
+      await supabase.from('user_roles').insert({
+        user_id: userId,
+        role: actionData.role
+      });
+    }
+
+    // If role is member, create member record
+    if (actionData.role === 'member') {
+      await supabase.from('members').insert({
+        user_id: userId,
+        subscription_status: 'trial'
+      });
+    }
+
+    return { 
+      success: true, 
+      user_id: userId,
+      name: `${actionData.first_name} ${actionData.last_name}`,
+      email: actionData.email,
+      role: actionData.role
+    };
+  } catch (error: any) {
+    console.error('Error creating user:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeCreateFacility(
+  supabase: any,
+  actionData: {
+    name: string;
+    facility_type?: string;
+    bed_capacity?: number;
+    city?: string;
+    country?: string;
+    email?: string;
+    phone?: string;
+  }
+) {
+  try {
+    const { data: facility, error } = await supabase
+      .from('facilities')
+      .insert({
+        name: actionData.name,
+        facility_type: actionData.facility_type || 'nursing_home',
+        bed_capacity: actionData.bed_capacity || 0,
+        city: actionData.city || null,
+        country: actionData.country || 'NL',
+        email: actionData.email || null,
+        phone: actionData.phone || null,
+        subscription_status: 'trial'
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      facility_id: facility.id,
+      name: facility.name,
+      type: facility.facility_type
+    };
+  } catch (error: any) {
+    console.error('Error creating facility:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeCreateCompany(
+  supabase: any,
+  actionData: {
+    name: string;
+    type: 'care' | 'insurance';
+    company_type?: string;
+    city?: string;
+    country?: string;
+    email?: string;
+    phone?: string;
+  }
+) {
+  try {
+    const tableName = actionData.type === 'care' ? 'care_companies' : 'insurance_companies';
+    const typeField = actionData.type === 'care' ? 'company_type' : 'insurance_type';
+    
+    const insertData: any = {
+      name: actionData.name,
+      city: actionData.city || null,
+      country: actionData.country || 'NL',
+      email: actionData.email || null,
+      phone: actionData.phone || null,
+      subscription_status: 'trial'
+    };
+    
+    if (actionData.company_type) {
+      insertData[typeField] = actionData.company_type;
+    }
+
+    const { data: company, error } = await supabase
+      .from(tableName)
+      .insert(insertData)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      company_id: company.id,
+      name: company.name,
+      type: actionData.type
+    };
+  } catch (error: any) {
+    console.error('Error creating company:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeCreateAnnouncement(
+  supabase: any,
+  userId: string,
+  actionData: {
+    title: string;
+    content: string;
+    priority?: string;
+    target_roles?: string[];
+    expires_at?: string;
+  }
+) {
+  try {
+    const { data: announcement, error } = await supabase
+      .from('platform_announcements')
+      .insert({
+        title: actionData.title,
+        content: actionData.content,
+        priority: actionData.priority || 'normal',
+        target_roles: actionData.target_roles || ['member', 'nurse', 'family_carer', 'facility_admin'],
+        expires_at: actionData.expires_at || null,
+        published_at: new Date().toISOString(),
+        is_active: true,
+        created_by: userId
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      announcement_id: announcement.id,
+      title: announcement.title
+    };
+  } catch (error: any) {
+    console.error('Error creating announcement:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==================== PHASE 3: UPDATE ACTION EXECUTORS ====================
+
+async function executeUpdateUserRole(
+  supabase: any,
+  actionData: {
+    user_id: string;
+    operation: 'add' | 'remove';
+    role: string;
+  }
+) {
+  try {
+    if (actionData.operation === 'add') {
+      // Check if role already exists
+      const { data: existing } = await supabase
+        .from('user_roles')
+        .select('id')
+        .eq('user_id', actionData.user_id)
+        .eq('role', actionData.role)
+        .maybeSingle();
+
+      if (existing) {
+        return { success: true, message: 'Role already assigned', user_id: actionData.user_id, role: actionData.role };
+      }
+
+      const { error } = await supabase.from('user_roles').insert({
+        user_id: actionData.user_id,
+        role: actionData.role
+      });
+
+      if (error) throw error;
+
+      return { success: true, operation: 'added', user_id: actionData.user_id, role: actionData.role };
+    } else {
+      const { error } = await supabase
+        .from('user_roles')
+        .delete()
+        .eq('user_id', actionData.user_id)
+        .eq('role', actionData.role);
+
+      if (error) throw error;
+
+      return { success: true, operation: 'removed', user_id: actionData.user_id, role: actionData.role };
+    }
+  } catch (error: any) {
+    console.error('Error updating user role:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeUpdateMember(
+  supabase: any,
+  actionData: {
+    member_id: string;
+    care_level?: string;
+    subscription_status?: string;
+    city?: string;
+    country?: string;
+  }
+) {
+  try {
+    const updates: any = {
+      updated_at: new Date().toISOString()
+    };
+
+    if (actionData.care_level) updates.care_level = actionData.care_level;
+    if (actionData.subscription_status) updates.subscription_status = actionData.subscription_status;
+    if (actionData.city) updates.city = actionData.city;
+    if (actionData.country) updates.country = actionData.country;
+
+    const { data: member, error } = await supabase
+      .from('members')
+      .update(updates)
+      .eq('id', actionData.member_id)
+      .select('id, care_level, subscription_status')
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      member_id: member.id,
+      care_level: member.care_level,
+      status: member.subscription_status
+    };
+  } catch (error: any) {
+    console.error('Error updating member:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeUpdateFacility(
+  supabase: any,
+  actionData: {
+    facility_id: string;
+    name?: string;
+    bed_capacity?: number;
+    subscription_status?: string;
+    city?: string;
+    email?: string;
+    phone?: string;
+  }
+) {
+  try {
+    const updates: any = {
+      updated_at: new Date().toISOString()
+    };
+
+    if (actionData.name) updates.name = actionData.name;
+    if (actionData.bed_capacity !== undefined) updates.bed_capacity = actionData.bed_capacity;
+    if (actionData.subscription_status) updates.subscription_status = actionData.subscription_status;
+    if (actionData.city) updates.city = actionData.city;
+    if (actionData.email) updates.email = actionData.email;
+    if (actionData.phone) updates.phone = actionData.phone;
+
+    const { data: facility, error } = await supabase
+      .from('facilities')
+      .update(updates)
+      .eq('id', actionData.facility_id)
+      .select('id, name, bed_capacity, subscription_status')
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      facility_id: facility.id,
+      name: facility.name,
+      capacity: facility.bed_capacity,
+      status: facility.subscription_status
+    };
+  } catch (error: any) {
+    console.error('Error updating facility:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeUpdateProduct(
+  supabase: any,
+  actionData: {
+    product_id: string;
+    is_active?: boolean;
+    is_featured?: boolean;
+    price?: number;
+  }
+) {
+  try {
+    const updates: any = {
+      updated_at: new Date().toISOString()
+    };
+
+    if (actionData.is_active !== undefined) updates.is_active = actionData.is_active;
+    if (actionData.is_featured !== undefined) updates.is_featured = actionData.is_featured;
+    if (actionData.price !== undefined) updates.price = actionData.price;
+
+    const { data: product, error } = await supabase
+      .from('products')
+      .update(updates)
+      .eq('id', actionData.product_id)
+      .select('id, slug, is_active, is_featured, price')
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      product_id: product.id,
+      slug: product.slug,
+      is_active: product.is_active,
+      is_featured: product.is_featured,
+      price: product.price
+    };
+  } catch (error: any) {
+    console.error('Error updating product:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeUpdateTicketStatus(
+  supabase: any,
+  actionData: {
+    ticket_id: string;
+    status: string;
+    priority?: string;
+  }
+) {
+  try {
+    const updates: any = {
+      status: actionData.status,
+      updated_at: new Date().toISOString()
+    };
+
+    if (actionData.priority) updates.priority = actionData.priority;
+    
+    if (actionData.status === 'resolved' || actionData.status === 'closed') {
+      updates.resolved_at = new Date().toISOString();
+    }
+
+    const { data: ticket, error } = await supabase
+      .from('support_tickets')
+      .update(updates)
+      .eq('id', actionData.ticket_id)
+      .select('id, title, status, priority')
+      .single();
+
+    if (error) throw error;
+
+    return { 
+      success: true, 
+      ticket_id: ticket.id,
+      title: ticket.title,
+      status: ticket.status,
+      priority: ticket.priority
+    };
+  } catch (error: any) {
+    console.error('Error updating ticket:', error);
     return { success: false, error: error.message };
   }
 }
