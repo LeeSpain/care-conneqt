@@ -99,15 +99,14 @@ export const AdminDashboardLayout = ({ children, title }: AdminDashboardLayoutPr
     try {
       const { data, error } = await supabase.functions.invoke('lee-chat', {
         body: {
-          message: userMessage,
-          conversationHistory: messages,
+          messages: [...messages, { role: 'user', content: userMessage }],
           language: currentLanguage,
         },
       });
 
       if (error) throw error;
 
-      setMessages(prev => [...prev, { role: 'assistant', content: data.response }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
     } catch (error) {
       console.error('Lee chat error:', error);
       setMessages(prev => [...prev, { 
