@@ -25,6 +25,9 @@ interface AgentData {
   display_name: string;
 }
 
+// Default Clara avatar URL - matches the one stored in database
+const CLARA_DEFAULT_AVATAR = 'https://xuyokixtlmchqwibntep.supabase.co/storage/v1/object/public/ai-avatars/clara-avatar.png';
+
 export const ClaraFixedChat = () => {
   const { i18n, t } = useTranslation('common');
   const currentLanguage = i18n.language.split('-')[0]; // 'en-US' -> 'en'
@@ -32,7 +35,7 @@ export const ClaraFixedChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [agent, setAgent] = useState<AgentData | null>(null);
+  const [agent, setAgent] = useState<AgentData>({ avatar_url: CLARA_DEFAULT_AVATAR, display_name: 'Clara' });
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,10 +43,8 @@ export const ClaraFixedChat = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const expandedScrollRef = useRef<HTMLDivElement>(null);
 
-  // Fetch agent data only when chat is opened (performance optimization)
+  // Fetch agent data on mount to get latest avatar
   useEffect(() => {
-    if (!isOpen || agent) return; // Skip if not open or already fetched
-    
     const fetchAgent = async () => {
       const { data } = await supabase
         .from('ai_agents')
@@ -55,7 +56,7 @@ export const ClaraFixedChat = () => {
     };
     
     fetchAgent();
-  }, [isOpen, agent]);
+  }, []);
 
   // Update initial greeting when language changes or translations load
   useEffect(() => {

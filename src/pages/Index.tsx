@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ClaraFixedChat } from "@/components/ai-agents/ClaraFixedChat";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Lazy load sections for better performance
@@ -46,6 +47,7 @@ const Index = () => {
         </Suspense>
       </main>
       <Footer />
+      <ClaraFixedChat />
     </div>
   );
 };
