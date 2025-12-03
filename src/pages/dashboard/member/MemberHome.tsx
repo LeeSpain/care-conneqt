@@ -22,12 +22,25 @@ export default function MemberHome() {
   const fetchInProgress = useRef(false);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout | undefined;
 
     const fetchMemberData = async () => {
-      if (!user || fetchInProgress.current) return;
-
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+      
+      if (fetchInProgress.current) return;
       fetchInProgress.current = true;
+
+      // Only set timeout when actually fetching
+      timeoutId = setTimeout(() => {
+        if (fetchInProgress.current) {
+          setError(t('errors.somethingWrong'));
+          setLoading(false);
+          fetchInProgress.current = false;
+        }
+      }, 15000);
 
       try {
         const { data, error: memberError } = await supabase
@@ -49,24 +62,22 @@ export default function MemberHome() {
           if (deviceError) throw deviceError;
           setDeviceCount(count || 0);
         }
+        setError(null);
       } catch (err) {
         console.error('Error fetching member data:', err);
         setError(t('errors.loadFailed'));
       } finally {
-        clearTimeout(timeoutId);
+        if (timeoutId) clearTimeout(timeoutId);
         setLoading(false);
         fetchInProgress.current = false;
       }
     };
 
-    timeoutId = setTimeout(() => {
-      setError(t('errors.somethingWrong'));
-      setLoading(false);
-    }, 10000);
-
     fetchMemberData();
 
-    return () => clearTimeout(timeoutId);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [user?.id, t]);
 
   useEffect(() => {
