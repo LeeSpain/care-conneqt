@@ -41,30 +41,47 @@ export default function FacilityResidents() {
 
       if (staffData) {
         // Get residents for this facility
-        const { data } = await supabase
+        const { data: residentsData } = await supabase
           .from("facility_residents")
-          .select(`
-            id,
-            room_number,
-            admission_date,
-            discharge_date,
-            members (
-              id,
-              care_level,
-              mobility_level,
-              profiles (
-                first_name,
-                last_name,
-                avatar_url,
-                phone
-              )
-            )
-          `)
+          .select("*")
           .eq("facility_id", staffData.facility_id)
           .is("discharge_date", null)
           .order("admission_date", { ascending: false });
 
-        setResidents(data || []);
+        if (!residentsData?.length) {
+          setResidents([]);
+          return;
+        }
+
+        // Get member IDs
+        const memberIds = residentsData.map(r => r.member_id);
+        
+        // Fetch members
+        const { data: membersData } = await supabase
+          .from("members")
+          .select("*")
+          .in("id", memberIds);
+
+        // Get user IDs from members
+        const userIds = membersData?.map(m => m.user_id).filter(Boolean) || [];
+        
+        // Fetch profiles
+        const { data: profilesData } = await supabase
+          .from("profiles")
+          .select("*")
+          .in("id", userIds);
+
+        // Combine data
+        const combinedData = residentsData.map(resident => {
+          const member = membersData?.find(m => m.id === resident.member_id);
+          const profile = member ? profilesData?.find(p => p.id === member.user_id) : null;
+          return {
+            ...resident,
+            members: member ? { ...member, profiles: profile } : null
+          };
+        });
+
+        setResidents(combinedData);
       }
     } catch (error) {
       console.error("Error fetching residents:", error);

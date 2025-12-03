@@ -56,14 +56,29 @@ export default function InsuranceDetail() {
   const { data: staff, isLoading: staffLoading } = useQuery({
     queryKey: ["insurance-staff", id],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data: staffData, error } = await supabase
         .from("insurance_staff")
-        .select("*, profiles:user_id(first_name, last_name, email)")
+        .select("*")
         .eq("insurance_company_id", id)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      if (!staffData?.length) return [];
+
+      // Get user IDs
+      const userIds = staffData.map(s => s.user_id).filter(Boolean);
+      
+      // Fetch profiles
+      const { data: profilesData } = await supabase
+        .from("profiles")
+        .select("id, first_name, last_name, email")
+        .in("id", userIds);
+
+      // Combine data
+      return staffData.map(member => ({
+        ...member,
+        profiles: profilesData?.find(p => p.id === member.user_id) || null
+      }));
     },
   });
 

@@ -41,26 +41,33 @@ export default function FacilityStaff() {
 
       if (staffData) {
         // Get all staff for this facility
-        const { data } = await supabase
+        const { data: staffMembers } = await supabase
           .from("facility_staff")
-          .select(`
-            id,
-            staff_role,
-            is_facility_admin,
-            hired_at,
-            profiles (
-              id,
-              first_name,
-              last_name,
-              email,
-              phone,
-              avatar_url
-            )
-          `)
+          .select("*")
           .eq("facility_id", staffData.facility_id)
           .order("hired_at", { ascending: false });
 
-        setStaff(data || []);
+        if (!staffMembers?.length) {
+          setStaff([]);
+          return;
+        }
+
+        // Get user IDs
+        const userIds = staffMembers.map(s => s.user_id).filter(Boolean);
+        
+        // Fetch profiles
+        const { data: profilesData } = await supabase
+          .from("profiles")
+          .select("*")
+          .in("id", userIds);
+
+        // Combine data
+        const combinedData = staffMembers.map(member => ({
+          ...member,
+          profiles: profilesData?.find(p => p.id === member.user_id) || null
+        }));
+
+        setStaff(combinedData);
       }
     } catch (error) {
       console.error("Error fetching staff:", error);
