@@ -1964,5 +1964,299 @@
       "viewFinance": "Financiën Dashboard",
       "viewAI": "AI Analytics"
     }
+  },
+  "adminGuide": {
+    "title": "Handleiding",
+    "version": "v1.0",
+    "heroTitle": "Care Conneqt Admin Platform Handleiding",
+    "heroDescription": "Je complete referentie voor het beheren van het Care Conneqt platform. Deze handleiding behandelt alle administratieve functies, workflows en best practices.",
+    "tableOfContents": "Inhoudsopgave",
+    "sections": {
+      "gettingStarted": "Aan de Slag",
+      "dashboard": "Dashboard Overzicht",
+      "people": "Personenbeheer",
+      "commercial": "Commerciële Partners",
+      "catalog": "Catalogusbeheer",
+      "finance": "Financieel Controlecentrum",
+      "ai": "AI Beheer",
+      "analytics": "Analytics & Rapporten",
+      "sales": "Verkoop & Leads",
+      "communications": "Communicatie",
+      "system": "Systeemconfiguratie",
+      "lee": "LEE \"The Brain\"",
+      "dailyReport": "Dagelijks Rapport",
+      "bestPractices": "Best Practices",
+      "shortcuts": "Sneltoetsen",
+      "faq": "Veelgestelde Vragen"
+    },
+    "gettingStarted": {
+      "title": "Aan de Slag",
+      "description": "Essentiële informatie om te beginnen met het admin platform",
+      "roleTitle": "Je Rol als Beheerder",
+      "roleDescription": "Als platformbeheerder heb je volledige toegang om alle aspecten van Care Conneqt te beheren inclusief gebruikers, faciliteiten, commerciële partners, financiën, AI-agenten en systeemconfiguratie.",
+      "keyAreasTitle": "Belangrijkste Gebieden",
+      "areas": {
+        "people": "Personen",
+        "peopleDesc": "Beheer gebruikers, personeel, leden en families",
+        "commercial": "Commercieel",
+        "commercialDesc": "Faciliteiten, zorgbedrijven, verzekeringspartners",
+        "finance": "Financiën",
+        "financeDesc": "Omzet, abonnementen, facturen, tegoeden",
+        "ai": "AI",
+        "aiDesc": "Configureer en monitor AI-agenten"
+      },
+      "tipTitle": "Pro Tip",
+      "tipDescription": "Gebruik LEE \"The Brain\" in de header om administratieve taken uit te voeren met natuurlijke taal commando's. Klik gewoon op LEE en vraag wat je nodig hebt!"
+    },
+    "dashboard": {
+      "title": "Dashboard Overzicht",
+      "description": "Je CEO controlecentrum begrijpen",
+      "intro": "Het admin dashboard biedt directie-niveau zichtbaarheid in alle platformoperaties in één oogopslag.",
+      "widgetsTitle": "Dashboard Widgets",
+      "widgets": {
+        "mrr": "MRR/ARR Kaarten",
+        "mrrDesc": "Maandelijkse en Jaarlijkse Terugkerende Omzet snapshots",
+        "alerts": "Kritieke Alerts",
+        "alertsDesc": "Openstaande alerts die onmiddellijke aandacht vereisen",
+        "activity": "Activiteit Panelen",
+        "activityDesc": "Recente leads, bestellingen en registraties",
+        "ai": "AI Metrics",
+        "aiDesc": "Gespreksaantallen, tevredenheidsscores, escalaties",
+        "health": "Systeemgezondheid",
+        "healthDesc": "Platformstatus en integratie gezondheid"
+      }
+    },
+    "people": {
+      "title": "Personenbeheer",
+      "description": "Beheer gebruikers, personeel, leden en familieverzorgers",
+      "table": {
+        "feature": "Functie",
+        "description": "Beschrijving"
+      },
+      "features": {
+        "allUsers": "Alle Gebruikers",
+        "allUsersDesc": "Bekijk en beheer alle platformgebruikers",
+        "staff": "Personeel",
+        "staffDesc": "Beheer verpleegkundigen en admin personeel, rollen, afdelingen",
+        "members": "Leden",
+        "membersDesc": "Bekijk en beheer zorgontvangers",
+        "family": "Familieverzorgers",
+        "familyDesc": "Beheer familielid accounts en machtigingen",
+        "assignments": "Toewijzingen Hub",
+        "assignmentsDesc": "Wijs verpleegkundigen toe aan leden, beheer werklasten"
+      },
+      "commonTasksTitle": "Veelvoorkomende Taken",
+      "tasks": {
+        "addUser": "Voeg nieuwe gebruikers toe via de \"Gebruiker Toevoegen\" knop op de betreffende pagina's",
+        "editRoles": "Bewerk rollen en machtigingen via gebruikerprofielinstellingen",
+        "deactivate": "Deactiveer accounts in plaats van verwijderen om geschiedenis te behouden",
+        "assign": "Gebruik Toewijzingen Hub voor verpleegkundige-lid werklastverdeling"
+      }
+    },
+    "commercial": {
+      "title": "Commerciële Partners",
+      "description": "B2B relaties beheren",
+      "types": {
+        "facilities": "Zorgfaciliteiten",
+        "facilitiesDesc": "Verpleeghuizen, begeleid wonen, residentiële zorg",
+        "companies": "Zorgbedrijven",
+        "companiesDesc": "Thuiszorgbureaus, domiciliaire diensten",
+        "insurance": "Verzekeringen",
+        "insuranceDesc": "Gezondheids- en zorgverzekeringspartners"
+      },
+      "management": "Elk partnertype heeft toegewijde beheerpagina's waar je details kunt toevoegen, bewerken en bekijken inclusief personeel, cliënten/bewoners en financiële tracking."
+    },
+    "catalog": {
+      "title": "Catalogusbeheer",
+      "description": "Beheer producten, diensten en prijzen",
+      "products": {
+        "title": "Producten (Apparaten)",
+        "desc": "Fysieke apparaten zoals smartwatches, medicijndispensers, sensoren"
+      },
+      "services": {
+        "title": "Diensten",
+        "desc": "Service add-ons zoals verpleegkundige ondersteuning, familie dashboard, noodrespons"
+      },
+      "pricing": {
+        "title": "Prijsplannen",
+        "desc": "Abonnementsplannen met gebundelde producten en diensten"
+      }
+    },
+    "finance": {
+      "title": "Financieel Controlecentrum",
+      "description": "Compleet financieel beheer",
+      "table": {
+        "area": "Gebied",
+        "purpose": "Doel"
+      },
+      "areas": {
+        "dashboard": "Omzet Dashboard",
+        "dashboardDesc": "MRR, ARR, omzet per klantsegment",
+        "subscriptions": "Abonnementen",
+        "subscriptionsDesc": "Actief abonnementenbeheer",
+        "invoices": "Facturen",
+        "invoicesDesc": "Factuur generatie en tracking",
+        "transactions": "Transacties",
+        "transactionsDesc": "Betalingsgeschiedenis en details",
+        "credits": "Tegoeden & Restitutie",
+        "creditsDesc": "Tegoeden uitgeven, restituties verwerken"
+      },
+      "noteTitle": "Belangrijk",
+      "noteDescription": "Financiële gegevens zijn gesegmenteerd per klanttype (Lid, Faciliteit, Zorgbedrijf, Verzekering). Gebruik filters om specifieke segmenten te bekijken."
+    },
+    "ai": {
+      "title": "AI Beheer",
+      "description": "AI-agenten configureren en monitoren",
+      "agentsTitle": "AI Agenten",
+      "agents": {
+        "claraSales": "Publieke verkoopassistent",
+        "claraMember": "Lid welzijnsmetgezel",
+        "claraFamily": "Familieverzorger ondersteuning",
+        "ineke": "Klinische verpleegkundige assistent",
+        "isabella": "Faciliteit operaties assistent",
+        "lee": "Master admin orchestrator"
+      },
+      "configNote": "Elke agent kan geconfigureerd worden met aangepaste systeem prompts, kennisbanken en ingeschakelde functies via AI Agenten instellingen."
+    },
+    "analytics": {
+      "title": "Analytics & Rapporten",
+      "description": "Platform inzichten en monitoring",
+      "platform": "Platform Analytics",
+      "platformDesc": "Gebruikersgroei, engagement, activiteitstrends",
+      "health": "Systeemgezondheid",
+      "healthDesc": "Serverstatus, API prestaties, uptime",
+      "aiAnalytics": "AI Analytics",
+      "aiAnalyticsDesc": "Gespreksmetrics, tevredenheidsscores, escalaties"
+    },
+    "sales": {
+      "title": "Verkoop & Leads",
+      "description": "De sales pipeline beheren",
+      "pipelineTitle": "Lead Pipeline Fasen",
+      "sourcesTitle": "Lead Bronnen",
+      "sources": {
+        "pricing": "Persoonlijke zorg prijspagina conversies",
+        "institutional": "Institutionele registratieformulier inzendingen",
+        "clara": "Clara AI gesprek interacties"
+      }
+    },
+    "communications": {
+      "title": "Communicatie",
+      "description": "Platform berichten en aankondigingen",
+      "messages": {
+        "title": "Berichten",
+        "desc": "Direct berichten met gebruikers, broadcast naar groepen per rol"
+      },
+      "announcements": {
+        "title": "Aankondigingen",
+        "desc": "Platform-brede aankondigingen met rol targeting, planning, verloopdatum"
+      },
+      "support": {
+        "title": "Support Tickets",
+        "desc": "Klant support ticket beheer en afhandeling"
+      }
+    },
+    "system": {
+      "title": "Systeemconfiguratie",
+      "description": "Platform instellingen en integraties",
+      "settings": {
+        "title": "Systeeminstellingen",
+        "items": {
+          "platform": "Platformnaam en branding",
+          "language": "Standaard taal en tijdzone",
+          "security": "Beveiligingsbeleid",
+          "maintenance": "Onderhoudsmodus"
+        }
+      },
+      "integrations": {
+        "title": "Integraties",
+        "items": {
+          "stripe": "Stripe betalingsverwerking",
+          "webhooks": "Webhook configuratie",
+          "api": "API verbindingen"
+        }
+      }
+    },
+    "lee": {
+      "title": "LEE \"The Brain\"",
+      "description": "Je AI orchestrator assistent",
+      "intro": "LEE is je master AI orchestrator, in staat om administratieve taken uit te voeren via natuurlijke taal commando's. Toegang tot LEE via de knop in de header.",
+      "capabilitiesTitle": "Mogelijkheden",
+      "capabilities": {
+        "read": "Systeemgegevens lezen en rapporten genereren",
+        "create": "Records aanmaken en bijwerken",
+        "schedule": "Afspraken plannen en herinneringen instellen",
+        "message": "Berichten en notificaties versturen",
+        "leads": "Lead statussen bijwerken",
+        "alerts": "Alerts en escalaties beheren"
+      },
+      "examplesTitle": "Voorbeeld Commando's",
+      "examples": {
+        "stats": "\"Toon me de statistieken van vandaag\"",
+        "schedule": "\"Plan een vergadering met het verpleegkundig team voor woensdag om 15:00\"",
+        "leads": "\"Update de lead status van Jan Jansen naar gekwalificeerd\"",
+        "alerts": "\"Toon me alle kritieke alerts\""
+      }
+    },
+    "dailyReport": {
+      "title": "Dagelijks Rapport",
+      "description": "Dagelijkse directie snapshot",
+      "intro": "Het Dagelijks Rapport biedt een uitgebreide snapshot van platformactiviteit voor de geselecteerde dag. Navigeer tot 7 dagen terug om metrics te vergelijken.",
+      "sectionsTitle": "Rapport Secties",
+      "sections": {
+        "revenue": "Omzet metrics (bestellingen, abonnementen)",
+        "users": "Gebruikersactiviteit (registraties, actieve gebruikers)",
+        "alerts": "Alert samenvatting en afhandelingen",
+        "ai": "AI gesprek metrics",
+        "leads": "Lead pipeline activiteit"
+      }
+    },
+    "bestPractices": {
+      "title": "Best Practices",
+      "description": "Aanbevolen workflows en routines",
+      "dailyTitle": "Dagelijkse Routine",
+      "daily": {
+        "dashboard": "Controleer dashboard op kritieke alerts",
+        "leads": "Bekijk nieuwe leads en follow-ups",
+        "tickets": "Behandel openstaande support tickets",
+        "ai": "Monitor AI escalaties"
+      },
+      "weeklyTitle": "Wekelijkse Review",
+      "weekly": {
+        "analytics": "Review platform analytics trends",
+        "revenue": "Analyseer omzet en conversieratio's",
+        "assignments": "Review verpleegkundige-lid toewijzingen balans",
+        "ai": "Controleer AI agent prestatie metrics"
+      },
+      "tip": "Gebruik de Dagelijks Rapport functie om snel de metrics van gisteren te bekijken en week-over-week trends te vergelijken."
+    },
+    "shortcuts": {
+      "title": "Sneltoetsen",
+      "description": "Snelle navigatie en acties",
+      "table": {
+        "shortcut": "Sneltoets",
+        "action": "Actie"
+      },
+      "actions": {
+        "search": "Zoeken openen",
+        "sidebar": "Zijbalk toggle",
+        "close": "Dialogen/modals sluiten"
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde Vragen",
+      "description": "Veelvoorkomende vragen en antwoorden",
+      "questions": {
+        "reset": "Hoe reset ik het wachtwoord van een gebruiker?",
+        "export": "Kan ik financiële rapporten exporteren?",
+        "ai": "Hoe configureer ik AI agent antwoorden?",
+        "maintenance": "Wat gebeurt er in onderhoudsmodus?"
+      },
+      "answers": {
+        "reset": "Ga naar Personen > Alle Gebruikers, vind de gebruiker en gebruik de \"Wachtwoord Resetten\" optie in hun profiel menu.",
+        "export": "Ja, gebruik de \"CSV Exporteren\" knop beschikbaar op elke Financiën pagina om gegevens te downloaden.",
+        "ai": "Navigeer naar AI Beheer > AI Agenten, selecteer de agent en wijzig de systeem prompt of kennisbank.",
+        "maintenance": "Gebruikers zien een onderhoudsbericht. Admin toegang blijft beschikbaar. Inschakelen via Systeeminstellingen > Onderhoud."
+      }
+    }
   }
 }
