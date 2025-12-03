@@ -56,6 +56,12 @@ const FacilityStaff = lazy(() => import("./pages/dashboard/facility/FacilityStaf
 const FacilityReports = lazy(() => import("./pages/dashboard/facility/FacilityReports"));
 const FacilityMessages = lazy(() => import("./pages/dashboard/facility/FacilityMessages"));
 
+// Company Admin pages
+const CompanyMessages = lazy(() => import("./pages/dashboard/company/CompanyMessages"));
+
+// Insurance Admin pages
+const InsuranceMessages = lazy(() => import("./pages/dashboard/insurance/InsuranceMessages"));
+
 // Nurse pages
 const NurseHome = lazy(() => import("./pages/dashboard/nurse/NurseHome"));
 const NurseSettings = lazy(() => import("./pages/dashboard/nurse/NurseSettings"));
@@ -756,6 +762,24 @@ const App = () => (
               <ProtectedRoute requiredRole="admin">
                 <Suspense fallback={<PageLoader />}>
                   <AIChatPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+            
+            {/* Company Admin routes */}
+            <Route path="/dashboard/company/messages" element={
+              <ProtectedRoute requiredRole="company_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <CompanyMessages />
+                </Suspense>
+              </ProtectedRoute>
+            } />
+
+            {/* Insurance Admin routes */}
+            <Route path="/dashboard/insurance/messages" element={
+              <ProtectedRoute requiredRole="insurance_admin">
+                <Suspense fallback={<PageLoader />}>
+                  <InsuranceMessages />
                 </Suspense>
               </ProtectedRoute>
             } />

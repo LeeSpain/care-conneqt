@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 
-type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin';
+type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin' | 'company_admin' | 'insurance_admin';
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -36,6 +36,10 @@ export const ProtectedRoute = ({ children, requiredRole, requireOnboarding = fal
           navigate('/dashboard/admin', { replace: true });
         } else if (roles.includes('facility_admin')) {
           navigate('/dashboard/facility', { replace: true });
+        } else if (roles.includes('company_admin')) {
+          navigate('/dashboard/company', { replace: true });
+        } else if (roles.includes('insurance_admin')) {
+          navigate('/dashboard/insurance', { replace: true });
         } else if (roles.includes('nurse')) {
           navigate('/dashboard/nurse', { replace: true });
         } else if (roles.includes('family_carer')) {

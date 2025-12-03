@@ -137,6 +137,21 @@ serve(async (req) => {
     systemPrompt += `\nAI Agents: ${agents?.map(a => `${a.display_name} (${a.status})`).join(', ')}\n`;
     systemPrompt += '=== END SYSTEM OVERVIEW ===\n';
 
+    // Add messaging capability instructions
+    systemPrompt += `\n\n=== MESSAGING CAPABILITY ===
+You can send messages to users. When asked to send a message, respond with a JSON block like this:
+\`\`\`action
+{"action": "send_message", "recipient_type": "user|role|broadcast", "recipient_id": "user_id_or_role_name", "message": "Your message content", "priority": "normal|urgent"}
+\`\`\`
+
+Examples:
+- To message a specific user: {"action": "send_message", "recipient_type": "user", "recipient_id": "user-uuid", "message": "Hello!", "priority": "normal"}
+- To message all nurses: {"action": "send_message", "recipient_type": "role", "recipient_id": "nurse", "message": "Team update...", "priority": "normal"}
+- To broadcast to all: {"action": "send_message", "recipient_type": "broadcast", "recipient_id": "all", "message": "Important announcement...", "priority": "urgent"}
+
+When the user asks to send a message, first confirm what they want to send and to whom, then include the action block.
+=== END MESSAGING CAPABILITY ===\n`;
+
     systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights.
 
 CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
@@ -149,7 +164,8 @@ CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
    Alert Response Time: 4.2 minutes
    Task Completion Rate: 94%
 7. End with a brief recommendation or next steps
-8. Keep total response under 150 words unless asked for detail`;
+8. Keep total response under 150 words unless asked for detail
+9. When sending messages, include the action block at the end of your response`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 
@@ -185,7 +201,23 @@ CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
     }
 
     const data = await response.json();
-    const assistantMessage = data.choices[0].message.content;
+    let assistantMessage = data.choices[0].message.content;
+
+    // Check for action blocks and execute them
+    const actionMatch = assistantMessage.match(/```action\s*([\s\S]*?)\s*```/);
+    let actionResult = null;
+
+    if (actionMatch) {
+      try {
+        const actionData = JSON.parse(actionMatch[1]);
+        
+        if (actionData.action === 'send_message') {
+          actionResult = await executeSendMessage(supabase, user.id, actionData);
+        }
+      } catch (e) {
+        console.error('Error executing action:', e);
+      }
+    }
 
     await supabase.from('ai_agent_conversations').insert({
       agent_id: agent.id,
@@ -195,7 +227,8 @@ CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
 
     return new Response(JSON.stringify({ 
       message: assistantMessage,
-      agent: 'LEE The Brain'
+      agent: 'LEE The Brain',
+      action_result: actionResult
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
@@ -210,3 +243,82 @@ CRITICAL FORMATTING REQUIREMENTS - YOU MUST FOLLOW THESE:
     });
   }
 });
+
+async function executeSendMessage(
+  supabase: any,
+  senderId: string,
+  actionData: { recipient_type: string; recipient_id: string; message: string; priority: string }
+) {
+  const { recipient_type, recipient_id, message, priority } = actionData;
+  
+  try {
+    let recipientIds: string[] = [];
+
+    if (recipient_type === 'user') {
+      recipientIds = [recipient_id];
+    } else if (recipient_type === 'role') {
+      const { data: roleUsers } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', recipient_id);
+      
+      recipientIds = roleUsers?.map((u: any) => u.user_id) || [];
+    } else if (recipient_type === 'broadcast') {
+      // Get all users except sender
+      const { data: allUsers } = await supabase
+        .from('profiles')
+        .select('id')
+        .neq('id', senderId);
+      
+      recipientIds = allUsers?.map((u: any) => u.id) || [];
+    }
+
+    if (recipientIds.length === 0) {
+      return { success: false, error: 'No recipients found' };
+    }
+
+    // Remove sender from recipients
+    recipientIds = recipientIds.filter(id => id !== senderId);
+
+    // Create conversation
+    const { data: conversation, error: convoError } = await supabase
+      .from('conversations')
+      .insert({
+        type: recipientIds.length > 1 ? 'group' : 'direct',
+        title: recipient_type === 'broadcast' ? 'Broadcast from LEE' : 
+               recipient_type === 'role' ? `Message to ${recipient_id}s` : null,
+        is_broadcast: recipient_type === 'broadcast' || recipient_type === 'role'
+      })
+      .select()
+      .single();
+
+    if (convoError) throw convoError;
+
+    // Add participants
+    const participants = [senderId, ...recipientIds].map((userId, i) => ({
+      conversation_id: conversation.id,
+      user_id: userId,
+      role: i === 0 ? 'owner' : 'participant'
+    }));
+
+    await supabase.from('conversation_participants').insert(participants);
+
+    // Send message
+    await supabase.from('platform_messages').insert({
+      conversation_id: conversation.id,
+      sender_id: senderId,
+      message,
+      message_type: 'text',
+      priority: priority || 'normal'
+    });
+
+    return { 
+      success: true, 
+      recipients_count: recipientIds.length,
+      conversation_id: conversation.id
+    };
+  } catch (error: any) {
+    console.error('Error sending message:', error);
+    return { success: false, error: error.message };
+  }
+}

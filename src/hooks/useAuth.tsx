@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin';
+type AppRole = 'member' | 'family_carer' | 'nurse' | 'facility_admin' | 'admin' | 'company_admin' | 'insurance_admin';
 
 interface Profile {
   id: string;

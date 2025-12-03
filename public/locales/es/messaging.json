@@ -34,5 +34,41 @@
     "facilityAdmin": "Admin. Instalación",
     "insuranceAdmin": "Seguro",
     "companyAdmin": "Empresa de Cuidado"
+  },
+  "tabs": {
+    "all": "Todo",
+    "staff": "Personal",
+    "members": "Miembros",
+    "families": "Familias",
+    "system": "Sistema"
+  },
+  "broadcast": {
+    "title": "Difusión",
+    "description": "Envía un mensaje a múltiples usuarios a la vez",
+    "selectRecipients": "Seleccionar Destinatarios",
+    "allNurses": "Todas las Enfermeras",
+    "allMembers": "Todos los Miembros",
+    "allFamilies": "Todos los Familiares",
+    "allFacilityAdmins": "Todos los Admins. Instalación",
+    "allAdmins": "Todos los Administradores",
+    "priority": "Prioridad",
+    "priorityNormal": "Normal",
+    "priorityUrgent": "Urgente",
+    "message": "Mensaje",
+    "messagePlaceholder": "Ingresa tu mensaje de difusión...",
+    "send": "Enviar Difusión",
+    "sent": "Difusión enviada a {{count}} destinatarios",
+    "error": "Error al enviar difusión",
+    "noRecipients": "No se encontraron destinatarios",
+    "recipientCount": "{{count}} grupos seleccionados",
+    "broadcastMessage": "Mensaje de Difusión"
+  },
+  "templates": {
+    "title": "Plantillas de Mensaje",
+    "useTemplate": "Usar Plantilla",
+    "welcome": "Mensaje de Bienvenida",
+    "reminder": "Recordatorio de Cita",
+    "followUp": "Mensaje de Seguimiento",
+    "emergency": "Alerta de Emergencia"
   }
 }
