@@ -124,19 +124,27 @@ Execute with: \`\`\`action {"action": "name", ...params} \`\`\`
 20. update_product: {product_id:string, is_active?:boolean, is_featured?:boolean, price?:number}
 21. update_ticket_status: {ticket_id:string, status:"open|in_progress|resolved|closed", priority?:"low|medium|high|urgent"}
 
-=== EXISTING WRITE ACTIONS ===
-22. send_message: {recipient_type:"user|role|broadcast", recipient_id:string, message:string, priority?:"normal|urgent"}
-23. schedule_appointment: {title:string, start_time:string, end_time:string, appointment_type?:"meeting|call|video", participant_ids?:[], requires_confirmation?:boolean}
-24. create_task: {title:string, member_id:string, nurse_id:string, task_type?:"check_in|medication|assessment|other", priority?:string, due_date?:string}
-25. create_reminder: {title:string, reminder_time:string, priority?:"low|normal|high|urgent", related_entity_type?:string, related_entity_id?:string}
-26. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
-27. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
+=== ASSIGNMENT ACTIONS ===
+22. assign_nurse_to_member: {nurse_id:string, member_id:string, is_primary?:boolean} - Create nurse-member assignment
+23. reassign_member: {member_id:string, old_nurse_id:string, new_nurse_id:string} - Transfer member to different nurse
+24. admit_resident: {facility_id:string, member_id:string, room_number?:string} - Add member to facility
+25. discharge_resident: {facility_id:string, member_id:string, reason?:string} - Remove member from facility
+26. toggle_user_status: {user_id:string, action:"activate|deactivate"} - Enable/disable user account
 
-Rules:
-- Use READ actions to answer questions about the system
-- Use lookup_user first to find user IDs before sending messages or creating tasks
+=== MESSAGING & SCHEDULING ===
+27. send_message: {recipient_type:"user|role|broadcast", recipient_id:string, message:string, priority?:"normal|urgent"}
+28. schedule_appointment: {title:string, start_time:string, end_time:string, appointment_type?:"meeting|call|video", participant_ids?:[], requires_confirmation?:boolean}
+29. create_task: {title:string, member_id:string, nurse_id:string, task_type?:"check_in|medication|assessment|other", priority?:string, due_date?:string}
+30. create_reminder: {title:string, reminder_time:string, priority?:"low|normal|high|urgent", related_entity_type?:string, related_entity_id?:string}
+31. manage_alert: {alert_id:string, operation:"acknowledge|escalate|resolve", notes?:string}
+32. update_lead: {lead_id:string, status?:"new|contacted|qualified|proposal|won|lost", notes?:string}
+
+RULES:
+- Use READ actions first to get IDs before modifying data
+- Use lookup_user to find user/nurse IDs before assignments
 - Put action blocks at END of response
 - Keep text brief - action results display automatically
+- For assignments, first verify the nurse exists and member exists
 === END COMMANDS ===\n`;
 
     systemPrompt += `\n\nRespond in ${languageName}. Be concise. NEVER repeat action results in your text - they are shown automatically. Just acknowledge the action briefly (e.g., "Here are the nurses:" or "Done.") then put the action block. Keep responses under 50 words.`;
@@ -252,6 +260,22 @@ Rules:
             break;
           case 'update_ticket_status':
             result = await executeUpdateTicketStatus(supabase, actionData);
+            break;
+          // Phase 4: ASSIGNMENT actions
+          case 'assign_nurse_to_member':
+            result = await executeAssignNurseToMember(supabase, user.id, actionData);
+            break;
+          case 'reassign_member':
+            result = await executeReassignMember(supabase, user.id, actionData);
+            break;
+          case 'admit_resident':
+            result = await executeAdmitResident(supabase, actionData);
+            break;
+          case 'discharge_resident':
+            result = await executeDischargeResident(supabase, actionData);
+            break;
+          case 'toggle_user_status':
+            result = await executeToggleUserStatus(supabase, actionData);
             break;
           // Existing WRITE actions
           case 'send_message':
@@ -1638,6 +1662,340 @@ async function executeUpdateTicketStatus(
     };
   } catch (error: any) {
     console.error('Error updating ticket:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==================== PHASE 4: ASSIGNMENT ACTION EXECUTORS ====================
+
+async function executeAssignNurseToMember(
+  supabase: any,
+  assignedBy: string,
+  actionData: {
+    nurse_id: string;
+    member_id: string;
+    is_primary?: boolean;
+  }
+) {
+  try {
+    // Verify nurse exists and has nurse role
+    const { data: nurseRole } = await supabase
+      .from('user_roles')
+      .select('user_id')
+      .eq('user_id', actionData.nurse_id)
+      .eq('role', 'nurse')
+      .maybeSingle();
+
+    if (!nurseRole) {
+      return { success: false, error: 'User is not a nurse or does not exist' };
+    }
+
+    // Check if assignment already exists
+    const { data: existingAssignment } = await supabase
+      .from('nurse_assignments')
+      .select('id')
+      .eq('nurse_id', actionData.nurse_id)
+      .eq('member_id', actionData.member_id)
+      .maybeSingle();
+
+    if (existingAssignment) {
+      return { success: false, error: 'Nurse is already assigned to this member' };
+    }
+
+    // If this is primary, remove primary from existing assignments
+    if (actionData.is_primary) {
+      await supabase
+        .from('nurse_assignments')
+        .update({ is_primary: false })
+        .eq('member_id', actionData.member_id);
+    }
+
+    // Create assignment
+    const { data: assignment, error } = await supabase
+      .from('nurse_assignments')
+      .insert({
+        nurse_id: actionData.nurse_id,
+        member_id: actionData.member_id,
+        is_primary: actionData.is_primary || false,
+        assigned_by: assignedBy,
+        assigned_at: new Date().toISOString()
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Get nurse name for response
+    const { data: nurseProfile } = await supabase
+      .from('profiles')
+      .select('first_name, last_name')
+      .eq('id', actionData.nurse_id)
+      .single();
+
+    return { 
+      success: true, 
+      assignment_id: assignment.id,
+      nurse_name: nurseProfile ? `${nurseProfile.first_name} ${nurseProfile.last_name}`.trim() : 'Unknown',
+      is_primary: actionData.is_primary || false
+    };
+  } catch (error: any) {
+    console.error('Error assigning nurse:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeReassignMember(
+  supabase: any,
+  assignedBy: string,
+  actionData: {
+    member_id: string;
+    old_nurse_id: string;
+    new_nurse_id: string;
+  }
+) {
+  try {
+    // Verify new nurse exists and has nurse role
+    const { data: nurseRole } = await supabase
+      .from('user_roles')
+      .select('user_id')
+      .eq('user_id', actionData.new_nurse_id)
+      .eq('role', 'nurse')
+      .maybeSingle();
+
+    if (!nurseRole) {
+      return { success: false, error: 'New user is not a nurse or does not exist' };
+    }
+
+    // Get existing assignment
+    const { data: existingAssignment } = await supabase
+      .from('nurse_assignments')
+      .select('id, is_primary')
+      .eq('nurse_id', actionData.old_nurse_id)
+      .eq('member_id', actionData.member_id)
+      .maybeSingle();
+
+    if (!existingAssignment) {
+      return { success: false, error: 'No existing assignment found for old nurse' };
+    }
+
+    // Delete old assignment
+    await supabase
+      .from('nurse_assignments')
+      .delete()
+      .eq('id', existingAssignment.id);
+
+    // Create new assignment with same primary status
+    const { data: newAssignment, error } = await supabase
+      .from('nurse_assignments')
+      .insert({
+        nurse_id: actionData.new_nurse_id,
+        member_id: actionData.member_id,
+        is_primary: existingAssignment.is_primary,
+        assigned_by: assignedBy,
+        assigned_at: new Date().toISOString(),
+        notes: `Reassigned from previous nurse by LEE`
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Get nurse names for response
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, first_name, last_name')
+      .in('id', [actionData.old_nurse_id, actionData.new_nurse_id]);
+
+    const oldNurse = profiles?.find((p: any) => p.id === actionData.old_nurse_id);
+    const newNurse = profiles?.find((p: any) => p.id === actionData.new_nurse_id);
+
+    return { 
+      success: true, 
+      assignment_id: newAssignment.id,
+      old_nurse: oldNurse ? `${oldNurse.first_name} ${oldNurse.last_name}`.trim() : 'Unknown',
+      new_nurse: newNurse ? `${newNurse.first_name} ${newNurse.last_name}`.trim() : 'Unknown',
+      is_primary: existingAssignment.is_primary
+    };
+  } catch (error: any) {
+    console.error('Error reassigning member:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeAdmitResident(
+  supabase: any,
+  actionData: {
+    facility_id: string;
+    member_id: string;
+    room_number?: string;
+  }
+) {
+  try {
+    // Check if member is already in this facility
+    const { data: existingResident } = await supabase
+      .from('facility_residents')
+      .select('id')
+      .eq('facility_id', actionData.facility_id)
+      .eq('member_id', actionData.member_id)
+      .is('discharge_date', null)
+      .maybeSingle();
+
+    if (existingResident) {
+      return { success: false, error: 'Member is already admitted to this facility' };
+    }
+
+    // Create resident record
+    const { data: resident, error } = await supabase
+      .from('facility_residents')
+      .insert({
+        facility_id: actionData.facility_id,
+        member_id: actionData.member_id,
+        room_number: actionData.room_number || null,
+        admission_date: new Date().toISOString().split('T')[0]
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Get facility and member names
+    const [facilityResult, memberResult] = await Promise.all([
+      supabase.from('facilities').select('name').eq('id', actionData.facility_id).single(),
+      supabase.from('members').select('user_id, profiles:user_id(first_name, last_name)').eq('id', actionData.member_id).single()
+    ]);
+
+    const memberName = memberResult.data?.profiles 
+      ? `${memberResult.data.profiles.first_name} ${memberResult.data.profiles.last_name}`.trim() 
+      : 'Unknown';
+
+    return { 
+      success: true, 
+      resident_id: resident.id,
+      facility_name: facilityResult.data?.name || 'Unknown',
+      member_name: memberName,
+      room_number: actionData.room_number || 'Not assigned'
+    };
+  } catch (error: any) {
+    console.error('Error admitting resident:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeDischargeResident(
+  supabase: any,
+  actionData: {
+    facility_id: string;
+    member_id: string;
+    reason?: string;
+  }
+) {
+  try {
+    // Find active resident record
+    const { data: existingResident } = await supabase
+      .from('facility_residents')
+      .select('id, room_number')
+      .eq('facility_id', actionData.facility_id)
+      .eq('member_id', actionData.member_id)
+      .is('discharge_date', null)
+      .maybeSingle();
+
+    if (!existingResident) {
+      return { success: false, error: 'Member is not currently admitted to this facility' };
+    }
+
+    // Update with discharge date
+    const { error } = await supabase
+      .from('facility_residents')
+      .update({
+        discharge_date: new Date().toISOString().split('T')[0],
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', existingResident.id);
+
+    if (error) throw error;
+
+    // Get facility and member names
+    const [facilityResult, memberResult] = await Promise.all([
+      supabase.from('facilities').select('name').eq('id', actionData.facility_id).single(),
+      supabase.from('members').select('user_id, profiles:user_id(first_name, last_name)').eq('id', actionData.member_id).single()
+    ]);
+
+    const memberName = memberResult.data?.profiles 
+      ? `${memberResult.data.profiles.first_name} ${memberResult.data.profiles.last_name}`.trim() 
+      : 'Unknown';
+
+    return { 
+      success: true, 
+      facility_name: facilityResult.data?.name || 'Unknown',
+      member_name: memberName,
+      room_number: existingResident.room_number,
+      discharge_date: new Date().toISOString().split('T')[0],
+      reason: actionData.reason || 'Not specified'
+    };
+  } catch (error: any) {
+    console.error('Error discharging resident:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+async function executeToggleUserStatus(
+  supabase: any,
+  actionData: {
+    user_id: string;
+    action: 'activate' | 'deactivate';
+  }
+) {
+  try {
+    // Get user info first
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('id, first_name, last_name, email')
+      .eq('id', actionData.user_id)
+      .single();
+
+    if (!profile) {
+      return { success: false, error: 'User not found' };
+    }
+
+    // Update user status in auth - Note: This requires admin auth API
+    // For now, we'll track status in a metadata field or separate table
+    // Since we can't directly disable auth users from edge function without admin API
+    
+    // Update the user's roles table to add/remove a disabled marker
+    if (actionData.action === 'deactivate') {
+      // Check if already deactivated
+      const { data: existingDisabled } = await supabase
+        .from('user_roles')
+        .select('id')
+        .eq('user_id', actionData.user_id)
+        .eq('role', 'disabled')
+        .maybeSingle();
+
+      if (!existingDisabled) {
+        await supabase.from('user_roles').insert({
+          user_id: actionData.user_id,
+          role: 'disabled'
+        });
+      }
+    } else {
+      // Remove disabled role
+      await supabase
+        .from('user_roles')
+        .delete()
+        .eq('user_id', actionData.user_id)
+        .eq('role', 'disabled');
+    }
+
+    return { 
+      success: true, 
+      user_id: actionData.user_id,
+      user_name: `${profile.first_name} ${profile.last_name}`.trim(),
+      email: profile.email,
+      action: actionData.action,
+      status: actionData.action === 'activate' ? 'active' : 'disabled'
+    };
+  } catch (error: any) {
+    console.error('Error toggling user status:', error);
     return { success: false, error: error.message };
   }
 }
