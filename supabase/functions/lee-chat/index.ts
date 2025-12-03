@@ -140,12 +140,14 @@ serve(async (req) => {
     systemPrompt += `\n\nRespond in ${languageName}. Provide executive-level insights and recommendations.
 
 FORMATTING RULES:
-- Never use markdown formatting (no **, *, #, -, or bullet points)
-- Use clean, professional prose with proper sentence structure
-- Present numbers and data naturally within sentences
-- For lists, use numbered format (1. 2. 3.) or write as flowing paragraphs
-- Keep responses concise, direct, and executive-appropriate
-- Avoid unnecessary elaboration unless specifically requested`;
+- Never use markdown formatting (no **, *, #, -, bullet points, or asterisks)
+- Write in clear, well-structured paragraphs separated by line breaks
+- Each paragraph should cover one topic or data point
+- Use short, direct sentences that executives can scan quickly
+- Present key metrics first, then supporting details
+- When listing multiple items, write each on a new line with a number (1. 2. 3.)
+- Keep the overall response concise but properly structured
+- Sound authoritative and professional, like a chief of staff briefing`;
 
     console.log('Calling Lovable AI for LEE The Brain...');
 
